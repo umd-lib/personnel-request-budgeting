@@ -15,23 +15,27 @@ divisions = [{ code: 'ASD', name: 'Administrative Services' },
 divisions.each { |div| Division.create!(div) }
 
 departments_by_division = {
-  'ASD' => ['Budget & Business Services',
-            'Libraries Facilities',
-            'Libraries Human Resources'],
-  'CSS' => ['Acquisitions',
-            'Collections Development',
-            'Metadata Services',
-            'Prange',
-            'Special Collections & University Archives'],
-  'DO' => ['Communications', "Dean's Office"],
-  'DSS' => ['Digitization',
-            'Digital Data Services',
-            'Digital Preservation Initiatives',
-            'Software Support',
-            'User Systems & Support'],
-  'PSD' => ['Public Services', 'Research & Learning'] }
+  'ASD' => [{ code: 'BBS', name: 'Budget & Business Services' },
+            { code: 'LF', name: 'Libraries Facilities' },
+            { code: 'LHR', name: 'Libraries Human Resources' }],
+  'CSS' => [{ code: 'ACQ', name: 'Acquisitions' },
+            { code: 'CD', name: 'Collections Development' },
+            { code: 'MDS', name: 'Metadata Services' },
+            { code: 'PRG', name: 'Prange' },
+            { code: 'SCUA', name: 'Special Collections & University Archives'}],
+  'DO' => [{ code: 'COM', name: 'Communications' },
+           { code: 'DO', name: "Dean's Office" }],
+  'DSS' => [{ code: 'DCMR', name: 'Digitization' },
+            { code: 'DDS', name: 'Digital Data Services' },
+            { code: 'DPI', name: 'Digital Preservation Initiatives' },
+            { code: 'SSDR', name: 'Software Support' },
+            { code: 'USS', name: 'User Systems & Support' }],
+  'PSD' => [{ code: 'PS', name: 'Public Services' },
+            { code: 'RL', name: 'Research & Learning' }] }
 
 departments_by_division.each do |division_code, departments|
   division = Division.find_by_code(division_code)
-  departments.each { |dept_name| division.departments.create!(name: dept_name) }
+  departments.each do |dept|
+    division.departments.create!(dept)
+  end
 end

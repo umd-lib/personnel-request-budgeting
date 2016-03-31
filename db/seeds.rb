@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+division_names = %w(ASD CSS DO DSS PSD)
+division_names.each { |name| Division.create!(name: name) }

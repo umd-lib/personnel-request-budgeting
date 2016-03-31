@@ -20,9 +20,10 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
   <div class="field">
     <%= f.label :division_id %><br>
-    <%= f.text_field :division_id %>
+    <%= select("department", "division_id", Division.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Division'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

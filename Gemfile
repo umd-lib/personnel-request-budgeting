@@ -45,3 +45,7 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  # Code analysis tools
+  gem 'rubocop', '~> 0.39.0', require: false
+end

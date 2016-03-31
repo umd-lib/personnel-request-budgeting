@@ -23,7 +23,11 @@ Style/Documentation:
     - 'app/controllers/*_controller.rb'
     - 'app/helpers/*_helper.rb'
     - 'test/test_helper.rb'
+    - 'test/controllers/*_controller_test.rb'
 
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/test_helper.rb'
+
+Style/IndentationConsistency:
+  EnforcedStyle: rails

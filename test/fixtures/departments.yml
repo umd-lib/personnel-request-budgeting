@@ -3,9 +3,9 @@
 one:
   code: dept_one
   name: First Department
-  division_id: one
+  division: one
 
 two:
   code: dept_two
   name: Second Department
-  division_id: two
+  division: two

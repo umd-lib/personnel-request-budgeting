@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  division_id: 
+  division_id: one
 
 two:
   name: MyString
-  division_id: 
+  division_id: two

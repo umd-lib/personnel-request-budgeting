@@ -5,18 +5,18 @@ class DepartmentsControllerTest < ActionController::TestCase
     @department = departments(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:departments)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create department" do
+  test 'should create department' do
     assert_difference('Department.count') do
       post :create, department: { division_id: @department.division_id, name: @department.name }
     end
@@ -24,22 +24,22 @@ class DepartmentsControllerTest < ActionController::TestCase
     assert_redirected_to department_path(assigns(:department))
   end
 
-  test "should show department" do
+  test 'should show department' do
     get :show, id: @department
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @department
     assert_response :success
   end
 
-  test "should update department" do
+  test 'should update department' do
     patch :update, id: @department, department: { division_id: @department.division_id, name: @department.name }
     assert_redirected_to department_path(assigns(:department))
   end
 
-  test "should destroy department" do
+  test 'should destroy department' do
     assert_difference('Department.count', -1) do
       delete :destroy, id: @department
     end

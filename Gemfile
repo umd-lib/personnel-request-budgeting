@@ -45,6 +45,8 @@ group :development do
 end
 
 group :test do
+  gem 'minitest-reporters', '~> 1.1.8'
+
   # Code analysis tools
   gem 'rubocop', '~> 0.39.0', require: false
 end

@@ -22,7 +22,7 @@ departments_by_division = {
             { code: 'CD', name: 'Collections Development' },
             { code: 'MDS', name: 'Metadata Services' },
             { code: 'PRG', name: 'Prange' },
-            { code: 'SCUA', name: 'Special Collections & University Archives'}],
+            { code: 'SCUA', name: 'Special Collections & University Archives' }],
   'DO' => [{ code: 'COM', name: 'Communications' },
            { code: 'DO', name: "Dean's Office" }],
   'DSS' => [{ code: 'DCMR', name: 'Digitization' },

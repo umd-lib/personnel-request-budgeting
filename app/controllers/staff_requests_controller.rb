@@ -62,6 +62,7 @@ class StaffRequestsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_staff_request
       @staff_request = StaffRequest.find(params[:id])
@@ -69,6 +70,9 @@ class StaffRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_request_params
-      params.require(:staff_request).permit(:employee_type_id, :position_description, :request_type_id, :annual_base_pay, :nonop_funds, :nonop_source, :department_id, :subdepartment_id, :justification)
+      params.require(:staff_request).permit(
+        :employee_type_id, :position_description, :request_type_id,
+        :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
+        :subdepartment_id, :justification)
     end
 end

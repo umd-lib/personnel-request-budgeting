@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401133753) do
+ActiveRecord::Schema.define(version: 20160401143228) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -53,6 +53,25 @@ ActiveRecord::Schema.define(version: 20160401133753) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "staff_requests", force: :cascade do |t|
+    t.integer  "employee_type_id"
+    t.string   "position_description"
+    t.integer  "request_type_id"
+    t.decimal  "annual_base_pay"
+    t.decimal  "nonop_funds"
+    t.string   "nonop_source"
+    t.integer  "department_id"
+    t.integer  "subdepartment_id"
+    t.text     "justification"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"
+  add_index "staff_requests", ["employee_type_id"], name: "index_staff_requests_on_employee_type_id"
+  add_index "staff_requests", ["request_type_id"], name: "index_staff_requests_on_request_type_id"
+  add_index "staff_requests", ["subdepartment_id"], name: "index_staff_requests_on_subdepartment_id"
 
   create_table "subdepartments", force: :cascade do |t|
     t.string   "code"

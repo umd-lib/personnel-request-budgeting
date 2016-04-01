@@ -88,3 +88,11 @@ employee_types_by_category.each do |category_code, employee_types|
     category.employee_types.create!(type)
   end
 end
+
+request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
+                 { code: 'ConvertCont', name: 'ConvertCont' },
+                 { code: 'New', name: 'New' },
+                 { code: 'PayAdj', name: 'Pay Adjustment' },
+                 { code: 'Renewal', name: 'Renewal' }]
+
+request_types.each { |type| RequestType.create!(type) }

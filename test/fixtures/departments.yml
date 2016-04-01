@@ -9,3 +9,102 @@ two:
   code: dept_two
   name: Second Department
   division: two
+
+acq:
+  code: ACQ
+  name: Acquisitions
+  division: css
+
+as:
+  code: AS
+  name: Access Services
+  division: psd
+
+bbs:
+  code: BBS
+  name: Budget & Business Services
+  division: asd
+
+cd:
+  code: CD
+  name: Collections Development
+  division: css
+
+com:
+  code: COM
+  name: Communications
+  division: do
+
+dcmr:
+  code: DCMR
+  name: Digitization
+  division: dss
+
+dds:
+  code: DDS
+  name: Digital Data Services
+  division: dss
+
+do:
+  code: DO
+  name: Dean's Office
+  division: do
+
+dpi:
+  code: DPI
+  name: Digital Preservation Initiatives
+  division: dss
+  
+lf:
+  code: LF
+  name: Libraries Facilities
+  division: asd
+
+lhr:
+  code: LHR
+  name: Libraries Human Resources
+  division: asd
+
+lms:
+  code: LMS
+  name: Library Media Services
+  division: psd
+
+mds:
+  code: MDS
+  name: Metadata Services
+  division: css
+
+prg:
+  code: PRG
+  name: Prange
+  division: css
+
+ps:
+  code: PS
+  name: Public Services
+  division: psd
+
+rl:
+  code: RL
+  name: Research & Learning
+  division: psd
+
+scua:
+  code: SCUA
+  name: Special Collections & University Archives
+  division: css
+
+ssdr:
+  code: SSDR
+  name: Software Systems Development and Research
+  division: dss
+
+uss:
+  code: USS
+  name: User Systems & Support
+  division: dss
+  
+
+
+

@@ -1,23 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  employee_type_id: 
-  position_description: MyString
-  request_type_id: 
-  annual_base_pay: 9.99
-  nonop_funds: 9.99
-  nonop_source: MyString
-  department_id: 
-  subdepartment_id: 
-  justification: MyText
+fac:
+  employee_type: fac
+  position_description: Faculty Position
+  request_type: new
+  annual_base_pay: 50000.00
+  nonop_funds: 0.00
+  nonop_source: nil
+  department: prg
+  subdepartment_id: nil
+  justification: Because we really really need someone.
 
-two:
-  employee_type_id: 
-  position_description: MyString
-  request_type_id: 
-  annual_base_pay: 9.99
-  nonop_funds: 9.99
-  nonop_source: MyString
-  department_id: 
-  subdepartment_id: 
-  justification: MyText

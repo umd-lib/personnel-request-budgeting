@@ -7,3 +7,23 @@ one:
 two:
   name: Second Division
   code: division_two
+
+asd:
+  code: ASD
+  name: Administrative Services
+  
+css:
+  code: CSS
+  name: Collections Strategies & Services
+  
+do:
+  code: DO
+  name: Dean's Office
+
+dss:
+  code: DSS
+  name: Digital Systems & Stewardship
+
+psd:
+  code: PSD
+  name: Public Services

@@ -7,3 +7,24 @@ one:
 two:
   code: request_type_two
   name: Second Request Type
+
+convert_c1:
+  code: ConvertC1
+  name: ConvertC1
+
+convert_cont:
+  code: ConvertCont
+  name: ConvertCont
+
+new:
+  code: New
+  name: New
+
+pay_adj:
+  code: PayAdj
+  name: Pay Adjustment
+
+renewal:
+  code: Renewal
+  name: Renewal
+  

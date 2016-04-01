@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StaffRequestsControllerTest < ActionController::TestCase
   setup do
-    @staff_request = staff_requests(:one)
+    @staff_request = staff_requests(:fac)
   end
 
   test 'should get index' do

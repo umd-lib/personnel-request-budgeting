@@ -28,7 +28,7 @@ departments_by_division = {
   'DSS' => [{ code: 'DCMR', name: 'Digitization' },
             { code: 'DDS', name: 'Digital Data Services' },
             { code: 'DPI', name: 'Digital Preservation Initiatives' },
-            { code: 'SSDR', name: 'Software Support' },
+            { code: 'SSDR', name: 'Software Systems Development and Research' },
             { code: 'USS', name: 'User Systems & Support' }],
   'PSD' => [{ code: 'AS', name: 'Access Services' },
             { code: 'LMS', name: 'Library Media Services' },

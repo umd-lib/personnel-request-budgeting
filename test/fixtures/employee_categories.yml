@@ -7,3 +7,15 @@ one:
 two:
   code: employee_category_two
   name: Second Employee Category
+
+l_and_a:
+  code: L&A
+  name: Labor & Assistance
+
+reg_ga:
+  code: Reg/GA
+  name: Regular Staff/GA
+  
+salaried_contractor:
+  code: SC
+  name: Salaried Contractor

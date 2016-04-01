@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Staff Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Employee type</th>
+      <th>Position description</th>
+      <th>Request type</th>
+      <th>Annual base pay</th>
+      <th>Nonop funds</th>
+      <th>Nonop source</th>
+      <th>Department</th>
+      <th>Subdepartment</th>
+      <th>Justification</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @staff_requests.each do |staff_request| %>
+      <tr>
+        <td><%= staff_request.employee_type %></td>
+        <td><%= staff_request.position_description %></td>
+        <td><%= staff_request.request_type %></td>
+        <td><%= staff_request.annual_base_pay %></td>
+        <td><%= staff_request.nonop_funds %></td>
+        <td><%= staff_request.nonop_source %></td>
+        <td><%= staff_request.department %></td>
+        <td><%= staff_request.subdepartment %></td>
+        <td><%= staff_request.justification %></td>
+        <td><%= link_to 'Show', staff_request %></td>
+        <td><%= link_to 'Edit', edit_staff_request_path(staff_request) %></td>
+        <td><%= link_to 'Destroy', staff_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Staff request', new_staff_request_path %>

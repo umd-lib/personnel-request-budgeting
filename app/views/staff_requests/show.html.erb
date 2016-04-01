@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee type:</strong>
+  <%= @staff_request.employee_type %>
+</p>
+
+<p>
+  <strong>Position description:</strong>
+  <%= @staff_request.position_description %>
+</p>
+
+<p>
+  <strong>Request type:</strong>
+  <%= @staff_request.request_type %>
+</p>
+
+<p>
+  <strong>Annual base pay:</strong>
+  <%= @staff_request.annual_base_pay %>
+</p>
+
+<p>
+  <strong>Nonop funds:</strong>
+  <%= @staff_request.nonop_funds %>
+</p>
+
+<p>
+  <strong>Nonop source:</strong>
+  <%= @staff_request.nonop_source %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @staff_request.department %>
+</p>
+
+<p>
+  <strong>Subdepartment:</strong>
+  <%= @staff_request.subdepartment %>
+</p>
+
+<p>
+  <strong>Justification:</strong>
+  <%= @staff_request.justification %>
+</p>
+
+<%= link_to 'Edit', edit_staff_request_path(@staff_request) %> |
+<%= link_to 'Back', staff_requests_path %>

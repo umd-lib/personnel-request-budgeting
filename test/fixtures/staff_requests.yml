@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_type_id: 
+  position_description: MyString
+  request_type_id: 
+  annual_base_pay: 9.99
+  nonop_funds: 9.99
+  nonop_source: MyString
+  department_id: 
+  subdepartment_id: 
+  justification: MyText
+
+two:
+  employee_type_id: 
+  position_description: MyString
+  request_type_id: 
+  annual_base_pay: 9.99
+  nonop_funds: 9.99
+  nonop_source: MyString
+  department_id: 
+  subdepartment_id: 
+  justification: MyText

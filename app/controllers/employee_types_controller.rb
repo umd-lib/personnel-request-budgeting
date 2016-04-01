@@ -62,6 +62,7 @@ class EmployeeTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_type
       @employee_type = EmployeeType.find(params[:id])

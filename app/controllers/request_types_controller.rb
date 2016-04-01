@@ -62,6 +62,7 @@ class RequestTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_request_type
       @request_type = RequestType.find(params[:id])

@@ -64,3 +64,9 @@ subdepartments_by_department.each do |department_code, subdepartments|
     department.subdepartments.create!(subdept)
   end
 end
+
+employee_categories = [{ code: 'L&A', name: 'Labor & Assistance' },
+                       { code: 'Reg/GA', name: 'Regular Staff/GA' },
+                       { code: 'SC', name: 'Salaried Contractor' }]
+
+employee_categories.each { |category| EmployeeCategory.create!(category) }

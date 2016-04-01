@@ -5,18 +5,18 @@ class EmployeeCategoriesControllerTest < ActionController::TestCase
     @employee_category = employee_categories(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:employee_categories)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create employee_category" do
+  test 'should create employee_category' do
     assert_difference('EmployeeCategory.count') do
       post :create, employee_category: { code: @employee_category.code, name: @employee_category.name }
     end
@@ -24,22 +24,23 @@ class EmployeeCategoriesControllerTest < ActionController::TestCase
     assert_redirected_to employee_category_path(assigns(:employee_category))
   end
 
-  test "should show employee_category" do
+  test 'should show employee_category' do
     get :show, id: @employee_category
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @employee_category
     assert_response :success
   end
 
-  test "should update employee_category" do
-    patch :update, id: @employee_category, employee_category: { code: @employee_category.code, name: @employee_category.name }
+  test 'should update employee_category' do
+    patch :update, id: @employee_category, employee_category: {
+      code: @employee_category.code, name: @employee_category.name }
     assert_redirected_to employee_category_path(assigns(:employee_category))
   end
 
-  test "should destroy employee_category" do
+  test 'should destroy employee_category' do
     assert_difference('EmployeeCategory.count', -1) do
       delete :destroy, id: @employee_category
     end

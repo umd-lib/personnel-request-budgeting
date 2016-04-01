@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331184132) do
+ActiveRecord::Schema.define(version: 20160331194925) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -29,5 +29,15 @@ ActiveRecord::Schema.define(version: 20160331184132) do
     t.datetime "updated_at", null: false
     t.string   "code"
   end
+
+  create_table "subdepartments", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.integer  "department_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "subdepartments", ["department_id"], name: "index_subdepartments_on_department_id"
 
 end

@@ -17,6 +17,11 @@ class DepartmentTest < ActiveSupport::TestCase
     assert_not @department.valid?
   end
 
+  test 'name should be present' do
+    @department.name = '  '
+    assert_not @department.valid?
+  end
+
   test 'division should be present' do
     @department.division_id = nil
     assert_not @department.valid?

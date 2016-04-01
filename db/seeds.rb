@@ -30,12 +30,37 @@ departments_by_division = {
             { code: 'DPI', name: 'Digital Preservation Initiatives' },
             { code: 'SSDR', name: 'Software Support' },
             { code: 'USS', name: 'User Systems & Support' }],
-  'PSD' => [{ code: 'PS', name: 'Public Services' },
+  'PSD' => [{ code: 'AS', name: 'Access Services' },
+            { code: 'LMS', name: 'Library Media Services' },
+            { code: 'PS', name: 'Public Services' },
             { code: 'RL', name: 'Research & Learning' }] }
 
 departments_by_division.each do |division_code, departments|
   division = Division.find_by_code(division_code)
   departments.each do |dept|
     division.departments.create!(dept)
+  end
+end
+
+subdepartments_by_department = {
+  'AS' => [{ code: 'ILL', name: 'Interlibrary Loan' },
+           { code: 'LN', name: 'Late Night' },
+           { code: 'LSD', name: 'Library Services Desk' },
+           { code: 'STK', name: 'Stacks' },
+           { code: 'TLC', name: 'Terapin Learning Commons' }],
+  'RL' => [{ code: 'ARCH', name: 'Architecture Library' },
+           { code: 'ART', name: 'Art Library' },
+           { code: 'CHEM', name: 'Chemistry Library' },
+           { code: 'EPSL', name: 'Engineering & PS Library' },
+           { code: 'HSSL', name: 'Humanities & Social Services' },
+           { code: 'MSPAL', name: 'Performing Arts Library' },
+           { code: 'RC', name: 'Research Commons' },
+           { code: 'RL', name: 'Research & Learning' },
+           { code: 'TL', name: 'Teaching & Learning' }] }
+
+subdepartments_by_department.each do |department_code, subdepartments|
+  department = Department.find_by_code(department_code)
+  subdepartments.each do |subdept|
+    department.subdepartments.create!(subdept)
   end
 end

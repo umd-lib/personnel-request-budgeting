@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  code: MyString
-  name: MyString
-  employee_category_id: 
+  code: employee_type_one
+  name: First Employee Type
+  employee_category: one
 
 two:
-  code: MyString
-  name: MyString
-  employee_category_id: 
+  code: employee_type_two
+  name: Second Employee Type
+  employee_category: two

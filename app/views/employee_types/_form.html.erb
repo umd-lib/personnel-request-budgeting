@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :employee_category_id %><br>
-    <%= f.text_field :employee_category_id %>
+    <%= select("employee_type", "employee_category_id", EmployeeCategory.all.collect {|cat| [ cat.name, cat.id ] }, {prompt: 'Select Category'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

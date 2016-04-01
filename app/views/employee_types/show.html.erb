@@ -12,7 +12,7 @@
 
 <p>
   <strong>Employee category:</strong>
-  <%= @employee_type.employee_category %>
+  <%= @employee_type.employee_category.code %>
 </p>
 
 <%= link_to 'Edit', edit_employee_type_path(@employee_type) %> |

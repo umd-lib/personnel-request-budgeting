@@ -70,3 +70,21 @@ employee_categories = [{ code: 'L&A', name: 'Labor & Assistance' },
                        { code: 'SC', name: 'Salaried Contractor' }]
 
 employee_categories.each { |category| EmployeeCategory.create!(category) }
+
+employee_types_by_category = {
+  'L&A' => [{ code: 'C1', name: 'Contractor Type 1' },
+            { code: 'FAC-Hrly', name: 'Faculty Hourly' },
+            { code: 'Student', name: 'Student' }],
+  'Reg/GA' => [{ code: 'Ex', name: 'Ex' },
+               { code: 'Fac', name: 'Faculty' },
+               { code: 'GA', name: 'Graduate Assistant' },
+               { code: 'Nex', name: 'Nex' }],
+  'SC' => [{ code: 'C2', name: 'Contractor Type 2' },
+           { code: 'ContFac', name: 'ContFac' }] }
+
+employee_types_by_category.each do |category_code, employee_types|
+  category = EmployeeCategory.find_by_code(category_code)
+  employee_types.each do |type|
+    category.employee_types.create!(type)
+  end
+end

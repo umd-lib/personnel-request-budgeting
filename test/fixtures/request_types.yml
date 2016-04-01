@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  code: MyString
-  name: MyString
+  code: request_type_one
+  name: First Request Type
 
 two:
-  code: MyString
-  name: MyString
+  code: request_type_two
+  name: Second Request Type

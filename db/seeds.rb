@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Divisions
 divisions = [{ code: 'ASD', name: 'Administrative Services' },
              { code: 'CSS', name: 'Collections Strategies & Services' },
              { code: 'DO', name: "Dean's Office" },
@@ -14,6 +15,7 @@ divisions = [{ code: 'ASD', name: 'Administrative Services' },
 
 divisions.each { |div| Division.create!(div) }
 
+# Departments
 departments_by_division = {
   'ASD' => [{ code: 'BBS', name: 'Budget & Business Services' },
             { code: 'LF', name: 'Libraries Facilities' },
@@ -42,6 +44,7 @@ departments_by_division.each do |division_code, departments|
   end
 end
 
+# Subdepartments
 subdepartments_by_department = {
   'AS' => [{ code: 'ILL', name: 'Interlibrary Loan' },
            { code: 'LN', name: 'Late Night' },
@@ -65,12 +68,14 @@ subdepartments_by_department.each do |department_code, subdepartments|
   end
 end
 
+# Employee Categories
 employee_categories = [{ code: 'L&A', name: 'Labor & Assistance' },
                        { code: 'Reg/GA', name: 'Regular Staff/GA' },
                        { code: 'SC', name: 'Salaried Contractor' }]
 
 employee_categories.each { |category| EmployeeCategory.create!(category) }
 
+# Employee Types
 employee_types_by_category = {
   'L&A' => [{ code: 'C1', name: 'Contractor Type 1' },
             { code: 'FAC-Hrly', name: 'Faculty Hourly' },
@@ -89,6 +94,7 @@ employee_types_by_category.each do |category_code, employee_types|
   end
 end
 
+# Request Types
 request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'ConvertCont', name: 'ConvertCont' },
                  { code: 'New', name: 'New' },
@@ -96,3 +102,48 @@ request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'Renewal', name: 'Renewal' }]
 
 request_types.each { |type| RequestType.create!(type) }
+
+# Sample data
+staff_requests = [
+  { employee_type: 'Fac',
+    position_description: 'Video game archive librarian',
+    request_type: 'New',
+    annual_base_pay: 1_000_000.00,
+    nonop_funds: 900_000.00,
+    nonop_source: 'Google Grant',
+    department: 'SCUA',
+    subdepartment: nil,
+    justification: 'Because video games are a new art form and should be preserved.' },
+  { employee_type: 'GA',
+    position_description: 'Video game graduate assistant',
+    request_type: 'New',
+    annual_base_pay: 50_000.00,
+    nonop_funds: 40_000.00,
+    nonop_source: 'Google Grant',
+    department: 'SCUA',
+    subdepartment: nil,
+    justification: 'Because every professor needs a graduate assistant.' },
+  { employee_type: 'Ex',
+    position_description: 'Gofer',
+    request_type: 'ConvertCont',
+    annual_base_pay: 40_000.00,
+    nonop_funds: 0.00,
+    nonop_source: nil,
+    department: 'AS',
+    subdepartment: 'STK',
+    justification: 'We need someone to re-shelve the books.' }
+]
+
+staff_requests.each do |request|
+  staff_request = StaffRequest.new
+  staff_request.employee_type = EmployeeType.find_by_code(request[:employee_type])
+  staff_request.position_description = request[:position_description]
+  staff_request.request_type = RequestType.find_by_code(request[:request_type])
+  staff_request.annual_base_pay = request[:annual_base_pay]
+  staff_request.nonop_funds = request[:nonop_funds]
+  staff_request.nonop_source = request[:nonop_source]
+  staff_request.department = Department.find_by_code(request[:department])
+  staff_request.subdepartment = Subdepartment.find_by_code(request[:subdepartment]) if request[:subdepartment]
+  staff_request.justification = request[:justification]
+  staff_request.save!
+end

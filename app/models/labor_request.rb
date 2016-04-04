@@ -1,3 +1,4 @@
+# A Labor and Assistance personnel request
 class LaborRequest < ActiveRecord::Base
   belongs_to :employee_type
   belongs_to :request_type

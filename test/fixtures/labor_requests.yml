@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_type_id: 
+  position_description: MyString
+  request_type_id: 
+  contractor_name: MyString
+  num_of_positions: 1
+  hourly_rate: 9.99
+  hours_per_week: 9.99
+  number_of_weeks: 1
+  nonop_funds: 9.99
+  nonop_source: MyString
+  department_id: 
+  subdepartment_id: 
+  justification: MyText
+
+two:
+  employee_type_id: 
+  position_description: MyString
+  request_type_id: 
+  contractor_name: MyString
+  num_of_positions: 1
+  hourly_rate: 9.99
+  hours_per_week: 9.99
+  number_of_weeks: 1
+  nonop_funds: 9.99
+  nonop_source: MyString
+  department_id: 
+  subdepartment_id: 
+  justification: MyText

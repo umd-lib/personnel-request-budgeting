@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Labor Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Employee type</th>
+      <th>Position description</th>
+      <th>Request type</th>
+      <th>Contractor name</th>
+      <th>Num of positions</th>
+      <th>Hourly rate</th>
+      <th>Hours per week</th>
+      <th>Number of weeks</th>
+      <th>Nonop funds</th>
+      <th>Nonop source</th>
+      <th>Department</th>
+      <th>Subdepartment</th>
+      <th>Justification</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @labor_requests.each do |labor_request| %>
+      <tr>
+        <td><%= labor_request.employee_type %></td>
+        <td><%= labor_request.position_description %></td>
+        <td><%= labor_request.request_type %></td>
+        <td><%= labor_request.contractor_name %></td>
+        <td><%= labor_request.num_of_positions %></td>
+        <td><%= labor_request.hourly_rate %></td>
+        <td><%= labor_request.hours_per_week %></td>
+        <td><%= labor_request.number_of_weeks %></td>
+        <td><%= labor_request.nonop_funds %></td>
+        <td><%= labor_request.nonop_source %></td>
+        <td><%= labor_request.department %></td>
+        <td><%= labor_request.subdepartment %></td>
+        <td><%= labor_request.justification %></td>
+        <td><%= link_to 'Show', labor_request %></td>
+        <td><%= link_to 'Edit', edit_labor_request_path(labor_request) %></td>
+        <td><%= link_to 'Destroy', labor_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Labor request', new_labor_request_path %>

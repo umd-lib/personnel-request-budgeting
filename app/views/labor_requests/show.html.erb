@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee type:</strong>
+  <%= @labor_request.employee_type %>
+</p>
+
+<p>
+  <strong>Position description:</strong>
+  <%= @labor_request.position_description %>
+</p>
+
+<p>
+  <strong>Request type:</strong>
+  <%= @labor_request.request_type %>
+</p>
+
+<p>
+  <strong>Contractor name:</strong>
+  <%= @labor_request.contractor_name %>
+</p>
+
+<p>
+  <strong>Num of positions:</strong>
+  <%= @labor_request.num_of_positions %>
+</p>
+
+<p>
+  <strong>Hourly rate:</strong>
+  <%= @labor_request.hourly_rate %>
+</p>
+
+<p>
+  <strong>Hours per week:</strong>
+  <%= @labor_request.hours_per_week %>
+</p>
+
+<p>
+  <strong>Number of weeks:</strong>
+  <%= @labor_request.number_of_weeks %>
+</p>
+
+<p>
+  <strong>Nonop funds:</strong>
+  <%= @labor_request.nonop_funds %>
+</p>
+
+<p>
+  <strong>Nonop source:</strong>
+  <%= @labor_request.nonop_source %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @labor_request.department %>
+</p>
+
+<p>
+  <strong>Subdepartment:</strong>
+  <%= @labor_request.subdepartment %>
+</p>
+
+<p>
+  <strong>Justification:</strong>
+  <%= @labor_request.justification %>
+</p>
+
+<%= link_to 'Edit', edit_labor_request_path(@labor_request) %> |
+<%= link_to 'Back', labor_requests_path %>

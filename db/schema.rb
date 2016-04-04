@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401143228) do
+ActiveRecord::Schema.define(version: 20160404191940) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -46,6 +46,29 @@ ActiveRecord::Schema.define(version: 20160401143228) do
   end
 
   add_index "employee_types", ["employee_category_id"], name: "index_employee_types_on_employee_category_id"
+
+  create_table "labor_requests", force: :cascade do |t|
+    t.integer  "employee_type_id"
+    t.string   "position_description"
+    t.integer  "request_type_id"
+    t.string   "contractor_name"
+    t.integer  "num_of_positions"
+    t.decimal  "hourly_rate"
+    t.decimal  "hours_per_week"
+    t.integer  "number_of_weeks"
+    t.decimal  "nonop_funds"
+    t.string   "nonop_source"
+    t.integer  "department_id"
+    t.integer  "subdepartment_id"
+    t.text     "justification"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id"
+  add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id"
+  add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id"
+  add_index "labor_requests", ["subdepartment_id"], name: "index_labor_requests_on_subdepartment_id"
 
   create_table "request_types", force: :cascade do |t|
     t.string   "code"

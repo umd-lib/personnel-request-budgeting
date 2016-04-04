@@ -16,6 +16,20 @@ class StaffRequestsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'employee type dropdown should only show valid types on new' do
+    get :new
+
+    valid_employee_category_code = StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE
+    assert_select 'select#staff_request_employee_type_id option' do |options|
+      options.each do |option|
+        next if option.attribute('value').value.blank? # Skip drop-down prompt
+        emp_type = EmployeeType.find_by_name(option.inner_text)
+        assert_equal valid_employee_category_code, emp_type.employee_category.code,
+                     "'#{option.inner_text}' option is not of category '#{valid_employee_category_code}'"
+      end
+    end
+  end
+
   test 'should create staff_request' do
     assert_difference('StaffRequest.count') do
       post :create, staff_request: {

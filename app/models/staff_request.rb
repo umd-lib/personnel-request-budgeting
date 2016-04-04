@@ -20,7 +20,7 @@ class StaffRequest < ActiveRecord::Base
 
   # Validates the employee type
   def allowed_employee_type
-    if employee_type.try(:employee_category).try(:code) != VALID_EMPLOYEE_CATEGORY_CODE
+    unless valid_employee_types.include?(employee_type)
       errors.add(:employee_type, 'Not an allowed employee type for this request.')
     end
   end
@@ -47,5 +47,11 @@ class StaffRequest < ActiveRecord::Base
         errors.add(:department_id, 'Subdepartment does not belong to department')
       end
     end
+  end
+
+  # Returns an ActiveRecord::Relation of valid employee types
+  def valid_employee_types
+    EmployeeType.joins(:employee_category).where(
+      'employee_categories.code=?', StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE)
   end
 end

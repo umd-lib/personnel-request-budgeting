@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :employee_type_id %><br>
-    <%= f.text_field :employee_type_id %>
+     <%= select("staff_request", "employee_type_id", @staff_request.valid_employee_types.collect {|e| [ e.name, e.id ] }, {prompt: 'Select Employee Type'}) %>
   </div>
   <div class="field">
     <%= f.label :position_description %><br>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :request_type_id %><br>
-    <%= f.text_field :request_type_id %>
+    <%= select("staff_request", "request_type_id", RequestType.all.collect {|e| [ e.name, e.id ] }, {prompt: 'Select Request Type'}) %>
   </div>
   <div class="field">
     <%= f.label :annual_base_pay %><br>
@@ -37,11 +37,11 @@
   </div>
   <div class="field">
     <%= f.label :department_id %><br>
-    <%= f.text_field :department_id %>
+    <%= select("staff_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %>
   </div>
   <div class="field">
     <%= f.label :subdepartment_id %><br>
-    <%= f.text_field :subdepartment_id %>
+    <%= select("staff_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %>
   </div>
   <div class="field">
     <%= f.label :justification %><br>

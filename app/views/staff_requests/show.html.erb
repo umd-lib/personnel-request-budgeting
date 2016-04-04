@@ -2,7 +2,7 @@
 
 <p>
   <strong>Employee type:</strong>
-  <%= @staff_request.employee_type %>
+  <%= @staff_request.employee_type.code %>
 </p>
 
 <p>
@@ -12,7 +12,7 @@
 
 <p>
   <strong>Request type:</strong>
-  <%= @staff_request.request_type %>
+  <%= @staff_request.request_type.code %>
 </p>
 
 <p>
@@ -32,12 +32,12 @@
 
 <p>
   <strong>Department:</strong>
-  <%= @staff_request.department %>
+  <%= @staff_request.department.code %>
 </p>
 
 <p>
   <strong>Subdepartment:</strong>
-  <%= @staff_request.subdepartment %>
+  <%= @staff_request.subdepartment.code if @staff_request.subdepartment %>
 </p>
 
 <p>

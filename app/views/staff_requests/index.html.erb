@@ -21,14 +21,14 @@
   <tbody>
     <% @staff_requests.each do |staff_request| %>
       <tr>
-        <td><%= staff_request.employee_type %></td>
+        <td><%= staff_request.employee_type.code %></td>
         <td><%= staff_request.position_description %></td>
-        <td><%= staff_request.request_type %></td>
+        <td><%= staff_request.request_type.code %></td>
         <td><%= staff_request.annual_base_pay %></td>
         <td><%= staff_request.nonop_funds %></td>
         <td><%= staff_request.nonop_source %></td>
-        <td><%= staff_request.department %></td>
-        <td><%= staff_request.subdepartment %></td>
+        <td><%= staff_request.department.code %></td>
+        <td><%= staff_request.subdepartment.code if staff_request.subdepartment %></td>
         <td><%= staff_request.justification %></td>
         <td><%= link_to 'Show', staff_request %></td>
         <td><%= link_to 'Edit', edit_staff_request_path(staff_request) %></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404191940) do
+ActiveRecord::Schema.define(version: 20160404202507) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20160404191940) do
     t.string   "position_description"
     t.integer  "request_type_id"
     t.string   "contractor_name"
-    t.integer  "num_of_positions"
+    t.integer  "number_of_positions"
     t.decimal  "hourly_rate"
     t.decimal  "hours_per_week"
     t.integer  "number_of_weeks"

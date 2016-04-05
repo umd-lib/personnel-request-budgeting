@@ -63,14 +63,14 @@ class LaborRequestTest < ActiveSupport::TestCase
   end
 
   test 'number of positions should be present' do
-    @labor_request.num_of_positions = nil
+    @labor_request.number_of_positions = nil
     assert_not @labor_request.valid?
   end
 
   test 'number of positions should be greater than zero' do
     test_values = [ -1, 0, 0.5 ]
     test_values.each do |t|
-      @labor_request.num_of_positions = t
+      @labor_request.number_of_positions = t
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
     end
   end

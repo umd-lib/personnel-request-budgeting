@@ -5,7 +5,7 @@ c1:
   position_description: Software Developer - Ruby
   request_type: new
   contractor_name: nil
-  num_of_positions: 1
+  number_of_positions: 1
   hourly_rate: 100.00
   hours_per_week: 40.00
   number_of_weeks: 6
@@ -20,7 +20,7 @@ fac_hrly_renewal:
   position_description: Medieval Plumbing Librarian
   request_type: renewal
   contractor_name: Luke O. Below
-  num_of_positions: 1
+  number_of_positions: 1
   hourly_rate: 200.00
   hours_per_week: 40.00
   number_of_weeks: 12

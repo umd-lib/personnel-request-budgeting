@@ -8,7 +8,7 @@ class LaborRequest < ActiveRecord::Base
   validates :position_description, presence: true
   validates :request_type, presence: true
   validates :contractor_name, presence: true, if: :contractor_name_required?
-  validates :num_of_positions, presence: true, :numericality => { only_integer: true, greater_than: 0 }
+  validates :number_of_positions, presence: true, :numericality => { only_integer: true, greater_than: 0 }
   validates :hourly_rate, presence: true, :numericality => { greater_than: 0.00 }
   validates :hours_per_week, presence: true, :numericality => { greater_than: 0.00 }
   validates :number_of_weeks, presence: true, :numericality => { only_integer: true, greater_than: 0 }
@@ -18,7 +18,7 @@ class LaborRequest < ActiveRecord::Base
   validate :allowed_request_type
   validate :department_exists
   validate :subdepartment_matches_department
-  
+
   VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
   VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
 

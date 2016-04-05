@@ -14,9 +14,8 @@ class StaffRequest < ActiveRecord::Base
   VALID_EMPLOYEE_CATEGORY_CODE = 'Reg/GA'.freeze
   validates_with RequestEmployeeTypeValidator, valid_employee_category_code: VALID_EMPLOYEE_CATEGORY_CODE
 
-  validate :allowed_request_type
-
   VALID_REQUEST_TYPE_CODES = %w(New ConvertCont PayAdj).freeze
+  validate :allowed_request_type
 
   # Validates the request type
   def allowed_request_type

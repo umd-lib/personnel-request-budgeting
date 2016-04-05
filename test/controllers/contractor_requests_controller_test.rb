@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ContractorRequestsControllerTest < ActionController::TestCase
   setup do
-    @contractor_request = contractor_requests(:one)
+    @contractor_request = contractor_requests(:c2)
   end
 
   test 'should get index' do

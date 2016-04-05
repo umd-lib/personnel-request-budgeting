@@ -18,9 +18,8 @@ class LaborRequest < ActiveRecord::Base
   VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
   validates_with RequestEmployeeTypeValidator, valid_employee_category_code: VALID_EMPLOYEE_CATEGORY_CODE
 
-  validate :allowed_request_type
-
   VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
+  validate :allowed_request_type
 
   # Validates the request type
   def allowed_request_type

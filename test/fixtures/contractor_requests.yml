@@ -1,27 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  employee_type_id: 
-  position_description: MyString
-  request_type_id: 
-  contractor_name: MyString
-  number_of_months: 1
-  annual_base_pay: 9.99
-  nonop_funds: 9.99
-  nonop_source: MyString
-  department_id: 
-  subdepartment_id: 
-  justification: MyText
+c2:
+  employee_type: c2
+  position_description: Programmer
+  request_type: new
+  contractor_name: nil
+  number_of_months: 6
+  annual_base_pay: 100_000.00
+  nonop_funds: nil
+  nonop_source: nil
+  department: ssdr
+  subdepartment: nil
+  justification: Always need more programmers
 
-two:
-  employee_type_id: 
-  position_description: MyString
-  request_type_id: 
-  contractor_name: MyString
-  number_of_months: 1
-  annual_base_pay: 9.99
-  nonop_funds: 9.99
-  nonop_source: MyString
-  department_id: 
-  subdepartment_id: 
-  justification: MyText
+cont_fac_renewal:
+  employee_type: cont_fac
+  position_description: Superhero Studies Librarian
+  request_type: renewal
+  contractor_name: Clark Kent
+  number_of_months: 12
+  annual_base_pay: 50_000.00
+  nonop_funds: 40_000.00
+  nonop_source: Daily Planet
+  department: scua
+  subdepartment: nil
+  justification: They used mind control on me

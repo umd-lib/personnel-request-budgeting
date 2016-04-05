@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee type:</strong>
+  <%= @contractor_request.employee_type %>
+</p>
+
+<p>
+  <strong>Position description:</strong>
+  <%= @contractor_request.position_description %>
+</p>
+
+<p>
+  <strong>Request type:</strong>
+  <%= @contractor_request.request_type %>
+</p>
+
+<p>
+  <strong>Contractor name:</strong>
+  <%= @contractor_request.contractor_name %>
+</p>
+
+<p>
+  <strong>Number of months:</strong>
+  <%= @contractor_request.number_of_months %>
+</p>
+
+<p>
+  <strong>Annual base pay:</strong>
+  <%= @contractor_request.annual_base_pay %>
+</p>
+
+<p>
+  <strong>Nonop funds:</strong>
+  <%= @contractor_request.nonop_funds %>
+</p>
+
+<p>
+  <strong>Nonop source:</strong>
+  <%= @contractor_request.nonop_source %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @contractor_request.department %>
+</p>
+
+<p>
+  <strong>Subdepartment:</strong>
+  <%= @contractor_request.subdepartment %>
+</p>
+
+<p>
+  <strong>Justification:</strong>
+  <%= @contractor_request.justification %>
+</p>
+
+<%= link_to 'Edit', edit_contractor_request_path(@contractor_request) %> |
+<%= link_to 'Back', contractor_requests_path %>

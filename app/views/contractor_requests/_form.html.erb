@@ -1,0 +1,61 @@
+<%= form_for(@contractor_request) do |f| %>
+  <% if @contractor_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contractor_request.errors.count, "error") %> prohibited this contractor_request from being saved:</h2>
+
+      <ul>
+      <% @contractor_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :employee_type_id %><br>
+    <%= f.text_field :employee_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :position_description %><br>
+    <%= f.text_field :position_description %>
+  </div>
+  <div class="field">
+    <%= f.label :request_type_id %><br>
+    <%= f.text_field :request_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :contractor_name %><br>
+    <%= f.text_field :contractor_name %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_months %><br>
+    <%= f.number_field :number_of_months %>
+  </div>
+  <div class="field">
+    <%= f.label :annual_base_pay %><br>
+    <%= f.text_field :annual_base_pay %>
+  </div>
+  <div class="field">
+    <%= f.label :nonop_funds %><br>
+    <%= f.text_field :nonop_funds %>
+  </div>
+  <div class="field">
+    <%= f.label :nonop_source %><br>
+    <%= f.text_field :nonop_source %>
+  </div>
+  <div class="field">
+    <%= f.label :department_id %><br>
+    <%= f.text_field :department_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subdepartment_id %><br>
+    <%= f.text_field :subdepartment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :justification %><br>
+    <%= f.text_area :justification %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

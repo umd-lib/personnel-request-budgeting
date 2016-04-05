@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contractor_requests
   resources :labor_requests
   resources :staff_requests
   resources :request_types

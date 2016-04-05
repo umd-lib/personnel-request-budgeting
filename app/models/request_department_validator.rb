@@ -7,7 +7,7 @@ class RequestDepartmentValidator < ActiveModel::Validator
 
   # Validates the department
   def department_exists(record)
-    record.errors.add(:department_id, 'Department does not exist') unless Department.find_by_id(record.department_id)
+    record.errors.add(:department_id, 'provided does not exist') unless Department.find_by_id(record.department_id)
   end
 
   # Validates that the subdepartment matches the department
@@ -16,7 +16,7 @@ class RequestDepartmentValidator < ActiveModel::Validator
     if subdepartment
       department = Department.find_by_id(record.department_id)
       unless department && (department.id == subdepartment.department_id)
-        record.errors.add(:subdepartment_id, 'Subdepartment does not belong to department')
+        record.errors.add(:subdepartment_id, 'provided does not belong to department')
       end
     end
   end

@@ -21,7 +21,7 @@ class StaffRequest < ActiveRecord::Base
   # Validates the request type
   def allowed_request_type
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-      errors.add(:request_type, 'Not an allowed request type for this request.')
+      errors.add(:request_type, 'provided is not allowed for this request.')
     end
   end
 end

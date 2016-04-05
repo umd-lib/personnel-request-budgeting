@@ -15,7 +15,7 @@ class RequestEmployeeTypeValidator < ActiveModel::Validator
     def allowed_employee_type(record)
       valid_employee_types = EmployeeType.employee_types_with_category(@valid_employee_category_code)
       unless valid_employee_types.include?(record.employee_type)
-        record.errors.add(:employee_type, 'Not an allowed employee type for this request.')
+        record.errors.add(:employee_type, 'provided is not allowed for this request.')
       end
     end
 end

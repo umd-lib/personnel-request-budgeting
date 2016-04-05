@@ -62,6 +62,7 @@ class ContractorRequestsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_contractor_request
       @contractor_request = ContractorRequest.find(params[:id])
@@ -69,6 +70,10 @@ class ContractorRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contractor_request_params
-      params.require(:contractor_request).permit(:employee_type_id, :position_description, :request_type_id, :contractor_name, :number_of_months, :annual_base_pay, :nonop_funds, :nonop_source, :department_id, :subdepartment_id, :justification)
+      params.require(:contractor_request).permit(
+        :employee_type_id, :position_description, :request_type_id,
+        :contractor_name, :number_of_months, :annual_base_pay,
+        :nonop_funds, :nonop_source, :department_id, :subdepartment_id,
+        :justification)
     end
 end

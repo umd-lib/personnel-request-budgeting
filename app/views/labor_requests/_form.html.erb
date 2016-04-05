@@ -13,7 +13,9 @@
 
   <div class="field">
     <%= f.label :employee_type_id %><br>
-    <%= f.text_field :employee_type_id %>
+     <%= select("labor_request", "employee_type_id", 
+       EmployeeType.employee_types_with_category(LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
+       {prompt: 'Select Employee Type'}) %>
   </div>
   <div class="field">
     <%= f.label :position_description %><br>
@@ -21,7 +23,9 @@
   </div>
   <div class="field">
     <%= f.label :request_type_id %><br>
-    <%= f.text_field :request_type_id %>
+    <%= select("labor_request", "request_type_id",
+      RequestType.all.to_a.select { |a| LaborRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+      {prompt: 'Select Request Type'}) %>
   </div>
   <div class="field">
     <%= f.label :contractor_name %><br>
@@ -29,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :number_of_positions %><br>
-    <%= f.number_field :number_of_positions %>
+    <%= f.number_field :number_of_positions, min: 1, value: 1 %>
   </div>
   <div class="field">
     <%= f.label :hourly_rate %><br>
@@ -41,7 +45,7 @@
   </div>
   <div class="field">
     <%= f.label :number_of_weeks %><br>
-    <%= f.number_field :number_of_weeks %>
+    <%= f.number_field :number_of_weeks, min: 1, value: 1 %>
   </div>
   <div class="field">
     <%= f.label :nonop_funds %><br>
@@ -53,11 +57,11 @@
   </div>
   <div class="field">
     <%= f.label :department_id %><br>
-    <%= f.text_field :department_id %>
+    <%= select("labor_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %>
   </div>
   <div class="field">
     <%= f.label :subdepartment_id %><br>
-    <%= f.text_field :subdepartment_id %>
+    <%= select("labor_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %>
   </div>
   <div class="field">
     <%= f.label :justification %><br>

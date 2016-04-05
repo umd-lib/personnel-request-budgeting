@@ -23,7 +23,9 @@
   </div>
   <div class="field">
     <%= f.label :request_type_id %><br>
-    <%= select("staff_request", "request_type_id", RequestType.all.collect {|e| [ e.name, e.id ] }, {prompt: 'Select Request Type'}) %>
+    <%= select("staff_request", "request_type_id",
+      RequestType.all.to_a.select { |a| StaffRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+      {prompt: 'Select Request Type'}) %>
   </div>
   <div class="field">
     <%= f.label :annual_base_pay %><br>

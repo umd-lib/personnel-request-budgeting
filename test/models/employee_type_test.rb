@@ -25,4 +25,17 @@ class EmployeeTypeTest < ActiveSupport::TestCase
     @emp_type.employee_category = nil
     assert_not @emp_type.valid?
   end
+
+  test 'employee_types_with_category should return empty array when given nil' do
+    assert EmployeeType.employee_types_with_category(nil).empty?
+  end
+
+  test 'employee_types_with_category should return correct types for category' do
+    category_code = employee_categories(:l_and_a).code
+    employee_types = EmployeeType.employee_types_with_category(category_code)
+    employee_types.each do |emp_type|
+      assert_equal category_code, emp_type.employee_category.code,
+                   "'#{emp_type.name}' is not of employee category '#{category_code}'"
+    end
+  end
 end

@@ -24,19 +24,19 @@ class RequestDepartmentValidatorTest < ActiveSupport::TestCase
 
     @record.department_id = department.id
     @record.subdepartment_id = valid_subdepartment.id
-    assert @record.valid?
+    assert @record.valid?, @record.errors.to_a.join.to_s
 
     invalid_subdepartment = subdepartments(:two)
     @record.subdepartment_id = invalid_subdepartment.id
     assert_not @record.valid?
   end
-end
 
-# Mock object used for constructing object to validate
-class MockRequest
-  include ActiveModel::Validations
-  attr_accessor :department_id
-  attr_accessor :subdepartment_id
+  # Mock object used for constructing object to validate
+  class MockRequest
+    include ActiveModel::Validations
+    attr_accessor :department_id
+    attr_accessor :subdepartment_id
 
-  validates_with RequestDepartmentValidator
+    validates_with RequestDepartmentValidator
+  end
 end

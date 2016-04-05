@@ -15,20 +15,6 @@ class LaborRequestTest < ActiveSupport::TestCase
     assert_not @labor_request.valid?
   end
 
-  test 'should allow valid employee types' do
-    valid_emp_types.each do |type|
-      @labor_request.employee_type_id = type.id
-      assert @labor_request.valid?, "'#{type.code}' was not accepted as a valid employee type!"
-    end
-  end
-
-  test 'should not allow invalid employee types' do
-    invalid_emp_types.each do |type|
-      @labor_request.employee_type_id = type.id
-      assert_not @labor_request.valid?, "'#{type.code}' was accepted as a valid employee type!"
-    end
-  end
-
   test 'position description should be present' do
     @labor_request.position_description = '   '
     assert_not @labor_request.valid?
@@ -114,23 +100,4 @@ class LaborRequestTest < ActiveSupport::TestCase
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
     end
   end
-
-  private
-
-    # Returns an Array of all EmployeeTypes
-    def all_emp_types
-      EmployeeType.all.to_a
-    end
-
-    # Returns an Array of valid EmployeeType codes
-    def valid_emp_types
-      all_emp_types.select do |type|
-        type.employee_category.code == LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE
-      end
-    end
-
-    # Returns an Array of invalid EmployeeTypes
-    def invalid_emp_types
-      all_emp_types - valid_emp_types
-    end
 end

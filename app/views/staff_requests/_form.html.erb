@@ -13,7 +13,9 @@
 
   <div class="field">
     <%= f.label :employee_type_id %><br>
-     <%= select("staff_request", "employee_type_id", @staff_request.valid_employee_types.collect {|e| [ e.name, e.id ] }, {prompt: 'Select Employee Type'}) %>
+     <%= select("staff_request", "employee_type_id", 
+       EmployeeType.employee_types_with_category(StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
+       {prompt: 'Select Employee Type'}) %>
   </div>
   <div class="field">
     <%= f.label :position_description %><br>

@@ -15,18 +15,12 @@ class LaborRequest < ActiveRecord::Base
   validates :department_id, presence: true
   validates_with RequestDepartmentValidator
 
-  validate :allowed_employee_type
+  VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
+  validates_with RequestEmployeeTypeValidator, valid_employee_category_code: VALID_EMPLOYEE_CATEGORY_CODE
+
   validate :allowed_request_type
 
-  VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
   VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
-
-  # Validates the employee type
-  def allowed_employee_type
-    unless valid_employee_types.include?(employee_type)
-      errors.add(:employee_type, 'Not an allowed employee type for this request.')
-    end
-  end
 
   # Validates the request type
   def allowed_request_type
@@ -38,11 +32,5 @@ class LaborRequest < ActiveRecord::Base
   # Returns true if the contractor name is required.
   def contractor_name_required?
     request_type.try(:code) == 'Renewal'
-  end
-
-  # Returns an ActiveRecord::Relation of valid employee types
-  def valid_employee_types
-    EmployeeType.joins(:employee_category).where(
-      'employee_categories.code=?', LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE)
   end
 end

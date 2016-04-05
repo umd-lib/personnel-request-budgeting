@@ -15,20 +15,6 @@ class StaffRequestTest < ActiveSupport::TestCase
     assert_not @staff_request.valid?
   end
 
-  test 'should allow valid employee types' do
-    valid_emp_types.each do |type|
-      @staff_request.employee_type_id = type.id
-      assert @staff_request.valid?, "'#{type.code}' was not accepted as a valid employee type!"
-    end
-  end
-
-  test 'should not allow invalid employee types' do
-    invalid_emp_types.each do |type|
-      @staff_request.employee_type_id = type.id
-      assert_not @staff_request.valid?, "'#{type.code}' was accepted as a valid employee type!"
-    end
-  end
-
   test 'position description should be present' do
     @staff_request.position_description = '   '
     assert_not @staff_request.valid?
@@ -61,23 +47,4 @@ class StaffRequestTest < ActiveSupport::TestCase
     @staff_request.annual_base_pay = nil
     assert_not @staff_request.valid?
   end
-
-  private
-
-    # Returns an Array of all EmployeeTypes
-    def all_emp_types
-      EmployeeType.all.to_a
-    end
-
-    # Returns an Array of valid EmployeeType codes
-    def valid_emp_types
-      all_emp_types.select do |type|
-        type.employee_category.code == StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE
-      end
-    end
-
-    # Returns an Array of invalid EmployeeTypes
-    def invalid_emp_types
-      all_emp_types - valid_emp_types
-    end
 end

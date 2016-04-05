@@ -23,16 +23,16 @@
   <tbody>
     <% @contractor_requests.each do |contractor_request| %>
       <tr>
-        <td><%= contractor_request.employee_type %></td>
+        <td><%= contractor_request.employee_type.code %></td>
         <td><%= contractor_request.position_description %></td>
-        <td><%= contractor_request.request_type %></td>
+        <td><%= contractor_request.request_type.code %></td>
         <td><%= contractor_request.contractor_name %></td>
         <td><%= contractor_request.number_of_months %></td>
         <td><%= contractor_request.annual_base_pay %></td>
         <td><%= contractor_request.nonop_funds %></td>
         <td><%= contractor_request.nonop_source %></td>
-        <td><%= contractor_request.department %></td>
-        <td><%= contractor_request.subdepartment %></td>
+        <td><%= contractor_request.department.code %></td>
+        <td><%= contractor_request.subdepartment.code if contractor_request.subdepartment %></td>
         <td><%= contractor_request.justification %></td>
         <td><%= link_to 'Show', contractor_request %></td>
         <td><%= link_to 'Edit', edit_contractor_request_path(contractor_request) %></td>

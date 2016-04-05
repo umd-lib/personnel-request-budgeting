@@ -13,7 +13,9 @@
 
   <div class="field">
     <%= f.label :employee_type_id %><br>
-    <%= f.text_field :employee_type_id %>
+     <%= select("contractor_request", "employee_type_id", 
+       EmployeeType.employee_types_with_category(ContractorRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
+       {prompt: 'Select Employee Type'}) %>
   </div>
   <div class="field">
     <%= f.label :position_description %><br>
@@ -21,7 +23,9 @@
   </div>
   <div class="field">
     <%= f.label :request_type_id %><br>
-    <%= f.text_field :request_type_id %>
+    <%= select("contractor_request", "request_type_id",
+      RequestType.all.to_a.select { |a| ContractorRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+      {prompt: 'Select Request Type'}) %>
   </div>
   <div class="field">
     <%= f.label :contractor_name %><br>
@@ -29,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :number_of_months %><br>
-    <%= f.number_field :number_of_months %>
+    <%= f.number_field :number_of_months, min: 1, value: 1 %>
   </div>
   <div class="field">
     <%= f.label :annual_base_pay %><br>
@@ -45,11 +49,11 @@
   </div>
   <div class="field">
     <%= f.label :department_id %><br>
-    <%= f.text_field :department_id %>
+    <%= select("contractor_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %>
   </div>
   <div class="field">
     <%= f.label :subdepartment_id %><br>
-    <%= f.text_field :subdepartment_id %>
+    <%= select("contractor_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %>
   </div>
   <div class="field">
     <%= f.label :justification %><br>

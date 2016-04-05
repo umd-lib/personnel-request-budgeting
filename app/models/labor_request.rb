@@ -8,10 +8,10 @@ class LaborRequest < ActiveRecord::Base
   validates :position_description, presence: true
   validates :request_type, presence: true
   validates :contractor_name, presence: true, if: :contractor_name_required?
-  validates :number_of_positions, presence: true, :numericality => { only_integer: true, greater_than: 0 }
-  validates :hourly_rate, presence: true, :numericality => { greater_than: 0.00 }
-  validates :hours_per_week, presence: true, :numericality => { greater_than: 0.00 }
-  validates :number_of_weeks, presence: true, :numericality => { only_integer: true, greater_than: 0 }
+  validates :number_of_positions, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :hourly_rate, presence: true, numericality: { greater_than: 0.00 }
+  validates :hours_per_week, presence: true, numericality: { greater_than: 0.00 }
+  validates :number_of_weeks, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :department_id, presence: true
 
   validate :allowed_employee_type

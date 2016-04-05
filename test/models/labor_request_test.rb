@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Tests for the "LaborRequest" model
 class LaborRequestTest < ActiveSupport::TestCase
   def setup
     @labor_request = labor_requests(:c1)
@@ -68,7 +69,7 @@ class LaborRequestTest < ActiveSupport::TestCase
   end
 
   test 'number of positions should be greater than zero' do
-    test_values = [ -1, 0, 0.5 ]
+    test_values = [-1, 0, 0.5]
     test_values.each do |t|
       @labor_request.number_of_positions = t
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
@@ -81,7 +82,7 @@ class LaborRequestTest < ActiveSupport::TestCase
   end
 
   test 'hourly rate should be greater than zero' do
-    test_values = [ -1.00, 0.00 ]
+    test_values = [-1.00, 0.00]
     test_values.each do |t|
       @labor_request.hourly_rate = t
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
@@ -94,7 +95,7 @@ class LaborRequestTest < ActiveSupport::TestCase
   end
 
   test 'hours per week should be greater than zero' do
-    test_values = [ -1.00, 0.00 ]
+    test_values = [-1.00, 0.00]
     test_values.each do |t|
       @labor_request.hours_per_week = t
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
@@ -107,7 +108,7 @@ class LaborRequestTest < ActiveSupport::TestCase
   end
 
   test 'number of weeks should be greater than zero' do
-    test_values = [ -1, 0, 0.5 ]
+    test_values = [-1, 0, 0.5]
     test_values.each do |t|
       @labor_request.number_of_weeks = t
       assert_not @labor_request.valid?, "#{t} was accepted as valid"
@@ -155,5 +156,4 @@ class LaborRequestTest < ActiveSupport::TestCase
     def invalid_emp_types
       all_emp_types - valid_emp_types
     end
-
 end

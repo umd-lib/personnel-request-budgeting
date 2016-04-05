@@ -13,11 +13,10 @@ class LaborRequest < ActiveRecord::Base
   validates :hours_per_week, presence: true, numericality: { greater_than: 0.00 }
   validates :number_of_weeks, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :department_id, presence: true
+  validates_with RequestDepartmentValidator
 
   validate :allowed_employee_type
   validate :allowed_request_type
-  validate :department_exists
-  validate :subdepartment_matches_department
 
   VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
   VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
@@ -39,23 +38,6 @@ class LaborRequest < ActiveRecord::Base
   # Returns true if the contractor name is required.
   def contractor_name_required?
     request_type.try(:code) == 'Renewal'
-  end
-
-  # Validates the department
-  def department_exists
-    errors.add(:department_id, 'Department does not exist') unless Department.find_by_id(department_id)
-  end
-
-  # Validates that the subdepartment matches the department
-  def subdepartment_matches_department
-    subdepartment = Subdepartment.find_by_id(subdepartment_id)
-    if subdepartment
-      department = Department.find_by_id(department_id)
-      subdepartment = Subdepartment.find_by_id(subdepartment_id)
-      unless department && (department.id == subdepartment.department_id)
-        errors.add(:department_id, 'Subdepartment does not belong to department')
-      end
-    end
   end
 
   # Returns an ActiveRecord::Relation of valid employee types

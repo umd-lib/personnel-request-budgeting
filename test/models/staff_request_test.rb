@@ -62,29 +62,6 @@ class StaffRequestTest < ActiveSupport::TestCase
     assert_not @staff_request.valid?
   end
 
-  test 'department should be present' do
-    @staff_request.department_id = nil
-    assert_not @staff_request.valid?
-  end
-
-  test 'should not allow non-existent department' do
-    @staff_request.department_id = -1
-    assert_not @staff_request.valid?
-  end
-
-  test 'subdepartment must match department' do
-    department = departments(:one)
-    valid_subdepartment = subdepartments(:one)
-
-    @staff_request.department_id = department.id
-    @staff_request.subdepartment_id = valid_subdepartment.id
-    assert @staff_request.valid?
-
-    invalid_subdepartment = subdepartments(:two)
-    @staff_request.subdepartment_id = invalid_subdepartment.id
-    assert_not @staff_request.valid?
-  end
-
   private
 
     # Returns an Array of all EmployeeTypes

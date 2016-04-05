@@ -115,29 +115,6 @@ class LaborRequestTest < ActiveSupport::TestCase
     end
   end
 
-  test 'department should be present' do
-    @labor_request.department_id = nil
-    assert_not @labor_request.valid?
-  end
-
-  test 'should not allow non-existent department' do
-    @labor_request.department_id = -1
-    assert_not @labor_request.valid?
-  end
-
-  test 'subdepartment must match department' do
-    department = departments(:one)
-    valid_subdepartment = subdepartments(:one)
-
-    @labor_request.department_id = department.id
-    @labor_request.subdepartment_id = valid_subdepartment.id
-    assert @labor_request.valid?
-
-    invalid_subdepartment = subdepartments(:two)
-    @labor_request.subdepartment_id = invalid_subdepartment.id
-    assert_not @labor_request.valid?
-  end
-
   private
 
     # Returns an Array of all EmployeeTypes

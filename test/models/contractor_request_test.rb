@@ -66,4 +66,27 @@ class ContractorRequestTest < ActiveSupport::TestCase
     @contractor_request.annual_base_pay = nil
     assert_not @contractor_request.valid?
   end
+
+  test 'department should be present' do
+    @contractor_request.department_id = nil
+    assert_not @contractor_request.valid?
+  end
+
+  test 'should not allow non-existent department' do
+    @contractor_request.department_id = -1
+    assert_not @contractor_request.valid?
+  end
+
+  test 'subdepartment must match department' do
+    department = departments(:one)
+    valid_subdepartment = subdepartments(:one)
+
+    @contractor_request.department_id = department.id
+    @contractor_request.subdepartment_id = valid_subdepartment.id
+    assert @contractor_request.valid?
+
+    invalid_subdepartment = subdepartments(:two)
+    @contractor_request.subdepartment_id = invalid_subdepartment.id
+    assert_not @contractor_request.valid?
+  end
 end

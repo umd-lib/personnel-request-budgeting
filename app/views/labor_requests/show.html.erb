@@ -2,7 +2,7 @@
 
 <p>
   <strong>Employee type:</strong>
-  <%= @labor_request.employee_type %>
+  <%= @labor_request.employee_type.code %>
 </p>
 
 <p>
@@ -12,7 +12,7 @@
 
 <p>
   <strong>Request type:</strong>
-  <%= @labor_request.request_type %>
+  <%= @labor_request.request_type.code %>
 </p>
 
 <p>
@@ -21,7 +21,7 @@
 </p>
 
 <p>
-  <strong>Num of positions:</strong>
+  <strong>Number of positions:</strong>
   <%= @labor_request.number_of_positions %>
 </p>
 
@@ -52,12 +52,12 @@
 
 <p>
   <strong>Department:</strong>
-  <%= @labor_request.department %>
+  <%= @labor_request.department.code %>
 </p>
 
 <p>
   <strong>Subdepartment:</strong>
-  <%= @labor_request.subdepartment %>
+  <%= @labor_request.subdepartment.code if @labor_request.subdepartment %>
 </p>
 
 <p>

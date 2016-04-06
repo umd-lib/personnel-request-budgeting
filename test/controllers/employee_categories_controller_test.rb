@@ -18,7 +18,7 @@ class EmployeeCategoriesControllerTest < ActionController::TestCase
 
   test 'should create employee_category' do
     assert_difference('EmployeeCategory.count') do
-      post :create, employee_category: { code: @employee_category.code, name: @employee_category.name }
+      post :create, employee_category: { code: 'NEW_EMP_CAT', name: @employee_category.name }
     end
 
     assert_redirected_to employee_category_path(assigns(:employee_category))

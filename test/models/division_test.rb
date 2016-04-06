@@ -15,6 +15,13 @@ class DivisionTest < ActiveSupport::TestCase
     assert_not @division.valid?
   end
 
+  test 'code should be unique' do
+    duplicate_division = @division.dup
+    duplicate_division.code = @division.code.upcase
+    @division.save!
+    assert_not duplicate_division.valid?
+  end
+
   test 'name should be present' do
     @division.name = '  '
     assert_not @division.valid?

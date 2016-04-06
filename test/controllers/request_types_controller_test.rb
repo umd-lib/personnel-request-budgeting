@@ -18,7 +18,7 @@ class RequestTypesControllerTest < ActionController::TestCase
 
   test 'should create request_type' do
     assert_difference('RequestType.count') do
-      post :create, request_type: { code: @request_type.code, name: @request_type.name }
+      post :create, request_type: { code: 'NEW_REQ_TYPE', name: @request_type.name }
     end
 
     assert_redirected_to request_type_path(assigns(:request_type))

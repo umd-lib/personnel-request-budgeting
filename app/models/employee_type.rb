@@ -1,7 +1,7 @@
 # A type of employee (C1, C2, Fac, GA, etc.)
 class EmployeeType < ActiveRecord::Base
   belongs_to :employee_category
-  validates :code, presence: true
+  validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :employee_category, presence: true
 

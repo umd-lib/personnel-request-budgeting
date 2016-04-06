@@ -18,7 +18,7 @@ class DivisionsControllerTest < ActionController::TestCase
 
   test 'should create division' do
     assert_difference('Division.count') do
-      post :create, division: { code: @division.code, name: @division.name }
+      post :create, division: { code: 'NEW_DIV', name: @division.name }
     end
 
     assert_redirected_to division_path(assigns(:division))

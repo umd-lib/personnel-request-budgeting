@@ -15,6 +15,13 @@ class EmployeeCategoryTest < ActiveSupport::TestCase
     assert_not @emp_category.valid?
   end
 
+  test 'code should be unique' do
+    duplicate_emp_category = @emp_category.dup
+    duplicate_emp_category.code = @emp_category.code.upcase
+    @emp_category.save!
+    assert_not duplicate_emp_category.valid?
+  end
+
   test 'name should be present' do
     @emp_category.name = '  '
     assert_not @emp_category.valid?

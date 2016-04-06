@@ -17,6 +17,13 @@ class SubdepartmentTest < ActiveSupport::TestCase
     assert_not @subdepartment.valid?
   end
 
+  test 'code should be unique' do
+    duplicate_subdepartment = @subdepartment.dup
+    duplicate_subdepartment.code = @subdepartment.code.upcase
+    @subdepartment.save!
+    assert_not duplicate_subdepartment.valid?
+  end
+
   test 'name should be present' do
     @subdepartment.name = '  '
     assert_not @subdepartment.valid?

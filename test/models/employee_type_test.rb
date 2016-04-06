@@ -16,6 +16,13 @@ class EmployeeTypeTest < ActiveSupport::TestCase
     assert_not @emp_type.valid?
   end
 
+  test 'code should be unique' do
+    duplicate_emp_type = @emp_type.dup
+    duplicate_emp_type.code = @emp_type.code.upcase
+    @emp_type.save!
+    assert_not duplicate_emp_type.valid?
+  end
+
   test 'name should be present' do
     @emp_type.name = '  '
     assert_not @emp_type.valid?

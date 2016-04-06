@@ -19,7 +19,7 @@ class SubdepartmentsControllerTest < ActionController::TestCase
   test 'should create subdepartment' do
     assert_difference('Subdepartment.count') do
       post :create, subdepartment: {
-        code: @subdepartment.code, department_id: @subdepartment.department_id, name: @subdepartment.name }
+        code: 'NEW_SUBDEPT', department_id: @subdepartment.department_id, name: @subdepartment.name }
     end
 
     assert_redirected_to subdepartment_path(assigns(:subdepartment))

@@ -174,7 +174,7 @@ labor_requests = [
      nonop_source: 'Federal Factotum Initiative',
      department: 'AS',
      subdepartment: 'TLC',
-     justification: "Need more factotums." }
+     justification: 'Need more factotums.' }
 ]
 
 labor_requests.each do |request|

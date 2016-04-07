@@ -5,19 +5,19 @@
 <table>
   <thead>
     <tr>
-      <th>Employee type</th>
-      <th>Position description</th>
-      <th>Request type</th>
-      <th>Contractor name</th>
-      <th>Number of positions</th>
-      <th>Hourly rate</th>
-      <th>Hours per week</th>
-      <th>Number of weeks</th>
-      <th>Nonop funds</th>
-      <th>Nonop source</th>
-      <th>Department</th>
-      <th>Subdepartment</th>
-      <th>Justification</th>
+      <th id="employee_type">Employee type</th>
+      <th id="position_description">Position description</th>
+      <th id="request_type">Request type</th>
+      <th id="contractor_name">Contractor name</th>
+      <th id="number_of_positions">Number of positions</th>
+      <th id="hourly_rate">Hourly rate</th>
+      <th id="hours_per_week">Hours per week</th>
+      <th id="number_of_weeks">Number of weeks</th>
+      <th id="nonop_funds">Nonop funds</th>
+      <th id="nonop_source">Nonop source</th>
+      <th id="department">Department</th>
+      <th id="subdepartment">Subdepartment</th>
+      <th id="justification">Justification</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,19 +25,19 @@
   <tbody>
     <% @labor_requests.each do |labor_request| %>
       <tr>
-        <td><%= labor_request.employee_type.code %></td>
-        <td><%= labor_request.position_description %></td>
-        <td><%= labor_request.request_type.code %></td>
-        <td><%= labor_request.contractor_name %></td>
-        <td><%= labor_request.number_of_positions %></td>
-        <td><%= labor_request.hourly_rate %></td>
-        <td><%= labor_request.hours_per_week %></td>
-        <td><%= labor_request.number_of_weeks %></td>
-        <td><%= labor_request.nonop_funds %></td>
-        <td><%= labor_request.nonop_source %></td>
-        <td><%= labor_request.department.code %></td>
-        <td><%= labor_request.subdepartment.code if labor_request.subdepartment %></td>
-        <td><%= labor_request.justification %></td>
+        <td headers="employee_type"><%= labor_request.employee_type.code %></td>
+        <td headers="position_description"><%= labor_request.position_description %></td>
+        <td headers="request_type"><%= labor_request.request_type.code %></td>
+        <td headers="contractor_name"><%= labor_request.contractor_name %></td>
+        <td headers="number_of_positions"><%= labor_request.number_of_positions %></td>
+        <td headers="hourly_rate"><%= number_to_currency(labor_request.hourly_rate) %></td>
+        <td headers="hours_per_week"><%= labor_request.hours_per_week %></td>
+        <td headers="number_of_weeks"><%= labor_request.number_of_weeks %></td>
+        <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
+        <td headers="nonop_source"><%= labor_request.nonop_source %></td>
+        <td headers="department"><%= labor_request.department.code %></td>
+        <td headers="subdepartment"><%= labor_request.subdepartment.code if labor_request.subdepartment %></td>
+        <td headers="justification"><%= labor_request.justification %></td>
         <td><%= link_to 'Show', labor_request %></td>
         <td><%= link_to 'Edit', edit_labor_request_path(labor_request) %></td>
         <td><%= link_to 'Destroy', labor_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>

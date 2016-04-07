@@ -7,12 +7,8 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
 
     currency_fields = %w(hourly_rate nonop_funds)
     currency_fields.each do |field|
-      assert_select 'td[headers=?]', field do |elements|
-        elements.each do |e|
-          assert_match(/\d\.\d\d/, e.inner_text,
-                       "#{field} should have two decimal places")
-        end
-      end
+      assert_select "td[headers=#{field}]", { text: /\d\.\d\d/ },
+                    "#{field} should have two decimal places"
     end
   end
 end

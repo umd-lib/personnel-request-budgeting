@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Integration test for the LaborRequest show page
 class LaborRequestsShowTest < ActionDispatch::IntegrationTest
   def setup
     @labor_request = labor_requests(:fac_hrly_renewal)

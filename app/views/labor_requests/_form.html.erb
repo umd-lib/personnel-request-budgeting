@@ -37,7 +37,7 @@
   </div>
   <div class="field">
     <%= f.label :hourly_rate %><br>
-    <%= f.text_field :hourly_rate %>
+    <%= f.text_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, precision: 2) %>
   </div>
   <div class="field">
     <%= f.label :hours_per_week %><br>
@@ -49,7 +49,7 @@
   </div>
   <div class="field">
     <%= f.label :nonop_funds %><br>
-    <%= f.text_field :nonop_funds %>
+    <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %>
   </div>
   <div class="field">
     <%= f.label :nonop_source %><br>

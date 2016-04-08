@@ -1,0 +1,2 @@
+module LaborRequestsHelper
+end

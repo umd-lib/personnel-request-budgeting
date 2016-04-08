@@ -1,0 +1,56 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: employee_type_one
+  name: First Employee Type
+  employee_category: one
+
+two:
+  code: employee_type_two
+  name: Second Employee Type
+  employee_category: two
+
+c1:
+  code: C1
+  name: Contractor Type 1
+  employee_category: l_and_a
+
+c2: 
+  code: C2
+  name: Contractor Type 2
+  employee_category: salaried_contractor
+  
+cont_fac:
+  code: ContFac
+  name: ContFac
+  employee_category: salaried_contractor
+
+ex:
+  code: Ex
+  name: Ex
+  employee_category: reg_ga
+  
+fac:
+  code: Fac
+  name: Faculty
+  employee_category: reg_ga
+
+fac_hrly:
+  code: FAC-Hrly
+  name: Faculty Hourly
+  employee_category: l_and_a
+
+ga:
+  code: GA
+  name: Graduate Assistant
+  employee_category: reg_ga
+
+nex:
+  code: Nex
+  name: Nex
+  employee_category: reg_ga
+  
+student:
+  code: Student
+  name: Student
+  employee_category: l_and_a

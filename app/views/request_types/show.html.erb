@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @request_type.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @request_type.name %>
+</p>
+
+<%= link_to 'Edit', edit_request_type_path(@request_type) %> |
+<%= link_to 'Back', request_types_path %>

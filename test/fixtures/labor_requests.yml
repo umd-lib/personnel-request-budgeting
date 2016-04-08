@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+c1:
+  employee_type: c1
+  position_description: Software Developer - Ruby
+  request_type: new
+  contractor_name: nil
+  number_of_positions: 1
+  hourly_rate: 100.00
+  hours_per_week: 40.00
+  number_of_weeks: 6
+  nonop_funds: nil
+  nonop_source: nil
+  department: ssdr
+  subdepartment: nil
+  justification: Help get Ruby on Rails development off the ground.
+
+fac_hrly_renewal:
+  employee_type: fac_hrly
+  position_description: Medieval Plumbing Librarian
+  request_type: renewal
+  contractor_name: Luke O. Below
+  number_of_positions: 1
+  hourly_rate: 200.00
+  hours_per_week: 40.00
+  number_of_weeks: 12
+  nonop_funds: nil
+  nonop_source: nil
+  department: scua
+  subdepartment: nil
+  justification: Can't have enough expertise for this topic.

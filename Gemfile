@@ -46,6 +46,7 @@ end
 
 group :test do
   gem 'minitest-reporters', '~> 1.1.8'
+  gem 'minitest-ci', '~> 3.0.3'
 
   # Code analysis tools
   gem 'rubocop', '~> 0.39.0', require: false

@@ -2,47 +2,47 @@
 
 <p>
   <strong>Employee type:</strong>
-  <%= @staff_request.employee_type.code %>
+  <span id="employee_type"><%= @staff_request.employee_type.code %></span>
 </p>
 
 <p>
   <strong>Position description:</strong>
-  <%= @staff_request.position_description %>
+  <span id="position_description"><%= @staff_request.position_description %></span>
 </p>
 
 <p>
   <strong>Request type:</strong>
-  <%= @staff_request.request_type.code %>
+  <span id="request_type"><%= @staff_request.request_type.code %></span>
 </p>
 
 <p>
   <strong>Annual base pay:</strong>
-  <%= @staff_request.annual_base_pay %>
+  <span id="annual_base_pay"><%= number_to_currency(@staff_request.annual_base_pay) %></span>
 </p>
 
 <p>
   <strong>Nonop funds:</strong>
-  <%= @staff_request.nonop_funds %>
+  <span id="nonop_funds"><%= number_to_currency(@staff_request.nonop_funds) %></span>
 </p>
 
 <p>
   <strong>Nonop source:</strong>
-  <%= @staff_request.nonop_source %>
+  <span id="nonop_source"><%= @staff_request.nonop_source %></span>
 </p>
 
 <p>
   <strong>Department:</strong>
-  <%= @staff_request.department.code %>
+  <span id="department"><%= @staff_request.department.code %></span>
 </p>
 
 <p>
   <strong>Subdepartment:</strong>
-  <%= @staff_request.subdepartment.code if @staff_request.subdepartment %>
+  <span id="subdepartment"><%= @staff_request.subdepartment.code if @staff_request.subdepartment %></span>
 </p>
 
 <p>
   <strong>Justification:</strong>
-  <%= @staff_request.justification %>
+  <span id="justification"><%= @staff_request.justification %></span>
 </p>
 
 <%= link_to 'Edit', edit_staff_request_path(@staff_request) %> |

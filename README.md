@@ -1,4 +1,4 @@
-# library-personnel-budget-request
+# personnel-request-budgeting
 
 A Rails application for submitting personnel requests as part of the library budgeting process.
 

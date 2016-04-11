@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: subdept_one
+  name: First Subdepartment
+  department: one
+
+two:
+  code: subdept_two
+  name: Second Subdepartment
+  department: two

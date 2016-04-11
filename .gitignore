@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore NetBeans workspace
+/nbproject
+
+# Ignore minitest-ci reports
+test/reports

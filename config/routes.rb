@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  root 'static_pages#index'
+
+  resources :contractor_requests
+  resources :labor_requests
+  resources :staff_requests
+  resources :request_types
+  resources :employee_types
+  resources :employee_categories
+  resources :subdepartments
+  resources :departments
+  resources :divisions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

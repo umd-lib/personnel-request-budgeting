@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+fac:
+  employee_type: fac
+  position_description: Faculty Position
+  request_type: new
+  annual_base_pay: 50000.00
+  nonop_funds: 0.00
+  nonop_source: nil
+  department: prg
+  subdepartment_id: nil
+  justification: Because we really really need someone.
+

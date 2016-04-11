@@ -1,0 +1,73 @@
+<%= form_for(@labor_request) do |f| %>
+  <% if @labor_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@labor_request.errors.count, "error") %> prohibited this labor_request from being saved:</h2>
+
+      <ul>
+      <% @labor_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :employee_type_id %><br>
+     <%= select("labor_request", "employee_type_id", 
+       EmployeeType.employee_types_with_category(LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
+       {prompt: 'Select Employee Type'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :position_description %><br>
+    <%= f.text_field :position_description %>
+  </div>
+  <div class="field">
+    <%= f.label :request_type_id %><br>
+    <%= select("labor_request", "request_type_id",
+      RequestType.all.to_a.select { |a| LaborRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+      {prompt: 'Select Request Type'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :contractor_name %><br>
+    <%= f.text_field :contractor_name %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_positions %><br>
+    <%= f.number_field :number_of_positions, min: 1, value: 1 %>
+  </div>
+  <div class="field">
+    <%= f.label :hourly_rate %><br>
+    <%= f.text_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, precision: 2) %>
+  </div>
+  <div class="field">
+    <%= f.label :hours_per_week %><br>
+    <%= f.text_field :hours_per_week %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_weeks %><br>
+    <%= f.number_field :number_of_weeks, min: 1, value: 1 %>
+  </div>
+  <div class="field">
+    <%= f.label :nonop_funds %><br>
+    <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %>
+  </div>
+  <div class="field">
+    <%= f.label :nonop_source %><br>
+    <%= f.text_field :nonop_source %>
+  </div>
+  <div class="field">
+    <%= f.label :department_id %><br>
+    <%= select("labor_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :subdepartment_id %><br>
+    <%= select("labor_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :justification %><br>
+    <%= f.text_area :justification %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

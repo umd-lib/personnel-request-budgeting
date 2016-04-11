@@ -18,3 +18,6 @@
 
 # Ignore NetBeans workspace
 /nbproject
+
+# Ignore minitest-ci reports
+test/reports

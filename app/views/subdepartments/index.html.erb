@@ -2,31 +2,33 @@
 
 <h1>Listing Subdepartments</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Department</th>
-      <th>Division</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @subdepartments.each do |subdepartment| %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= subdepartment.code %></td>
-        <td><%= subdepartment.name %></td>
-        <td><%= subdepartment.department.code %></td>
-        <td><%= subdepartment.department.division.code %></td>
-        <td><%= link_to 'Show', subdepartment %></td>
-        <td><%= link_to 'Edit', edit_subdepartment_path(subdepartment) %></td>
-        <td><%= link_to 'Destroy', subdepartment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Division</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @subdepartments.each do |subdepartment| %>
+        <tr>
+          <td><%= subdepartment.code %></td>
+          <td><%= subdepartment.name %></td>
+          <td><%= subdepartment.department.code %></td>
+          <td><%= subdepartment.department.division.code %></td>
+          <td><%= link_to 'Show', subdepartment %></td>
+          <td><%= link_to 'Edit', edit_subdepartment_path(subdepartment) %></td>
+          <td><%= link_to 'Destroy', subdepartment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

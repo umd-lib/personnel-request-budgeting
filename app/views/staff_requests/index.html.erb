@@ -2,41 +2,43 @@
 
 <h1>Listing Staff Requests</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th id="employee_type">Employee type</th>
-      <th id="position_description">Position description</th>
-      <th id="request_type">Request type</th>
-      <th id="annual_base_pay">Annual base pay</th>
-      <th id="nonop_funds">Nonop funds</th>
-      <th id="nonop_source">Nonop source</th>
-      <th id="department">Department</th>
-      <th id="subdepartment">Subdepartment</th>
-      <th id="justification">Justification</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @staff_requests.each do |staff_request| %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td headers="employee_type"><%= staff_request.employee_type.code %></td>
-        <td headers="position_description"><%= staff_request.position_description %></td>
-        <td headers="request_type"><%= staff_request.request_type.code %></td>
-        <td headers="annual_base_pay"><%= number_to_currency(staff_request.annual_base_pay) %></td>
-        <td headers="nonop_funds"><%= number_to_currency(staff_request.nonop_funds) %></td>
-        <td headers="nonop_source"><%= staff_request.nonop_source %></td>
-        <td headers="department"><%= staff_request.department.code %></td>
-        <td headers="subdepartment"><%= staff_request.subdepartment.code if staff_request.subdepartment %></td>
-        <td headers="justification"><%= staff_request.justification %></td>
-        <td><%= link_to 'Show', staff_request %></td>
-        <td><%= link_to 'Edit', edit_staff_request_path(staff_request) %></td>
-        <td><%= link_to 'Destroy', staff_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th id="employee_type">Employee type</th>
+        <th id="position_description">Position description</th>
+        <th id="request_type">Request type</th>
+        <th id="annual_base_pay">Annual base pay</th>
+        <th id="nonop_funds">Nonop funds</th>
+        <th id="nonop_source">Nonop source</th>
+        <th id="department">Department</th>
+        <th id="subdepartment">Subdepartment</th>
+        <th id="justification">Justification</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @staff_requests.each do |staff_request| %>
+        <tr>
+          <td headers="employee_type"><%= staff_request.employee_type.code %></td>
+          <td headers="position_description"><%= staff_request.position_description %></td>
+          <td headers="request_type"><%= staff_request.request_type.code %></td>
+          <td headers="annual_base_pay"><%= number_to_currency(staff_request.annual_base_pay) %></td>
+          <td headers="nonop_funds"><%= number_to_currency(staff_request.nonop_funds) %></td>
+          <td headers="nonop_source"><%= staff_request.nonop_source %></td>
+          <td headers="department"><%= staff_request.department.code %></td>
+          <td headers="subdepartment"><%= staff_request.subdepartment.code if staff_request.subdepartment %></td>
+          <td headers="justification"><%= staff_request.justification %></td>
+          <td><%= link_to 'Show', staff_request %></td>
+          <td><%= link_to 'Edit', edit_staff_request_path(staff_request) %></td>
+          <td><%= link_to 'Destroy', staff_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

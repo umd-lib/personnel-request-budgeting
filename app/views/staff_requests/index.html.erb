@@ -11,10 +11,8 @@
         <th id="request_type">Request type</th>
         <th id="annual_base_pay">Annual base pay</th>
         <th id="nonop_funds">Nonop funds</th>
-        <th id="nonop_source">Nonop source</th>
         <th id="department">Department</th>
         <th id="subdepartment">Subdepartment</th>
-        <th id="justification">Justification</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -27,13 +25,9 @@
           <td headers="request_type"><%= staff_request.request_type.code %></td>
           <td headers="annual_base_pay"><%= number_to_currency(staff_request.annual_base_pay) %></td>
           <td headers="nonop_funds"><%= number_to_currency(staff_request.nonop_funds) %></td>
-          <td headers="nonop_source"><%= staff_request.nonop_source %></td>
           <td headers="department"><%= staff_request.department.code %></td>
           <td headers="subdepartment"><%= staff_request.subdepartment.code if staff_request.subdepartment %></td>
-          <td headers="justification"><%= staff_request.justification %></td>
-          <td><%= link_to 'Show', staff_request %></td>
-          <td><%= link_to 'Edit', edit_staff_request_path(staff_request) %></td>
-          <td><%= link_to 'Destroy', staff_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= render 'shared/table_action_buttons', object: staff_request %>
         </tr>
       <% end %>
     </tbody>

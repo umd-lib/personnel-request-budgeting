@@ -19,9 +19,7 @@
           <td><%= employee_type.code %></td>
           <td><%= employee_type.name %></td>
           <td><%= employee_type.employee_category.code %></td>
-          <td><%= link_to 'Show', employee_type %></td>
-          <td><%= link_to 'Edit', edit_employee_type_path(employee_type) %></td>
-          <td><%= link_to 'Destroy', employee_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= render 'shared/table_action_buttons', object: employee_type %> 
         </tr>
       <% end %>
     </tbody>

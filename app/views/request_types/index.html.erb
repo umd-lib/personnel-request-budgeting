@@ -17,9 +17,7 @@
         <tr>
           <td><%= request_type.code %></td>
           <td><%= request_type.name %></td>
-          <td><%= link_to 'Show', request_type %></td>
-          <td><%= link_to 'Edit', edit_request_type_path(request_type) %></td>
-          <td><%= link_to 'Destroy', request_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= render 'shared/table_action_buttons', object: request_type %>
         </tr>
       <% end %>
     </tbody>

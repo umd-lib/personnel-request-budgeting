@@ -35,21 +35,7 @@
           <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
           <td headers="department"><%= labor_request.department.code %></td>
           <td headers="subdepartment"><%= labor_request.subdepartment.code if labor_request.subdepartment %></td>
-          <td>
-            <%= link_to labor_request, class: "btn btn-default", alt: "Details" do %>
-              <i class="glyphicon glyphicon-option-horizontal"></i>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to edit_labor_request_path(labor_request), class: "btn btn-info", alt: "Edit" do %>
-              <i class="glyphicon glyphicon-pencil"></i>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to labor_request, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", alt: "Destroy" do %>
-              <i class="glyphicon glyphicon-trash"></i>
-            <% end %>
-          </td>
+          <%= render 'shared/table_action_buttons', object: labor_request %>
         </tr>
       <% end %>
     </tbody>

@@ -31,24 +31,7 @@
           <td headers="nonop_source"><%= contractor_request.nonop_source %></td>
           <td headers="department"><%= contractor_request.department.code %></td>
           <td headers="subdepartment"><%= contractor_request.subdepartment.code if contractor_request.subdepartment %></td>
-          <td>
-            <%= link_to contractor_request, class: "btn btn-default", alt: "Details" do %>
-              <i class="glyphicon glyphicon-option-horizontal"></i>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to edit_contractor_request_path(contractor_request),
-                  class: "btn btn-info", alt: "Edit" do %>
-              <i class="glyphicon glyphicon-pencil"></i>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to contractor_request, method: :delete,
-                  data: { confirm: 'Are you sure?' }, class: "btn btn-danger",
-                  alt: "Destroy" do %>
-              <i class="glyphicon glyphicon-trash"></i>
-            <% end %>
-          </td>        
+          <%= render 'shared/table_action_buttons', object: contractor_request %>
         </tr>
       <% end %>
     </tbody>

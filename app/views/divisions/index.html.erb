@@ -17,9 +17,7 @@
         <tr>
           <td><%= division.code %></td>
           <td><%= division.name %></td>
-          <td><%= link_to 'Show', division %></td>
-          <td><%= link_to 'Edit', edit_division_path(division) %></td>
-          <td><%= link_to 'Destroy', division, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= render 'shared/table_action_buttons', object: division %> 
         </tr>
       <% end %>
     </tbody>

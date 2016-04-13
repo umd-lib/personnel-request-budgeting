@@ -17,9 +17,7 @@
         <tr>
           <td><%= employee_category.code %></td>
           <td><%= employee_category.name %></td>
-          <td><%= link_to 'Show', employee_category %></td>
-          <td><%= link_to 'Edit', edit_employee_category_path(employee_category) %></td>
-          <td><%= link_to 'Destroy', employee_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= render 'shared/table_action_buttons', object: employee_category %> 
         </tr>
       <% end %>
     </tbody>

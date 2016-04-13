@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Lpba</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-<%= render 'layouts/footer' %>
-</body>
-</html>
+<% provide :app_name, 'Personnel Request' %>
+<% content_for :navbar do %>
+  <ul class="nav navbar-nav">
+  </ul>
+<% end %>
+<%= render 'layouts/umd_lib' %>

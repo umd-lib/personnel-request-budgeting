@@ -1,0 +1,31 @@
+$umd-red: #c91010;
+
+$brand-primary: $umd-red;
+$navbar-inverse-bg: $umd-red;
+$navbar-inverse-link-color: white;
+$navbar-inverse-color: black;
+
+$logo-height: 61px;
+$navbar-height: $logo-height + 10px;
+
+.logo {
+    padding: 5px;
+}
+body {
+    padding-top: $navbar-height + 10px;
+}
+.btn-group {
+    // remove the extra margins from the will_paginate widget
+    // so it will align with the other buttons in the toolbar
+    .pagination {
+        margin: 0;
+    }
+}
+
+.field_with_errors {
+    input, select {
+        // color is state-danger-text
+        // bootstrap-sass doesn't seem to have that variable defined
+        border: 2px solid #a94442;
+    }
+}

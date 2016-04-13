@@ -11,3 +11,10 @@ a:visited {
     color: white;
   }
 }
+
+// Tables for details pages should have header column as small as possible,
+// without wrapping
+tbody tr th {
+  width: 0px;
+  white-space: nowrap;
+}

@@ -1,59 +1,65 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Salaried Contractor Request</h1>
+</div>
 
-<p>
-  <strong>Employee type:</strong>
-  <span id="employee_type"><%= @contractor_request.employee_type.code %></span>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Employee type</th>
+      <td id="employee_type"><%= @contractor_request.employee_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Position description:</strong>
-  <span id="position_description"><%= @contractor_request.position_description %></span>
-</p>
+    <tr>
+      <th>Position description</th>
+      <td id="position_description"><%= @contractor_request.position_description %></td>
+    </tr>
 
-<p>
-  <strong>Request type:</strong>
-  <span id="request_type"><%= @contractor_request.request_type.code %></span>
-</p>
+    <tr>
+      <th>Request type</th>
+      <td id="request_type"><%= @contractor_request.request_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Contractor name:</strong>
-  <span id="contractor_name"><%= @contractor_request.contractor_name %></span>
-</p>
+    <tr>
+      <th>Contractor name</th>
+      <td id="contractor_name"><%= @contractor_request.contractor_name %></td>
+    </tr>
 
-<p>
-  <strong>Number of months:</strong>
-  <span id="number_of_months"><%= @contractor_request.number_of_months %></span>
-</p>
+    <tr>
+      <th>Number of months</th>
+      <td id="number_of_months"><%= @contractor_request.number_of_months %></td>
+    </tr>
 
-<p>
-  <strong>Annual base pay:</strong>
-  <span id="annual_base_pay"><%= number_to_currency(@contractor_request.annual_base_pay) %></span>
-</p>
+    <tr>
+      <th>Annual base pay</th>
+      <td id="annual_base_pay"><%= number_to_currency(@contractor_request.annual_base_pay) %></td>
+    </tr>
 
-<p>
-  <strong>Nonop funds:</strong>
-  <span id="nonop_funds"><%= number_to_currency(@contractor_request.nonop_funds) %></span>
-</p>
+    <tr>
+      <th>Nonop funds</th>
+      <td id="nonop_funds"><%= number_to_currency(@contractor_request.nonop_funds) %></td>
+    </tr>
 
-<p>
-  <strong>Nonop source:</strong>
-  <span id="nonop_source"><%= @contractor_request.nonop_source %></span>
-</p>
+    <tr>
+      <th>Nonop source</th>
+      <td id="nonop_source"><%= @contractor_request.nonop_source %></td>
+    </tr>
 
-<p>
-  <strong>Department:</strong>
-  <span id="department"><%= @contractor_request.department.code %></span>
-</p>
+    <tr>
+      <th>Department</th>
+      <td id="department"><%= @contractor_request.department.code %></td>
+    </tr>
 
-<p>
-  <strong>Subdepartment:</strong>
-  <span id="subdepartment"><%= @contractor_request.subdepartment.code if @contractor_request.subdepartment %></span>
-</p>
+    <tr>
+      <th>Subdepartment</th>
+      <td id="subdepartment"><%= @contractor_request.subdepartment.code if @contractor_request.subdepartment %></td>
+    </tr>
 
-<p>
-  <strong>Justification:</strong>
-  <span id="justification"><%= @contractor_request.justification %></span>
-</p>
+    <tr>
+      <th>Justification</th>
+      <td id="justification"><%= @contractor_request.justification %></td>
+    </tr>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_contractor_request_path(@contractor_request) %> |
 <%= link_to 'Back', contractor_requests_path %>

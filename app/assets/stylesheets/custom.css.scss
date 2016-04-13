@@ -1,3 +1,17 @@
 @import "umd_lib_style";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// Override icon color change when link has been visited
+a:visited {
+  .glyphicon-pencil {
+    text-decoration:none;
+    background-color:transparent;
+    color: white;
+  }
+  .glyphicon-trash {
+    text-decoration:none;
+    background-color:transparent;
+    color: white;
+  }
+}

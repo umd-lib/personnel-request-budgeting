@@ -2,27 +2,25 @@
   <h1>Divisions</h1>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <%= render 'shared/table_action_buttons_header' %>
-      </tr>
-    </thead>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <%= render 'shared/table_action_buttons_header' %>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @divisions.each do |division| %>
-        <tr>
-          <td><%= division.code %></td>
-          <td><%= division.name %></td>
-          <%= render 'shared/table_action_buttons', object: division %> 
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <% @divisions.each do |division| %>
+      <tr>
+        <td><%= division.code %></td>
+        <td><%= division.name %></td>
+        <%= render 'shared/table_action_buttons', object: division %> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 

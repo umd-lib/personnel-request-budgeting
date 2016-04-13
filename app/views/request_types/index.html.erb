@@ -2,27 +2,25 @@
   <h1>Request Types</h1>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <%= render 'shared/table_action_buttons_header' %>
-      </tr>
-    </thead>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <%= render 'shared/table_action_buttons_header' %>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @request_types.each do |request_type| %>
-        <tr>
-          <td><%= request_type.code %></td>
-          <td><%= request_type.name %></td>
-          <%= render 'shared/table_action_buttons', object: request_type %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <% @request_types.each do |request_type| %>
+      <tr>
+        <td><%= request_type.code %></td>
+        <td><%= request_type.name %></td>
+        <%= render 'shared/table_action_buttons', object: request_type %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 

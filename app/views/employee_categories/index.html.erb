@@ -2,27 +2,25 @@
   <h1>Employee Categories</h1>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <%= render 'shared/table_action_buttons_header' %>
-      </tr>
-    </thead>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <%= render 'shared/table_action_buttons_header' %>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @employee_categories.each do |employee_category| %>
-        <tr>
-          <td><%= employee_category.code %></td>
-          <td><%= employee_category.name %></td>
-          <%= render 'shared/table_action_buttons', object: employee_category %> 
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <% @employee_categories.each do |employee_category| %>
+      <tr>
+        <td><%= employee_category.code %></td>
+        <td><%= employee_category.name %></td>
+        <%= render 'shared/table_action_buttons', object: employee_category %> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 

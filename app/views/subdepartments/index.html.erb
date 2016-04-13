@@ -2,31 +2,29 @@
   <h1>Subdepartments</h1>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Division</th>
-        <%= render 'shared/table_action_buttons_header' %>
-      </tr>
-    </thead>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Division</th>
+      <%= render 'shared/table_action_buttons_header' %>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @subdepartments.each do |subdepartment| %>
-        <tr>
-          <td><%= subdepartment.code %></td>
-          <td><%= subdepartment.name %></td>
-          <td><%= subdepartment.department.code %></td>
-          <td><%= subdepartment.department.division.code %></td>
-          <%= render 'shared/table_action_buttons', object: subdepartment %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <% @subdepartments.each do |subdepartment| %>
+      <tr>
+        <td><%= subdepartment.code %></td>
+        <td><%= subdepartment.name %></td>
+        <td><%= subdepartment.department.code %></td>
+        <td><%= subdepartment.department.division.code %></td>
+        <%= render 'shared/table_action_buttons', object: subdepartment %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 

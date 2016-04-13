@@ -1,17 +1,15 @@
-<td>
+<td headers="actions">
+  <span style="white-space: nowrap">
   <%= link_to object, class: "btn btn-default", alt: "Details" do %>
     <i class="glyphicon glyphicon-option-horizontal"></i>
   <% end %>
-</td>
-<td>
   <%= link_to edit_polymorphic_path(object), class: "btn btn-info", alt: "Details" do %>
     <i class="glyphicon glyphicon-pencil"></i>
   <% end %>
-</td>
-<td>
   <%= link_to object, method: :delete,
         data: { confirm: 'Are you sure?' }, class: "btn btn-danger",
         alt: "Destroy" do %>
     <i class="glyphicon glyphicon-trash"></i>
   <% end %>
+  </span>
 </td> 

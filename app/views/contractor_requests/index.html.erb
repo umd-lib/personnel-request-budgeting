@@ -27,7 +27,7 @@
         <td headers="contractor_name"><%= contractor_request.contractor_name %></td>
         <td headers="number_of_months"><%= contractor_request.number_of_months %></td>
         <td headers="annual_base_pay"><%= number_to_currency(contractor_request.annual_base_pay) %></td>
-        <td headers="nonop_source"><%= contractor_request.nonop_source %></td>
+        <td headers="nonop_funds"><%= number_to_currency(contractor_request.nonop_funds) %></td>
         <td headers="department"><%= contractor_request.department.code %></td>
         <td headers="subdepartment"><%= contractor_request.subdepartment.code if contractor_request.subdepartment %></td>
         <%= render 'shared/table_action_buttons', object: contractor_request %>

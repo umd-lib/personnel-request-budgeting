@@ -1,6 +1,9 @@
 <% provide :app_name, 'Personnel Request' %>
 <% content_for :navbar do %>
   <ul class="nav navbar-nav">
+    <li class="<%= 'active' if current_page?(labor_requests_path) %>"><%= link_to 'Labor and Assistance', labor_requests_path %></li>
+    <li class="<%= 'active' if current_page?(staff_requests_path) %>"><%= link_to 'Staff', staff_requests_path %></li>
+    <li class="<%= 'active' if current_page?(contractor_requests_path) %>"><%= link_to 'Salaried Contractor', contractor_requests_path %></li>
   </ul>
 <% end %>
 <%= render 'layouts/umd_lib' %>

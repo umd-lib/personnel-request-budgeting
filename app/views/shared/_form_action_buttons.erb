@@ -1,0 +1,9 @@
+<%#
+# Displays "Submit", "Cancel", and "List All" buttons, intended for forms.
+%>
+
+<div class="actions">
+  <%= form.submit class: 'btn btn-success' %>
+  <%= link_to 'Cancel', polymorphic_path(object), class: 'btn btn-danger' %>
+  <%= link_to 'List All', polymorphic_path(object.class), class: 'btn btn-default' %>
+</div>

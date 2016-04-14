@@ -64,7 +64,5 @@
     </tbody>
   </table>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @contractor_request } %>
 <% end %>

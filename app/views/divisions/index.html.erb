@@ -2,6 +2,8 @@
   <h1>Divisions</h1>
 </div>
 
+<%= render 'shared/index_action_buttons', object: Division %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -21,7 +23,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Division', new_division_path %>

@@ -2,6 +2,8 @@
   <h1>Labor and Assistance Requests</h1>
 </div>
 
+<%= render 'shared/index_action_buttons', object: LaborRequest %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -39,7 +41,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Labor request', new_labor_request_path %>

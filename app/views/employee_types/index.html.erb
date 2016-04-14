@@ -2,6 +2,8 @@
   <h1>Employee Types</h1>
 </div>
 
+<%= render 'shared/index_action_buttons', object: EmployeeType %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -23,7 +25,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Employee type', new_employee_type_path %>

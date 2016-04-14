@@ -2,6 +2,8 @@
   <h1>Salaried Contractor Requests</h1>
 </div>
 
+<%= render 'shared/index_action_buttons', object: ContractorRequest %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -35,7 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Contractor request', new_contractor_request_path %>

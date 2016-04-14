@@ -21,5 +21,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_employee_type_path(@employee_type) %> |
-<%= link_to 'Back', employee_types_path %>
+<%= render 'shared/show_action_buttons', object: @employee_type %>

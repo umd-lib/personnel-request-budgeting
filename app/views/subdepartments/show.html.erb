@@ -26,5 +26,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_subdepartment_path(@subdepartment) %> |
-<%= link_to 'Back', subdepartments_path %>
+<%= render 'shared/show_action_buttons', object: @subdepartment %>

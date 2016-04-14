@@ -16,5 +16,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_request_type_path(@request_type) %> |
-<%= link_to 'Back', request_types_path %>
+<%= render 'shared/show_action_buttons', object: @request_type %>

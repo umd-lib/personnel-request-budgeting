@@ -71,5 +71,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_labor_request_path(@labor_request) %> |
-<%= link_to 'Back', labor_requests_path %>
+<%= render 'shared/show_action_buttons', object: @labor_request %>

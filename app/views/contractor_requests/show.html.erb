@@ -61,5 +61,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_contractor_request_path(@contractor_request) %> |
-<%= link_to 'Back', contractor_requests_path %>
+<%= render 'shared/show_action_buttons', object: @contractor_request %>

@@ -1,0 +1,7 @@
+<%#
+# Displays "Edit" and "List All" buttons, intended for "Show" pages 
+%>
+
+<%= link_to 'Edit', edit_polymorphic_path(object), class: "btn btn-info" %>
+<%= link_to 'List All', polymorphic_path(object.class), class: "btn btn-default"%>
+

@@ -16,5 +16,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_employee_category_path(@employee_category) %> |
-<%= link_to 'Back', employee_categories_path %>
+<%= render 'shared/show_action_buttons', object: @employee_category %>

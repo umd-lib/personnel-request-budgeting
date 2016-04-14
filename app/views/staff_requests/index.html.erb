@@ -7,8 +7,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th id="employee_type">Employee type</th>
       <th id="position_description">Position description</th>
+      <th id="employee_type">Employee type</th>
       <th id="request_type">Request type</th>
       <th id="annual_base_pay">Annual base pay</th>
       <th id="nonop_funds">Nonop funds</th>
@@ -21,8 +21,8 @@
   <tbody>
     <% @staff_requests.each do |staff_request| %>
       <tr>
-        <td headers="employee_type"><%= staff_request.employee_type.code %></td>
         <td headers="position_description"><%= staff_request.position_description %></td>
+        <td headers="employee_type"><%= staff_request.employee_type.code %></td>
         <td headers="request_type"><%= staff_request.request_type.code %></td>
         <td headers="annual_base_pay"><%= number_to_currency(staff_request.annual_base_pay) %></td>
         <td headers="nonop_funds"><%= number_to_currency(staff_request.nonop_funds) %></td>

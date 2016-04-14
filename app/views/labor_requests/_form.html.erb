@@ -4,14 +4,14 @@
   <table class="table table-striped">
     <tbody>
       <tr>
+        <th><%= f.label :position_description %></th>
+        <td><%= f.text_field :position_description %></td>
+      </tr>
+      <tr>
         <th><%= f.label :employee_type_id %></th>
         <td><%= select("labor_request", "employee_type_id", 
            EmployeeType.employee_types_with_category(LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
            {prompt: 'Select Employee Type'}) %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :position_description %></th>
-        <td><%= f.text_field :position_description %></td>
       </tr>
       <tr>
         <th><%= f.label :request_type_id %></th>

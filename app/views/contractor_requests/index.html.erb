@@ -7,8 +7,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th id="employee_type">Employee type</th>
       <th id="position_description">Position description</th>
+      <th id="employee_type">Employee type</th>
       <th id="request_type">Request type</th>
       <th id="contractor_name">Contractor name</th>
       <th id="number_of_months">Number of months</th>
@@ -23,8 +23,8 @@
   <tbody>
     <% @contractor_requests.each do |contractor_request| %>
       <tr>
-        <td headers="employee_type"><%= contractor_request.employee_type.code %></td>
         <td headers="position_description"><%= contractor_request.position_description %></td>
+        <td headers="employee_type"><%= contractor_request.employee_type.code %></td>
         <td headers="request_type"><%= contractor_request.request_type.code %></td>
         <td headers="contractor_name"><%= contractor_request.contractor_name %></td>
         <td headers="number_of_months"><%= contractor_request.number_of_months %></td>

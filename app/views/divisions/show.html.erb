@@ -1,14 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @division.code %> <small>Division</small></h1>
+</div>
 
-<p>
-  <strong>Code:</strong>
-  <%= @division.code %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @division.code %></td>
+    </tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @division.name %>
-</p>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @division.name %></td>
+    </tr>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_division_path(@division) %> |
 <%= link_to 'Back', divisions_path %>

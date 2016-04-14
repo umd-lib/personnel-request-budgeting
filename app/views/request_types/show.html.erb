@@ -1,14 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @request_type.code %> <small>Request Type</small></h1>
+</div>
 
-<p>
-  <strong>Code:</strong>
-  <%= @request_type.code %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @request_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @request_type.name %>
-</p>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @request_type.name %></td>
+    </tr>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_request_type_path(@request_type) %> |
 <%= link_to 'Back', request_types_path %>

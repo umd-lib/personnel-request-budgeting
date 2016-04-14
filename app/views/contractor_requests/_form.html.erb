@@ -11,54 +11,59 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :employee_type_id %><br>
-     <%= select("contractor_request", "employee_type_id", 
-       EmployeeType.employee_types_with_category(ContractorRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
-       {prompt: 'Select Employee Type'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :position_description %><br>
-    <%= f.text_field :position_description %>
-  </div>
-  <div class="field">
-    <%= f.label :request_type_id %><br>
-    <%= select("contractor_request", "request_type_id",
-      RequestType.all.to_a.select { |a| ContractorRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
-      {prompt: 'Select Request Type'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :contractor_name %><br>
-    <%= f.text_field :contractor_name %>
-  </div>
-  <div class="field">
-    <%= f.label :number_of_months %><br>
-    <%= f.number_field :number_of_months, min: 1, value: 1 %>
-  </div>
-  <div class="field">
-    <%= f.label :annual_base_pay %><br>
-    <%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2) %>
-  </div>
-  <div class="field">
-    <%= f.label :nonop_funds %><br>
-    <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %>
-  </div>
-  <div class="field">
-    <%= f.label :nonop_source %><br>
-    <%= f.text_field :nonop_source %>
-  </div>
-  <div class="field">
-    <%= f.label :department_id %><br>
-    <%= select("contractor_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :subdepartment_id %><br>
-    <%= select("contractor_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :justification %><br>
-    <%= f.text_area :justification %>
-  </div>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :employee_type_id %></th>
+        <td><%= select("contractor_request", "employee_type_id", 
+           EmployeeType.employee_types_with_category(ContractorRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
+           {prompt: 'Select Employee Type'}) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :position_description %></th>
+        <td><%= f.text_field :position_description %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :request_type_id %></th>
+        <td><%= select("contractor_request", "request_type_id",
+          RequestType.all.to_a.select { |a| ContractorRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+          {prompt: 'Select Request Type'}) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :contractor_name %></th>
+        <td><%= f.text_field :contractor_name %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :number_of_months %></th>
+        <td><%= f.number_field :number_of_months, min: 1, value: 1 %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :annual_base_pay %></th>
+        <td><%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :nonop_funds %></th>
+        <td><%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :nonop_source %></th>
+        <td><%= f.text_field :nonop_source %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :department_id %></th>
+        <td><%= select("contractor_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :subdepartment_id %></th>
+        <td><%= select("contractor_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :justification %></th>
+        <td><%= f.text_area :justification %></td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="actions">
     <%= f.submit %>
   </div>

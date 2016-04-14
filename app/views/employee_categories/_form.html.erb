@@ -1,15 +1,5 @@
 <%= form_for(@employee_category) do |f| %>
-  <% if @employee_category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee_category.errors.count, "error") %> prohibited this employee_category from being saved:</h2>
-
-      <ul>
-      <% @employee_category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', errors: @employee_category.errors %>
 
   <table class="table table-striped">
     <tbody>

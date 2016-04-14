@@ -1,15 +1,5 @@
 <%= form_for(@request_type) do |f| %>
-  <% if @request_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@request_type.errors.count, "error") %> prohibited this request_type from being saved:</h2>
-
-      <ul>
-      <% @request_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', errors: @request_type.errors %>
 
   <table class="table table-striped">
     <tbody>

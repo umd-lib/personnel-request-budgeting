@@ -1,15 +1,5 @@
 <%= form_for(@contractor_request) do |f| %>
-  <% if @contractor_request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contractor_request.errors.count, "error") %> prohibited this contractor_request from being saved:</h2>
-
-      <ul>
-      <% @contractor_request.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', errors: @contractor_request.errors %>
 
   <table class="table table-striped">
     <tbody>

@@ -1,15 +1,5 @@
 <%= form_for(@subdepartment) do |f| %>
-  <% if @subdepartment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@subdepartment.errors.count, "error") %> prohibited this subdepartment from being saved:</h2>
-
-      <ul>
-      <% @subdepartment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', errors: @subdepartment.errors %>
 
   <table class="table table-striped">
     <tbody>

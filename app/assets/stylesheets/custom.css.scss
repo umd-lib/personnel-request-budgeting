@@ -18,3 +18,13 @@ tbody tr th {
   width: 0px;
   white-space: nowrap;
 }
+
+// Increase width for elements that might have more text
+input[id$="position_description"],
+input[id$="contractor_name"],
+input[id$="nonop_source"],
+textarea[id$="justification"]
+{
+  width: 100%;
+}
+

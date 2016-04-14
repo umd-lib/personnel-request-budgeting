@@ -28,3 +28,8 @@ textarea[id$="justification"]
   width: 100%;
 }
 
+// Display white space when displaying Justification field
+[id="justification"]
+{
+  white-space: pre-wrap
+}

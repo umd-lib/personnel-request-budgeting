@@ -33,3 +33,8 @@ textarea[id$="justification"]
 {
   white-space: pre-wrap
 }
+
+// Show pointer for collapsible "Admin" panel on home page.
+#admin-panel {
+  cursor: pointer;
+}

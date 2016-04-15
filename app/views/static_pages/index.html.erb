@@ -1,19 +1,40 @@
-<h1>Library Personnel Budget Request</h1>
+<div class="page-header">
+  <h1>Library Personnel Budget Request</h1>
+</div>
 
-<ul>
-  <li><a><%= link_to 'Labor and Assistance Requests', labor_requests_path %></li>
-  <li><a><%= link_to 'Staff Requests', staff_requests_path %></li>
-  <li><a><%= link_to 'Salaried Contractor Requests', contractor_requests_path %></li>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading">Personnel Requests</div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <%= link_to 'Labor and Assistance Requests', labor_requests_path, class: "list-group-item" %>
+      <%= link_to 'Staff Requests', staff_requests_path, class: "list-group-item" %>
+      <%= link_to 'Salaried Contractor Requests', contractor_requests_path, class: "list-group-item" %>
+    </ul>
+  </div>
+</div>
 
-<ul>
-  <li><%= link_to 'Divisions', divisions_path %></li>
-  <li><%= link_to 'Departments', departments_path %></li>
-  <li><%= link_to 'Subdepartments', subdepartments_path %></li>
-</ul>
-      
-<ul>
-  <li><%= link_to 'Employee Categories', employee_categories_path %></li>
-  <li><%= link_to 'Employee Types', employee_types_path %></li>
-  <li><%= link_to 'Request Types', request_types_path %></li>
-</ul>
+<div class="panel panel-danger">
+  <div class="panel-heading" 
+       id="admin-panel"
+       data-toggle="collapse"
+       data-parent="#admin"
+       data-target="#collapseAdmin">
+        Administration
+  </div>
+  <div id="collapseAdmin" class="panel-collapse collapse">
+    <div class="panel-body">
+      <div class="well">
+        <%= link_to 'Divisions', divisions_path, class: "btn btn-default" %>
+        <%= link_to 'Departments', departments_path, class: "btn btn-default" %>
+        <%= link_to 'Subdepartments', subdepartments_path, class: "btn btn-default" %>
+      </div>
+      <div class="well">
+        <%= link_to 'Employee Categories', employee_categories_path, class: "btn btn-default" %>
+        <%= link_to 'Employee Types', employee_types_path, class: "btn btn-default" %>
+      </div>
+      <div class="well">
+        <%= link_to 'Request Types', request_types_path, class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+</div>

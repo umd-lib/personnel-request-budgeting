@@ -1,29 +1,22 @@
 <%= form_for(@employee_type) do |f| %>
-  <% if @employee_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee_type.errors.count, "error") %> prohibited this employee_type from being saved:</h2>
+  <%= render 'shared/form_errors', errors: @employee_type.errors %>
 
-      <ul>
-      <% @employee_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :code %></th>
+        <td><%= f.text_field :code %><td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %><td>
+      </tr>
+      <tr>
+        <th><%= f.label :employee_category_id %></th>
+        <td><%= select("employee_type", "employee_category_id", EmployeeCategory.all.collect {|cat| [ cat.name, cat.id ] }, {prompt: 'Select Category'}) %></td>
+      </tr>   
+    </tbody>
+  </table>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :employee_category_id %><br>
-    <%= select("employee_type", "employee_category_id", EmployeeCategory.all.collect {|cat| [ cat.name, cat.id ] }, {prompt: 'Select Category'}) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @employee_type } %>
 <% end %>

@@ -1,0 +1,40 @@
+// Override icon color change when link has been visited
+a:visited {
+  .glyphicon-pencil {
+    text-decoration:none;
+    background-color:transparent;
+    color: white;
+  }
+  .glyphicon-trash {
+    text-decoration:none;
+    background-color:transparent;
+    color: white;
+  }
+}
+
+// Tables for details pages should have header column as small as possible,
+// without wrapping
+tbody tr th {
+  width: 0px;
+  white-space: nowrap;
+}
+
+// Increase width for elements that might have more text
+input[id$="position_description"],
+input[id$="contractor_name"],
+input[id$="nonop_source"],
+textarea[id$="justification"]
+{
+  width: 100%;
+}
+
+// Display white space when displaying Justification field
+[id="justification"]
+{
+  white-space: pre-wrap
+}
+
+// Show pointer for collapsible "Admin" panel on home page.
+#admin-panel {
+  cursor: pointer;
+}

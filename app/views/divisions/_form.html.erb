@@ -1,27 +1,19 @@
 <%= form_for(@division) do |f| %>
-  <% if @division.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@division.errors.count, "error") %> prohibited this division from being saved:</h2>
+  <%= render 'shared/form_errors', errors: @division.errors %>
 
-      <ul>
-      <% @division.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :code %></th>
+        <td><%= f.text_field :code %></td>
+      </tr>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @division } %>
 <% end %>

@@ -1,25 +1,18 @@
 <%= form_for(@request_type) do |f| %>
-  <% if @request_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@request_type.errors.count, "error") %> prohibited this request_type from being saved:</h2>
+  <%= render 'shared/form_errors', errors: @request_type.errors %>
 
-      <ul>
-      <% @request_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :code %></th>
+        <td><%= f.text_field :code %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %></td>
+      </tr>
+    </tbody>
+  </table>
+    
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @request_type } %>
 <% end %>

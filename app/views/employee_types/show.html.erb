@@ -1,19 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @employee_type.code %> <small>Employee Type</small></h1>
+</div>
 
-<p>
-  <strong>Code:</strong>
-  <%= @employee_type.code %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @employee_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @employee_type.name %>
-</p>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @employee_type.name %></td>
+    </tr>
 
-<p>
-  <strong>Employee category:</strong>
-  <%= @employee_type.employee_category.code %>
-</p>
+    <tr>
+      <th>Employee category:</th>
+      <td id="employee_category"><%= @employee_type.employee_category.code %></td>
+    </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_employee_type_path(@employee_type) %> |
-<%= link_to 'Back', employee_types_path %>
+<%= render 'shared/show_action_buttons', object: @employee_type %>

@@ -1,47 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Salaried Contractor Requests</h1>
+</div>
 
-<h1>Listing Contractor Requests</h1>
+<%= render 'shared/index_action_buttons', object: ContractorRequest %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th id="employee_type">Employee type</th>
       <th id="position_description">Position description</th>
+      <th id="employee_type">Employee type</th>
       <th id="request_type">Request type</th>
       <th id="contractor_name">Contractor name</th>
       <th id="number_of_months">Number of months</th>
       <th id="annual_base_pay">Annual base pay</th>
       <th id="nonop_funds">Nonop funds</th>
-      <th id="nonop_source">Nonop source</th>
       <th id="department">Department</th>
       <th id="subdepartment">Subdepartment</th>
-      <th id="justification">Justification</th>
-      <th colspan="3"></th>
+      <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
 
   <tbody>
     <% @contractor_requests.each do |contractor_request| %>
       <tr>
-        <td headers="employee_type"><%= contractor_request.employee_type.code %></td>
         <td headers="position_description"><%= contractor_request.position_description %></td>
+        <td headers="employee_type"><%= contractor_request.employee_type.code %></td>
         <td headers="request_type"><%= contractor_request.request_type.code %></td>
         <td headers="contractor_name"><%= contractor_request.contractor_name %></td>
         <td headers="number_of_months"><%= contractor_request.number_of_months %></td>
         <td headers="annual_base_pay"><%= number_to_currency(contractor_request.annual_base_pay) %></td>
         <td headers="nonop_funds"><%= number_to_currency(contractor_request.nonop_funds) %></td>
-        <td headers="nonop_source"><%= contractor_request.nonop_source %></td>
         <td headers="department"><%= contractor_request.department.code %></td>
         <td headers="subdepartment"><%= contractor_request.subdepartment.code if contractor_request.subdepartment %></td>
-        <td headers="justification"><%= contractor_request.justification %></td>
-        <td headers=""><%= link_to 'Show', contractor_request %></td>
-        <td headers=""><%= link_to 'Edit', edit_contractor_request_path(contractor_request) %></td>
-        <td headers=""><%= link_to 'Destroy', contractor_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= render 'shared/table_action_buttons', object: contractor_request %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Contractor request', new_contractor_request_path %>

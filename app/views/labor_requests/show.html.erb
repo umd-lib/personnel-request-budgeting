@@ -1,69 +1,74 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Labor and Assistance Request</h1>
+</div>
 
-<p>
-  <strong>Employee type:</strong>
-  <span id="employee_type"><%= @labor_request.employee_type.code %></span>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Position description:</th>
+      <td id="position_description"><%= @labor_request.position_description %></td>
+    </tr>
 
-<p>
-  <strong>Position description:</strong>
-  <span id="position_description"><%= @labor_request.position_description %></span>
-</p>
+    <tr>
+      <th>Employee type:</th>
+      <td id="employee_type"><%= @labor_request.employee_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Request type:</strong>
-  <span id="request_type"><%= @labor_request.request_type.code %></span>
-</p>
+    <tr>
+      <th>Request type:</th>
+      <td id="request_type"><%= @labor_request.request_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Contractor name:</strong>
-  <span id="contractor_name"><%= @labor_request.contractor_name %></span>
-</p>
+    <tr>
+      <th>Contractor name:</th>
+      <td id="contractor_name"><%= @labor_request.contractor_name %></td>
+    </tr>
 
-<p>
-  <strong>Number of positions:</strong>
-  <span id="number_of_positions"><%= @labor_request.number_of_positions %></span>
-</p>
+    <tr>
+      <th>Number of positions:</th>
+      <td id="number_of_positions"><%= @labor_request.number_of_positions %></td>
+    </tr>
 
-<p>
-  <strong>Hourly rate:</strong>
-  <span id="hourly_rate"><%= number_to_currency(@labor_request.hourly_rate) %></span>
-</p>
+    <tr>
+      <th>Hourly rate:</th>
+      <td id="hourly_rate"><%= number_to_currency(@labor_request.hourly_rate) %></td>
+    </tr>
 
-<p>
-  <strong>Hours per week:</strong>
-  <span id="hours_per_week"><%= @labor_request.hours_per_week %></span>
-</p>
+    <tr>
+      <th>Hours per week:</th>
+      <td id="hours_per_week"><%= @labor_request.hours_per_week %></td>
+    </tr>
 
-<p>
-  <strong>Number of weeks:</strong>
-  <span id="number_of_weeks"><%= @labor_request.number_of_weeks %></span>
-</p>
+    <tr>
+      <th>Number of weeks:</th>
+      <td id="number_of_weeks"><%= @labor_request.number_of_weeks %></td>
+    </tr>
 
-<p>
-  <strong>Nonop funds:</strong>
-  <span id="nonop_funds"><%= number_to_currency(@labor_request.nonop_funds) %></span>
-</p>
+    <tr>
+      <th>Nonop funds:</th>
+      <td id="nonop_funds"><%= number_to_currency(@labor_request.nonop_funds) %></td>
+    </tr>
 
-<p>
-  <strong>Nonop source:</strong>
-  <span id="nonop_source"><%= @labor_request.nonop_source %></span>
-</p>
+    <tr>
+      <th>Nonop source:</th>
+      <td id="nonop_source"><%= @labor_request.nonop_source %></td>
+    </tr>
 
-<p>
-  <strong>Department:</strong>
-  <span id="department"><%= @labor_request.department.code %></span>
-</p>
+    <tr>
+      <th>Department:</th>
+      <td id="department"><%= @labor_request.department.code %></td>
+    </tr>
 
-<p>
-  <strong>Subdepartment:</strong>
-  <span id="subdepartment"><%= @labor_request.subdepartment.code if @labor_request.subdepartment %></span>
-</p>
+    <tr>
+      <th>Subdepartment:</th>
+      <td id="subdepartment"><%= @labor_request.subdepartment.code if @labor_request.subdepartment %></td>
+    </tr>
 
-<p>
-  <strong>Justification:</strong>
-  <span id="justification"><%= @labor_request.justification %></span>
-</p>
+    <tr>
+      <th>Justification:</th>
+      <td id="justification"><%= @labor_request.justification %></td>
+    </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_labor_request_path(@labor_request) %> |
-<%= link_to 'Back', labor_requests_path %>
+<%= render 'shared/show_action_buttons', object: @labor_request %>

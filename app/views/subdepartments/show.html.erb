@@ -1,25 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @subdepartment.code %> <small>Subdepartment</small></h1>
+</div>
 
-<p>
-  <strong>Code:</strong>
-  <%= @subdepartment.code %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @subdepartment.code %></td>
+    </tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @subdepartment.name %>
-</p>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @subdepartment.name %></td>
+    </tr>
 
-<p>
-  <strong>Department:</strong>
-  <%= @subdepartment.department.code %>
-</p>
+    <tr>
+      <th>Department:</th>
+      <td id="department"><%= @subdepartment.department.code %></td>
+    </tr>
 
-<p>
-  <strong>Division:</strong>
-  <%= @subdepartment.department.division.code %>
-</p>
+    <tr>
+      <th>Division:</th>
+      <td id="division"><%= @subdepartment.department.division.code %></td>
+    </tr>
+  </tbody>
+</table>
 
-
-<%= link_to 'Edit', edit_subdepartment_path(@subdepartment) %> |
-<%= link_to 'Back', subdepartments_path %>
+<%= render 'shared/show_action_buttons', object: @subdepartment %>

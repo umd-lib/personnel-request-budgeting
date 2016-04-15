@@ -4,7 +4,7 @@ class LaborRequestsController < ApplicationController
   # GET /labor_requests
   # GET /labor_requests.json
   def index
-    @labor_requests = LaborRequest.all
+    @labor_requests = LaborRequest.paginate(page: params[:page])
   end
 
   # GET /labor_requests/1

@@ -9,3 +9,73 @@ two:
   code: subdept_two
   name: Second Subdepartment
   department: two
+
+ill:
+  code: ILL
+  name: Interlibrary Loan
+  department: as
+
+ln:
+  code: LN
+  name: Late Night
+  department: as
+
+lsd:
+  code: LSD
+  name: Library Services Desk
+  department: as
+
+stk:
+  code: STK
+  name: Stacks
+  department: as
+
+tlc:
+  code: TLC
+  name: Terapin Learning Commons
+  department: as
+
+arch:
+  code: ARCH
+  name: Architecture Library
+  department: rl
+
+art:
+  code: ART
+  name: Art Library
+  department: rl
+
+chem:
+  code: CHEM
+  name: Chemistry Library
+  department: rl
+
+epsl:
+  code: EPSL
+  name: Engineering & PS Library
+  department: rl
+
+hssl:
+  code: HSSL
+  name: Humanities & Social Services
+  department: rl
+
+mspal:
+  code: MSPAL
+  name: Performing Arts Library
+  department: rl
+
+rc:
+  code: RC
+  name: Research Commons
+  department: rl
+
+rl:
+  code: RL
+  name: Research & Learning
+  department: rl
+
+tl:
+  code: RL
+  name: Teaching & Learning
+  department: rl

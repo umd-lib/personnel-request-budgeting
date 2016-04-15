@@ -4,6 +4,8 @@
 
 <%= render 'shared/index_action_buttons', object: StaffRequest %>
 
+<%= will_paginate %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -33,3 +35,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>

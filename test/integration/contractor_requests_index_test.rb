@@ -16,7 +16,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
     get contractor_requests_path
 
     assert_template 'contractor_requests/index'
-    assert_select 'div.pagination'
+    assert_select 'ul.pagination'
     ContractorRequest.paginate(page: 1).each do |request|
       assert_select 'a[href=?]', contractor_request_path(request)
     end

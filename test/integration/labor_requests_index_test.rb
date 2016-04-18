@@ -16,7 +16,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     get labor_requests_path
 
     assert_template 'labor_requests/index'
-    assert_select 'div.pagination'
+    assert_select 'ul.pagination'
     LaborRequest.paginate(page: 1).each do |request|
       assert_select 'a[href=?]', labor_request_path(request)
     end

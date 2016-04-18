@@ -16,7 +16,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
     get staff_requests_path
 
     assert_template 'staff_requests/index'
-    assert_select 'div.pagination'
+    assert_select 'ul.pagination'
     StaffRequest.paginate(page: 1).each do |request|
       assert_select 'a[href=?]', staff_request_path(request)
     end

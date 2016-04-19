@@ -38,6 +38,9 @@ gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', branch: 'develop'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap', '~> 1.0.0'
 
+# Table sorting
+gem 'ransack', '~> 1.7.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

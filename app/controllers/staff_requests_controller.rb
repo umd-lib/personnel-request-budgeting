@@ -4,7 +4,9 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests
   # GET /staff_requests.json
   def index
-    @staff_requests = StaffRequest.paginate(page: params[:page])
+    @q = StaffRequest.ransack(params[:q])
+    @q.sorts = 'position_description' if @q.sorts.empty?
+    @staff_requests = @q.result.page(params[:page])
   end
 
   # GET /staff_requests/1

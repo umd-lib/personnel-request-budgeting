@@ -3,22 +3,22 @@
 </div>
 
 <%= render partial: 'shared/index_action_buttons',
-  locals: {model_type: LaborRequest, pagination_object: @labor_requests} %>
+  locals: { model_type: LaborRequest, pagination_object: @labor_requests } %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th id="position_description">Position description</th>
-      <th id="employee_type">Employee type</th>
-      <th id="request_type">Request type</th>
-      <th id="contractor_name">Contractor name</th>
-      <th id="number_of_positions">Number of positions</th>
-      <th id="hourly_rate">Hourly rate</th>
-      <th id="hours_per_week">Hours per week</th>
-      <th id="number_of_weeks">Number of weeks</th>
-      <th id="nonop_funds">Nonop funds</th>
-      <th id="department">Department</th>
-      <th id="subdepartment">Subdepartment</th>
+      <th id="position_description"><%= sort_link(@q, :position_description, 'Position description') %></th>
+      <th id="employee_type"><%= sort_link(@q, 'employee_type_code', 'Employee type') %></th>
+      <th id="request_type"><%= sort_link(@q, 'request_type_code', 'Request type') %></th>
+      <th id="contractor_name"><%= sort_link(@q, :contractor_name, 'Contractor name') %></th>
+      <th id="number_of_positions"><%= sort_link(@q, :number_of_positions, 'Number of positions') %></th>
+      <th id="hourly_rate"><%= sort_link(@q, :hourly_rate, 'Hourly rate') %></th>
+      <th id="hours_per_week"><%= sort_link(@q, :hours_per_week, 'Hours per week') %></th>
+      <th id="number_of_weeks"><%= sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
+      <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
+      <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
+      <th id="subdepartment"><%= sort_link(@q, 'subdepartment_code', 'Subdepartment') %></th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>

@@ -12,13 +12,20 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'index including pagination' do
-    get contractor_requests_path
-
-    assert_template 'contractor_requests/index'
-    assert_select 'ul.pagination'
-    ContractorRequest.paginate(page: 1).each do |request|
-      assert_select 'a[href=?]', contractor_request_path(request)
+  test 'index including pagination and sorting' do
+    columns = %w(position_description employee_type_code request_type_code
+                 contactor_name number_of_months annual_base_pay nonop_funds
+                 department_code subdepartment_code)
+    columns.each do |column|
+      %w(asc desc).each do |order|
+        q_param = { s: column + ' ' + order }
+        get contractor_requests_path, q: q_param
+        assert_template 'contractor_requests/index'
+        assert_select 'ul.pagination'
+        ContractorRequest.ransack(q_param).result.paginate(page: 1).each do |entry|
+          assert_select 'a[href=?]', contractor_request_path(entry)
+        end
+      end
     end
   end
 end

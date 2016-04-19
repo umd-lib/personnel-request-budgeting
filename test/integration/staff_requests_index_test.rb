@@ -12,13 +12,19 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'index including pagination' do
-    get staff_requests_path
-
-    assert_template 'staff_requests/index'
-    assert_select 'ul.pagination'
-    StaffRequest.paginate(page: 1).each do |request|
-      assert_select 'a[href=?]', staff_request_path(request)
+  test 'index including pagination and sorting' do
+    columns = %w(position_description employee_type_code request_type_code
+                 annual_base_pay nonop_funds department_code subdepartment_code)
+    columns.each do |column|
+      %w(asc desc).each do |order|
+        q_param = { s: column + ' ' + order }
+        get staff_requests_path, q: q_param
+        assert_template 'staff_requests/index'
+        assert_select 'ul.pagination'
+        StaffRequest.ransack(q_param).result.paginate(page: 1).each do |entry|
+          assert_select 'a[href=?]', staff_request_path(entry)
+        end
+      end
     end
   end
 end

@@ -14,8 +14,15 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
 
   test 'index including pagination and sorting' do
     columns = %w(position_description employee_type_code request_type_code
-                 contactor_name number_of_positions hourly_rate hours_per_week
-                 nonop_funds department_code subdepartment_code)
+                 contractor_name number_of_positions hourly_rate hours_per_week
+                 number_of_weeks nonop_funds department_code subdepartment_code)
+
+    get labor_requests_path
+    assert_template 'labor_requests/index'
+
+    # Verify sort links
+    assert_select 'a.sort_link', count: columns.size
+
     columns.each do |column|
       %w(asc desc).each do |order|
         q_param = { s: column + ' ' + order }

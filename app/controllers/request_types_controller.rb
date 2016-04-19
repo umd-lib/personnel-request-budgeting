@@ -4,7 +4,9 @@ class RequestTypesController < ApplicationController
   # GET /request_types
   # GET /request_types.json
   def index
-    @request_types = RequestType.all
+    @q = RequestType.ransack(params[:q])
+    @q.sorts = 'code' if @q.sorts.empty?
+    @request_types = @q.result
   end
 
   # GET /request_types/1

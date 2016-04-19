@@ -4,7 +4,9 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @q = Department.ransack(params[:q])
+    @q.sorts = 'code' if @q.sorts.empty?
+    @departments = @q.result
   end
 
   # GET /departments/1

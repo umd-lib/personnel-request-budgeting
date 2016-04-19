@@ -15,6 +15,13 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   test 'index including pagination and sorting' do
     columns = %w(position_description employee_type_code request_type_code
                  annual_base_pay nonop_funds department_code subdepartment_code)
+
+    get staff_requests_path
+    assert_template 'staff_requests/index'
+
+    # Verify sort links
+    assert_select 'a.sort_link', count: columns.size
+
     columns.each do |column|
       %w(asc desc).each do |order|
         q_param = { s: column + ' ' + order }

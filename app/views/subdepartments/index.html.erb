@@ -2,6 +2,10 @@
   <h1>Subdepartments</h1>
 </div>
 
+<% if flash[:error] %>
+  <div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
 <%= render 'shared/index_action_buttons', model_type: Subdepartment %>
 
 <table class="table table-striped">
@@ -17,13 +21,13 @@
 
   <tbody>
     <% @subdepartments.each do |subdepartment| %>
-      <tr>
+      <%= content_tag :tr, id: "subdepartment_#{subdepartment.id}" do %>
         <td><%= subdepartment.code %></td>
         <td><%= subdepartment.name %></td>
         <td><%= subdepartment.department.code %></td>
         <td><%= subdepartment.department.division.code %></td>
         <%= render 'shared/table_action_buttons', object: subdepartment %>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

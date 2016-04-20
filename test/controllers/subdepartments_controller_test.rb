@@ -42,9 +42,27 @@ class SubdepartmentsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy subdepartment' do
+    subdepartment = Subdepartment.new(code: 'TEST_SUBDEPT', name: 'Test Subdepartment',
+                                      department: @subdepartment.department)
+    subdepartment.save!
     assert_difference('Subdepartment.count', -1) do
+      delete :destroy, id: subdepartment
+    end
+
+    assert_redirected_to subdepartments_path
+  end
+
+  test 'should show error when cannot destroy subdepartment with associated records' do
+    staff_request = staff_requests(:fac)
+    staff_request.department = @subdepartment.department
+    staff_request.subdepartment = @subdepartment
+    staff_request.save!
+    assert_equal false, @subdepartment.allow_delete?
+
+    assert_no_difference('Subdepartment.count') do
       delete :destroy, id: @subdepartment
     end
+    assert !flash.empty?
 
     assert_redirected_to subdepartments_path
   end

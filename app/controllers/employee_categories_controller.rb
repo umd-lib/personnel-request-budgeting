@@ -56,14 +56,30 @@ class EmployeeCategoriesController < ApplicationController
   # DELETE /employee_categories/1
   # DELETE /employee_categories/1.json
   def destroy
-    @employee_category.destroy
     respond_to do |format|
-      format.html { redirect_to employee_categories_url, notice: 'Employee category was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to employee_categories_url, notice: 'Employee category was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to employee_categories_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current employee category was deleted. If the
+    # employee category cannot be deleted due an
+    # ActiveRecord::DeleteRestrictionError, populates @error_msg and
+    # returns false.
+    def delete
+      @employee_category.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Employee category cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_category

@@ -2,6 +2,10 @@
   <h1>Employee Categories</h1>
 </div>
 
+<% if flash[:error] %>
+  <div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
 <%= render 'shared/index_action_buttons', model_type: EmployeeCategory %>
 
 <table class="table table-striped">
@@ -15,11 +19,11 @@
 
   <tbody>
     <% @employee_categories.each do |employee_category| %>
-      <tr>
+      <%= content_tag :tr, id: "employee_category_#{employee_category.id}" do %>
         <td><%= employee_category.code %></td>
         <td><%= employee_category.name %></td>
         <%= render 'shared/table_action_buttons', object: employee_category %> 
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

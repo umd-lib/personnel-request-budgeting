@@ -2,6 +2,10 @@
   <h1>Divisions</h1>
 </div>
 
+<% if flash[:error] %>
+  <div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
 <%= render 'shared/index_action_buttons', model_type: Division %>
 
 <table class="table table-striped">
@@ -15,11 +19,11 @@
 
   <tbody>
     <% @divisions.each do |division| %>
-      <tr>
+      <%= content_tag :tr, id: "division_#{division.id}" do %>
         <td><%= division.code %></td>
         <td><%= division.name %></td>
         <%= render 'shared/table_action_buttons', object: division %> 
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

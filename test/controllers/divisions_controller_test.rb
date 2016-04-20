@@ -40,9 +40,22 @@ class DivisionsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy division' do
+    division = Division.new(code: 'TEST_DIV', name: 'Test Division')
+    division.save!
+    assert_equal true, division.allow_delete?
     assert_difference('Division.count', -1) do
+      delete :destroy, id: division
+    end
+
+    assert_redirected_to divisions_path
+  end
+
+  test 'should show error when cannot destroy division with associated records' do
+    assert_equal false, @division.allow_delete?
+    assert_no_difference('Division.count') do
       delete :destroy, id: @division
     end
+    assert !flash.empty?
 
     assert_redirected_to divisions_path
   end

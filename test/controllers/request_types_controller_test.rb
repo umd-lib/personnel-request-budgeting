@@ -40,9 +40,21 @@ class RequestTypesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy request_type' do
+    assert_equal true, @request_type.allow_delete?
     assert_difference('RequestType.count', -1) do
       delete :destroy, id: @request_type
     end
+
+    assert_redirected_to request_types_path
+  end
+
+  test 'should show error when cannot destroy request type with associated records' do
+    request_type = request_types(:new)
+    assert_equal false, request_type.allow_delete?
+    assert_no_difference('RequestType.count') do
+      delete :destroy, id: request_type
+    end
+    assert !flash.empty?
 
     assert_redirected_to request_types_path
   end

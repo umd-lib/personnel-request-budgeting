@@ -56,14 +56,29 @@ class RequestTypesController < ApplicationController
   # DELETE /request_types/1
   # DELETE /request_types/1.json
   def destroy
-    @request_type.destroy
     respond_to do |format|
-      format.html { redirect_to request_types_url, notice: 'Request type was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to request_types_url, notice: 'Request type was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to request_types_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current request type was deleted. If the request type
+    # cannot be deleted due an ActiveRecord::DeleteRestrictionError, populates
+    # @error_msg and returns false.
+    def delete
+      @request_type.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Request type cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_request_type

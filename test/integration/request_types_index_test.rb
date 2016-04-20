@@ -24,4 +24,17 @@ class RequestTypesIndexTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'delete action enable status should reflect allow_delete? flag' do
+    get request_types_path
+
+    RequestType.ransack.result.each do |entry|
+      assert_select 'tr[id=?]', "request_type_#{entry.id}"
+      if entry.allow_delete?
+        assert_select 'a[class~="delete"]'
+      else
+        assert_select 'button[class~="delete"]'
+      end
+    end
+  end
 end

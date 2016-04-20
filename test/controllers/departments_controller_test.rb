@@ -41,9 +41,23 @@ class DepartmentsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy department' do
+    department = Department.new(code: 'TEST_DEPT', name: 'Test Department',
+                                division_id: @department.division_id)
+    department.save!
+    assert_equal true, department.allow_delete?
     assert_difference('Department.count', -1) do
+      delete :destroy, id: department
+    end
+
+    assert_redirected_to departments_path
+  end
+
+  test 'should show error when cannot destroy department with associated records' do
+    assert_equal false, @department.allow_delete?
+    assert_no_difference('Department.count') do
       delete :destroy, id: @department
     end
+    assert !flash.empty?
 
     assert_redirected_to departments_path
   end

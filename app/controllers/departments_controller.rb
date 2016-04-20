@@ -56,14 +56,29 @@ class DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
-    @department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to departments_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current department was deleted. If the department
+    # cannot be deleted due an ActiveRecord::DeleteRestrictionError, populates
+    # @error_msg and returns false.
+    def delete
+      @department.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Department cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_department

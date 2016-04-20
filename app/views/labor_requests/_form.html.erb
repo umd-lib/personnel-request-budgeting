@@ -53,7 +53,14 @@
       </tr>
       <tr>
         <th><%= f.label :subdepartment_id %></th>
-        <td><%= select("labor_request", "subdepartment_id", Subdepartment.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Subdepartment' }) %></td>
+        <td>
+          <%= 
+            subdepartments = Subdepartment.order("name").collect { |d| [ d.name, d.id ] }
+            # Prepend "<Clear Subdepartment>" if subdepartment is selected
+            subdepartments.unshift( ["<Clear Subdepartment>", nil ] ) if @labor_request.subdepartment
+            select("labor_request", "subdepartment_id", subdepartments, { prompt: 'Select Subdepartment' })
+          %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :justification %></th>

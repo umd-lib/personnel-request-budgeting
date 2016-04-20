@@ -15,7 +15,7 @@
 
       <tr>
         <th><%= f.label :division_id %></th>
-        <td><%= select("department", "division_id", Division.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Division'}) %></td>
+        <td><%= select("department", "division_id", Division.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Division' }) %></td>
       </tr>
     </tbody>
   </table>

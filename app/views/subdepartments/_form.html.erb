@@ -13,7 +13,7 @@
       </tr>
       <tr>
         <th><%= f.label :department_id %></th>
-        <td><%= select("subdepartment", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %></td>
+        <td><%= select("subdepartment", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
       </tr>
     </tbody>
   </table>

@@ -2,10 +2,6 @@
   <h1>Employee Categories</h1>
 </div>
 
-<% if flash[:error] %>
-  <div class="alert alert-danger"><%= flash[:error] %></div>
-<% end %>
-
 <%= render 'shared/index_action_buttons', model_type: EmployeeCategory %>
 
 <table class="table table-striped">

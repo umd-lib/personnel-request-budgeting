@@ -2,6 +2,11 @@
 # Displays "New" button, intended for index pages that show a list of items
 %>
 
+
+<% if flash[:error] %>
+  <div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
 <div class="btn-toolbar">
   <% if defined?(pagination_object) && pagination_object.respond_to?('total_pages') then %>
     <div class="btn-group"><%=  will_paginate(:renderer => BootstrapPagination::Rails) %></div>

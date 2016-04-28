@@ -1,6 +1,6 @@
-# personnel-request-budgeting
+# annual-staffing-request
 
-A Rails application for submitting personnel requests as part of the library budgeting process.
+A Rails application for submitting staffing requests as part of the library budgeting process.
 
 
 ## Quick Start
@@ -13,8 +13,8 @@ Requires:
 1) Setup:
 
 ```
-> git clone git@github.com:umd-lib/library-personnel-budget-request
-> cd library-personnel-budget-request
+> git clone git@github.com:umd-lib/annual-staffing-request
+> cd annual-staffing-request
 > bundle install
 ```
 

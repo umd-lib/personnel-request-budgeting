@@ -1,4 +1,4 @@
-# A Salaried Contractor personnel request
+# A Salaried Contractor staffing request
 class ContractorRequest < ActiveRecord::Base
   belongs_to :employee_type
   belongs_to :request_type

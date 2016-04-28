@@ -75,7 +75,7 @@ class ContractorRequestsController < ApplicationController
       params.require(:contractor_request).permit(
         :employee_type_id, :position_description, :request_type_id,
         :contractor_name, :number_of_months, :annual_base_pay,
-        :nonop_funds, :nonop_source, :department_id, :subdepartment_id,
+        :nonop_funds, :nonop_source, :department_id, :unit_id,
         :justification)
     end
 end

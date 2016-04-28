@@ -103,14 +103,14 @@ namespace :db do
     request.nonop_source = Faker::Company.name
   end
 
-  # Randomly add a valid department and (possible) subdepartment to the
+  # Randomly add a valid department and (possible) unit to the
   # given +request+.
   def generate_department_fields(request)
-    has_subdept = rand > 0.75
-    if has_subdept
-      subdept = Subdepartment.all.to_a.sample
-      request.subdepartment = subdept
-      request.department = Department.find_by_id(subdept.department_id)
+    has_unit = rand > 0.75
+    if has_unit
+      unit = Unit.all.to_a.sample
+      request.unit = unit
+      request.department = Department.find_by_id(unit.department_id)
     else
       request.department = Department.all.to_a.sample
     end

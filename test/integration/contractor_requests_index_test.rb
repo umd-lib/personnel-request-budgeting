@@ -15,7 +15,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
   test 'index including pagination and sorting' do
     columns = %w(position_description employee_type_code request_type_code
                  contactor_name number_of_months annual_base_pay nonop_funds
-                 department_code subdepartment_code)
+                 department_code unit_code)
 
     get contractor_requests_path
     assert_template 'contractor_requests/index'

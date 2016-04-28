@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405194850) do
+ActiveRecord::Schema.define(version: 20160428175631) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160405194850) do
     t.decimal  "nonop_funds"
     t.string   "nonop_source"
     t.integer  "department_id"
-    t.integer  "subdepartment_id"
+    t.integer  "unit_id"
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20160405194850) do
   add_index "contractor_requests", ["department_id"], name: "index_contractor_requests_on_department_id"
   add_index "contractor_requests", ["employee_type_id"], name: "index_contractor_requests_on_employee_type_id"
   add_index "contractor_requests", ["request_type_id"], name: "index_contractor_requests_on_request_type_id"
-  add_index "contractor_requests", ["subdepartment_id"], name: "index_contractor_requests_on_subdepartment_id"
+  add_index "contractor_requests", ["unit_id"], name: "index_contractor_requests_on_unit_id"
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160405194850) do
     t.decimal  "nonop_funds"
     t.string   "nonop_source"
     t.integer  "department_id"
-    t.integer  "subdepartment_id"
+    t.integer  "unit_id"
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20160405194850) do
   add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id"
   add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id"
   add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id"
-  add_index "labor_requests", ["subdepartment_id"], name: "index_labor_requests_on_subdepartment_id"
+  add_index "labor_requests", ["unit_id"], name: "index_labor_requests_on_unit_id"
 
   create_table "request_types", force: :cascade do |t|
     t.string   "code"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20160405194850) do
     t.decimal  "nonop_funds"
     t.string   "nonop_source"
     t.integer  "department_id"
-    t.integer  "subdepartment_id"
+    t.integer  "unit_id"
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -115,9 +115,9 @@ ActiveRecord::Schema.define(version: 20160405194850) do
   add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"
   add_index "staff_requests", ["employee_type_id"], name: "index_staff_requests_on_employee_type_id"
   add_index "staff_requests", ["request_type_id"], name: "index_staff_requests_on_request_type_id"
-  add_index "staff_requests", ["subdepartment_id"], name: "index_staff_requests_on_subdepartment_id"
+  add_index "staff_requests", ["unit_id"], name: "index_staff_requests_on_unit_id"
 
-  create_table "subdepartments", force: :cascade do |t|
+  create_table "units", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
     t.integer  "department_id"
@@ -125,6 +125,6 @@ ActiveRecord::Schema.define(version: 20160405194850) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "subdepartments", ["department_id"], name: "index_subdepartments_on_department_id"
+  add_index "units", ["department_id"], name: "index_units_on_department_id"
 
 end

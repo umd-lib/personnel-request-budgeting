@@ -44,8 +44,8 @@ departments_by_division.each do |division_code, departments|
   end
 end
 
-# Subdepartments
-subdepartments_by_department = {
+# Units
+units_by_department = {
   'AS' => [{ code: 'ILL', name: 'Interlibrary Loan' },
            { code: 'LN', name: 'Late Night' },
            { code: 'LSD', name: 'Library Services Desk' },
@@ -61,10 +61,10 @@ subdepartments_by_department = {
            { code: 'RL', name: 'Research & Learning' },
            { code: 'TL', name: 'Teaching & Learning' }] }
 
-subdepartments_by_department.each do |department_code, subdepartments|
+units_by_department.each do |department_code, units|
   department = Department.find_by_code(department_code)
-  subdepartments.each do |subdept|
-    department.subdepartments.create!(subdept)
+  units.each do |unit|
+    department.units.create!(unit)
   end
 end
 

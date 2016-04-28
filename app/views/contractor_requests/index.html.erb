@@ -16,7 +16,7 @@
       <th id="annual_base_pay"><%= sort_link(@q, :annual_base_pay, 'Annual base pay') %></th>
       <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
       <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="subdepartment"><%= sort_link(@q, 'subdepartment_code', 'Subdepartment') %></th>
+      <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
@@ -32,7 +32,7 @@
         <td headers="annual_base_pay"><%= number_to_currency(contractor_request.annual_base_pay) %></td>
         <td headers="nonop_funds"><%= number_to_currency(contractor_request.nonop_funds) %></td>
         <td headers="department"><%= contractor_request.department.code %></td>
-        <td headers="subdepartment"><%= contractor_request.subdepartment.code if contractor_request.subdepartment %></td>
+        <td headers="unit"><%= contractor_request.unit.code if contractor_request.unit %></td>
         <%= render 'shared/table_action_buttons', object: contractor_request %>
       </tr>
     <% end %>

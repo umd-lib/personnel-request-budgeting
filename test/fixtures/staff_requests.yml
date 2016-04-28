@@ -8,7 +8,7 @@ fac:
   nonop_funds: 0.00
   nonop_source: nil
   department: prg
-  subdepartment_id: nil
+  unit_id: nil
   justification: Because we really really need someone.
 
 # Sample data for pagination
@@ -20,7 +20,7 @@ staff_request_1:
   nonop_funds: 247483.60
   nonop_source: Stamm, Moore and Kuhn
   department: rl
-  subdepartment: rc
+  unit: rc
   justification: deleniti itaque quidem commodi veritatis molestias consequatur doloremque delectus sit ut perspiciatis voluptates
 
 staff_request_2:
@@ -39,7 +39,7 @@ staff_request_3:
   nonop_funds: 66562.96
   nonop_source: Denesik Group
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: architecto illum pariatur praesentium necessitatibus ad et aliquid qui quos laborum et velit aperiam velit rerum consectetur voluptatum qui quod molestiae omnis atque expedita ipsam fugiat facilis est
 
 staff_request_4:
@@ -68,7 +68,7 @@ staff_request_6:
   nonop_funds: 188828.62
   nonop_source: Bode, Feest and Wiegand
   department: rl
-  subdepartment: epsl
+  unit: epsl
   justification: sit aut quidem non assumenda facilis non quia dolorum maiores omnis culpa provident nostrum doloribus enim est tempora reprehenderit rerum qui illo architecto dolorem in occaecati nam amet ducimus et dolor voluptatem accusamus quam debitis velit blanditiis aut molestiae tempore
 
 staff_request_7:
@@ -97,7 +97,7 @@ staff_request_9:
   request_type: pay_adj
   annual_base_pay: 300294.85
   department: rl
-  subdepartment: rl
+  unit: rl
   justification: saepe occaecati velit natus et magni aliquam similique odit voluptates ipsa ea voluptas blanditiis quia eligendi qui sunt ullam quaerat maxime doloribus nihil fugit hic praesentium ipsam et eos sed doloremque facilis tempora corrupti minus est distinctio voluptate dolorum reiciendis et et eveniet et nobis quia odio cumque aut dolores
 
 staff_request_10:
@@ -108,7 +108,7 @@ staff_request_10:
   nonop_funds: 161655.74
   nonop_source: Brekke-Larson
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: est earum sint sunt et omnis facere ipsa quam aspernatur et dolor ea ut dolore eveniet fugiat dolorem qui corporis voluptas odio non sed pariatur enim
 
 staff_request_11:
@@ -117,7 +117,7 @@ staff_request_11:
   request_type: convert_cont
   annual_base_pay: 261754.95
   department: as
-  subdepartment: ill
+  unit: ill
   justification: quibusdam ipsa adipisci voluptatem mollitia iste beatae nobis dolores aut quis expedita sit eaque esse commodi quae eveniet in est provident dicta dolor
 
 staff_request_12:
@@ -136,7 +136,7 @@ staff_request_13:
   nonop_funds: 95031.74
   nonop_source: Kunze, Watsica and Will
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: sint enim consectetur nostrum perspiciatis expedita et sapiente quo eos fuga voluptatibus eos iure repudiandae dolor pariatur quod debitis nobis quia laborum natus tempore ut impedit
 
 staff_request_14:
@@ -145,7 +145,7 @@ staff_request_14:
   request_type: new
   annual_base_pay: 483445.02
   department: rl
-  subdepartment: rc
+  unit: rc
   justification: est placeat dolor et aliquam
 
 staff_request_15:
@@ -162,7 +162,7 @@ staff_request_16:
   request_type: convert_cont
   annual_base_pay: 34306.76
   department: as
-  subdepartment: tlc
+  unit: tlc
   justification: animi vel voluptatem modi sequi dolorum mollitia eos similique totam quo vel velit cupiditate fugiat ut consequatur quia assumenda
 
 staff_request_17:
@@ -187,7 +187,7 @@ staff_request_19:
   request_type: new
   annual_base_pay: 448032.86
   department: as
-  subdepartment: ill
+  unit: ill
   justification: ducimus expedita atque delectus sit fuga sed nostrum quia nemo vitae nobis blanditiis aut qui vero labore voluptatem iusto molestiae culpa et
 
 staff_request_20:
@@ -214,7 +214,7 @@ staff_request_22:
   request_type: new
   annual_base_pay: 346535.51
   department: rl
-  subdepartment: hssl
+  unit: hssl
   justification: quam eum minus voluptatibus blanditiis nesciunt beatae est necessitatibus quo sed similique exercitationem ducimus voluptatem sed excepturi officiis quisquam dignissimos et molestiae illo fuga omnis dolor earum iste magnam consectetur et in et dolores doloremque vel incidunt ad sit maiores
 
 staff_request_23:
@@ -223,7 +223,7 @@ staff_request_23:
   request_type: pay_adj
   annual_base_pay: 253822.54
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: officia nostrum dolore debitis ut architecto qui quam inventore et perferendis temporibus id omnis voluptatem amet ex autem doloribus dolor ut voluptatem quia similique ratione numquam tenetur aut fuga molestiae animi nisi fugiat provident dolores dolores quia autem
 
 staff_request_24:
@@ -242,7 +242,7 @@ staff_request_25:
   nonop_funds: 321801.16
   nonop_source: Treutel, Green and Cremin
   department: rl
-  subdepartment: art
+  unit: art
   justification: neque iure est delectus quibusdam dolorum et reiciendis officia et recusandae molestiae commodi omnis iusto eos velit consectetur veritatis tempore sed excepturi repellat quasi in ut dolorem esse sapiente
 
 staff_request_26:
@@ -279,7 +279,7 @@ staff_request_29:
   nonop_funds: 126635.76
   nonop_source: Sporer-Kihn
   department: rl
-  subdepartment: tl
+  unit: tl
   justification: laboriosam est aut nobis vel
 
 staff_request_30:
@@ -314,7 +314,7 @@ staff_request_33:
   request_type: new
   annual_base_pay: 99938.19
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: minus autem deserunt iste tenetur vel possimus perferendis distinctio inventore officia magni voluptates quo nam magnam rerum sint ut et sit maxime doloribus ut in non
 
 staff_request_34:
@@ -323,7 +323,7 @@ staff_request_34:
   request_type: convert_cont
   annual_base_pay: 252404.12
   department: as
-  subdepartment: ill
+  unit: ill
   justification: nostrum commodi non illo quisquam numquam aliquam aut dolor mollitia harum necessitatibus aliquid est voluptatum veniam fuga ratione vel consequatur
 
 staff_request_35:
@@ -456,7 +456,7 @@ staff_request_49:
   request_type: convert_cont
   annual_base_pay: 40486.76
   department: rl
-  subdepartment: epsl
+  unit: epsl
   justification: ut corporis est voluptatem exercitationem eum quidem rerum eos numquam ipsa qui repudiandae rerum a cum repellat voluptatem accusamus amet perspiciatis quam quae qui et quisquam illum voluptatibus quia fugit consequatur repellendus magnam eligendi porro autem perferendis velit sit ex consectetur et reiciendis minima
 
 staff_request_50:

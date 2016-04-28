@@ -18,7 +18,7 @@
       <th id="number_of_weeks"><%= sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
       <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
       <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="subdepartment"><%= sort_link(@q, 'subdepartment_code', 'Subdepartment') %></th>
+      <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
@@ -36,7 +36,7 @@
         <td headers="number_of_weeks"><%= labor_request.number_of_weeks %></td>
         <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
         <td headers="department"><%= labor_request.department.code %></td>
-        <td headers="subdepartment"><%= labor_request.subdepartment.code if labor_request.subdepartment %></td>
+        <td headers="unit"><%= labor_request.unit.code if labor_request.unit %></td>
         <%= render 'shared/table_action_buttons', object: labor_request %>
       </tr>
     <% end %>

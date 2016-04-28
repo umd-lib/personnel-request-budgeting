@@ -1,5 +1,5 @@
-# A subdepartment within a department
-class Subdepartment < ActiveRecord::Base
+# A unit within a department
+class Unit < ActiveRecord::Base
   belongs_to :department
   has_many :contractor_requests, dependent: :restrict_with_exception
   has_many :labor_requests, dependent: :restrict_with_exception

@@ -20,19 +20,19 @@ module DepartmentDropdownTest
   end
 end
 
-# Test for sorted "Subdepartment" dropdown entries
-module SubdepartmentDropdownTest
+# Test for sorted "Unit" dropdown entries
+module UnitDropdownTest
   extend ActiveSupport::Concern
   included do
-    test 'subdepartment dropdown field should be sorted' do
-      sorted_subdepartment_names = Subdepartment.order('name').collect(&:name)
+    test 'unit dropdown field should be sorted' do
+      sorted_unit_names = Unit.order('name').collect(&:name)
 
       # Prepend dropdown prompt
-      sorted_subdepartment_names.unshift('Select Subdepartment')
+      sorted_unit_names.unshift('Select Unit')
 
-      assert_select 'select[id=?] option', "#{@field_prefix}_subdepartment_id" do |opts|
+      assert_select 'select[id=?] option', "#{@field_prefix}_unit_id" do |opts|
         opts.each do |opt|
-          assert_equal sorted_subdepartment_names.shift, opt.text
+          assert_equal sorted_unit_names.shift, opt.text
         end
       end
     end

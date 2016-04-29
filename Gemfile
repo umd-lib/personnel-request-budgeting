@@ -41,6 +41,14 @@ gem 'will_paginate-bootstrap', '~> 1.0.0'
 # Table sorting
 gem 'ransack', '~> 1.7.0'
 
+# CAS Authentication
+# April 25, 2016: Need to use GitHub instead of Gem
+# See https://github.com/rubycas/rubycas-client-rails/issues/27
+gem 'rubycas-client', github: 'rubycas/rubycas-client', branch: 'master'
+
+# dotenv - For storing production configuration parameters
+gem 'dotenv-rails', '~> 2.1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -64,4 +72,8 @@ group :test do
   # Code analysis tools
   gem 'rubocop', '~> 0.39.0', require: false
   gem 'rubocop-checkstyle_formatter', '~> 0.2.0', require: false
+end
+
+group :production do
+  gem 'pg', '~> 0.18.4'
 end

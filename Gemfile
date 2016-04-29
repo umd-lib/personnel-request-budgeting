@@ -34,6 +34,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # UMD Bootstrap style
 gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', branch: 'develop'
 
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap', '~> 1.0.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -45,6 +49,9 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Used by Rake tasks to generate sample data
+  gem 'faker', '~> 1.6'
 end
 
 group :test do

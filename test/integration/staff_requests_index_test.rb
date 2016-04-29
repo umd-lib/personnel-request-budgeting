@@ -11,4 +11,14 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
                     "#{field} should have two decimal places"
     end
   end
+
+  test 'index including pagination' do
+    get staff_requests_path
+
+    assert_template 'staff_requests/index'
+    assert_select 'ul.pagination'
+    StaffRequest.paginate(page: 1).each do |request|
+      assert_select 'a[href=?]', staff_request_path(request)
+    end
+  end
 end

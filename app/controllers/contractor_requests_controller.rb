@@ -4,7 +4,7 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests
   # GET /contractor_requests.json
   def index
-    @contractor_requests = ContractorRequest.all
+    @contractor_requests = ContractorRequest.paginate(page: params[:page])
   end
 
   # GET /contractor_requests/1

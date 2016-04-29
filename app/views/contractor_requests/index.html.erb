@@ -2,7 +2,8 @@
   <h1>Salaried Contractor Requests</h1>
 </div>
 
-<%= render 'shared/index_action_buttons', object: ContractorRequest %>
+<%= render partial: 'shared/index_action_buttons',
+  locals: {model_type: ContractorRequest, pagination_object: @contractor_requests} %>
 
 <table class="table table-striped">
   <thead>
@@ -37,3 +38,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate renderer: BootstrapPagination::Rails %>

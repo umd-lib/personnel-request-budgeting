@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/umd-lib/umd_lib_style.git
-  revision: 5bcc2fe97bcb9596523d70d87d6da867416f57ed
+  revision: 1726422ac553ec066f3dab1c01932e5ea56815ef
   branch: develop
   specs:
     umd_lib_style (0.0.1)
@@ -164,7 +164,7 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     spring (1.6.4)
-    sprockets (3.5.2)
+    sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.0.4)

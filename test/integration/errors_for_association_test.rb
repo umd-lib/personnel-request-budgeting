@@ -19,7 +19,7 @@ class ErrorsForAssociationTest < ActionDispatch::IntegrationTest
         nonop_funds: nil,
         nonop_source: nil,
         department_id: nil,
-        subdepartment_id: nil,
+        unit_id: nil,
         justification: nil
       }
     end

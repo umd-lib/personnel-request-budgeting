@@ -10,7 +10,7 @@ class SortedDropdownFieldsContractorRequestNewTest < ActionDispatch::Integration
   end
 
   include DepartmentDropdownTest
-  include SubdepartmentDropdownTest
+  include UnitDropdownTest
   include EmployeeTypeDropdownTest
   include RequestTypeDropdownTest
 end
@@ -25,7 +25,7 @@ class SortedDropdownFieldsLaborRequestNewTest < ActionDispatch::IntegrationTest
   end
 
   include DepartmentDropdownTest
-  include SubdepartmentDropdownTest
+  include UnitDropdownTest
   include EmployeeTypeDropdownTest
   include RequestTypeDropdownTest
 end
@@ -40,7 +40,7 @@ class SortedDropdownFieldsStaffRequestNewTest < ActionDispatch::IntegrationTest
   end
 
   include DepartmentDropdownTest
-  include SubdepartmentDropdownTest
+  include UnitDropdownTest
   include EmployeeTypeDropdownTest
   include RequestTypeDropdownTest
 end
@@ -55,11 +55,11 @@ class SortedDropdownFieldsDepartmentNewTest < ActionDispatch::IntegrationTest
   include DivisionDropdownTest
 end
 
-# Verifies sorted dropdowns in Subdepartment "new" page
-class SortedDropdownFieldsSubdepartmentNewTest < ActionDispatch::IntegrationTest
+# Verifies sorted dropdowns in Unit "new" page
+class SortedDropdownFieldsUnitNewTest < ActionDispatch::IntegrationTest
   def setup
-    get new_subdepartment_path
-    @field_prefix = 'subdepartment'
+    get new_unit_path
+    @field_prefix = 'unit'
   end
 
   include DepartmentDropdownTest

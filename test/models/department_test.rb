@@ -44,7 +44,7 @@ class DepartmentTest < ActiveSupport::TestCase
 
   test 'department with associated records cannot be deleted' do
     @department = Department.create(code: 'NoDelete', name: 'DoNotDeleteMe', division: @division)
-    Subdepartment.create(code: 'Test', name: 'Test subdepartment', department: @department)
+    Unit.create(code: 'Test', name: 'Test unit', department: @department)
     assert_equal false, @department.allow_delete?
     assert_raise ActiveRecord::DeleteRestrictionError do
       @department.destroy

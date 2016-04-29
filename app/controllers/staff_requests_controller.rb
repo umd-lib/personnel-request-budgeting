@@ -75,6 +75,6 @@ class StaffRequestsController < ApplicationController
       params.require(:staff_request).permit(
         :employee_type_id, :position_description, :request_type_id,
         :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
-        :subdepartment_id, :justification)
+        :unit_id, :justification)
     end
 end

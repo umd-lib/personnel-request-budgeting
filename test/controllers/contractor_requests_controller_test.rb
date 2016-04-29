@@ -29,7 +29,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
         number_of_months: @contractor_request.number_of_months,
         position_description: @contractor_request.position_description,
         request_type_id: @contractor_request.request_type_id,
-        subdepartment_id: @contractor_request.subdepartment_id }
+        unit_id: @contractor_request.unit_id }
     end
 
     assert_redirected_to contractor_request_path(assigns(:contractor_request))
@@ -57,7 +57,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       number_of_months: @contractor_request.number_of_months,
       position_description: @contractor_request.position_description,
       request_type_id: @contractor_request.request_type_id,
-      subdepartment_id: @contractor_request.subdepartment_id }
+      unit_id: @contractor_request.unit_id }
     assert_redirected_to contractor_request_path(assigns(:contractor_request))
   end
 

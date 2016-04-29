@@ -36,13 +36,13 @@
         <td><%= select("staff_request", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
       </tr>
       <tr>
-        <th><%= f.label :subdepartment_id %></th>
+        <th><%= f.label :unit_id %></th>
         <td>
           <%= 
-            subdepartments = Subdepartment.order("name").collect { |d| [ d.name, d.id ] }
-            # Prepend "<Clear Subdepartment>" if subdepartment is selected
-            subdepartments.unshift( ["<Clear Subdepartment>", nil ] ) if @staff_request.subdepartment
-            select("staff_request", "subdepartment_id", subdepartments, { prompt: 'Select Subdepartment' })
+            units = Unit.order("name").collect { |d| [ d.name, d.id ] }
+            # Prepend "<Clear Unit>" if unit is selected
+            units.unshift( ["<Clear Unit>", nil ] ) if @staff_request.unit
+            select("staff_request", "unit_id", units, { prompt: 'Select Unit' })
           %>
         </td>
       </tr>

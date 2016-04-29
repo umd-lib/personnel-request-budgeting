@@ -12,7 +12,7 @@ c1:
   nonop_funds: nil
   nonop_source: nil
   department: ssdr
-  subdepartment: nil
+  unit: nil
   justification: Help get Ruby on Rails development off the ground.
 
 fac_hrly_renewal:
@@ -27,7 +27,7 @@ fac_hrly_renewal:
   nonop_funds: nil
   nonop_source: nil
   department: scua
-  subdepartment: nil
+  unit: nil
   justification: Can't have enough expertise for this topic.
 
 # Sample data for pagination
@@ -40,7 +40,7 @@ labor_request_1:
   hours_per_week: 8.00
   number_of_weeks: 12
   department: rl
-  subdepartment: hssl
+  unit: hssl
   justification: delectus est soluta culpa aut nulla inventore eius est reprehenderit eum magnam alias fugiat sint in laboriosam voluptatem doloremque sit voluptates excepturi aut veritatis consectetur suscipit assumenda molestiae tenetur aperiam dolores accusantium rem sapiente deserunt aut error
 
 labor_request_2:
@@ -216,7 +216,7 @@ labor_request_15:
   hours_per_week: 14.00
   number_of_weeks: 8
   department: rl
-  subdepartment: tl
+  unit: tl
   justification: voluptas magni voluptas fuga sequi odio nam recusandae et molestiae doloremque sit consequatur possimus repellat quis sint eligendi sit sed itaque praesentium est et enim veritatis sunt voluptatem quia mollitia laborum totam expedita eum quisquam sunt et dolores ut voluptatem ut vel ullam nihil quidem perferendis voluptas nobis aut vero
 
 labor_request_16:
@@ -254,7 +254,7 @@ labor_request_18:
   hours_per_week: 29.00
   number_of_weeks: 26
   department: rl
-  subdepartment: art
+  unit: art
   justification: qui
 
 labor_request_19:
@@ -277,7 +277,7 @@ labor_request_20:
   hours_per_week: 8.00
   number_of_weeks: 31
   department: rl
-  subdepartment: arch
+  unit: arch
   justification: molestias laudantium quidem labore sequi qui sed laboriosam provident ea ullam perspiciatis quo ad dolore quae ipsam sit iste animi praesentium mollitia vero
 
 labor_request_21:
@@ -292,7 +292,7 @@ labor_request_21:
   nonop_funds: 2246.28
   nonop_source: Lubowitz, Blick and Fisher
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: et minima
 
 labor_request_22:
@@ -304,7 +304,7 @@ labor_request_22:
   hours_per_week: 19.00
   number_of_weeks: 36
   department: rl
-  subdepartment: rc
+  unit: rc
   justification: et sapiente mollitia et inventore cum rerum dolorum dolores qui voluptates sunt magni suscipit corporis at iusto eaque quia aperiam et consequatur deleniti ex assumenda fugit numquam officia omnis aut vitae quaerat nesciunt quia odio reiciendis perferendis non alias eum libero corrupti et soluta qui ad saepe earum velit a
 
 labor_request_23:
@@ -317,7 +317,7 @@ labor_request_23:
   hours_per_week: 10.00
   number_of_weeks: 25
   department: rl
-  subdepartment: art
+  unit: art
   justification: fugiat pariatur vitae minus laudantium voluptas qui enim qui sapiente eum et error quo quis consequatur quasi
 
 labor_request_24:
@@ -367,7 +367,7 @@ labor_request_27:
   hours_per_week: 19.00
   number_of_weeks: 16
   department: rl
-  subdepartment: rc
+  unit: rc
   justification: labore qui omnis maiores ut provident sequi sint exercitationem ipsa nihil dolores optio adipisci quae natus vel nobis consequatur explicabo nemo rerum sit delectus officiis cum aliquid aut impedit voluptatem qui harum velit quibusdam enim facere recusandae laudantium
 
 labor_request_28:
@@ -446,7 +446,7 @@ labor_request_33:
   hours_per_week: 1.00
   number_of_weeks: 46
   department: rl
-  subdepartment: epsl
+  unit: epsl
   justification: alias omnis ducimus provident eligendi officiis quis quisquam error maxime ut ullam est ex qui deleniti voluptatem officia qui optio quod itaque esse quaerat voluptas fugiat libero illo qui voluptatem tempora commodi magni
 
 labor_request_34:
@@ -484,7 +484,7 @@ labor_request_36:
   hours_per_week: 40.00
   number_of_weeks: 34
   department: as
-  subdepartment: lsd
+  unit: lsd
   justification: sed sint et deserunt laborum est impedit sed voluptate autem aut voluptas aperiam rerum at magnam libero quia dolore incidunt culpa hic delectus omnis voluptas praesentium voluptas sequi sit sit dolor dolores id fugiat temporibus eligendi nostrum molestiae adipisci est molestias exercitationem
 
 labor_request_37:
@@ -510,7 +510,7 @@ labor_request_38:
   hours_per_week: 8.00
   number_of_weeks: 15
   department: rl
-  subdepartment: rl
+  unit: rl
   justification: placeat deleniti maiores possimus unde voluptates quis ab ratione totam occaecati nisi qui est eum laudantium explicabo ipsum et aliquam
 
 labor_request_39:
@@ -523,7 +523,7 @@ labor_request_39:
   hours_per_week: 29.00
   number_of_weeks: 49
   department: rl
-  subdepartment: rl
+  unit: rl
   justification: itaque architecto blanditiis a perferendis sint aut dolores aspernatur expedita magnam aut id rerum nesciunt ut quo libero ea non
 
 labor_request_40:
@@ -535,7 +535,7 @@ labor_request_40:
   hours_per_week: 6.00
   number_of_weeks: 22
   department: rl
-  subdepartment: rc
+  unit: rc
   justification: et est saepe quia sit ipsam molestias eum perspiciatis quia incidunt aliquid ut quam ut consequatur iure et magnam omnis ut et recusandae quo in
 
 labor_request_41:
@@ -549,7 +549,7 @@ labor_request_41:
   nonop_funds: 194.90
   nonop_source: Witting, Waters and Gutkowski
   department: rl
-  subdepartment: tl
+  unit: tl
   justification: voluptas adipisci possimus ut exercitationem id voluptate placeat eveniet unde debitis in sed qui quis sit non repellendus dicta eos qui iusto sit error ipsam reiciendis quia veniam amet vitae quidem pariatur aut aliquam deleniti esse rerum ab
 
 labor_request_42:
@@ -609,7 +609,7 @@ labor_request_46:
   nonop_funds: 2252.73
   nonop_source: Labadie Inc
   department: as
-  subdepartment: tlc
+  unit: tlc
   justification: sunt voluptas similique et doloremque officia quod repudiandae laudantium qui earum quisquam occaecati neque porro aut est vitae quos sed in dolorem perspiciatis dolores dolor quia itaque deleniti nihil sint veritatis provident atque totam
 
 labor_request_47:
@@ -634,7 +634,7 @@ labor_request_48:
   hours_per_week: 7.00
   number_of_weeks: 25
   department: rl
-  subdepartment: rl
+  unit: rl
   justification: voluptas eveniet voluptatem vel necessitatibus aut occaecati qui cum nam magnam ut expedita odio animi sit unde autem velit laudantium id
 
 labor_request_49:
@@ -646,7 +646,7 @@ labor_request_49:
   hours_per_week: 8.00
   number_of_weeks: 19
   department: rl
-  subdepartment: epsl
+  unit: epsl
   justification: amet laboriosam repellendus perferendis vero dolores distinctio deleniti ut rem nobis perspiciatis quod illo excepturi et quasi ea tempore minus voluptatum dignissimos soluta molestiae quo ipsum
 
 labor_request_50:
@@ -659,5 +659,5 @@ labor_request_50:
   hours_per_week: 12.00
   number_of_weeks: 52
   department: rl
-  subdepartment: art
+  unit: art
   justification: provident sunt molestias eum corporis asperiores maxime natus ratione non laudantium quia reiciendis ut atque quasi hic quia eos dicta suscipit et aperiam omnis recusandae sint animi consequatur qui libero iure ab

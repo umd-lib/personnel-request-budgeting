@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :request_types
   resources :employee_types
   resources :employee_categories
-  resources :subdepartments
+  resources :units
   resources :departments
   resources :divisions
   # The priority is based upon order of creation: first created -> highest priority.

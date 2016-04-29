@@ -5,7 +5,7 @@ class RequestDepartmentValidatorTest < ActiveSupport::TestCase
   def setup
     @record = MockRequest.new
     @record.department_id = departments(:one).id
-    @record.subdepartment_id = subdepartments(:one).id
+    @record.unit_id = units(:one).id
   end
 
   test 'department should be present' do
@@ -18,16 +18,16 @@ class RequestDepartmentValidatorTest < ActiveSupport::TestCase
     assert_not @record.valid?
   end
 
-  test 'subdepartment must match department' do
+  test 'unit must match department' do
     department = departments(:one)
-    valid_subdepartment = subdepartments(:one)
+    valid_unit = units(:one)
 
     @record.department_id = department.id
-    @record.subdepartment_id = valid_subdepartment.id
+    @record.unit_id = valid_unit.id
     assert @record.valid?, @record.errors.to_a.join.to_s
 
-    invalid_subdepartment = subdepartments(:two)
-    @record.subdepartment_id = invalid_subdepartment.id
+    invalid_unit = units(:two)
+    @record.unit_id = invalid_unit.id
     assert_not @record.valid?
   end
 
@@ -35,7 +35,7 @@ class RequestDepartmentValidatorTest < ActiveSupport::TestCase
   class MockRequest
     include ActiveModel::Validations
     attr_accessor :department_id
-    attr_accessor :subdepartment_id
+    attr_accessor :unit_id
 
     validates_with RequestDepartmentValidator
   end

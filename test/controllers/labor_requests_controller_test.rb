@@ -31,7 +31,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
         number_of_weeks: @labor_request.number_of_weeks,
         position_description: @labor_request.position_description,
         request_type_id: @labor_request.request_type_id,
-        subdepartment_id: @labor_request.subdepartment_id }
+        unit_id: @labor_request.unit_id }
     end
 
     assert_redirected_to labor_request_path(assigns(:labor_request))
@@ -61,7 +61,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
       number_of_weeks: @labor_request.number_of_weeks,
       position_description: @labor_request.position_description,
       request_type_id: @labor_request.request_type_id,
-      rubocopsubdepartment_id: @labor_request.subdepartment_id }
+      unit_id: @labor_request.unit_id }
     assert_redirected_to labor_request_path(assigns(:labor_request))
   end
 

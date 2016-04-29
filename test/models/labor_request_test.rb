@@ -111,16 +111,16 @@ class LaborRequestTest < ActiveSupport::TestCase
     assert_not @labor_request.valid?
   end
 
-  test 'subdepartment must match department' do
+  test 'unit must match department' do
     department = departments(:one)
-    valid_subdepartment = subdepartments(:one)
+    valid_unit = units(:one)
 
     @labor_request.department_id = department.id
-    @labor_request.subdepartment_id = valid_subdepartment.id
+    @labor_request.unit_id = valid_unit.id
     assert @labor_request.valid?
 
-    invalid_subdepartment = subdepartments(:two)
-    @labor_request.subdepartment_id = invalid_subdepartment.id
+    invalid_unit = units(:two)
+    @labor_request.unit_id = invalid_unit.id
     assert_not @labor_request.valid?
   end
 end

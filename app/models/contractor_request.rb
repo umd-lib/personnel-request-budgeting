@@ -3,7 +3,7 @@ class ContractorRequest < ActiveRecord::Base
   belongs_to :employee_type
   belongs_to :request_type
   belongs_to :department
-  belongs_to :subdepartment
+  belongs_to :unit
   validates :employee_type, presence: true
   validates :position_description, presence: true
   validates :request_type, presence: true

@@ -1,5 +1,5 @@
-<%= form_for(@subdepartment) do |f| %>
-  <%= render 'shared/form_errors', errors: @subdepartment.errors %>
+<%= form_for(@unit) do |f| %>
+  <%= render 'shared/form_errors', errors: @unit.errors %>
 
   <table class="table table-striped">
     <tbody>
@@ -13,10 +13,10 @@
       </tr>
       <tr>
         <th><%= f.label :department_id %></th>
-        <td><%= select("subdepartment", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
+        <td><%= select("unit", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
       </tr>
     </tbody>
   </table>
     
-  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @subdepartment } %>
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @unit } %>
 <% end %>

@@ -41,7 +41,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
         nonop_source: @staff_request.nonop_source,
         position_description: @staff_request.position_description,
         request_type_id: @staff_request.request_type_id,
-        subdepartment_id: @staff_request.subdepartment_id }
+        unit_id: @staff_request.unit_id }
     end
 
     assert_redirected_to staff_request_path(assigns(:staff_request))
@@ -67,7 +67,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
       nonop_source: @staff_request.nonop_source,
       position_description: @staff_request.position_description,
       request_type_id: @staff_request.request_type_id,
-      subdepartment_id: @staff_request.subdepartment_id }
+      unit_id: @staff_request.unit_id }
     assert_redirected_to staff_request_path(assigns(:staff_request))
   end
 

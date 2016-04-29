@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h1><%= @unit.code %> <small>Unit</small></h1>
+</div>
+
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @unit.code %></td>
+    </tr>
+
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @unit.name %></td>
+    </tr>
+
+    <tr>
+      <th>Department:</th>
+      <td id="department"><%= @unit.department.code %></td>
+    </tr>
+
+    <tr>
+      <th>Division:</th>
+      <td id="division"><%= @unit.department.division.code %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= render 'shared/show_action_buttons', object: @unit %>

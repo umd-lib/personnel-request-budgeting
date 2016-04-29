@@ -46,6 +46,9 @@ gem 'ransack', '~> 1.7.0'
 # See https://github.com/rubycas/rubycas-client-rails/issues/27
 gem 'rubycas-client', github: 'rubycas/rubycas-client', branch: 'master'
 
+# dotenv - For storing production configuration parameters
+gem 'dotenv-rails', '~> 2.1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

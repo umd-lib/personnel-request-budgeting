@@ -4,7 +4,9 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests
   # GET /contractor_requests.json
   def index
-    @contractor_requests = ContractorRequest.paginate(page: params[:page])
+    @q = ContractorRequest.ransack(params[:q])
+    @q.sorts = 'position_description' if @q.sorts.empty?
+    @contractor_requests = @q.result.page(params[:page])
   end
 
   # GET /contractor_requests/1

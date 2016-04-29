@@ -4,7 +4,9 @@ class LaborRequestsController < ApplicationController
   # GET /labor_requests
   # GET /labor_requests.json
   def index
-    @labor_requests = LaborRequest.paginate(page: params[:page])
+    @q = LaborRequest.ransack(params[:q])
+    @q.sorts = 'position_description' if @q.sorts.empty?
+    @labor_requests = @q.result.page(params[:page])
   end
 
   # GET /labor_requests/1

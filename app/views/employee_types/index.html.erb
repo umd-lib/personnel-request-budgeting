@@ -7,9 +7,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Employee category</th>
+      <th><%= sort_link(@q, :code, 'Code') %></th>
+      <th><%= sort_link(@q, :name, 'Name') %></th>
+      <th><%= sort_link(@q, 'employee_category_code', 'Employee category') %></th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>

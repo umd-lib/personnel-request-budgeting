@@ -4,7 +4,9 @@ class DivisionsController < ApplicationController
   # GET /divisions
   # GET /divisions.json
   def index
-    @divisions = Division.all
+    @q = Division.ransack(params[:q])
+    @q.sorts = 'code' if @q.sorts.empty?
+    @divisions = @q.result
   end
 
   # GET /divisions/1

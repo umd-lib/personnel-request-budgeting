@@ -4,7 +4,9 @@ class EmployeeTypesController < ApplicationController
   # GET /employee_types
   # GET /employee_types.json
   def index
-    @employee_types = EmployeeType.all
+    @q = EmployeeType.ransack(params[:q])
+    @q.sorts = 'code' if @q.sorts.empty?
+    @employee_types = @q.result
   end
 
   # GET /employee_types/1

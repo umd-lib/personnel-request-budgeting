@@ -17,13 +17,13 @@
 
   <tbody>
     <% @subdepartments.each do |subdepartment| %>
-      <tr>
+      <%= content_tag :tr, id: "subdepartment_#{subdepartment.id}" do %>
         <td><%= subdepartment.code %></td>
         <td><%= subdepartment.name %></td>
         <td><%= subdepartment.department.code %></td>
         <td><%= subdepartment.department.division.code %></td>
         <%= render 'shared/table_action_buttons', object: subdepartment %>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

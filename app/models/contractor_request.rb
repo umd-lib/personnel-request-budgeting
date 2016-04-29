@@ -16,7 +16,7 @@ class ContractorRequest < ActiveRecord::Base
   VALID_EMPLOYEE_CATEGORY_CODE = 'SC'.freeze
   validates_with RequestEmployeeTypeValidator, valid_employee_category_code: VALID_EMPLOYEE_CATEGORY_CODE
 
-  VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
+  VALID_REQUEST_TYPE_CODES = %w(ConvertC1 New Renewal).freeze
   validate :allowed_request_type
 
   # Validates the request type

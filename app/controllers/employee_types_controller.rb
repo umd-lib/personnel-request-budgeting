@@ -56,14 +56,29 @@ class EmployeeTypesController < ApplicationController
   # DELETE /employee_types/1
   # DELETE /employee_types/1.json
   def destroy
-    @employee_type.destroy
     respond_to do |format|
-      format.html { redirect_to employee_types_url, notice: 'Employee type was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to employee_types_url, notice: 'Employee type was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to employee_types_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current employee type was deleted. If the employee
+    # type cannot be deleted due an ActiveRecord::DeleteRestrictionError,
+    # populates @error_msg and returns false.
+    def delete
+      @employee_type.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Employee type cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_type

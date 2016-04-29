@@ -80,10 +80,10 @@ employee_types_by_category = {
   'L&A' => [{ code: 'C1', name: 'Contractor Type 1' },
             { code: 'FAC-Hrly', name: 'Faculty Hourly' },
             { code: 'Student', name: 'Student' }],
-  'Reg/GA' => [{ code: 'Ex', name: 'Ex' },
+  'Reg/GA' => [{ code: 'Ex', name: 'Exempt' },
                { code: 'Fac', name: 'Faculty' },
                { code: 'GA', name: 'Graduate Assistant' },
-               { code: 'Nex', name: 'Nex' }],
+               { code: 'Nex', name: 'Non-exempt' }],
   'SC' => [{ code: 'C2', name: 'Contractor Type 2' },
            { code: 'ContFac', name: 'ContFac' }] }
 

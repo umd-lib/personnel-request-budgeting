@@ -26,4 +26,19 @@ class RequestTypeTest < ActiveSupport::TestCase
     @request_type.name = '  '
     assert_not @request_type.valid?
   end
+
+  test 'request type without associated records can be deleted' do
+    assert_equal true, @request_type.allow_delete?
+    assert_nothing_raised ActiveRecord::DeleteRestrictionError do
+      @request_type.destroy
+    end
+  end
+
+  test 'request type with associated records cannot be deleted' do
+    request_type = request_types(:new)
+    assert_equal false, request_type.allow_delete?
+    assert_raise ActiveRecord::DeleteRestrictionError do
+      request_type.destroy
+    end
+  end
 end

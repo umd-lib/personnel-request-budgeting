@@ -45,4 +45,21 @@ class EmployeeTypeTest < ActiveSupport::TestCase
                    "'#{emp_type.name}' is not of employee category '#{category_code}'"
     end
   end
+
+  test 'employee type without associated records can be deleted' do
+    emp_type = EmployeeType.create(code: 'Delete', name: 'DeleteMe', employee_category: @emp_category)
+
+    assert_equal true, emp_type.allow_delete?
+    assert_nothing_raised ActiveRecord::DeleteRestrictionError do
+      emp_type.destroy
+    end
+  end
+
+  test 'employee type with associated records cannot be deleted' do
+    emp_type = employee_types(:c1)
+    assert_equal false, emp_type.allow_delete?
+    assert_raise ActiveRecord::DeleteRestrictionError do
+      emp_type.destroy
+    end
+  end
 end

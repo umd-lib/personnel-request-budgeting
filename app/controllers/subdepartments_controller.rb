@@ -56,14 +56,30 @@ class SubdepartmentsController < ApplicationController
   # DELETE /subdepartments/1
   # DELETE /subdepartments/1.json
   def destroy
-    @subdepartment.destroy
     respond_to do |format|
-      format.html { redirect_to subdepartments_url, notice: 'Subdepartment was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to subdepartments_url, notice: 'Subdepartment was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to subdepartments_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current subdepartment was deleted. If the
+    # subdepartment cannot be deleted due an
+    # ActiveRecord::DeleteRestrictionError, populates @error_msg and
+    # returns false.
+    def delete
+      @subdepartment.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Subdepartment cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_subdepartment

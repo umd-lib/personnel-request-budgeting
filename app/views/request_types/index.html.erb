@@ -15,11 +15,11 @@
 
   <tbody>
     <% @request_types.each do |request_type| %>
-      <tr>
+      <%= content_tag :tr, id: "request_type_#{request_type.id}" do %>
         <td><%= request_type.code %></td>
         <td><%= request_type.name %></td>
         <%= render 'shared/table_action_buttons', object: request_type %>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

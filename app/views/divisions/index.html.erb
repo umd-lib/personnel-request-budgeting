@@ -15,11 +15,11 @@
 
   <tbody>
     <% @divisions.each do |division| %>
-      <tr>
+      <%= content_tag :tr, id: "division_#{division.id}" do %>
         <td><%= division.code %></td>
         <td><%= division.name %></td>
         <%= render 'shared/table_action_buttons', object: division %> 
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

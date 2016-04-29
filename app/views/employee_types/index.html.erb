@@ -16,12 +16,12 @@
 
   <tbody>
     <% @employee_types.each do |employee_type| %>
-      <tr>
+      <%= content_tag :tr, id: "employee_type_#{employee_type.id}" do %>
         <td><%= employee_type.code %></td>
         <td><%= employee_type.name %></td>
         <td><%= employee_type.employee_category.code %></td>
         <%= render 'shared/table_action_buttons', object: employee_type %> 
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

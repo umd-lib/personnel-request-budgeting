@@ -48,4 +48,15 @@ class EmployeeTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to employee_types_path
   end
+
+  test 'should show error when cannot destroy employee type with associated records' do
+    emp_type = employee_types(:c1)
+    assert_equal false, emp_type.allow_delete?
+    assert_no_difference('EmployeeType.count') do
+      delete :destroy, id: emp_type
+    end
+    assert !flash.empty?
+
+    assert_redirected_to employee_types_path
+  end
 end

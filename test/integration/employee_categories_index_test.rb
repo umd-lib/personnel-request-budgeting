@@ -24,4 +24,17 @@ class EmployeeCategoriesIndexTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'delete action enable status should reflect allow_delete? flag' do
+    get employee_categories_path
+
+    EmployeeCategory.ransack.result.each do |entry|
+      assert_select 'tr[id=?]', "employee_category_#{entry.id}"
+      if entry.allow_delete?
+        assert_select 'a[class~="delete"]'
+      else
+        assert_select 'button[class~="delete"]'
+      end
+    end
+  end
 end

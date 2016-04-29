@@ -10,14 +10,14 @@
       <tr>
          <th><%= f.label :employee_type_id %></th>
          <td><%= select("staff_request", "employee_type_id", 
-           EmployeeType.employee_types_with_category(StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE).collect {|e| [ e.name, e.id ] },
-           {prompt: 'Select Employee Type'}) %></td>
+           EmployeeType.employee_types_with_category(StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE).order("name").collect { |e| [ e.name, e.id ] },
+           { prompt: 'Select Employee Type' }) %></td>
       </tr>
       <tr>
         <th><%= f.label :request_type_id %></th>
         <td><%= select("staff_request", "request_type_id",
-          RequestType.all.to_a.select { |a| StaffRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
-          {prompt: 'Select Request Type'}) %></td>
+          RequestType.order("name").select { |a| StaffRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect { |e| [ e.name, e.id ] },
+          { prompt: 'Select Request Type' }) %></td>
       </tr>
       <tr>
         <th><%= f.label :annual_base_pay %></th>
@@ -33,11 +33,11 @@
       </tr>
       <tr>
         <th><%= f.label :department_id %></th>
-        <td><%= select("staff_request", "department_id", Department.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Department'}) %></td>
+        <td><%= select("staff_request", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
       </tr>
       <tr>
         <th><%= f.label :subdepartment_id %></th>
-        <td><%= select("staff_request", "subdepartment_id", Subdepartment.all.collect {|d| [ d.name, d.id ] }, {prompt: 'Select Subdepartment'}) %></td>
+        <td><%= select("staff_request", "subdepartment_id", Subdepartment.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Subdepartment' }) %></td>
       </tr>
       <tr>
         <th><%= f.label :justification %></th>

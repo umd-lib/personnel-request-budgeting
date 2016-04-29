@@ -13,7 +13,7 @@
       </tr>
       <tr>
         <th><%= f.label :employee_category_id %></th>
-        <td><%= select("employee_type", "employee_category_id", EmployeeCategory.all.collect {|cat| [ cat.name, cat.id ] }, {prompt: 'Select Category'}) %></td>
+        <td><%= select("employee_type", "employee_category_id", EmployeeCategory.order("name").collect { |cat| [ cat.name, cat.id ] }, { prompt: 'Select Category' }) %></td>
       </tr>   
     </tbody>
   </table>

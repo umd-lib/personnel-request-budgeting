@@ -1,4 +1,4 @@
-# A type of personnel request (New, Renewal, Pay Adjustment, etc.)
+# A type of staffing request (New, Renewal, Pay Adjustment, etc.)
 class RequestType < ActiveRecord::Base
   has_many :contractor_requests, dependent: :restrict_with_exception
   has_many :labor_requests, dependent: :restrict_with_exception

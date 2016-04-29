@@ -73,3 +73,7 @@ group :test do
   gem 'rubocop', '~> 0.39.0', require: false
   gem 'rubocop-checkstyle_formatter', '~> 0.2.0', require: false
 end
+
+group :production do
+  gem 'pg', '~> 0.18.4'
+end

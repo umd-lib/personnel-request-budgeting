@@ -18,7 +18,7 @@ class EmployeeTypeTest < ActiveSupport::TestCase
 
   test 'code should be unique' do
     duplicate_emp_type = @emp_type.dup
-    duplicate_emp_type.code = @emp_type.code.upcase
+    duplicate_emp_type.code = @emp_type.code.downcase
     @emp_type.save!
     assert_not duplicate_emp_type.valid?
   end

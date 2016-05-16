@@ -18,7 +18,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'should create user' do
     assert_difference('User.count') do
-      post :create, user: { cas_directory_id: @user.cas_directory_id, name: @user.name }
+      post :create, user: { cas_directory_id: 'NEW_USER', name: 'New User' }
     end
 
     assert_redirected_to user_path(assigns(:user))
@@ -40,6 +40,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should destroy user' do
+    user = User.new(cas_directory_id: 'TEST_USER', name: 'Test User')
+    user.save!
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end

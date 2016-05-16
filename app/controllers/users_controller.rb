@@ -5,6 +5,9 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @q = User.ransack(params[:q])
+    @q.sorts = 'cas_directory_id' if @q.sorts.empty?
+    @users = @q.result
   end
 
   # GET /users/1
@@ -70,6 +73,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :cas_directory_id)
+      params.require(:user).permit(:cas_directory_id, :name)
     end
 end

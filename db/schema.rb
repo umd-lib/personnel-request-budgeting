@@ -128,8 +128,8 @@ ActiveRecord::Schema.define(version: 20160516155002) do
   add_index "units", ["department_id"], name: "index_units_on_department_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
     t.string   "cas_directory_id"
+    t.string   "name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

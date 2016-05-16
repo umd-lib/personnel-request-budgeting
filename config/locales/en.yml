@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+  
+  activerecord:
+    attributes:
+      user:
+        cas_directory_id: CAS Directory ID

@@ -1,6 +1,8 @@
+# Provides CAS Authentication and whitelist authorization
 module CasHelper
   attr_reader :current_user
 
+  # Uses CAS to authenticate users, and provide white-list authorization
   def authenticate
     CASClient::Frameworks::Rails::Filter.before(self)
 

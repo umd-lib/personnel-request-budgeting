@@ -18,13 +18,27 @@ Requires:
 > bundle install --without production
 ```
 
-2) (Optional) Populate database with sample data:
+2) Edit the db/seeds.rb file, uncommenting the lines:
+
+```
+users = [ { cas_directory_id: '<CAS DIRECTORY ID>', name: '<USER FULL NAME>' } ]
+users.each { |user| User.create!(user) }
+```
+and replacing the "\<CAS DIRECTORY ID>" and "\<USER FULL NAME>" with valid user information.
+
+3) Set up the database:
+
+```
+> rake db:reset
+```
+
+4) (Optional) Populate database with sample data:
 
 ```
 > rake db:reset_with_sample_data
 ```
 
-3) Run:
+5) Run:
 
 ```
 > rails server

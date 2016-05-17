@@ -102,3 +102,10 @@ request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'Renewal', name: 'Renewal' }]
 
 request_types.each { |type| RequestType.create!(type) }
+
+# Users
+# Uncomment the following lines and replace <CAS DIRECTORY ID> and
+# <USER FULL NAME> with a valid user.
+#
+#users = [ { cas_directory_id: '<CAS DIRECTORY ID>', name: '<USER FULL NAME>' } ]
+#users.each { |user| User.create!(user) }

@@ -18,24 +18,27 @@ Requires:
 > bundle install --without production
 ```
 
-2) Edit the db/seeds.rb file, uncommenting the lines:
-
-```
-users = [ { cas_directory_id: '<CAS DIRECTORY ID>', name: '<USER FULL NAME>' } ]
-users.each { |user| User.create!(user) }
-```
-and replacing the "\<CAS DIRECTORY ID>" and "\<USER FULL NAME>" with valid user information.
-
-3) Set up the database:
+2) Set up the database:
 
 ```
 > rake db:reset
 ```
 
-4) (Optional) Populate database with sample data:
+3) (Optional) Populate database with sample data:
 
 ```
 > rake db:reset_with_sample_data
+```
+
+4) The application use CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
+
+```
+> rake 'db:add_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
+```
+and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user information. For example, to add "John Smith" with a CAS Directory ID of "jsmith":
+
+```
+> rake 'db:add_cas_user[jsmith, John Smith]'
 ```
 
 5) Run:

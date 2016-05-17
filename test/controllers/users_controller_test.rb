@@ -40,7 +40,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should destroy user' do
-    user = User.new(cas_directory_id: 'TEST_USER', name: 'Test User')
+    user = User.new(cas_directory_id: 'SAMPLE_USER', name: 'Sample User')
     user.save!
     assert_difference('User.count', -1) do
       delete :destroy, id: @user

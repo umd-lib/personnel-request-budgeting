@@ -1,5 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# The "test_user" is needed for bypassing CAS authentication. Do not delete!
+test_user:
+  cas_directory_id: test_user
+  name: Test User
+  
 one:
   cas_directory_id: user1
   name: User One
@@ -7,3 +12,4 @@ one:
 two:
   cas_directory_id: user2
   name: User Two
+

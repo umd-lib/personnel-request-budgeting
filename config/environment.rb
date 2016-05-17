@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 Rails.application.initialize!
 
 # enable detailed CAS logging
-cas_logger = CASClient::Logger.new(::Rails.root.to_s+'/log/cas.log')
+cas_logger = CASClient::Logger.new(::Rails.root.to_s + '/log/cas.log')
 cas_logger.level = Logger::DEBUG
 
 CASClient::Frameworks::Rails::Filter.configure(

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Integration test for the authorization functionality
+# Integration test for CAS authorization functionality
 class CasAuthorizationTest < ActionDispatch::IntegrationTest
   test 'existing user can access application' do
     CASClient::Frameworks::Rails::Filter.fake('test_user')
@@ -14,5 +14,10 @@ class CasAuthorizationTest < ActionDispatch::IntegrationTest
 
     get root_path
     assert_response(:forbidden)
+  end
+
+  def teardown
+    # Restore normal "test_user"
+    CASClient::Frameworks::Rails::Filter.fake('test_user')
   end
 end

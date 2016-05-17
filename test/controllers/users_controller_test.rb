@@ -43,7 +43,7 @@ class UsersControllerTest < ActionController::TestCase
     user = User.new(cas_directory_id: 'SAMPLE_USER', name: 'Sample User')
     user.save!
     assert_difference('User.count', -1) do
-      delete :destroy, id: @user
+      delete :destroy, id: user
     end
 
     assert_redirected_to users_path

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include CasHelper
+  include Pundit
   before_action :authenticate
 
   # Prevent CSRF attacks by raising an exception.

@@ -6,7 +6,9 @@ class LaborRequestsController < ApplicationController
   def index
     @q = LaborRequest.ransack(params[:q])
     @q.sorts = 'position_description' if @q.sorts.empty?
-    @labor_requests = @q.result.page(params[:page])
+    results = @q.result
+    pundit_scoped = policy_scope(results)
+    @labor_requests = pundit_scoped.page(params[:page])
   end
 
   # GET /labor_requests/1

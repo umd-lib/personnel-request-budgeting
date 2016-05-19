@@ -4,18 +4,21 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def admin?
-    true
+    false
   end
-  
+
   def divisions
-    ['4']
+    #['4']
+    []
   end
 
   def departments
     ['10']
+    #[]
   end
 
   def units
     ['6']
+    #[]
   end
 end

@@ -1,4 +1,5 @@
 class LaborRequestsController < ApplicationController
+  include PersonnelRequestController
   before_action :set_labor_request, only: [:show, :edit, :update, :destroy]
 
   # GET /labor_requests
@@ -6,26 +7,14 @@ class LaborRequestsController < ApplicationController
   def index
     @q = LaborRequest.ransack(params[:q])
     @q.sorts = 'position_description' if @q.sorts.empty?
+
     results = @q.result
     policy_scoped = policy_scope(results)
+    policy_ordered = sort_results(@q, policy_scoped)
 
-    sort_order_name = @q.sorts[0].name
-    sort_order_name_map = {
-      "department_code" => "departments.code",
-      "unit_code" => "units.code",
-      "employee_type_code" => "employee_types.code",
-      "request_type_code" => "request_types.code"
-    }
-
-    sort_order_name = sort_order_name_map.fetch(sort_order_name, sort_order_name)
-    sort_order = "#{sort_order_name} #{@q.sorts[0].dir}"
-#    sort_order = "departments.code #{@q.sorts[0].dir}"
-#    policy_scoped = policy_scoped.includes(:department)
-puts("*******policy_scoped: #{policy_scoped.class}")
-    policy_ordered = policy_scoped.order(sort_order)
-#    policy_ordered.includes(:department)
     @labor_requests = policy_ordered.page(params[:page])
   end
+
 
   # GET /labor_requests/1
   # GET /labor_requests/1.json

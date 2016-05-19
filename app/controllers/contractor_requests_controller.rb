@@ -1,4 +1,5 @@
 class ContractorRequestsController < ApplicationController
+  include PersonnelRequestController
   before_action :set_contractor_request, only: [:show, :edit, :update, :destroy]
 
   # GET /contractor_requests
@@ -6,7 +7,12 @@ class ContractorRequestsController < ApplicationController
   def index
     @q = ContractorRequest.ransack(params[:q])
     @q.sorts = 'position_description' if @q.sorts.empty?
-    @contractor_requests = @q.result.page(params[:page])
+
+    results = @q.result
+    policy_scoped = policy_scope(results)
+    policy_ordered = sort_results(@q, policy_scoped)
+
+    @contractor_requests = policy_ordered.page(params[:page])
   end
 
   # GET /contractor_requests/1

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  role_type_id: 
+  division_id: 
+  department_id: 
+  unit_id: 
+
+two:
+  user_id: 
+  role_type_id: 
+  division_id: 
+  department_id: 
+  unit_id: 

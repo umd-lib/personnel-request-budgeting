@@ -1,14 +1,19 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @role_type.code %> <small>Role Type</small></h1>
+</div>
 
-<p>
-  <strong>Code:</strong>
-  <%= @role_type.code %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Code:</th>
+      <td id="code"><%= @role_type.code %></td>
+    </tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @role_type.name %>
-</p>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @role_type.name %></td>
+    </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_role_type_path(@role_type) %> |
-<%= link_to 'Back', role_types_path %>
+<%= render 'shared/show_action_buttons', object: @role_type %>

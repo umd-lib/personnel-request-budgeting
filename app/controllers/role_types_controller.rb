@@ -4,7 +4,9 @@ class RoleTypesController < ApplicationController
   # GET /role_types
   # GET /role_types.json
   def index
-    @role_types = RoleType.all
+    @q = RoleType.ransack(params[:q])
+    @q.sorts = 'code' if @q.sorts.empty?
+    @role_types = @q.result
   end
 
   # GET /role_types/1
@@ -54,14 +56,30 @@ class RoleTypesController < ApplicationController
   # DELETE /role_types/1
   # DELETE /role_types/1.json
   def destroy
-    @role_type.destroy
     respond_to do |format|
-      format.html { redirect_to role_types_url, notice: 'Role type was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to role_types_url, notice: 'Role type was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to role_types_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current role type was deleted. If the role type
+    # cannot be deleted due an ActiveRecord::DeleteRestrictionError, populates
+    # @error_msg and returns false.
+    def delete
+      @role_type.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Role type cannot be removed as it is used by other records.'
+      return false
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_role_type
       @role_type = RoleType.find(params[:id])

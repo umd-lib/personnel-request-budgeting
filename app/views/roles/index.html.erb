@@ -1,35 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Roles</h1>
+</div>
 
-<h1>Listing Roles</h1>
+<%= render partial: 'shared/index_action_buttons',
+  locals: { model_type: Role, pagination_object: @roles } %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Role type</th>
-      <th>Division</th>
-      <th>Department</th>
-      <th>Unit</th>
-      <th colspan="3"></th>
+      <th id="user"><%= sort_link(@q, 'user_name', 'User') %></th>
+      <th id="role_type"><%= sort_link(@q, 'role_type_name', 'Role type') %></th>
+      <th id="request_type"><%= sort_link(@q, 'division_name', 'Division') %></th>
+      <th id="contractor_name"><%= sort_link(@q, 'department_name', 'Department') %></th>
+      <th id="number_of_positions"><%= sort_link(@q, 'unit_name', 'Unit') %></th>
+      <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
 
   <tbody>
     <% @roles.each do |role| %>
       <tr>
-        <td><%= role.user %></td>
-        <td><%= role.role_type %></td>
-        <td><%= role.division %></td>
-        <td><%= role.department %></td>
-        <td><%= role.unit %></td>
-        <td><%= link_to 'Show', role %></td>
-        <td><%= link_to 'Edit', edit_role_path(role) %></td>
-        <td><%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td headers="user_name"><%= role.user.name %></td>
+        <td headers="role_type_name"><%= role.role_type.name %></td>
+        <td headers="division_name"><%= role.division.name if role.division %></td>
+        <td headers="department_name"><%= role.department.name if role.department %></td>
+        <td headers="unit_name"><%= role.unit.name if role.unit %></td>
+        <%= render 'shared/table_action_buttons', object: role %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Role', new_role_path %>
+<%= will_paginate renderer: BootstrapPagination::Rails %>

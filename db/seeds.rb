@@ -102,3 +102,22 @@ request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'Renewal', name: 'Renewal' }]
 
 request_types.each { |type| RequestType.create!(type) }
+
+# Role Types
+role_types = [{ code: 'admin', name: 'Admin' },
+              { code: 'division', name: 'Division' },
+              { code: 'department', name: 'Department' },
+              { code: 'unit', name: 'Unit' }]
+
+role_types.each { |type| RoleType.create!(type) }
+
+User.create!(cas_directory_id: 'dsteelma', name: 'David P. Steelman')
+
+roles = [{ user: 'dsteelma', role_type: 'department', department: 'ACQ' }]
+roles.each do |role|
+  user = User.find_by_cas_directory_id(role[:user])
+  role_type = RoleType.find_by_code(role[:role_type])
+  department = Department.find_by_code(role[:department])
+
+  Role.create!(user: user, role_type: role_type, department: department)
+end

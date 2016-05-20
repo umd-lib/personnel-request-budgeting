@@ -1,15 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 
-  role_type_id: 
-  division_id: 
-  department_id: 
+  user: one
+  role_type: admin
+  division: 
+  department: 
   unit_id: 
 
 two:
-  user_id: 
-  role_type_id: 
-  division_id: 
-  department_id: 
+  user: two
+  role_type: admin
+  division: 
+  department: 
+  unit_id: 
+
+test_admin_role:
+  user: test_admin
+  role_type: admin
+  division: 
+  department: 
+  unit:
+
+one_with_department:
+  user: one
+  role_type: department
+  division: 
+  department: ssdr
   unit_id: 

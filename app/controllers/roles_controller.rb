@@ -4,7 +4,10 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
-    @roles = Role.all
+    @q = Role.ransack(params[:q])
+    @q.sorts = 'user' if @q.sorts.empty?
+
+    @roles = @q.result.page(params[:page])
   end
 
   # GET /roles/1
@@ -54,14 +57,30 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.json
   def destroy
-    @role.destroy
     respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to roles_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current role was deleted. If the role
+    # cannot be deleted due an ActiveRecord::DeleteRestrictionError, populates
+    # @error_msg and returns false.
+    def delete
+      @role.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Role cannot be removed as it is used by other records.'
+      return false
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])

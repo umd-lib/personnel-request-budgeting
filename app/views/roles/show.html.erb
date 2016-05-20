@@ -1,29 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @role.user.name %> <small>Role</small></h1>
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @role.user %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>User:</th>
+      <td id="user_name"><%= @role.user.name %></td>
+    </tr>
 
-<p>
-  <strong>Role type:</strong>
-  <%= @role.role_type %>
-</p>
+    <tr>
+      <th>Role Type:</th>
+      <td id="role_type_name"><%= @role.role_type.name %></td>
+    </tr>
 
-<p>
-  <strong>Division:</strong>
-  <%= @role.division %>
-</p>
+    <% if @role.division %>
+      <tr>
+        <th>Division:</th>
+        <td id="division_name"><%= @role.division.name %></td>
+      </tr>
+    <% end %>
 
-<p>
-  <strong>Department:</strong>
-  <%= @role.department %>
-</p>
+    <% if @role.department %>
+      <tr>
+        <th>Department:</th>
+        <td id="department_name"><%= @role.department.name %></td>
+      </tr>
+    <% end %>
 
-<p>
-  <strong>Unit:</strong>
-  <%= @role.unit %>
-</p>
+    <% if @role.unit %>
+      <tr>
+        <th>Unit:</th>
+        <td id="unit_name"><%= @role.unit.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<%= render 'shared/show_action_buttons', object: @role %>

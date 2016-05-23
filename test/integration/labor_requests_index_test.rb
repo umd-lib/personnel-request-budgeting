@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'integration/personnel_request_index_test_helper'
 
 # Integration test for the LaborRequest index page
 class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
+  include PersonnelRequestIndexTestHelper
+
   test 'currency field values show with two decimal places' do
     get labor_requests_path
 
@@ -50,19 +53,4 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
       end
     end
   end
-
-  private
-
-    def sort_and_paginate_results(results, sort_column, sort_direction)
-      if sort_column != 'division_code'
-        results.paginate(page: 1)
-      else
-        # Division sorting needs additional join to access division code
-        sort_order = "divisions.code #{sort_direction}"
-        table_name = results.table_name
-        results = results.joins("LEFT OUTER JOIN departments on departments.id = #{table_name}.department_id")
-        results = results.joins('LEFT OUTER JOIN divisions on departments.division_id = divisions.id')
-        results.order(sort_order).paginate(page: 1)
-      end
-    end
 end

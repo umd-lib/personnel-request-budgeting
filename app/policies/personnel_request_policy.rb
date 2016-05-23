@@ -1,21 +1,26 @@
+# Policy for Personnel Request actions
 class PersonnelRequestPolicy < ApplicationPolicy
+  # Limits the scope of returned results based on role
   class Scope < Scope
     def resolve
-      if user.admin?
+      user_roles = Role.where("user_id = ?", user)
+      if admin?(user_roles)
         # Admin always sees everything
+        return scope
+      end
+
+      # Division scope
+      user_divisions = user_divisions(user_roles)
+      unless user_divisions.empty?
+        # Users with Division role can see everything
         return scope
       end
 
       union_performed = false
       union_results = scope.none
-      # Division scope
-      user_divisions = user.divisions
-      division_results = scope.none
-      unless user_divisions.empty?
-      end
 
       # Department scope
-      user_departments = user.departments
+      user_departments = user_departments(user_roles)
       department_results = scope.none
       unless user_departments.empty?
         department_results = scope.where(department_id: user_departments)
@@ -30,7 +35,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
       end
 
       # Unit scope
-      user_units = user.units
+      user_units = user_units(user_roles)
       unit_results = scope.none
       unless user_units.empty?
         unit_results = scope.where(unit_id: user_units)
@@ -55,5 +60,28 @@ class PersonnelRequestPolicy < ApplicationPolicy
       end
       union_results
    end
+
+   private
+
+     def admin?(user_roles)
+       user_roles.where('role_type_id = ?', RoleType.find_by_code('admin')).any?
+     end
+
+     def user_divisions(user_roles)
+       user_roles.where('role_type_id = ?', RoleType.find_by_code('division'))
+     end
+
+     def departments_in_division(user_divisions)
+       user_divisions.each { |u| puts "*********division: #{u}"}
+       Department.where(division_id: user_divisions)
+     end
+
+     def user_departments(user_roles)
+       user_roles.where('role_type_id = ?', RoleType.find_by_code('department')).select("department_id")
+     end
+
+     def user_units(user_roles)
+       user_roles.where('role_type_id = ?', RoleType.find_by_code('unit')).select("unit_id")
+     end
   end
 end

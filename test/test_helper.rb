@@ -11,5 +11,5 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  CASClient::Frameworks::Rails::Filter.fake('test_user')
+  CASClient::Frameworks::Rails::Filter.fake('test_admin')
 end

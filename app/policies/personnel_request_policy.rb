@@ -2,6 +2,7 @@
 class PersonnelRequestPolicy < ApplicationPolicy
   # Limits the scope of returned results based on role
   class Scope < Scope
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
     def resolve
       user_roles = Role.where('user_id = ?', user)
       if admin?(user_roles)

@@ -17,6 +17,7 @@
       <th id="hours_per_week"><%= sort_link(@q, :hours_per_week, 'Hours per week') %></th>
       <th id="number_of_weeks"><%= sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
       <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
+      <th id="division"><%= sort_link(@q, 'division_code', 'Division') %></th>
       <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
       <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
       <%= render 'shared/table_action_buttons_header' %>
@@ -35,6 +36,7 @@
         <td headers="hours_per_week"><%= labor_request.hours_per_week %></td>
         <td headers="number_of_weeks"><%= labor_request.number_of_weeks %></td>
         <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
+        <td headers="division"><%= labor_request.department.division.code %></td>
         <td headers="department"><%= labor_request.department.code %></td>
         <td headers="unit"><%= labor_request.unit.code if labor_request.unit %></td>
         <%= render 'shared/table_action_buttons', object: labor_request %>

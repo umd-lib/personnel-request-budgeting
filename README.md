@@ -10,7 +10,8 @@ Requires:
 * Ruby 2.2.4
 * Bundler
 
-1) Setup:
+### Setup
+1) Checkout the code and install the dependencies:
 
 ```
 > git clone git@github.com:umd-lib/annual-staffing-request
@@ -30,6 +31,8 @@ Requires:
 > rake db:reset_with_sample_data
 ```
 
+### Adding Users and Roles
+
 4) The application use CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
 
 ```
@@ -41,7 +44,35 @@ and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user infor
 > rake 'db:add_cas_user[jsmith, John Smith]'
 ```
 
-5) Run:
+5) Users also need a role, of which there are 4 types:
+
+* Admin
+* Division
+* Department
+* Unit
+
+Any existing user can be added to a role using the following Rake task:
+
+```
+> rake 'db:add_role[<CAS DIRECTORY ID>,<ROLE TYPE>,<ORG CODE>]'
+```
+and replacing the "\<CAS DIRECTORY ID>" with the CAS Directory ID of a known user, provide a \<ROLE TYPE> of "admin", "division", "department", or "unit", and an \<ORG CODE> corresponding to the role type (optional for "admin" roles). For example, to create an "Admin" role for the "jsmith" user:
+
+```
+rake 'db:add_cas_user[jsmith, admin]'
+```
+
+To give a Department role to "jsmith" for the "SSDR" department:
+
+```
+rake 'db:add_cas_user[jsmith, department, SSDR]'
+```
+
+Note: Any user with an Admin role can add additional role permissions through the web application, so typically you only need to add an "Admin" user to start.
+
+### Run the web application
+
+5) To run the web application:
 
 ```
 > rails server

@@ -15,7 +15,6 @@ class LaborRequestsController < ApplicationController
     @labor_requests = policy_ordered.page(params[:page])
   end
 
-
   # GET /labor_requests/1
   # GET /labor_requests/1.json
   def show

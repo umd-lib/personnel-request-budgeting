@@ -1,7 +1,7 @@
 require 'test_helper'
 
+# Tests for the LaborRequest policy
 class LaborRequestPolicyTest < ActiveSupport::TestCase
-
   def test_scope
   end
 

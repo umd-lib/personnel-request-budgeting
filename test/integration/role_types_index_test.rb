@@ -12,20 +12,22 @@ class RoleTypesIndexTest < ActionDispatch::IntegrationTest
     assert_select 'a.sort_link', count: columns.size
 
     # Verify sorting
-    columns.each do |column|
-      %w(asc desc).each do |order|
-        q_param = { s: column + ' ' + order }
+    columns.each do |sort_column|
+      %w(asc desc).each do |sort_direction|
+        q_param = { s: sort_column + ' ' + sort_direction }
         get role_types_path, q: q_param
         assert_template 'role_types/index'
 
         # Verify sorting by getting the text of the page, then checking the
-        # position of each entry -- the position should increase on each pass.
+        # position of each entry -- the position should increase on each entry.
         page = response.body
 
         last_result_index = 0
         RoleType.ransack(q_param).result.each do |entry|
           entry_path = role_type_path(entry)
           entry_index = page.index(entry_path)
+          assert_not_nil entry_index,
+                         "'#{entry_path}' could not be found when sorting '#{sort_column} #{sort_direction}'"
           assert last_result_index < entry_index, "Failed for '#{q_param[:s]}'"
           assert_select 'tr td a[href=?]', entry_path
           last_result_index = entry_index

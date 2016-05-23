@@ -3,7 +3,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
   # Limits the scope of returned results based on role
   class Scope < Scope
     def resolve
-      user_roles = Role.where("user_id = ?", user)
+      user_roles = Role.where('user_id = ?', user)
       if admin?(user_roles)
         # Admin always sees everything
         return scope
@@ -53,35 +53,38 @@ class PersonnelRequestPolicy < ApplicationPolicy
         # When a union is performed, we lose the connection to the
         # associated tables. The following joins reconnects the associations
         scope_table_name = scope.table_name
-        union_results = union_results.joins("LEFT OUTER JOIN departments on departments.id = #{scope_table_name}.department_id")
-        union_results = union_results.joins("LEFT OUTER JOIN units on units.id = #{scope_table_name}.unit_id")
-        union_results = union_results.joins("LEFT OUTER JOIN employee_types on employee_types.id = #{scope_table_name}.employee_type_id")
-        union_results = union_results.joins("LEFT OUTER JOIN request_types on request_types.id = #{scope_table_name}.request_type_id")
+        union_results = union_results.joins(
+          "LEFT OUTER JOIN departments on departments.id = #{scope_table_name}.department_id")
+        union_results = union_results.joins(
+          "LEFT OUTER JOIN units on units.id = #{scope_table_name}.unit_id")
+        union_results = union_results.joins(
+          "LEFT OUTER JOIN employee_types on employee_types.id = #{scope_table_name}.employee_type_id")
+        union_results = union_results.joins(
+          "LEFT OUTER JOIN request_types on request_types.id = #{scope_table_name}.request_type_id")
       end
       union_results
-   end
+    end
 
-   private
+    private
 
-     def admin?(user_roles)
-       user_roles.where('role_type_id = ?', RoleType.find_by_code('admin')).any?
-     end
+      def admin?(user_roles)
+        user_roles.where('role_type_id = ?', RoleType.find_by_code('admin')).any?
+      end
 
-     def user_divisions(user_roles)
-       user_roles.where('role_type_id = ?', RoleType.find_by_code('division'))
-     end
+      def user_divisions(user_roles)
+        user_roles.where('role_type_id = ?', RoleType.find_by_code('division'))
+      end
 
-     def departments_in_division(user_divisions)
-       user_divisions.each { |u| puts "*********division: #{u}"}
-       Department.where(division_id: user_divisions)
-     end
+      def departments_in_division(user_divisions)
+        Department.where(division_id: user_divisions)
+      end
 
-     def user_departments(user_roles)
-       user_roles.where('role_type_id = ?', RoleType.find_by_code('department')).select("department_id")
-     end
+      def user_departments(user_roles)
+        user_roles.where('role_type_id = ?', RoleType.find_by_code('department')).select('department_id')
+      end
 
-     def user_units(user_roles)
-       user_roles.where('role_type_id = ?', RoleType.find_by_code('unit')).select("unit_id")
-     end
+      def user_units(user_roles)
+        user_roles.where('role_type_id = ?', RoleType.find_by_code('unit')).select('unit_id')
+      end
   end
 end

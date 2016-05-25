@@ -4,14 +4,14 @@ namespace :db do
   task :add_role, [:cas_directory_id, :role_type_code, :org_code] => :environment do |_t, args|
     cas_directory_id = args[:cas_directory_id]
     user = User.find_by_cas_directory_id(cas_directory_id)
-    if !user
+    unless user
       puts "User '#{cas_directory_id}' not recognized."
       next # 'next' in a Rake task acts like return
     end
 
     role_type_code = args[:role_type_code]
     role_type = RoleType.find_by_code(role_type_code)
-    if !role_type
+    unless role_type
       puts "Role type code '#{role_type_code}' not recognized."
       next # 'next' in a Rake task acts like return
     end

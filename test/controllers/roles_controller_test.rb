@@ -11,39 +11,6 @@ class RolesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:roles)
   end
 
-  test 'forbid access by non-admin user' do
-    not_admin_user = users(:test_not_admin)
-    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
-    get :index
-    assert_response :forbidden
-
-    get :new
-    assert_response :forbidden
-
-    get :show, id: @role
-    assert_response :forbidden
-
-    get :edit, id: @role
-    assert_response :forbidden
-
-    post :create, role: {
-      user_id: users(:two),
-      role_type_id: role_types(:department),
-      department_id: departments(:ssdr) }
-    assert_response :forbidden
-
-    patch :update, id: @role, role: {
-      department_id: departments(:uss),
-      role_type_id: @role.role_type_id }
-    assert_response :forbidden
-
-    delete :destroy, id: @role
-    assert_response :forbidden
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
-  end
-
   test 'should get new' do
     get :new
     assert_response :success
@@ -83,5 +50,38 @@ class RolesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to roles_path
+  end
+
+  test 'forbid access by non-admin user' do
+    not_admin_user = users(:test_not_admin)
+    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
+    get :index
+    assert_response :forbidden
+
+    get :new
+    assert_response :forbidden
+
+    get :show, id: @role
+    assert_response :forbidden
+
+    get :edit, id: @role
+    assert_response :forbidden
+
+    post :create, role: {
+      user_id: users(:two),
+      role_type_id: role_types(:department),
+      department_id: departments(:ssdr) }
+    assert_response :forbidden
+
+    patch :update, id: @role, role: {
+      department_id: departments(:uss),
+      role_type_id: @role.role_type_id }
+    assert_response :forbidden
+
+    delete :destroy, id: @role
+    assert_response :forbidden
+
+    # Restore fake user
+    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
   end
 end

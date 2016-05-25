@@ -59,13 +59,13 @@ Any existing user can be added to a role using the following Rake task:
 and replacing the "\<CAS DIRECTORY ID>" with the CAS Directory ID of a known user, provide a \<ROLE TYPE> of "admin", "division", "department", or "unit", and an \<ORG CODE> corresponding to the role type (optional for "admin" roles). For example, to create an "Admin" role for the "jsmith" user:
 
 ```
-rake 'db:add_cas_user[jsmith, admin]'
+rake 'db:add_role[jsmith, admin]'
 ```
 
 To give a Department role to "jsmith" for the "SSDR" department:
 
 ```
-rake 'db:add_cas_user[jsmith, department, SSDR]'
+rake 'db:add_role[jsmith, department, SSDR]'
 ```
 
 Note: Any user with an Admin role can add additional role permissions through the web application, so typically you only need to add an "Admin" user to start.

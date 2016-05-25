@@ -1,9 +1,11 @@
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /units
   # GET /units.json
   def index
+    authorize Unit
     @q = Unit.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @units = @q.result
@@ -12,20 +14,25 @@ class UnitsController < ApplicationController
   # GET /units/1
   # GET /units/1.json
   def show
+    authorize Unit
   end
 
   # GET /units/new
   def new
+    authorize Unit
     @unit = Unit.new
   end
 
   # GET /units/1/edit
   def edit
+    authorize Unit
   end
 
   # POST /units
   # POST /units.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize Unit
     @unit = Unit.new(unit_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class UnitsController < ApplicationController
   # PATCH/PUT /units/1
   # PATCH/PUT /units/1.json
   def update
+    authorize Unit
     respond_to do |format|
       if @unit.update(unit_params)
         format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
@@ -56,6 +64,7 @@ class UnitsController < ApplicationController
   # DELETE /units/1
   # DELETE /units/1.json
   def destroy
+    authorize Unit
     respond_to do |format|
       if delete
         format.html { redirect_to units_url, notice: 'Unit was successfully destroyed.' }

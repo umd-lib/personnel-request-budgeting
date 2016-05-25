@@ -8,6 +8,10 @@ class EmployeeType < ActiveRecord::Base
   validates :name, presence: true
   validates :employee_category, presence: true
 
+  def self.policy_class
+    AdminOnlyPolicy
+  end
+
   # Returns an ActiveRecord::Relation of employee types with the given
   # employee category code
   def self.employee_types_with_category(employee_category_code)

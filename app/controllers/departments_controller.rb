@@ -1,9 +1,11 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /departments
   # GET /departments.json
   def index
+    authorize Department
     @q = Department.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @departments = @q.result
@@ -12,20 +14,25 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
+    authorize Department
   end
 
   # GET /departments/new
   def new
+    authorize Department
     @department = Department.new
   end
 
   # GET /departments/1/edit
   def edit
+    authorize Department
   end
 
   # POST /departments
   # POST /departments.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize Department
     @department = Department.new(department_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
+    authorize Department
     respond_to do |format|
       if @department.update(department_params)
         format.html { redirect_to @department, notice: 'Department was successfully updated.' }
@@ -56,6 +64,7 @@ class DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
+    authorize Department
     respond_to do |format|
       if delete
         format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }

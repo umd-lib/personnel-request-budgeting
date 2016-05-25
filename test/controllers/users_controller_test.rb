@@ -48,4 +48,32 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+
+  test 'forbid access by non-admin user' do
+    not_admin_user = users(:test_not_admin)
+    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
+    get :index
+    assert_response :forbidden
+
+    get :new
+    assert_response :forbidden
+
+    get :show, id: @user
+    assert_response :forbidden
+
+    get :edit, id: @user
+    assert_response :forbidden
+
+    post :create, user: { cas_directory_id: 'NEW_USER', name: 'New User' }
+    assert_response :forbidden
+
+    patch :update, id: @user, user: { cas_directory_id: @user.cas_directory_id, name: @user.name }
+    assert_response :forbidden
+
+    delete :destroy, id: @user
+    assert_response :forbidden
+
+    # Restore fake user
+    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+  end
 end

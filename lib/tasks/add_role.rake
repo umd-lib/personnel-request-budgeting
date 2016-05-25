@@ -16,7 +16,7 @@ namespace :db do
       next # 'next' in a Rake task acts like return
     end
 
-    if (role_type_code == 'admin')
+    if role_type_code == 'admin'
       begin
         Role.create!(user_id: user.id, role_type_id: role_type.id)
         puts "'Added Admin role for #{cas_directory_id}'"
@@ -35,7 +35,7 @@ namespace :db do
       org = Unit.find_by_code(org_code)
     end
 
-    if !org
+    unless org
       puts "Organization code '#{org_code}' not recognized for '#{role_type_code}' role."
       next # 'next' in a Rake task acts like return
     end

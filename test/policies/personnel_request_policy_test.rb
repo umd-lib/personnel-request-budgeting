@@ -3,6 +3,7 @@ require 'test_helper'
 # Tests for PersonnelRequestPolicy's Scope class
 # These tests only cover visibility of the personnel requests, not the
 # actions that can be taken on them.
+# rubocop:disable Metrics/ClassLength
 class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   def setup
     @test_user = User.create(cas_directory_id: 'foobarbaz', name: 'Foo BarBaz')
@@ -118,7 +119,7 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
 
     [labor_results, staff_results, contractor_results].each do |requests|
       requests.each do |r|
-        if ( r.unit.nil? )
+        if r.unit.nil?
           assert_equal expected_department_code, r.department.code
         else
           assert_equal expected_unit_code, r.unit.code

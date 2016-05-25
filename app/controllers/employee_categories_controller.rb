@@ -1,9 +1,11 @@
 class EmployeeCategoriesController < ApplicationController
   before_action :set_employee_category, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /employee_categories
   # GET /employee_categories.json
   def index
+    authorize EmployeeCategory
     @q = EmployeeCategory.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @employee_categories = @q.result
@@ -12,20 +14,25 @@ class EmployeeCategoriesController < ApplicationController
   # GET /employee_categories/1
   # GET /employee_categories/1.json
   def show
+    authorize EmployeeCategory
   end
 
   # GET /employee_categories/new
   def new
+    authorize EmployeeCategory
     @employee_category = EmployeeCategory.new
   end
 
   # GET /employee_categories/1/edit
   def edit
+    authorize EmployeeCategory
   end
 
   # POST /employee_categories
   # POST /employee_categories.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize EmployeeCategory
     @employee_category = EmployeeCategory.new(employee_category_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class EmployeeCategoriesController < ApplicationController
   # PATCH/PUT /employee_categories/1
   # PATCH/PUT /employee_categories/1.json
   def update
+    authorize EmployeeCategory
     respond_to do |format|
       if @employee_category.update(employee_category_params)
         format.html { redirect_to @employee_category, notice: 'Employee category was successfully updated.' }
@@ -56,6 +64,7 @@ class EmployeeCategoriesController < ApplicationController
   # DELETE /employee_categories/1
   # DELETE /employee_categories/1.json
   def destroy
+    authorize EmployeeCategory
     respond_to do |format|
       if delete
         format.html { redirect_to employee_categories_url, notice: 'Employee category was successfully destroyed.' }

@@ -59,4 +59,32 @@ class DivisionsControllerTest < ActionController::TestCase
 
     assert_redirected_to divisions_path
   end
+
+  test 'forbid access by non-admin user' do
+    not_admin_user = users(:test_not_admin)
+    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
+    get :index
+    assert_response :forbidden
+
+    get :new
+    assert_response :forbidden
+
+    get :show, id: @division
+    assert_response :forbidden
+
+    get :edit, id: @division
+    assert_response :forbidden
+
+    post :create, division: { code: 'NEW_DIV', name: @division.name }
+    assert_response :forbidden
+
+    patch :update, id: @division, division: { name: @division.name }
+    assert_response :forbidden
+
+    delete :destroy, id: @division
+    assert_response :forbidden
+
+    # Restore fake user
+    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+  end
 end

@@ -5,6 +5,10 @@ class Division < ActiveRecord::Base
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
+  def self.policy_class
+    AdminOnlyPolicy
+  end
+
   # Convenience method that returns true if the current object can be deleted
   # (i.e. has no dependent records), false otherwise.
   def allow_delete?

@@ -58,4 +58,32 @@ class RequestTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to request_types_path
   end
+
+  test 'forbid access by non-admin user' do
+    not_admin_user = users(:test_not_admin)
+    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
+    get :index
+    assert_response :forbidden
+
+    get :new
+    assert_response :forbidden
+
+    get :show, id: @request_type
+    assert_response :forbidden
+
+    get :edit, id: @request_type
+    assert_response :forbidden
+
+    post :create, request_type: { code: 'NEW_REQ_TYPE', name: @request_type.name }
+    assert_response :forbidden
+
+    patch :update, id: @request_type, request_type: { code: @request_type.code, name: @request_type.name }
+    assert_response :forbidden
+
+    delete :destroy, id: @request_type
+    assert_response :forbidden
+
+    # Restore fake user
+    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+  end
 end

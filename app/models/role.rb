@@ -12,6 +12,10 @@ class Role < ActiveRecord::Base
   validate :org_unit_specified_when_not_admin
   validate :not_duplicate
 
+  def self.policy_class
+    AdminOnlyPolicy
+  end
+
   # Verifies that only a single organizational unit is selected.
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def single_org_unit_specified_when_not_admin

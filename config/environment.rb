@@ -4,6 +4,11 @@ require File.expand_path('../application', __FILE__)
 # Initialize the Rails application.
 Rails.application.initialize!
 
+# enable detailed CAS logging
+cas_logger = CASClient::Logger.new(::Rails.root.to_s + '/log/cas.log')
+cas_logger.level = Logger::DEBUG
+
 CASClient::Frameworks::Rails::Filter.configure(
-  cas_base_url: 'https://login.umd.edu/cas'
+  cas_base_url: 'https://login.umd.edu/cas',
+  logger: cas_logger
 )

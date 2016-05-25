@@ -1,0 +1,19 @@
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/form_errors', errors: @user.errors %>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :cas_directory_id %></th>
+        <td><%= f.text_field :cas_directory_id %></td>
+      </tr>
+
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @user } %>
+<% end %>

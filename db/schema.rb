@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428175631) do
+ActiveRecord::Schema.define(version: 20160516173004) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160428175631) do
     t.string   "code"
   end
 
+  add_index "departments", ["code"], name: "index_departments_on_code", unique: true
   add_index "departments", ["division_id"], name: "index_departments_on_division_id"
 
   create_table "divisions", force: :cascade do |t|
@@ -51,12 +52,16 @@ ActiveRecord::Schema.define(version: 20160428175631) do
     t.string   "code"
   end
 
+  add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true
+
   create_table "employee_categories", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "employee_categories", ["code"], name: "index_employee_categories_on_code", unique: true
 
   create_table "employee_types", force: :cascade do |t|
     t.string   "code"
@@ -66,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160428175631) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true
   add_index "employee_types", ["employee_category_id"], name: "index_employee_types_on_employee_category_id"
 
   create_table "labor_requests", force: :cascade do |t|
@@ -98,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160428175631) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+
   create_table "staff_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
     t.string   "position_description"
@@ -125,6 +133,16 @@ ActiveRecord::Schema.define(version: 20160428175631) do
     t.datetime "updated_at",    null: false
   end
 
+  add_index "units", ["code"], name: "index_units_on_code", unique: true
   add_index "units", ["department_id"], name: "index_units_on_department_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "cas_directory_id"
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
 
 end

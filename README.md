@@ -18,13 +18,30 @@ Requires:
 > bundle install --without production
 ```
 
-2) (Optional) Populate database with sample data:
+2) Set up the database:
+
+```
+> rake db:reset
+```
+
+3) (Optional) Populate database with sample data:
 
 ```
 > rake db:reset_with_sample_data
 ```
 
-3) Run:
+4) The application use CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
+
+```
+> rake 'db:add_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
+```
+and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user information. For example, to add "John Smith" with a CAS Directory ID of "jsmith":
+
+```
+> rake 'db:add_cas_user[jsmith, John Smith]'
+```
+
+5) Run:
 
 ```
 > rails server

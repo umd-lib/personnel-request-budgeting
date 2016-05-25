@@ -19,7 +19,7 @@ class UnitTest < ActiveSupport::TestCase
 
   test 'code should be unique' do
     duplicate_unit = @unit.dup
-    duplicate_unit.code = @unit.code.upcase
+    duplicate_unit.code = @unit.code.downcase
     @unit.save!
     assert_not duplicate_unit.valid?
   end

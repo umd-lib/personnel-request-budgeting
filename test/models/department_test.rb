@@ -19,7 +19,7 @@ class DepartmentTest < ActiveSupport::TestCase
 
   test 'code should be unique' do
     duplicate_department = @department.dup
-    duplicate_department.code = @department.code.upcase
+    duplicate_department.code = @department.code.downcase
     @department.save!
     assert_not duplicate_department.valid?
   end

@@ -17,7 +17,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test 'code should be unique' do
     duplicate_division = @division.dup
-    duplicate_division.code = @division.code.upcase
+    duplicate_division.code = @division.code.downcase
     @division.save!
     assert_not duplicate_division.valid?
   end

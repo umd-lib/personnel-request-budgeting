@@ -25,36 +25,18 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should show user' do
-    admin_user = users(:test_admin)
-    CASClient::Frameworks::Rails::Filter.fake(admin_user.cas_directory_id)
-
     get :show, id: @user
     assert_response :success
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
   end
 
   test 'should get edit' do
-    admin_user = users(:test_admin)
-    CASClient::Frameworks::Rails::Filter.fake(admin_user.cas_directory_id)
-
     get :edit, id: @user
     assert_response :success
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
   end
 
   test 'should update user' do
-    admin_user = users(:test_admin)
-    CASClient::Frameworks::Rails::Filter.fake(admin_user.cas_directory_id)
-
     patch :update, id: @user, user: { cas_directory_id: @user.cas_directory_id, name: @user.name }
     assert_redirected_to user_path(assigns(:user))
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
   end
 
   test 'should destroy user' do
@@ -69,48 +51,42 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'allow access by non-admin user to see and edit own entry' do
     not_admin_user = users(:test_not_admin)
-    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
+    run_as_user(not_admin_user) do
+      get :show, id: not_admin_user
+      assert_response :success
 
-    get :show, id: not_admin_user
-    assert_response :success
+      get :edit, id: not_admin_user
+      assert_response :success
 
-    get :edit, id: not_admin_user
-    assert_response :success
-
-    patch :update, id: not_admin_user,
-                   user: { cas_directory_id: not_admin_user.cas_directory_id,
-                           name: not_admin_user.name }
-    assert_redirected_to user_path(not_admin_user)
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+      patch :update, id: not_admin_user,
+                     user: { cas_directory_id: not_admin_user.cas_directory_id,
+                             name: not_admin_user.name }
+      assert_redirected_to user_path(not_admin_user)
+    end
   end
 
   test 'forbid access by non-admin user' do
-    not_admin_user = users(:test_not_admin)
-    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
-    get :index
-    assert_response :forbidden
+    run_as_user(users(:test_not_admin)) do
+      get :index
+      assert_response :forbidden
 
-    get :new
-    assert_response :forbidden
+      get :new
+      assert_response :forbidden
 
-    get :show, id: @user
-    assert_response :forbidden
+      get :show, id: @user
+      assert_response :forbidden
 
-    get :edit, id: @user
-    assert_response :forbidden
+      get :edit, id: @user
+      assert_response :forbidden
 
-    post :create, user: { cas_directory_id: 'NEW_USER', name: 'New User' }
-    assert_response :forbidden
+      post :create, user: { cas_directory_id: 'NEW_USER', name: 'New User' }
+      assert_response :forbidden
 
-    patch :update, id: @user, user: { cas_directory_id: @user.cas_directory_id, name: @user.name }
-    assert_response :forbidden
+      patch :update, id: @user, user: { cas_directory_id: @user.cas_directory_id, name: @user.name }
+      assert_response :forbidden
 
-    delete :destroy, id: @user
-    assert_response :forbidden
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+      delete :destroy, id: @user
+      assert_response :forbidden
+    end
   end
 end

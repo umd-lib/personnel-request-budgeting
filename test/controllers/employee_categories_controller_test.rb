@@ -61,31 +61,28 @@ class EmployeeCategoriesControllerTest < ActionController::TestCase
   end
 
   test 'forbid access by non-admin user' do
-    not_admin_user = users(:test_not_admin)
-    CASClient::Frameworks::Rails::Filter.fake(not_admin_user.cas_directory_id)
-    get :index
-    assert_response :forbidden
+    run_as_user(users(:test_not_admin)) do
+      get :index
+      assert_response :forbidden
 
-    get :new
-    assert_response :forbidden
+      get :new
+      assert_response :forbidden
 
-    get :show, id: @employee_category
-    assert_response :forbidden
+      get :show, id: @employee_category
+      assert_response :forbidden
 
-    get :edit, id: @employee_category
-    assert_response :forbidden
+      get :edit, id: @employee_category
+      assert_response :forbidden
 
-    post :create, employee_category: { code: 'NEW_EMP_CAT', name: @employee_category.name }
-    assert_response :forbidden
+      post :create, employee_category: { code: 'NEW_EMP_CAT', name: @employee_category.name }
+      assert_response :forbidden
 
-    patch :update, id: @employee_category, employee_category: {
-      code: @employee_category.code, name: @employee_category.name }
-    assert_response :forbidden
+      patch :update, id: @employee_category, employee_category: {
+        code: @employee_category.code, name: @employee_category.name }
+      assert_response :forbidden
 
-    delete :destroy, id: @employee_category
-    assert_response :forbidden
-
-    # Restore fake user
-    CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+      delete :destroy, id: @employee_category
+      assert_response :forbidden
+    end
   end
 end

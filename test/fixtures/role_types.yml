@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: one
+  name: One
+
+two:
+  code: two
+  name: Two
+
+admin:
+  code: admin
+  name: Admin
+
+division:
+  code: division
+  name: Division
+
+department:
+  code: department
+  name: Department
+
+unit:
+  code: unit
+  name: Unit

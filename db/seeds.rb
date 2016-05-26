@@ -102,3 +102,11 @@ request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'Renewal', name: 'Renewal' }]
 
 request_types.each { |type| RequestType.create!(type) }
+
+# Role Types
+role_types = [{ code: 'admin', name: 'Admin' },
+              { code: 'division', name: 'Division' },
+              { code: 'department', name: 'Department' },
+              { code: 'unit', name: 'Unit' }]
+
+role_types.each { |type| RoleType.create!(type) }

@@ -1,0 +1,18 @@
+<%= form_for(@role_type) do |f| %>
+  <%= render 'shared/form_errors', errors: @role_type.errors %>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :code %></th>
+        <td><%= f.text_field :code %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %></td>
+      </tr>
+    </tbody>
+  </table>
+    
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @role_type } %>
+<% end %>

@@ -1,4 +1,5 @@
 class LaborRequestsController < ApplicationController
+  include PersonnelRequestController
   before_action :set_labor_request, only: [:show, :edit, :update, :destroy]
 
   # GET /labor_requests
@@ -6,7 +7,12 @@ class LaborRequestsController < ApplicationController
   def index
     @q = LaborRequest.ransack(params[:q])
     @q.sorts = 'position_description' if @q.sorts.empty?
-    @labor_requests = @q.result.page(params[:page])
+
+    results = @q.result
+    policy_scoped = policy_scope(results)
+    policy_ordered = sort_results(@q, policy_scoped)
+
+    @labor_requests = policy_ordered.page(params[:page])
   end
 
   # GET /labor_requests/1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516173004) do
+ActiveRecord::Schema.define(version: 20160519182727) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -105,6 +105,29 @@ ActiveRecord::Schema.define(version: 20160516173004) do
   end
 
   add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+
+  create_table "role_types", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role_type_id"
+    t.integer  "division_id"
+    t.integer  "department_id"
+    t.integer  "unit_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "roles", ["department_id"], name: "index_roles_on_department_id"
+  add_index "roles", ["division_id"], name: "index_roles_on_division_id"
+  add_index "roles", ["role_type_id"], name: "index_roles_on_role_type_id"
+  add_index "roles", ["unit_id"], name: "index_roles_on_unit_id"
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
 
   create_table "staff_requests", force: :cascade do |t|
     t.integer  "employee_type_id"

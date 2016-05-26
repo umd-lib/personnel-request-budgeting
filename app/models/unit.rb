@@ -4,6 +4,7 @@ class Unit < ActiveRecord::Base
   has_many :contractor_requests, dependent: :restrict_with_exception
   has_many :labor_requests, dependent: :restrict_with_exception
   has_many :staff_requests, dependent: :restrict_with_exception
+  has_many :roles, dependent: :restrict_with_exception
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :department_id, presence: true

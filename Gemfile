@@ -46,6 +46,10 @@ gem 'ransack', '~> 1.7.0'
 # See https://github.com/rubycas/rubycas-client-rails/issues/27
 gem 'rubycas-client', github: 'rubycas/rubycas-client', branch: 'master'
 
+# Authorization
+gem 'pundit', '~> 1.1'
+gem 'active_record_union', '~> 1.1'
+
 # dotenv - For storing production configuration parameters
 gem 'dotenv-rails', '~> 2.1.1'
 

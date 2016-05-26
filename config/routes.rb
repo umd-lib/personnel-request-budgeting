@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :roles
+  resources :role_types
   root 'static_pages#index'
 
   resources :contractor_requests

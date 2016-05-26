@@ -58,4 +58,29 @@ class RoleTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to role_types_path
   end
+
+  test 'forbid access by non-admin user' do
+    run_as_user(users(:test_not_admin)) do
+      get :index
+      assert_response :forbidden
+
+      get :new
+      assert_response :forbidden
+
+      get :show, id: @role_type
+      assert_response :forbidden
+
+      get :edit, id: @role_type
+      assert_response :forbidden
+
+      post :create, role_type: { code: 'NEW_ROLE_TYPE', name: @role_type.name }
+      assert_response :forbidden
+
+      patch :update, id: @role_type, role_type: { code: @role_type.code, name: @role_type.name }
+      assert_response :forbidden
+
+      delete :destroy, id: @role_type
+      assert_response :forbidden
+    end
+  end
 end

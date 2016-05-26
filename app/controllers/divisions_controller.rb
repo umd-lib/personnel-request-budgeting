@@ -1,9 +1,11 @@
 class DivisionsController < ApplicationController
   before_action :set_division, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /divisions
   # GET /divisions.json
   def index
+    authorize Division
     @q = Division.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @divisions = @q.result
@@ -12,20 +14,25 @@ class DivisionsController < ApplicationController
   # GET /divisions/1
   # GET /divisions/1.json
   def show
+    authorize Division
   end
 
   # GET /divisions/new
   def new
+    authorize Division
     @division = Division.new
   end
 
   # GET /divisions/1/edit
   def edit
+    authorize Division
   end
 
   # POST /divisions
   # POST /divisions.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize Division
     @division = Division.new(division_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class DivisionsController < ApplicationController
   # PATCH/PUT /divisions/1
   # PATCH/PUT /divisions/1.json
   def update
+    authorize Division
     respond_to do |format|
       if @division.update(division_params)
         format.html { redirect_to @division, notice: 'Division was successfully updated.' }
@@ -56,6 +64,7 @@ class DivisionsController < ApplicationController
   # DELETE /divisions/1
   # DELETE /divisions/1.json
   def destroy
+    authorize Division
     respond_to do |format|
       if delete
         format.html { redirect_to divisions_url, notice: 'Division was successfully destroyed.' }

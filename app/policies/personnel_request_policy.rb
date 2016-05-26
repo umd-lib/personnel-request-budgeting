@@ -1,5 +1,9 @@
 # Policy for Personnel Request actions
 class PersonnelRequestPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
   # Limits the scope of returned results based on role
   class Scope < Scope
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity

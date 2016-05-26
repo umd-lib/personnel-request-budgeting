@@ -59,4 +59,29 @@ class DivisionsControllerTest < ActionController::TestCase
 
     assert_redirected_to divisions_path
   end
+
+  test 'forbid access by non-admin user' do
+    run_as_user(users(:test_not_admin)) do
+      get :index
+      assert_response :forbidden
+
+      get :new
+      assert_response :forbidden
+
+      get :show, id: @division
+      assert_response :forbidden
+
+      get :edit, id: @division
+      assert_response :forbidden
+
+      post :create, division: { code: 'NEW_DIV', name: @division.name }
+      assert_response :forbidden
+
+      patch :update, id: @division, division: { name: @division.name }
+      assert_response :forbidden
+
+      delete :destroy, id: @division
+      assert_response :forbidden
+    end
+  end
 end

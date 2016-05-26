@@ -59,4 +59,31 @@ class EmployeeTypesControllerTest < ActionController::TestCase
 
     assert_redirected_to employee_types_path
   end
+
+  test 'forbid access by non-admin user' do
+    run_as_user(users(:test_not_admin)) do
+      get :index
+      assert_response :forbidden
+
+      get :new
+      assert_response :forbidden
+
+      get :show, id: @emp_type
+      assert_response :forbidden
+
+      get :edit, id: @emp_type
+      assert_response :forbidden
+
+      post :create, employee_type: {
+        code: 'NEW_EMP_TYPE', name: @emp_type.name, employee_category_id: @emp_type.employee_category_id }
+      assert_response :forbidden
+
+      patch :update, id: @emp_type, employee_type: {
+        code: @emp_type.code, name: @emp_type.name, employee_category_id: @emp_type.employee_category_id }
+      assert_response :forbidden
+
+      delete :destroy, id: @emp_type
+      assert_response :forbidden
+    end
+  end
 end

@@ -1,9 +1,11 @@
 class RequestTypesController < ApplicationController
   before_action :set_request_type, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /request_types
   # GET /request_types.json
   def index
+    authorize RequestType
     @q = RequestType.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @request_types = @q.result
@@ -12,20 +14,25 @@ class RequestTypesController < ApplicationController
   # GET /request_types/1
   # GET /request_types/1.json
   def show
+    authorize RequestType
   end
 
   # GET /request_types/new
   def new
+    authorize RequestType
     @request_type = RequestType.new
   end
 
   # GET /request_types/1/edit
   def edit
+    authorize RequestType
   end
 
   # POST /request_types
   # POST /request_types.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize RequestType
     @request_type = RequestType.new(request_type_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class RequestTypesController < ApplicationController
   # PATCH/PUT /request_types/1
   # PATCH/PUT /request_types/1.json
   def update
+    authorize RequestType
     respond_to do |format|
       if @request_type.update(request_type_params)
         format.html { redirect_to @request_type, notice: 'Request type was successfully updated.' }
@@ -56,6 +64,7 @@ class RequestTypesController < ApplicationController
   # DELETE /request_types/1
   # DELETE /request_types/1.json
   def destroy
+    authorize RequestType
     respond_to do |format|
       if delete
         format.html { redirect_to request_types_url, notice: 'Request type was successfully destroyed.' }

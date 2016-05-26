@@ -1,9 +1,11 @@
 class RoleTypesController < ApplicationController
   before_action :set_role_type, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /role_types
   # GET /role_types.json
   def index
+    authorize RoleType
     @q = RoleType.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
     @role_types = @q.result
@@ -12,20 +14,25 @@ class RoleTypesController < ApplicationController
   # GET /role_types/1
   # GET /role_types/1.json
   def show
+    authorize RoleType
   end
 
   # GET /role_types/new
   def new
+    authorize RoleType
     @role_type = RoleType.new
   end
 
   # GET /role_types/1/edit
   def edit
+    authorize RoleType
   end
 
   # POST /role_types
   # POST /role_types.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize RoleType
     @role_type = RoleType.new(role_type_params)
 
     respond_to do |format|
@@ -42,6 +49,7 @@ class RoleTypesController < ApplicationController
   # PATCH/PUT /role_types/1
   # PATCH/PUT /role_types/1.json
   def update
+    authorize RoleType
     respond_to do |format|
       if @role_type.update(role_type_params)
         format.html { redirect_to @role_type, notice: 'Role type was successfully updated.' }
@@ -56,6 +64,7 @@ class RoleTypesController < ApplicationController
   # DELETE /role_types/1
   # DELETE /role_types/1.json
   def destroy
+    authorize RoleType
     respond_to do |format|
       if delete
         format.html { redirect_to role_types_url, notice: 'Role type was successfully destroyed.' }

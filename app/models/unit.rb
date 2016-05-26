@@ -9,6 +9,10 @@ class Unit < ActiveRecord::Base
   validates :name, presence: true
   validates :department_id, presence: true
 
+  def self.policy_class
+    AdminOnlyPolicy
+  end
+
   # Convenience method that returns true if the current object can be deleted
   # (i.e. has no dependent records), false otherwise.
   def allow_delete?

@@ -13,35 +13,37 @@
   </div>
 </div>
 
-<div class="panel panel-danger">
-  <div class="panel-heading" 
-       id="admin-panel"
-       data-toggle="collapse"
-       data-parent="#admin"
-       data-target="#collapseAdmin">
-        Administration
-  </div>
-  <div id="collapseAdmin" class="panel-collapse collapse">
-    <div class="panel-body">
-      <div class="well">
-        <%= link_to 'Divisions', divisions_path, class: "btn btn-default" %>
-        <%= link_to 'Departments', departments_path, class: "btn btn-default" %>
-        <%= link_to 'Units', units_path, class: "btn btn-default" %>
-      </div>
-      <div class="well">
-        <%= link_to 'Employee Categories', employee_categories_path, class: "btn btn-default" %>
-        <%= link_to 'Employee Types', employee_types_path, class: "btn btn-default" %>
-      </div>
-      <div class="well">
-        <%= link_to 'Request Types', request_types_path, class: "btn btn-default" %>
-      </div>
-      <div class="well">
-        <%= link_to 'Roles', roles_path, class: "btn btn-default" %>
-        <%= link_to 'Role Types', role_types_path, class: "btn btn-default" %>
-      </div>
-      <div class="well">
-        <%= link_to 'Users', users_path, class: "btn btn-default" %>
+<% if current_user.admin? %>
+  <div class="panel panel-danger">
+    <div class="panel-heading" 
+         id="admin_panel_heading"
+         data-toggle="collapse"
+         data-parent="#admin"
+         data-target="#collapseAdmin">
+          Administration
+    </div>
+    <div id="collapseAdmin" class="panel-collapse collapse">
+      <div class="panel-body" id="admin_panel_body">
+        <div class="well">
+          <%= link_to 'Divisions', divisions_path, class: "btn btn-default" %>
+          <%= link_to 'Departments', departments_path, class: "btn btn-default" %>
+          <%= link_to 'Units', units_path, class: "btn btn-default" %>
+        </div>
+        <div class="well">
+          <%= link_to 'Employee Categories', employee_categories_path, class: "btn btn-default" %>
+          <%= link_to 'Employee Types', employee_types_path, class: "btn btn-default" %>
+        </div>
+        <div class="well">
+          <%= link_to 'Request Types', request_types_path, class: "btn btn-default" %>
+        </div>
+        <div class="well">
+          <%= link_to 'Roles', roles_path, class: "btn btn-default" %>
+          <%= link_to 'Role Types', role_types_path, class: "btn btn-default" %>
+        </div>
+        <div class="well">
+          <%= link_to 'Users', users_path, class: "btn btn-default" %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

@@ -31,14 +31,16 @@ class PersonnelRequestPolicy < ApplicationPolicy
     Department.where(division_id: division)
   end
 
-  # Returns an array of Departments the user's roles allow access to
+  # Returns an array of Departments the user's roles allow access to.
+  # This includes departments the user can see because of a Division role,
+  # but does NOT include departments from Unit roles (because the user is
+  # only allowed to see the entries for that unit, not the whole department.
   def self.allowed_departments(user)
     allowed_departments = []
 
     division_roles = user.roles(RoleType.find_by_code('division'))
     division_roles.each do |r|
-      depts_in_division = departments_in_division(r.division)
-      allowed_departments += depts_in_division
+      allowed_departments += departments_in_division(r.division)
     end
 
     department_roles = user.roles(RoleType.find_by_code('department'))
@@ -59,11 +61,79 @@ class PersonnelRequestPolicy < ApplicationPolicy
     allowed_units
   end
 
+  # Limits the scope of returned results based on role
+  class Scope < Scope
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength,
+    def resolve
+      if user.admin?
+        # Admin always sees everything
+        return scope
+      end
+
+      # Division scope
+      if user.division?
+        # Users with Division role can see everything
+        return scope
+      end
+
+      union_performed = false
+      result_scope = scope.none
+
+      # Department scope
+      allowed_departments = PersonnelRequestPolicy.allowed_departments(user)
+      unless allowed_departments.empty?
+        department_results = scope.where(department_id: allowed_departments)
+        union_performed, result_scope = union_results(result_scope, department_results)
+      end
+
+      # Unit scope
+      allowed_units = PersonnelRequestPolicy.allowed_units(user)
+      unless allowed_units.empty?
+        unit_results = scope.where(unit_id: allowed_units)
+        union_performed, result_scope = union_results(result_scope, unit_results)
+      end
+
+      if union_performed
+        # When a union is performed, we lose the connection to the
+        # associated tables. The following joins reconnects the associations
+        scope_table_name = scope.table_name
+        result_scope = result_scope.joins(
+          "LEFT OUTER JOIN departments on departments.id = #{scope_table_name}.department_id")
+        result_scope = result_scope.joins(
+          "LEFT OUTER JOIN units on units.id = #{scope_table_name}.unit_id")
+        result_scope = result_scope.joins(
+          "LEFT OUTER JOIN employee_types on employee_types.id = #{scope_table_name}.employee_type_id")
+        result_scope = result_scope.joins(
+          "LEFT OUTER JOIN request_types on request_types.id = #{scope_table_name}.request_type_id")
+      end
+      result_scope
+    end
+
+    private
+
+      # Performs a union between the given current results and the new results.
+      # Returns an array consisting of a boolean indicating whether a union
+      # was performed, and the updated results.
+      def union_results(current_results, new_results)
+        union_performed = false
+        new_union = current_results
+        if new_results.any?
+          if current_results.empty?
+            new_union = new_results.reorder(nil)
+          else
+            new_union = current_results.union(new_results.reorder(nil))
+            union_performed = true
+          end
+        end
+
+        [union_performed, new_union]
+      end
+  end
+
   private
 
     # Returns true if a user is allowed to show the given record, false
     # otherwise.
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def show_allowed_by_role?(user, record)
       return false if user.roles.empty?
 
@@ -118,69 +188,4 @@ class PersonnelRequestPolicy < ApplicationPolicy
     def destroy_allowed_by_role?(user, record)
       update_allowed_by_role?(user, record)
     end
-
-  # Limits the scope of returned results based on role
-  class Scope < Scope
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength,
-    def resolve
-      if user.admin?
-        # Admin always sees everything
-        return scope
-      end
-
-      # Division scope
-      if user.division?
-        # Users with Division role can see everything
-        return scope
-      end
-
-      union_performed = false
-      union_results = scope.none
-
-      # Department scope
-      user_departments = PersonnelRequestPolicy.allowed_departments(user)
-      department_results = scope.none
-      unless user_departments.empty?
-        department_results = scope.where(department_id: user_departments)
-        if department_results.any?
-          if union_results.empty?
-            union_results = department_results.reorder(nil)
-          else
-            union_results = union_results.union(department_results.reorder(nil))
-            union_performed = true
-          end
-        end
-      end
-
-      # Unit scope
-      user_units = PersonnelRequestPolicy.allowed_units(user)
-      unit_results = scope.none
-      unless user_units.empty?
-        unit_results = scope.where(unit_id: user_units)
-        if unit_results.any?
-          if union_results.empty?
-            union_results = unit_results.reorder(nil)
-          else
-            union_results = union_results.union(unit_results.reorder(nil))
-            union_performed = true
-          end
-        end
-      end
-
-      if union_performed
-        # When a union is performed, we lose the connection to the
-        # associated tables. The following joins reconnects the associations
-        scope_table_name = scope.table_name
-        union_results = union_results.joins(
-          "LEFT OUTER JOIN departments on departments.id = #{scope_table_name}.department_id")
-        union_results = union_results.joins(
-          "LEFT OUTER JOIN units on units.id = #{scope_table_name}.unit_id")
-        union_results = union_results.joins(
-          "LEFT OUTER JOIN employee_types on employee_types.id = #{scope_table_name}.employee_type_id")
-        union_results = union_results.joins(
-          "LEFT OUTER JOIN request_types on request_types.id = #{scope_table_name}.request_type_id")
-      end
-      union_results
-    end
-  end
 end

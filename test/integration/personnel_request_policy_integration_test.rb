@@ -6,7 +6,6 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
     @dept1 = departments_with_records[0]
     @dept2 = departments_with_records[1]
 
-
     @dept1_user = User.create(cas_directory_id: 'dept1', name: 'Dept1 User')
     Role.create!(user: @dept1_user,
                  role_type: RoleType.find_by_code('department'),
@@ -76,7 +75,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
       patch labor_request_path(dept1_request), labor_request: { position_description: 'Foo' }
       assert_redirected_to labor_request_path(dept1_request)
 
-      patch labor_request_path(dept2_request),labor_request: { position_description: 'Foo' }
+      patch labor_request_path(dept2_request), labor_request: { position_description: 'Foo' }
       assert_response :forbidden
 
       # Destroy
@@ -87,5 +86,4 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
       assert_response :forbidden
     end
   end
-
 end

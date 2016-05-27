@@ -33,10 +33,11 @@ class ContractorRequestsController < ApplicationController
 
   # POST /contractor_requests
   # POST /contractor_requests.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @contractor_request = ContractorRequest.new(contractor_request_params)
     authorize @contractor_request
-    
+
     respond_to do |format|
       if @contractor_request.save
         format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully created.' }

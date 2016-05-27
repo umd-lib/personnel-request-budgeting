@@ -33,10 +33,11 @@ class StaffRequestsController < ApplicationController
 
   # POST /staff_requests
   # POST /staff_requests.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @staff_request = StaffRequest.new(staff_request_params)
     authorize @staff_request
-    
+
     respond_to do |format|
       if @staff_request.save
         format.html { redirect_to @staff_request, notice: 'Staff request was successfully created.' }

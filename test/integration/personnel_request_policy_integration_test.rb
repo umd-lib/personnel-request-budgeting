@@ -40,6 +40,37 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
       assert_response :forbidden
 
       # Create
+      post labor_requests_path, labor_request: {
+        contractor_name: dept1_request.contractor_name,
+        department_id: dept1_request.department_id,
+        employee_type_id: dept1_request.employee_type_id,
+        hourly_rate: dept1_request.hourly_rate,
+        hours_per_week: dept1_request.hours_per_week,
+        justification: dept1_request.justification,
+        nonop_funds: dept1_request.nonop_funds,
+        nonop_source: dept1_request.nonop_source,
+        number_of_positions: dept1_request.number_of_positions,
+        number_of_weeks: dept1_request.number_of_weeks,
+        position_description: dept1_request.position_description,
+        request_type_id: dept1_request.request_type_id,
+        unit_id: dept1_request.unit_id }
+      assert_redirected_to labor_request_path(assigns(:labor_request))
+
+      post labor_requests_path, labor_request: {
+        contractor_name: dept2_request.contractor_name,
+        department_id: dept2_request.department_id,
+        employee_type_id: dept2_request.employee_type_id,
+        hourly_rate: dept2_request.hourly_rate,
+        hours_per_week: dept2_request.hours_per_week,
+        justification: dept2_request.justification,
+        nonop_funds: dept2_request.nonop_funds,
+        nonop_source: dept2_request.nonop_source,
+        number_of_positions: dept2_request.number_of_positions,
+        number_of_weeks: dept2_request.number_of_weeks,
+        position_description: dept2_request.position_description,
+        request_type_id: dept2_request.request_type_id,
+        unit_id: dept2_request.unit_id }
+      assert_response :forbidden
 
       # Update
       patch labor_request_path(dept1_request), labor_request: { position_description: 'Foo' }

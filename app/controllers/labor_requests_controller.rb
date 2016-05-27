@@ -35,7 +35,8 @@ class LaborRequestsController < ApplicationController
   # POST /labor_requests.json
   def create
     @labor_request = LaborRequest.new(labor_request_params)
-
+    authorize @labor_request
+    
     respond_to do |format|
       if @labor_request.save
         format.html { redirect_to @labor_request, notice: 'Labor request was successfully created.' }

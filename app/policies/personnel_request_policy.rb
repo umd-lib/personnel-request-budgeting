@@ -9,7 +9,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    create_allowed_by_role?(user, record)
   end
 
   def update?
@@ -81,8 +81,8 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     # Returns true if a user is allowed to create the given record, false
     # otherwise.
-    def create_allowed_by_role?
-      true
+    def create_allowed_by_role?(user, record)
+      update_allowed_by_role?(user, record)
     end
 
     # Returns true if a user is allowed to edit the given record, false

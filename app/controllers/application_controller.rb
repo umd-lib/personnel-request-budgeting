@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include CasHelper
   include Pundit
   before_action :authenticate
+  after_action :verify_authorized, except: :index
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 

@@ -1,7 +1,8 @@
 class StaffRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_staff_request, only: [:show, :edit, :update, :destroy]
-
+  after_action :verify_policy_scoped, only: :index
+  
   # GET /staff_requests
   # GET /staff_requests.json
   def index

@@ -1,6 +1,7 @@
 class ContractorRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_contractor_request, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /contractor_requests
   # GET /contractor_requests.json

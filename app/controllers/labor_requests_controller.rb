@@ -1,6 +1,7 @@
 class LaborRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_labor_request, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /labor_requests
   # GET /labor_requests.json

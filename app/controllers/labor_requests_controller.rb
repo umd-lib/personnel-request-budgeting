@@ -18,6 +18,7 @@ class LaborRequestsController < ApplicationController
   # GET /labor_requests/1
   # GET /labor_requests/1.json
   def show
+    authorize @labor_request
   end
 
   # GET /labor_requests/new

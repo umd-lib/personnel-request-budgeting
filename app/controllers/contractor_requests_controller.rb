@@ -18,6 +18,7 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests/1
   # GET /contractor_requests/1.json
   def show
+    authorize @contractor_request
   end
 
   # GET /contractor_requests/new

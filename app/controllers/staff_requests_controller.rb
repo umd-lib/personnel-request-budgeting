@@ -18,6 +18,7 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests/1
   # GET /staff_requests/1.json
   def show
+    authorize @staff_request
   end
 
   # GET /staff_requests/new

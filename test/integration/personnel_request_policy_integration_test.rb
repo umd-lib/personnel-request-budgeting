@@ -17,6 +17,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
     @dept1_user.destroy!
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_verify_authorization_in_controller
     no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
     run_as_user(no_role_user) do

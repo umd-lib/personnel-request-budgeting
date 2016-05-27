@@ -12,16 +12,8 @@ class PersonnelRequestPolicy < ApplicationPolicy
     true
   end
 
-  def new?
-    create?
-  end
-
   def update?
-    edit?
-  end
-
-  def edit?
-    true
+    update_allowed_by_role?(user, record)
   end
 
   def destroy?
@@ -77,12 +69,12 @@ class PersonnelRequestPolicy < ApplicationPolicy
       return true if user.division?
 
       # Department role can see record if in department
-      user_departments = PersonnelRequestPolicy.allowed_departments(user)
-      return true if user_departments.any? && user_departments.include?(record.department)
+      allowed_departments = PersonnelRequestPolicy.allowed_departments(user)
+      return true if allowed_departments.include?(record.department)
 
       # Unit role can see record if in unit
-      user_units = PersonnelRequestPolicy.allowed_units(user)
-      return true if !user_units.nil? && user_units.include?(record.unit)
+      allowed_units = PersonnelRequestPolicy.allowed_units(user)
+      return true if allowed_units.include?(record.unit)
 
       false
     end
@@ -95,17 +87,18 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     # Returns true if a user is allowed to edit the given record, false
     # otherwise.
-    def edit_allowed_by_role?(user, record)
+    def update_allowed_by_role?(user, record)
       return false if user.roles.empty?
 
       return true if user.admin?
 
-      # Users with division or department roles can edit if record is in
-      # an allowed departmentDivision role and can edit entries on departments in division
-      return true if PersonnelRequestPolicy.allowed_departments(user).include?(record.department)
+      # Division and Department role can edit record if in department
+      allowed_departments = PersonnelRequestPolicy.allowed_departments(user)
+      return true if allowed_departments.include?(record.department)
 
-      # Users with unit role can see record if in unit
-      return true if PersonnelRequestPolicy.allowed_units(user).include?(record.unit)
+      # Unit role can see record if in unit
+      allowed_units = PersonnelRequestPolicy.allowed_units(user)
+      return true if allowed_units.include?(record.unit)
 
       false
     end

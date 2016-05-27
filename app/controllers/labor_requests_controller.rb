@@ -28,6 +28,7 @@ class LaborRequestsController < ApplicationController
 
   # GET /labor_requests/1/edit
   def edit
+    authorize @labor_request
   end
 
   # POST /labor_requests

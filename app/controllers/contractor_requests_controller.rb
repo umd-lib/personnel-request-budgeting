@@ -28,6 +28,7 @@ class ContractorRequestsController < ApplicationController
 
   # GET /contractor_requests/1/edit
   def edit
+    authorize @contractor_request
   end
 
   # POST /contractor_requests

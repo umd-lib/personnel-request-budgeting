@@ -28,6 +28,7 @@ class StaffRequestsController < ApplicationController
 
   # GET /staff_requests/1/edit
   def edit
+    authorize @staff_request
   end
 
   # POST /staff_requests

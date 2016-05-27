@@ -19,10 +19,8 @@ class User < ActiveRecord::Base
   #
   # If the user has no roles, an empty array is returned.
   def roles(role_type = nil)
-    if role_type.nil?
-      return roles = Role.where(user: self).to_ary
-    else
-      return roles = Role.where(user: self).where(role_type: role_type).to_ary
-    end
+    return Role.where(user: self).to_ary if role_type.nil?
+
+    Role.where(user: self).where(role_type: role_type).to_ary
   end
 end

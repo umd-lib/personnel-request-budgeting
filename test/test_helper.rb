@@ -33,18 +33,18 @@ class ActiveSupport::TestCase
     end
   end
 
-    # Returns an array of divisions that have at least one record
-    def divisions_with_records
-      LaborRequest.select(:department_id).distinct.collect { |r| r.department.division }.uniq
-    end
+  # Returns an array of divisions that have at least one record
+  def divisions_with_records
+    LaborRequest.select(:department_id).distinct.collect { |r| r.department.division }.uniq
+  end
 
-    # Returns an array of departments that have at least one record
-    def departments_with_records
-      LaborRequest.select(:department_id).distinct.collect { |r| r.department }
-    end
+  # Returns an array of departments that have at least one record
+  def departments_with_records
+    LaborRequest.select(:department_id).distinct.collect(&:department)
+  end
 
-    # Returns an array of units that have at least one record
-    def units_with_records
-      LaborRequest.select(:unit_id).distinct.collect { |r| r.unit unless r.unit.nil? }.compact
-    end
+  # Returns an array of units that have at least one record
+  def units_with_records
+    LaborRequest.select(:unit_id).distinct.collect { |r| r.unit unless r.unit.nil? }.compact
+  end
 end

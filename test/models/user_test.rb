@@ -50,5 +50,4 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, users(:test_admin).roles.count
     assert_equal role_types(:admin), users(:test_admin).roles[0].role_type
   end
-
 end

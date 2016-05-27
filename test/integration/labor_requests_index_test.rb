@@ -53,4 +53,18 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test '"New" button should only be shown for users with roles' do
+    run_as_user(users(:test_admin)) do
+      get labor_requests_path
+      assert_select "[id='toolbar_new']"
+    end
+
+    no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
+    run_as_user(no_role_user) do
+      get labor_requests_path
+      assert_select "[id='toolbar_new']", 0
+    end
+    no_role_user.destroy!
+  end
 end

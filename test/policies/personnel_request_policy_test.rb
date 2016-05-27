@@ -416,4 +416,14 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     assert allow_count > 0, 'No allowed units were tested!'
     assert disallow_count > 0, 'No disallowed units were tested!'
   end
+
+  test 'user with any roles should be able to "new" personnel requests' do
+    assert Pundit.policy!(@dept1_user, LaborRequest).new?
+  end
+
+  test 'user without roles should not be able to "new" personnel requests' do
+    @no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
+    refute Pundit.policy!(@no_role_user, LaborRequest).new?
+    @no_role_user.destroy!
+  end
 end

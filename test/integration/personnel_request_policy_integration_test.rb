@@ -18,10 +18,17 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_verify_authorization_in_controller
-    run_as_user(@dept1_user) do
-      dept1_request = LaborRequest.where(department: @dept1)[0]
-      dept2_request = LaborRequest.where(department: @dept2)[0]
+    no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
+    run_as_user(no_role_user) do
+      # New
+      get new_labor_request_path
+      assert_response :forbidden
+    end
+    no_role_user.destroy!
 
+    dept1_request = LaborRequest.where(department: @dept1)[0]
+    dept2_request = LaborRequest.where(department: @dept2)[0]
+    run_as_user(@dept1_user) do
       # Show
       get labor_request_path(dept1_request)
       assert_response :success
@@ -30,6 +37,8 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
       assert_response :forbidden
 
       # New
+      get new_labor_request_path
+      assert_response :success
 
       # Edit
       get edit_labor_request_path(dept1_request)

@@ -23,6 +23,7 @@ class LaborRequestsController < ApplicationController
 
   # GET /labor_requests/new
   def new
+    authorize LaborRequest
     @labor_request = LaborRequest.new
   end
 

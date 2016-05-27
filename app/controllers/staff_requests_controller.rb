@@ -23,6 +23,7 @@ class StaffRequestsController < ApplicationController
 
   # GET /staff_requests/new
   def new
+    authorize StaffRequest
     @staff_request = StaffRequest.new
   end
 

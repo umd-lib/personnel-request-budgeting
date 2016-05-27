@@ -23,6 +23,7 @@ class ContractorRequestsController < ApplicationController
 
   # GET /contractor_requests/new
   def new
+    authorize ContractorRequest
     @contractor_request = ContractorRequest.new
   end
 

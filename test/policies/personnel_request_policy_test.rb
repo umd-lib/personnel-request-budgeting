@@ -151,7 +151,7 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     assert disallow_count > 0, 'No disallowed departments were tested!'
   end
 
-  test 'unit user can "show" personnel requests in unit' do
+  test 'unit user can only "show" personnel requests in unit' do
     labor_requests_all = LaborRequest.all
 
     allow_count = 0
@@ -184,7 +184,7 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     end
   end
 
-  test 'division user can only "update" all personnel requests in division' do
+  test 'division user can only "update" personnel requests in division' do
     labor_requests_all = LaborRequest.all
 
     allow_count = 0
@@ -232,7 +232,7 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     assert disallow_count > 0, 'No disallowed departments were tested!'
   end
 
-  test 'unit user can "update" personnel requests in unit' do
+  test 'unit user can only "update" personnel requests in unit' do
     labor_requests_all = LaborRequest.all
 
     allow_count = 0
@@ -247,6 +247,86 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
         disallow_count += 1
         assert_not_equal @unit1, r.unit,
                          "User (unit=#{@unit1.code}) could not 'update' " \
+                         "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+      end
+    end
+
+    assert allow_count > 0, 'No allowed units were tested!'
+    assert disallow_count > 0, 'No disallowed units were tested!'
+  end
+
+  test 'admin user can "destroy" all personnel requests' do
+    labor_requests_all = LaborRequest.all
+
+    labor_requests_all.each do |r|
+      assert Pundit.policy!(@admin_user, r).destroy?,
+             "Admin user could not 'destroy' Labor Request id: #{r.id}, department: #{r.department.code}"
+    end
+  end
+
+  test 'division user can only "destroy" personnel requests in division' do
+    labor_requests_all = LaborRequest.all
+
+    allow_count = 0
+    disallow_count = 0
+
+    labor_requests_all.each do |r|
+      if Pundit.policy!(@division1_user, r).destroy?
+        allow_count += 1
+        assert_equal @division1, r.department.division,
+                     "User (div=#{@division1.code}) could 'destroy' " \
+                     "Labor Request #{r.id}, div: #{r.department.division.code}"
+      else
+        disallow_count += 1
+        assert_not_equal @division1, r.department.division,
+                         "User (div=#{@division1.code}) could not 'destroy' " \
+                         "Labor Request #{r.id}, div: #{r.department.division.code}"
+      end
+    end
+
+    assert allow_count > 0, 'No allowed divisions were tested!'
+    assert disallow_count > 0, 'No disallowed divisions were tested!'
+  end
+
+  test 'department user can only "destroy" personnel requests in department' do
+    labor_requests_all = LaborRequest.all
+
+    allow_count = 0
+    disallow_count = 0
+
+    labor_requests_all.each do |r|
+      if Pundit.policy!(@dept1_user, r).destroy?
+        allow_count += 1
+        assert_equal @dept1, r.department,
+                     "User (dept=#{@dept1.code}) could 'destroy' " \
+                     "Labor Request id: #{r.id}, dept: #{r.department.code}"
+      else
+        disallow_count += 1
+        assert_not_equal @dept1, r.department,
+                         "User (dept=#{@dept1.code}) could not 'destroy' " \
+                         "Labor Request id: #{r.id}, dept: #{r.department.code}"
+      end
+    end
+
+    assert allow_count > 0, 'No allowed departments were tested!'
+    assert disallow_count > 0, 'No disallowed departments were tested!'
+  end
+
+  test 'unit user can only "destroy" personnel requests in unit' do
+    labor_requests_all = LaborRequest.all
+
+    allow_count = 0
+    disallow_count = 0
+    labor_requests_all.each do |r|
+      if Pundit.policy!(@unit1_user, r).destroy?
+        allow_count += 1
+        assert_equal @unit1, r.unit,
+                     "User (unit=#{@unit1.code}) could 'destroy' " \
+                     "Labor Request id: #{r.id}, unit: #{r.unit.code}"
+      else
+        disallow_count += 1
+        assert_not_equal @unit1, r.unit,
+                         "User (unit=#{@unit1.code}) could not 'destroy' " \
                          "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
       end
     end

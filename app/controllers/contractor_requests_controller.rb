@@ -50,6 +50,7 @@ class ContractorRequestsController < ApplicationController
   # PATCH/PUT /contractor_requests/1
   # PATCH/PUT /contractor_requests/1.json
   def update
+    authorize @contractor_request
     respond_to do |format|
       if @contractor_request.update(contractor_request_params)
         format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully updated.' }
@@ -64,6 +65,7 @@ class ContractorRequestsController < ApplicationController
   # DELETE /contractor_requests/1
   # DELETE /contractor_requests/1.json
   def destroy
+    authorize @contractor_request
     @contractor_request.destroy
     respond_to do |format|
       format.html { redirect_to contractor_requests_url, notice: 'Contractor request was successfully destroyed.' }

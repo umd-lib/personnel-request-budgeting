@@ -50,6 +50,7 @@ class LaborRequestsController < ApplicationController
   # PATCH/PUT /labor_requests/1
   # PATCH/PUT /labor_requests/1.json
   def update
+    authorize @labor_request
     respond_to do |format|
       if @labor_request.update(labor_request_params)
         format.html { redirect_to @labor_request, notice: 'Labor request was successfully updated.' }
@@ -64,6 +65,7 @@ class LaborRequestsController < ApplicationController
   # DELETE /labor_requests/1
   # DELETE /labor_requests/1.json
   def destroy
+    authorize @labor_request
     @labor_request.destroy
     respond_to do |format|
       format.html { redirect_to labor_requests_url, notice: 'Labor request was successfully destroyed.' }

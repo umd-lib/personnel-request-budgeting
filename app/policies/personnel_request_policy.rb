@@ -17,7 +17,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    destroy_allowed_by_role?(user, record)
   end
 
   # Returns an array of Departments in the division
@@ -105,8 +105,8 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     # Returns true if a user is allowed to destroy the given record, false
     # otherwise.
-    def destroy_allowed_by_role?
-      true
+    def destroy_allowed_by_role?(user, record)
+      return update_allowed_by_role?(user, record)
     end
 
   # Limits the scope of returned results based on role

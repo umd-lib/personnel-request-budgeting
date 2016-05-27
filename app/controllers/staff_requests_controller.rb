@@ -50,6 +50,7 @@ class StaffRequestsController < ApplicationController
   # PATCH/PUT /staff_requests/1
   # PATCH/PUT /staff_requests/1.json
   def update
+    authorize @staff_request
     respond_to do |format|
       if @staff_request.update(staff_request_params)
         format.html { redirect_to @staff_request, notice: 'Staff request was successfully updated.' }
@@ -64,6 +65,7 @@ class StaffRequestsController < ApplicationController
   # DELETE /staff_requests/1
   # DELETE /staff_requests/1.json
   def destroy
+    authorize @staff_request
     @staff_request.destroy
     respond_to do |format|
       format.html { redirect_to staff_requests_url, notice: 'Staff request was successfully destroyed.' }

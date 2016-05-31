@@ -2,8 +2,10 @@
 # Displays "Edit" and "List All" buttons, intended for "Show" pages 
 %>
 
-<%= link_to 'Edit', edit_polymorphic_path(object), class: "btn btn-info" %>
+<% if policy(object).edit? %>
+  <%= link_to 'Edit', edit_polymorphic_path(object), class: "btn btn-info", :id => 'button_edit' %>
+<% end %>
 <% if policy(object).index? %>
-  <%= link_to 'List All', polymorphic_path(object.class), class: "btn btn-default"%>
+  <%= link_to 'List All', polymorphic_path(object.class), class: "btn btn-default" %>
 <% end %>
 

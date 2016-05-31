@@ -76,6 +76,19 @@ Also, in a production environment, you will likely need to use "bundle exec" and
 bundle exec rake 'db:add_role[jsmith, admin]' RAILS_ENV=production
 ```
 
+###Permission Matrix
+
+| Role       | Create          | Read              | Update          | Delete          |
+| ---------- | --------------- | ----------------- | --------------- | --------------- |
+| Admin      | Yes             | Yes (all records) | Yes             | Yes             |
+| Division   | Division only   | Yes (all records) | Division only   | Division only   |
+| Department | Department only | Department only   | Department only | Department only |
+| Unit       | Unit only       | Unit only         | Unit only       | Unit only       |
+
+Note that a user with a "Division" role can see all the personnel requests, but can only create, update, or delete personnel requests within their division.
+
+A user may have multiple roles (for example, a Division role and a Department role), in which case they have access to all the records each individual role would give them.
+
 ### Run the web application
 
 5) To run the web application:

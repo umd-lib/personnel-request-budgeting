@@ -70,6 +70,12 @@ rake 'db:add_role[jsmith, department, SSDR]'
 
 Note: Any user with an Admin role can add additional role permissions through the web application, so typically you only need to add an "Admin" user to start.
 
+Also, in a production environment, you will likely need to use "bundle exec" and specify the RAILS_ENV environment, i.e.:
+
+```
+bundle exec rake 'db:add_role[jsmith, admin]' RAILS_ENV=production
+```
+
 ### Run the web application
 
 5) To run the web application:

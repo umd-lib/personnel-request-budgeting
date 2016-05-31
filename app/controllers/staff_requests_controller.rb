@@ -1,6 +1,7 @@
 class StaffRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_staff_request, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /staff_requests
   # GET /staff_requests.json
@@ -18,21 +19,26 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests/1
   # GET /staff_requests/1.json
   def show
+    authorize @staff_request
   end
 
   # GET /staff_requests/new
   def new
+    authorize StaffRequest
     @staff_request = StaffRequest.new
   end
 
   # GET /staff_requests/1/edit
   def edit
+    authorize @staff_request
   end
 
   # POST /staff_requests
   # POST /staff_requests.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @staff_request = StaffRequest.new(staff_request_params)
+    authorize @staff_request
 
     respond_to do |format|
       if @staff_request.save
@@ -48,6 +54,7 @@ class StaffRequestsController < ApplicationController
   # PATCH/PUT /staff_requests/1
   # PATCH/PUT /staff_requests/1.json
   def update
+    authorize @staff_request
     respond_to do |format|
       if @staff_request.update(staff_request_params)
         format.html { redirect_to @staff_request, notice: 'Staff request was successfully updated.' }
@@ -62,6 +69,7 @@ class StaffRequestsController < ApplicationController
   # DELETE /staff_requests/1
   # DELETE /staff_requests/1.json
   def destroy
+    authorize @staff_request
     @staff_request.destroy
     respond_to do |format|
       format.html { redirect_to staff_requests_url, notice: 'Staff request was successfully destroyed.' }

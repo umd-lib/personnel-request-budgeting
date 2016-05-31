@@ -1,19 +1,25 @@
 <td headers="actions">
   <span style="white-space: nowrap">
-    <%= link_to object, class: "btn btn-default", title: "Details" do %>
-      <i class="glyphicon glyphicon-option-horizontal"></i>
+    <% if policy(object).show? %>
+      <%= link_to object, class: "btn btn-default", title: "Details" do %>
+        <i class="glyphicon glyphicon-option-horizontal"></i>
+      <% end %>
     <% end %>
-    <%= link_to edit_polymorphic_path(object), class: "btn btn-info", title: "Edit" do %>
-      <i class="glyphicon glyphicon-pencil"></i>
+    <% if policy(object).edit? %>
+      <%= link_to edit_polymorphic_path(object), class: "btn btn-info", title: "Edit" do %>
+        <i class="glyphicon glyphicon-pencil"></i>
+      <% end %>
     <% end %>
 
-    <% if object.respond_to?('allow_delete?') && !object.allow_delete? %>
-      <button class="btn btn-danger delete" disabled="disabled"><i class="glyphicon glyphicon-trash"></i></button>
-    <% else %>
-      <%= link_to object, method: :delete,
-            data: { confirm: 'Are you sure?' }, class: "btn btn-danger delete", title: "Delete" do %>
-        <i class="glyphicon glyphicon-trash"></i>
-      <% end %>
-    <% end %>    
+    <% if policy(object).destroy? %>
+      <% if object.respond_to?('allow_delete?') && !object.allow_delete? %>
+        <button class="btn btn-danger delete" disabled="disabled"><i class="glyphicon glyphicon-trash"></i></button>
+      <% else %>
+        <%= link_to object, method: :delete,
+              data: { confirm: 'Are you sure?' }, class: "btn btn-danger delete", title: "Delete" do %>
+          <i class="glyphicon glyphicon-trash"></i>
+        <% end %>
+      <% end %>    
+    <% end %>
   </span>
 </td> 

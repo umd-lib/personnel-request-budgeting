@@ -1,6 +1,7 @@
 class LaborRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_labor_request, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /labor_requests
   # GET /labor_requests.json
@@ -18,21 +19,26 @@ class LaborRequestsController < ApplicationController
   # GET /labor_requests/1
   # GET /labor_requests/1.json
   def show
+    authorize @labor_request
   end
 
   # GET /labor_requests/new
   def new
+    authorize LaborRequest
     @labor_request = LaborRequest.new
   end
 
   # GET /labor_requests/1/edit
   def edit
+    authorize @labor_request
   end
 
   # POST /labor_requests
   # POST /labor_requests.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @labor_request = LaborRequest.new(labor_request_params)
+    authorize @labor_request
 
     respond_to do |format|
       if @labor_request.save
@@ -48,6 +54,7 @@ class LaborRequestsController < ApplicationController
   # PATCH/PUT /labor_requests/1
   # PATCH/PUT /labor_requests/1.json
   def update
+    authorize @labor_request
     respond_to do |format|
       if @labor_request.update(labor_request_params)
         format.html { redirect_to @labor_request, notice: 'Labor request was successfully updated.' }
@@ -62,6 +69,7 @@ class LaborRequestsController < ApplicationController
   # DELETE /labor_requests/1
   # DELETE /labor_requests/1.json
   def destroy
+    authorize @labor_request
     @labor_request.destroy
     respond_to do |format|
       format.html { redirect_to labor_requests_url, notice: 'Labor request was successfully destroyed.' }

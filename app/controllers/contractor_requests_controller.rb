@@ -1,6 +1,7 @@
 class ContractorRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_contractor_request, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: :index
 
   # GET /contractor_requests
   # GET /contractor_requests.json
@@ -18,21 +19,26 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests/1
   # GET /contractor_requests/1.json
   def show
+    authorize @contractor_request
   end
 
   # GET /contractor_requests/new
   def new
+    authorize ContractorRequest
     @contractor_request = ContractorRequest.new
   end
 
   # GET /contractor_requests/1/edit
   def edit
+    authorize @contractor_request
   end
 
   # POST /contractor_requests
   # POST /contractor_requests.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @contractor_request = ContractorRequest.new(contractor_request_params)
+    authorize @contractor_request
 
     respond_to do |format|
       if @contractor_request.save
@@ -48,6 +54,7 @@ class ContractorRequestsController < ApplicationController
   # PATCH/PUT /contractor_requests/1
   # PATCH/PUT /contractor_requests/1.json
   def update
+    authorize @contractor_request
     respond_to do |format|
       if @contractor_request.update(contractor_request_params)
         format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully updated.' }
@@ -62,6 +69,7 @@ class ContractorRequestsController < ApplicationController
   # DELETE /contractor_requests/1
   # DELETE /contractor_requests/1.json
   def destroy
+    authorize @contractor_request
     @contractor_request.destroy
     respond_to do |format|
       format.html { redirect_to contractor_requests_url, notice: 'Contractor request was successfully destroyed.' }

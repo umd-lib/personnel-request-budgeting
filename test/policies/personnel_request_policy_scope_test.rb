@@ -42,7 +42,7 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'department role can only see department personnel requests' do
-    expected_department_code = department_codes_with_records[0]
+    expected_department_code = departments_with_records[0].code
     Role.create!(user: @test_user,
                  role_type: RoleType.find_by_code('department'),
                  department: Department.find_by_code(expected_department_code))
@@ -62,7 +62,7 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'unit role can only see unit personnel requests' do
-    expected_unit_code = unit_codes_with_records[0]
+    expected_unit_code = units_with_records[0].code
     Role.create!(user: @test_user,
                  role_type: RoleType.find_by_code('unit'),
                  unit: Unit.find_by_code(expected_unit_code))
@@ -82,8 +82,8 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'multi-department user can only see personnel requests from those departments' do
-    expected_department_code1 = department_codes_with_records[0]
-    expected_department_code2 = department_codes_with_records[1]
+    expected_department_code1 = departments_with_records[0].code
+    expected_department_code2 = departments_with_records[1].code
     Role.create!(user: @test_user,
                  role_type: RoleType.find_by_code('department'),
                  department: Department.find_by_code(expected_department_code1))
@@ -104,8 +104,8 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'mixed department and unit user can only see personnel requests from that department or unit' do
-    expected_department_code = department_codes_with_records[0]
-    expected_unit_code = unit_codes_with_records[0]
+    expected_department_code = departments_with_records[0].code
+    expected_unit_code = units_with_records[0].code
     Role.create!(user: @test_user,
                  role_type: RoleType.find_by_code('department'),
                  department: Department.find_by_code(expected_department_code))
@@ -132,16 +132,4 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
     Role.destroy_all(user: @test_user)
     @test_user.destroy!
   end
-
-  private
-
-    # Returns an array of department codes that have at least one record
-    def department_codes_with_records
-      LaborRequest.select(:department_id).distinct.collect { |r| r.department.code }
-    end
-
-    # Returns an array of unit codes that have at least one record
-    def unit_codes_with_records
-      LaborRequest.select(:unit_id).distinct.collect { |r| r.unit.code unless r.unit.nil? }.compact
-    end
 end

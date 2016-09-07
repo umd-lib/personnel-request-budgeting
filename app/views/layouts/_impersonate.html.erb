@@ -1,0 +1,7 @@
+<% if impersonating_user? %>
+  <%= form_tag revert_impersonate_user_url,
+          :method => :delete, :class => 'impersonate' do %>
+    Currently Impersonating: <%= impersonated_user.cas_directory_id %>
+    <button type = "submit">Stop impersonation</button>
+  <% end %>
+<% end %>

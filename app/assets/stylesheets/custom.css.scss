@@ -38,3 +38,31 @@ textarea[id$="justification"]
 #admin-panel {
   cursor: pointer;
 }
+
+// Impersonate CSS settings
+$impersonate_background: darkorchid;
+$impersonate_color: white;
+
+.impersonate {
+  background-color: $impersonate_background;
+  text-align: center;
+  color: $impersonate_color;
+  display:inline-block;
+  width: 100%;
+}
+
+.impersonate button {
+  color: $impersonate_background;
+  float: right;
+}
+
+// Impersonate button
+.btn-impersonate {
+  background-color: $impersonate_background;
+  color: $impersonate_color;
+}
+
+.btn-impersonate:hover {
+  background-color: darken($impersonate_background, 5%);
+  color: $impersonate_color !important;
+}

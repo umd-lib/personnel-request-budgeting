@@ -16,7 +16,7 @@ module CasHelper
     !session[ImpersonateController::IMPERSONATE_USER_PARAM].nil?
   end
 
-  # Returns the id of the impersonated user
+  # Returns the impersonated user
   def impersonated_user
     User.find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM]) if impersonating_user?
   end

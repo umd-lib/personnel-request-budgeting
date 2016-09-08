@@ -17,6 +17,14 @@ class ImpersonateControllerTest < ActionController::TestCase
     end
   end
 
+  test 'create should do nothing when given invalid user id' do
+    @admin_user = users(:test_admin)
+    run_as_user(@admin_user) do
+      get :create, user_id: 'invalid_user_id'
+      assert_nil session[ImpersonateController::IMPERSONATE_USER_PARAM]
+    end
+  end
+
   test 'destroy should stop impersonate user' do
     @admin_user = users(:test_admin)
     @impersonated_user = users(:one)

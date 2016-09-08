@@ -42,5 +42,7 @@
     </li>
   </ul>
 <% end %>
-<%= render 'layouts/impersonate' %>
+<% content_for :navbar_banner do %>
+  <%= render 'layouts/impersonate' %>
+<% end %>
 <%= render 'layouts/umd_lib' %>

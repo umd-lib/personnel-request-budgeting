@@ -1,9 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  role_type_id: 
-  cutoff_date: 2016-09-09
+  role_type: one
+  cutoff_date: 2016-09-01
 
-two:
-  role_type_id: 
-  cutoff_date: 2016-09-09
+# Note: Not creating a role_cutoff got role_type "two" so that we have a
+# role_type for creating a new role_cutoff entry
+
+admin:
+  role_type: admin
+  cutoff_date: 2016-12-31
+
+division:
+  role_type: division
+  cutoff_date: 2016-11-30
+
+department:
+  role_type: department
+  cutoff_date: 2016-10-31
+
+unit:
+  role_type: unit
+  cutoff_date: 2016-09-30

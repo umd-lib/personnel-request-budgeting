@@ -4,26 +4,34 @@ class RoleCutoffsController < ApplicationController
   # GET /role_cutoffs
   # GET /role_cutoffs.json
   def index
-    @role_cutoffs = RoleCutoff.all
+    authorize RoleCutoff
+    @q = RoleCutoff.ransack(params[:q])
+    @q.sorts = 'cutoff_date' if @q.sorts.empty?
+    @role_cutoffs = @q.result
   end
 
   # GET /role_cutoffs/1
   # GET /role_cutoffs/1.json
   def show
+    authorize RoleCutoff
   end
 
   # GET /role_cutoffs/new
   def new
+    authorize RoleCutoff
     @role_cutoff = RoleCutoff.new
   end
 
   # GET /role_cutoffs/1/edit
   def edit
+    authorize RoleCutoff
   end
 
   # POST /role_cutoffs
   # POST /role_cutoffs.json
+  # rubocop:disable Metrics/MethodLength
   def create
+    authorize RoleCutoff
     @role_cutoff = RoleCutoff.new(role_cutoff_params)
 
     respond_to do |format|
@@ -40,6 +48,7 @@ class RoleCutoffsController < ApplicationController
   # PATCH/PUT /role_cutoffs/1
   # PATCH/PUT /role_cutoffs/1.json
   def update
+    authorize RoleCutoff
     respond_to do |format|
       if @role_cutoff.update(role_cutoff_params)
         format.html { redirect_to @role_cutoff, notice: 'Role cutoff was successfully updated.' }
@@ -54,6 +63,7 @@ class RoleCutoffsController < ApplicationController
   # DELETE /role_cutoffs/1
   # DELETE /role_cutoffs/1.json
   def destroy
+    authorize RoleCutoff
     @role_cutoff.destroy
     respond_to do |format|
       format.html { redirect_to role_cutoffs_url, notice: 'Role cutoff was successfully destroyed.' }
@@ -62,6 +72,7 @@ class RoleCutoffsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_role_cutoff
       @role_cutoff = RoleCutoff.find(params[:id])

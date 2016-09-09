@@ -1,25 +1,18 @@
 <%= form_for(@role_cutoff) do |f| %>
-  <% if @role_cutoff.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@role_cutoff.errors.count, "error") %> prohibited this role_cutoff from being saved:</h2>
+  <%= render 'shared/form_errors', errors: @role_cutoff.errors %>
 
-      <ul>
-      <% @role_cutoff.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :role_type_id %></th>
+        <td><%= select("role_cutoff", "role_type_id", RoleType.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Role Type' }) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :cutoff_date %></th>
+        <td><%= f.date_select :cutoff_date %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="field">
-    <%= f.label :role_type_id %><br>
-    <%= f.text_field :role_type_id %>
-  </div>
-  <div class="field">
-    <%= f.label :cutoff_date %><br>
-    <%= f.date_select :cutoff_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @role_cutoff } %>
 <% end %>

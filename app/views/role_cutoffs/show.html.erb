@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Role type:</strong>
+  <%= @role_cutoff.role_type %>
+</p>
+
+<p>
+  <strong>Cutoff date:</strong>
+  <%= @role_cutoff.cutoff_date %>
+</p>
+
+<%= link_to 'Edit', edit_role_cutoff_path(@role_cutoff) %> |
+<%= link_to 'Back', role_cutoffs_path %>

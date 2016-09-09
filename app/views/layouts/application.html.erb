@@ -34,8 +34,15 @@
       </a>
       <ul class="dropdown-menu">
         <li><%= link_to 'Profile', current_user %></li>
+        <% if policy(:impersonate).create? %>
+          <li role="separator" class="divider"></li>
+          <li id='impersonate_user'><%= link_to 'Impersonate User', impersonate_path %></li>
+        <% end %>
       </ul>
     </li>
   </ul>
+<% end %>
+<% content_for :navbar_banner do %>
+  <%= render 'layouts/impersonate' %>
 <% end %>
 <%= render 'layouts/umd_lib' %>

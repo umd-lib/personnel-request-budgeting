@@ -11,10 +11,29 @@ module CasHelper
     end
   end
 
+  # Returns true if a user is being impersonated, false otherwise
+  def impersonating_user?
+    !session[ImpersonateController::IMPERSONATE_USER_PARAM].nil?
+  end
+
+  # Returns the impersonated user
+  def impersonated_user
+    User.find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM]) if impersonating_user?
+  end
+
+  # Returns the actual logged in user, ignoring impersonation
+  def actual_user
+    user_id = session[:cas_user]
+    User.find_by_cas_directory_id(user_id)
+  end
+
   # Retrieves the User for the current request from the database, using the
-  # "cas_user" id from the session, or nil if the User cannot be found.
+  # "cas_user" id from the session, the impersonated user, or nil
+  # if the User cannot be found.
   def current_user
-    User.find_by_cas_directory_id(session[:cas_user])
+    return impersonated_user if impersonating_user?
+
+    actual_user
   end
 
   private

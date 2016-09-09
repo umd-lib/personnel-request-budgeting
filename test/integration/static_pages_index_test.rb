@@ -27,4 +27,16 @@ class StaticPagesIndexTest < ActionDispatch::IntegrationTest
       assert_select 'div[id="admin_panel_body"]', false
     end
   end
+
+  test 'impersonate option visible for admin user' do
+    get root_path
+    assert_select 'li[id="impersonate_user"]'
+  end
+
+  test 'impersonate option not visible for non-admin user' do
+    run_as_user(users(:test_not_admin)) do
+      get root_path
+      assert_select 'li[id="impersonate_user"]', false
+    end
+  end
 end

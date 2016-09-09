@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     authorize User
-    @users = User.all
     @q = User.ransack(params[:q])
     @q.sorts = 'cas_directory_id' if @q.sorts.empty?
     @users = @q.result

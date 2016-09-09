@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :divisions
   resources :users
 
+  get 'impersonate' => 'impersonate#index', as: :impersonate
+  get 'impersonate/user/:user_id' => 'impersonate#create', as: :impersonate_user
+  delete 'impersonate/revert' => 'impersonate#destroy', as: :revert_impersonate_user
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -24,6 +24,7 @@ Style/Documentation:
     - 'app/helpers/*_helper.rb'
     - 'test/test_helper.rb'
     - 'test/controllers/*_controller_test.rb'
+    - 'test/helpers/*_helper_test.rb'
 
 Style/ClassAndModuleChildren:
   Exclude:

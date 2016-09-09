@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id"
+  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id", unique: true
 
   create_table "role_types", force: :cascade do |t|
     t.string   "code"

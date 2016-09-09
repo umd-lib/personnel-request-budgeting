@@ -7,7 +7,6 @@ class ImpersonateController < ApplicationController
   # GET /impersonate
   def index
     authorize :impersonate
-    @users = User.all
     @q = User.ransack(params[:q])
     @q.sorts = 'cas_directory_id' if @q.sorts.empty?
     @users = @q.result

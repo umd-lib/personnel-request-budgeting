@@ -6,12 +6,29 @@ class User < ActiveRecord::Base
 
   # Returns true if this user has an Admin role, false otherwise.
   def admin?
-    roles(RoleType.find_by_code('admin')).any?
+    role?('admin')
   end
 
   # Returns true if this user has a Division role, false otherwise.
   def division?
-    roles(RoleType.find_by_code('division')).any?
+    role?('division')
+  end
+
+  # Returns true if this user has a Department role, false otherwise.
+  def department?
+    role?('department')
+  end
+
+  # Returns true if this user has a Unit role, false otherwise.
+  def unit?
+    role?('unit')
+  end
+
+  # Returns true if this user as a role with the given code, false otherwise.
+  #
+  # - role_type_code - a String representing the role type code
+  def role?(role_type_code)
+    roles(RoleType.find_by_code(role_type_code)).any?
   end
 
   # Returns an array of Roles for this user. Can optionally specify the RoleType

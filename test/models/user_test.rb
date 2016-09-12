@@ -40,8 +40,30 @@ class UserTest < ActiveSupport::TestCase
     division_user = User.new(cas_directory_id: 'division_user', name: 'Division User')
     Role.create!(user: division_user,
                  role_type: RoleType.find_by_code('division'),
-                 division: Division.all[0])
+                 division: Division.first)
     assert division_user.division?
+  end
+
+  test 'department? should correct department status of user' do
+    refute @user.department?
+    refute users(:test_admin).department?
+
+    department_user = User.new(cas_directory_id: 'department_user', name: 'Department User')
+    Role.create!(user: department_user,
+                 role_type: RoleType.find_by_code('department'),
+                 department: Department.first)
+    assert department_user.department?
+  end
+
+  test 'unit? should correct unit status of user' do
+    refute @user.unit?
+    refute users(:test_admin).unit?
+
+    unit_user = User.new(cas_directory_id: 'unit_user', name: 'Unit User')
+    Role.create!(user: unit_user,
+                 role_type: RoleType.find_by_code('unit'),
+                 unit: Unit.first)
+    assert unit_user.unit?
   end
 
   test 'roles should return roles for the user' do

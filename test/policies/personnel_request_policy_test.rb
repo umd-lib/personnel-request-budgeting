@@ -7,6 +7,7 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   def setup
     @division1 = divisions_with_records[0]
     @division2 = divisions_with_records[1]
+    @dept_in_division_1 = departments_with_records.keep_if { |d| d.division == @division1 }[0]
     @dept_not_in_division_1 = departments_with_records.keep_if { |d| d.division != @division1 }[0]
     @dept1 = departments_with_records[0]
     @dept2 = departments_with_records[1]
@@ -28,6 +29,18 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     Role.create!(user: @unit1_user,
                  role_type: RoleType.find_by_code('unit'),
                  unit: @unit1)
+
+    @division_role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('division')).first
+    @division_role_cutoff.cutoff_date = 1.day.from_now
+    @division_role_cutoff.save!
+
+    @dept_role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('department')).first
+    @dept_role_cutoff.cutoff_date = 1.day.from_now
+    @dept_role_cutoff.save!
+
+    @unit_role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('unit')).first
+    @unit_role_cutoff.cutoff_date = 1.day.from_now
+    @unit_role_cutoff.save!
   end
 
   def teardown
@@ -39,6 +52,44 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
 
     Role.destroy_all(user: @unit1_user)
     @unit1_user.destroy!
+  end
+
+  test 'verify allowed_divisions returns correct divisions' do
+    # Single division user
+    divisions = PersonnelRequestPolicy.allowed_divisions(@division1_user)
+    assert_equal 1, divisions.count
+    assert_equal @division1, divisions[0]
+
+    # Multiple division user
+    multi_div_user = User.create(cas_directory_id: 'multi_div', name: 'Multi Division')
+    Role.create!(user: multi_div_user,
+                 role_type: RoleType.find_by_code('division'),
+                 division: @division1)
+    Role.create!(user: multi_div_user,
+                 role_type: RoleType.find_by_code('division'),
+                 division: @division2)
+
+    divisions = PersonnelRequestPolicy.allowed_divisions(multi_div_user)
+    assert_equal 2, divisions.count
+    divisions.each do |division|
+      assert((@division1 == division) || (@division2 == division))
+    end
+    Role.destroy_all(user: multi_div_user)
+    multi_div_user.destroy!
+
+    # Division and department user
+    multi_div_dept_user = User.create(cas_directory_id: 'multi_div_dept', name: 'Multi Div-Department')
+    Role.create!(user: multi_div_dept_user,
+                 role_type: RoleType.find_by_code('division'),
+                 division: @division1)
+    Role.create!(user: multi_div_dept_user,
+                 role_type: RoleType.find_by_code('department'),
+                 department: @dept_not_in_division_1)
+    divisions = PersonnelRequestPolicy.allowed_divisions(multi_div_dept_user)
+    assert_equal 1, divisions.count
+    assert_equal @division1, divisions[0]
+    Role.destroy_all(user: multi_div_dept_user)
+    multi_div_dept_user.destroy!
   end
 
   test 'verify departments_in_division returns correct departments' do
@@ -427,5 +478,62 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     @no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
     refute Pundit.policy!(@no_role_user, LaborRequest).new?
     @no_role_user.destroy!
+  end
+
+  test 'verify unit edit permissions with role cutoff' do
+    request = LaborRequest.where(unit_id: @unit1).first
+    assert Pundit.policy!(@unit1_user, request).show?
+
+    assert Pundit.policy!(@unit1_user, request).create?
+    assert Pundit.policy!(@unit1_user, request).update?
+    assert Pundit.policy!(@unit1_user, request).destroy?
+
+    @unit_role_cutoff.cutoff_date = 1.day.ago
+    @unit_role_cutoff.save!
+
+    # Still allowed to view after cutoff
+    assert Pundit.policy!(@unit1_user, request).show?
+
+    refute Pundit.policy!(@unit1_user, request).create?
+    refute Pundit.policy!(@unit1_user, request).update?
+    refute Pundit.policy!(@unit1_user, request).destroy?
+  end
+
+  test 'verify department edit permissions with role cutoff' do
+    request = LaborRequest.where(department_id: @dept1).first
+    assert Pundit.policy!(@dept1_user, request).show?
+
+    assert Pundit.policy!(@dept1_user, request).create?
+    assert Pundit.policy!(@dept1_user, request).update?
+    assert Pundit.policy!(@dept1_user, request).destroy?
+
+    @dept_role_cutoff.cutoff_date = 1.day.ago
+    @dept_role_cutoff.save!
+
+    # Still allowed to view after cutoff
+    assert Pundit.policy!(@dept1_user, request).show?
+
+    refute Pundit.policy!(@dept1_user, request).create?
+    refute Pundit.policy!(@dept1_user, request).update?
+    refute Pundit.policy!(@dept1_user, request).destroy?
+  end
+
+  test 'verify division edit permissions with role cutoff' do
+    request = LaborRequest.where(department_id: @dept_in_division_1).first
+    assert Pundit.policy!(@division1_user, request).show?
+
+    assert Pundit.policy!(@division1_user, request).create?
+    assert Pundit.policy!(@division1_user, request).update?
+    assert Pundit.policy!(@division1_user, request).destroy?
+
+    @division_role_cutoff.cutoff_date = 1.day.ago
+    @division_role_cutoff.save!
+
+    # Still allowed to view after cutoff
+    assert Pundit.policy!(@division1_user, request).show?
+
+    refute Pundit.policy!(@division1_user, request).create?
+    refute Pundit.policy!(@division1_user, request).update?
+    refute Pundit.policy!(@division1_user, request).destroy?
   end
 end

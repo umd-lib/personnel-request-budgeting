@@ -22,6 +22,11 @@ class RoleCutoffTest < ActiveSupport::TestCase
     assert_not duplicate_role_cutoff.valid?
   end
 
+  test 'role_type should not be admin' do
+    @role_cutoff.role_type = role_types(:admin)
+    assert_not @role_cutoff.valid?
+  end
+
   test 'cutoff_date should be present' do
     @role_cutoff.cutoff_date = '  '
     assert_not @role_cutoff.valid?

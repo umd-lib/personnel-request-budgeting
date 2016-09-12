@@ -8,9 +8,7 @@ one:
 # Note: Not creating a role_cutoff got role_type "two" so that we have a
 # role_type for creating a new role_cutoff entry
 
-admin:
-  role_type: admin
-  cutoff_date: 2100-12-31
+# "Admin" is not allowed to have a role cutoff
 
 division:
   role_type: division

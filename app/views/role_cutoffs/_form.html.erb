@@ -5,7 +5,7 @@
     <tbody>
       <tr>
         <th><%= f.label :role_type_id %></th>
-        <td><%= select("role_cutoff", "role_type_id", RoleType.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Role Type' }) %></td>
+        <td><%= select("role_cutoff", "role_type_id", RoleType.where.not(code: 'admin').order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Role Type' }) %></td>
       </tr>
       <tr>
         <th><%= f.label :cutoff_date %></th>

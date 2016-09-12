@@ -1,4 +1,5 @@
 # Policy for Personnel Request actions
+# rubocop:disable Metrics/ClassLength
 class PersonnelRequestPolicy < ApplicationPolicy
   def index?
     true
@@ -174,14 +175,24 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     # Returns true if a user is allowed to generate new records, false
     # otherwise.
-    def new_allowed_by_role?(user)
-      return true if user.roles.any?
+
+    def new_allowed_by_role?(user) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      return false if user.roles.empty?
+
+      return true if user.admin?
+
+      return true if division_edit_allowed? && user.division?
+
+      return true if department_edit_allowed? && user.department?
+
+      return true if unit_edit_allowed? && user.unit?
+
+      false
     end
 
     # Returns true if a user is allowed to edit the given record, false
     # otherwise.
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    def update_allowed_by_role?(user, record)
+    def update_allowed_by_role?(user, record) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength
       return false if user.roles.empty?
 
       return true if user.admin?

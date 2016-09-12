@@ -480,6 +480,23 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     @no_role_user.destroy!
   end
 
+  test 'user cannot create "new" personnel when role is past cutoff' do
+    assert Pundit.policy!(@unit1_user, LaborRequest).new?
+    @unit_role_cutoff.cutoff_date = 1.day.ago
+    @unit_role_cutoff.save!
+    refute Pundit.policy!(@unit1_user, LaborRequest).new?
+
+    assert Pundit.policy!(@dept1_user, LaborRequest).new?
+    @dept_role_cutoff.cutoff_date = 1.day.ago
+    @dept_role_cutoff.save!
+    refute Pundit.policy!(@dept1_user, LaborRequest).new?
+
+    assert Pundit.policy!(@division1_user, LaborRequest).new?
+    @division_role_cutoff.cutoff_date = 1.day.ago
+    @division_role_cutoff.save!
+    refute Pundit.policy!(@division1_user, LaborRequest).new?
+  end
+
   test 'verify unit edit permissions with role cutoff' do
     request = LaborRequest.where(unit_id: @unit1).first
     assert Pundit.policy!(@unit1_user, request).show?

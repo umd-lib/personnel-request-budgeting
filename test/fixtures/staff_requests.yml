@@ -11,6 +11,19 @@ fac:
   unit_id: nil
   justification: Because we really really need someone.
 
+staff_request_with_status:
+  employee_type: fac
+  position_description: High status 
+  request_type: new
+  annual_base_pay: 500000000.00
+  nonop_funds: 0.00
+  nonop_source: nil
+  department: ssdr
+  unit_id: nil
+  justification: Because we really really need a big tuna.
+  review_status: started
+  review_comment: This guy is kind of a big deal.
+
 # Sample data for pagination
 staff_request_1:
   employee_type: fac

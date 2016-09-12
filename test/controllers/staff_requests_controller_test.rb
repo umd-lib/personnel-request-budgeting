@@ -3,6 +3,7 @@ require 'test_helper'
 class StaffRequestsControllerTest < ActionController::TestCase
   setup do
     @staff_request = staff_requests(:fac)
+    @staff_request_with_status = staff_requests(:staff_request_with_status)
   end
 
   test 'should get index' do
@@ -55,6 +56,37 @@ class StaffRequestsControllerTest < ActionController::TestCase
   test 'should get edit' do
     get :edit, id: @staff_request
     assert_response :success
+  end
+
+  test 'should create/update staff_request but without admin only values when not admin' do
+    run_as_user(users(:test_not_admin_with_dept)) do
+      assert_difference('StaffRequest.count') do
+        post :create, staff_request: {
+          annual_base_pay: @staff_request_with_status.annual_base_pay,
+          department_id: @staff_request_with_status.department_id,
+          employee_type_id: @staff_request_with_status.employee_type_id,
+          justification: @staff_request_with_status.justification,
+          nonop_funds: @staff_request_with_status.nonop_funds,
+          nonop_source: @staff_request_with_status.nonop_source,
+          position_description: @staff_request_with_status.position_description,
+          request_type_id: @staff_request_with_status.request_type_id,
+          review_status_id: @staff_request_with_status.review_status_id,
+          review_comment: @staff_request_with_status.review_comment,
+          unit_id: @staff_request_with_status.unit_id }
+      end
+      assert_redirected_to staff_request_path(assigns(:staff_request))
+      assert_equal assigns(:staff_request).review_status_id, nil
+      assert_equal assigns(:staff_request).review_comment, nil
+
+      patch :update, id: assigns(:staff_request).id,
+                     staff_request: assigns(:staff_request).attributes.merge(
+                       review_comment: 'come on mang', review_status_id: 100)
+
+      assert_redirected_to staff_request_path(assigns(:staff_request))
+      assert_equal assigns(:staff_request).review_status_id, nil
+      assert_equal assigns(:staff_request).review_comment, nil
+      assert_equal assigns(:staff_request).annual_base_pay, @staff_request_with_status.annual_base_pay
+    end
   end
 
   test 'should update staff_request' do

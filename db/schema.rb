@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
   end
 
   add_index "contractor_requests", ["department_id"], name: "index_contractor_requests_on_department_id"
@@ -90,6 +92,8 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
   end
 
   add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id"
@@ -105,6 +109,13 @@ ActiveRecord::Schema.define(version: 20160909180738) do
   end
 
   add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+
+  create_table "review_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.string   "color",      default: "#ffffff"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "role_cutoffs", force: :cascade do |t|
     t.integer  "role_type_id"
@@ -150,6 +161,8 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.text     "justification"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
   end
 
   add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"
@@ -175,6 +188,6 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
+  # add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
 
 end

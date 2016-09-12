@@ -27,3 +27,10 @@ one_with_department:
   division: 
   department: ssdr
   unit_id: 
+
+nonadmin_with_department:
+  user: test_not_admin_with_dept
+  role_type: department
+  division: 
+  department: ssdr
+  unit_id: 

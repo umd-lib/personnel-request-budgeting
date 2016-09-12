@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @review_status.name %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @review_status.color %>
+</p>
+
+<%= link_to 'Edit', edit_review_status_path(@review_status) %> |
+<%= link_to 'Back', review_statuses_path %>

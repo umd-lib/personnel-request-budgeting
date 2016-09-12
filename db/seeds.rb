@@ -122,3 +122,10 @@ role_cutoffs.each do |role_type_code, cutoff_date_str|
   role_type = RoleType.find_by_code(role_type_code)
   role_type.role_cutoff = role_cutoff
 end
+
+review_statuses = [{ name: 'Under Review', color: '#ffffff' },
+                   { name: 'Approved', color: '#dcf5d0' },
+                   { name: 'Not Approved', color: '#fa7073' },
+                   { name: 'Contingent', color: '#b3dffc' }]
+
+review_statuses.each { |rs| ReviewStatus.create!(rs) }

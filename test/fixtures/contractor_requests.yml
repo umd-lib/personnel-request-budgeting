@@ -12,6 +12,9 @@ c2:
   department: ssdr
   unit: nil
   justification: Always need more programmers
+  review_status: started
+  review_comment: ping pong shoe shine
+
 
 cont_fac_renewal:
   employee_type: cont_fac

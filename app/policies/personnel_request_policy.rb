@@ -37,6 +37,11 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     allowed_divisions.uniq
   end
+  
+  # Returns an array of attributes added for admin users for mass assignement
+  def permitted_attributes
+    user.admin? ? %i( review_status_id review_comment ) : []
+  end
 
   # Returns an array of Departments in the division
   #

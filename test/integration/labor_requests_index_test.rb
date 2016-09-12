@@ -19,7 +19,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     columns = %w(position_description employee_type_code request_type_code
                  contractor_name number_of_positions hourly_rate hours_per_week
                  number_of_weeks nonop_funds division_code department_code
-                 unit_code)
+                 unit_code review_status_id)
 
     get labor_requests_path
     assert_template 'labor_requests/index'

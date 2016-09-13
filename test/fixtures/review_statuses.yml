@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+never:
+  name: never 
+  color: "#aaaaaa"
+
 started:
-  color: started 
-  name: "#ffffff"
+  name: started 
+  color: "#ffffff"
 
 almost:
-  color: almost done
-  name: "#000000"
+  name: almost done
+  color: "#000000"

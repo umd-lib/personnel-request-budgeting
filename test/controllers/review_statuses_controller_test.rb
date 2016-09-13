@@ -3,6 +3,7 @@ require 'test_helper'
 class ReviewStatusesControllerTest < ActionController::TestCase
   setup do
     @review_status = review_statuses(:started)
+    @review_status_with_nutting = review_statuses(:never)
   end
 
   test 'should get index' do
@@ -41,7 +42,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
 
   test 'should destroy review_status' do
     assert_difference('ReviewStatus.count', -1) do
-      delete :destroy, id: @review_status
+      delete :destroy, id: @review_status_with_nutting
     end
 
     assert_redirected_to review_statuses_path

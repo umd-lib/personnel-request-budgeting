@@ -23,7 +23,8 @@ tbody tr th {
 input[id$="position_description"],
 input[id$="contractor_name"],
 input[id$="nonop_source"],
-textarea[id$="justification"]
+textarea[id$="justification"],
+textarea[id$='review_comment']
 {
   width: 100%;
 }

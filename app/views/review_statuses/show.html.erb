@@ -1,14 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @review_status.name %> <small>Request Type</small></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @review_status.name %>
-</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Name:</th>
+      <td id="name"><%= @review_status.name %></td>
+    </tr>
+    <tr>
+      <th>Color:</th>
+      <td id='color'><%= color_field :review_status, :color, value: @review_status.color, readonly: true, disabled: true %></td>
+  </tbody>
+</table>
 
-<p>
-  <strong>Color:</strong>
-  <%= @review_status.color %>
-</p>
-
-<%= link_to 'Edit', edit_review_status_path(@review_status) %> |
-<%= link_to 'Back', review_statuses_path %>
+<%= render 'shared/show_action_buttons', object: @review_status %>

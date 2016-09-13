@@ -5,7 +5,7 @@ one:
   role_type: one
   cutoff_date: 2100-09-01
 
-# Note: Not creating a role_cutoff got role_type "two" so that we have a
+# Note: Not creating a role_cutoff for role_type "two" so that we have a
 # role_type for creating a new role_cutoff entry
 
 # "Admin" is not allowed to have a role cutoff

@@ -8,17 +8,17 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th id="position_description"><%= sort_link(@q, :position_description, 'Position description') %></th>
-      <th id="employee_type"><%= sort_link(@q, 'employee_type_code', 'Employee type') %></th>
-      <th id="request_type"><%= sort_link(@q, 'request_type_code', 'Request type') %></th>
-      <th id="contractor_name"><%= sort_link(@q, :contractor_name, 'Contractor name') %></th>
-      <th id="number_of_months"><%= sort_link(@q, :number_of_months, 'Number of months') %></th>
-      <th id="annual_base_pay"><%= sort_link(@q, :annual_base_pay, 'Annual base pay') %></th>
-      <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
-      <th id="division"><%= sort_link(@q, 'division_code', 'Division') %></th>
-      <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
-      <%= render 'shared/table_action_buttons_header' %>
+      <th id="position_description"><%= multi_sort_link(@q, :position_description, 'Position description') %></th>
+      <th id="employee_type"><%= multi_sort_link(@q, :employee_type_code, 'Employee type') %></th>
+      <th id="request_type"><%= multi_sort_link(@q, :request_type_code, 'Request type') %></th>
+      <th id="contractor_name"><%= multi_sort_link(@q, :contractor_name, 'Contractor name') %></th>
+      <th id="number_of_months"><%= multi_sort_link(@q, :number_of_months, 'Number of months') %></th>
+      <th id="annual_base_pay"><%= multi_sort_link(@q, :annual_base_pay, 'Annual base pay') %></th>
+      <th id="nonop_funds"><%= multi_sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
+      <th id="division"><%= multi_sort_link(@q, :division_code, 'Division') %></th>
+      <th id="department"><%= multi_sort_link(@q, :department_code, 'Department') %></th>
+      <th id="unit"><%= multi_sort_link(@q, :unit_code, 'Unit') %></th>
+      <%= render 'shared/table_action_buttons_header', klass: ContractorRequest %>
     </tr>
   </thead>
 

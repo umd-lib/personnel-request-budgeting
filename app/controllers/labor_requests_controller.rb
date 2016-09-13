@@ -8,12 +8,8 @@ class LaborRequestsController < ApplicationController
   def index
     @q = LaborRequest.ransack(params[:q])
     @q.sorts = 'position_description' if @q.sorts.empty?
-
-    results = @q.result
-    policy_scoped = policy_scope(results)
-    policy_ordered = sort_results(@q, policy_scoped)
-
-    @labor_requests = policy_ordered.page(params[:page])
+    results = @q.result.includes(%i( division employee_type request_type unit ))
+    @labor_requests = policy_scope(results).page(params[:page])
   end
 
   # GET /labor_requests/1

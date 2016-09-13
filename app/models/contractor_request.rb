@@ -4,6 +4,8 @@ class ContractorRequest < ActiveRecord::Base
   belongs_to :request_type
   belongs_to :department
   belongs_to :unit
+  has_one :division, through: :department, autosave: false
+
   validates :employee_type, presence: true
   validates :position_description, presence: true
   validates :request_type, presence: true

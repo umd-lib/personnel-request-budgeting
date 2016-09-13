@@ -7,7 +7,8 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests.json
   def index
     @q = ContractorRequest.ransack(params[:q])
-    @q.sorts = 'position_description' if @q.sorts.empty?
+    @q.sorts = %w( division_code department_code unit_code employee_type_code ) if @q.sorts.empty?
+
     results = @q.result.includes(%i( division employee_type request_type unit ))
     @contractor_requests = policy_scope(results).page(params[:page])
   end

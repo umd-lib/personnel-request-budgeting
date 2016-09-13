@@ -197,15 +197,12 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
       return true if user.admin?
 
-      # Division and Department role can edit record if in division
       return true if division_edit_allowed? && user.division? &&
                      PersonnelRequestPolicy.allowed_divisions(user).include?(record.department.division)
 
-      # Division and Department role can edit record if in department
       return true if department_edit_allowed? && user.department? &&
                      PersonnelRequestPolicy.allowed_departments(user).include?(record.department)
 
-      # Unit role can see record if in unit
       return true if unit_edit_allowed? && user.unit? &&
                      PersonnelRequestPolicy.allowed_units(user).include?(record.unit)
 
@@ -223,7 +220,6 @@ class PersonnelRequestPolicy < ApplicationPolicy
     # This method checks against current date against the unit role cutoff date,
     # if one exists.
     def unit_edit_allowed?
-      today = Time.zone.today
       role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('unit')).first
       return today < role_cutoff.cutoff_date unless role_cutoff.nil?
 
@@ -235,7 +231,6 @@ class PersonnelRequestPolicy < ApplicationPolicy
     # This method checks against current date against the department role cutoff
     # date, if one exists.
     def department_edit_allowed?
-      today = Time.zone.today
       role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('department')).first
       return today < role_cutoff.cutoff_date unless role_cutoff.nil?
 
@@ -247,10 +242,14 @@ class PersonnelRequestPolicy < ApplicationPolicy
     # This method checks against current date against the division role cutoff
     # date, if one exists.
     def division_edit_allowed?
-      today = Time.zone.today
       role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('division')).first
       return today < role_cutoff.cutoff_date unless role_cutoff.nil?
 
       true
+    end
+
+    # Returns the current date
+    def today
+      Time.zone.today
     end
 end

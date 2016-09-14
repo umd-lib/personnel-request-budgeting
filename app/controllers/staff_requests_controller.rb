@@ -7,10 +7,13 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests.json
   def index
     @q = StaffRequest.ransack(params[:q])
-    @q.sorts = %w( division_code department_code unit_code employee_type_code ) if @q.sorts.empty?
+    @q.sorts = 'position_description' if @q.sorts.empty?
 
-    results = @q.result.includes(%i( division employee_type request_type unit ))
-    @staff_requests = policy_scope(results).page(params[:page])
+    results = @q.result
+    policy_scoped = policy_scope(results)
+    policy_ordered = sort_results(@q, policy_scoped)
+
+    @staff_requests = policy_ordered.page(params[:page])
   end
 
   # GET /staff_requests/1

@@ -8,19 +8,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th id="position_description"><%= sort_link(@q, :position_description, 'Position description') %></th>
-      <th id="employee_type"><%= sort_link(@q, 'employee_type_code', 'Employee type') %></th>
-      <th id="request_type"><%= sort_link(@q, 'request_type_code', 'Request type') %></th>
-      <th id="contractor_name"><%= sort_link(@q, :contractor_name, 'Contractor name') %></th>
-      <th id="number_of_positions"><%= sort_link(@q, :number_of_positions, 'Number of positions') %></th>
-      <th id="hourly_rate"><%= sort_link(@q, :hourly_rate, 'Hourly rate') %></th>
-      <th id="hours_per_week"><%= sort_link(@q, :hours_per_week, 'Hours per week') %></th>
-      <th id="number_of_weeks"><%= sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
-      <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
-      <th id="division"><%= sort_link(@q, 'division_code', 'Division') %></th>
-      <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
-      <%= render 'shared/table_action_buttons_header' %>
+      <th id="position_description"><%= multi_sort_link(@q, :position_description, 'Position description') %></th>
+      <th id="employee_type"><%= multi_sort_link(@q, :employee_type_code, 'Employee type') %></th>
+      <th id="request_type"><%= multi_sort_link(@q, :request_type_code, 'Request type') %></th>
+      <th id="contractor_name"><%= multi_sort_link(@q, :contractor_name, 'Contractor name') %></th>
+      <th id="number_of_positions"><%= multi_sort_link(@q, :number_of_positions, 'Number of positions') %></th>
+      <th id="hourly_rate"><%= multi_sort_link(@q, :hourly_rate, 'Hourly rate') %></th>
+      <th id="hours_per_week"><%= multi_sort_link(@q, :hours_per_week, 'Hours per week') %></th>
+      <th id="number_of_weeks"><%= multi_sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
+      <th id="nonop_funds"><%= multi_sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
+      <th id="division"><%= multi_sort_link(@q, :division_code, 'Division') %></th>
+      <th id="department"><%= multi_sort_link(@q, :department_code, 'Department') %></th>
+      <th id="unit"><%= multi_sort_link(@q, :unit_code, 'Unit') %></th>
+      <%= render 'shared/table_action_buttons_header', klass: LaborRequest %>
     </tr>
   </thead>
 
@@ -39,7 +39,7 @@
         <td headers="division"><%= labor_request.department.division.code %></td>
         <td headers="department"><%= labor_request.department.code %></td>
         <td headers="unit"><%= labor_request.unit.code if labor_request.unit %></td>
-        <%= render 'shared/table_action_buttons', object: labor_request %>
+        <%=  render 'shared/table_action_buttons', object: labor_request %>
       </tr>
     <% end %>
   </tbody>

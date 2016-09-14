@@ -40,9 +40,11 @@ class RoleTypesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy role_type' do
-    assert_equal true, @role_type.allow_delete?
+    # Role type "two" does not have a role_cutoff, so if can be deleted.
+    role_type = role_types(:two)
+    assert_equal true, role_type.allow_delete?
     assert_difference('RoleType.count', -1) do
-      delete :destroy, id: @role_type
+      delete :destroy, id: role_type
     end
 
     assert_redirected_to role_types_path

@@ -27,21 +27,43 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test 'admin? should correct admin status of user' do
-    refute @user.admin?
+  test 'admin? should show correct admin status of user' do
+    assert_not @user.admin?
     assert users(:test_admin).admin?
-    refute users(:test_not_admin).admin?
+    assert_not users(:test_not_admin).admin?
   end
 
-  test 'division? should correct division status of user' do
-    refute @user.division?
-    refute users(:test_admin).division?
+  test 'division? should show correct division status of user' do
+    assert_not @user.division?
+    assert_not users(:test_admin).division?
 
     division_user = User.new(cas_directory_id: 'division_user', name: 'Division User')
     Role.create!(user: division_user,
                  role_type: RoleType.find_by_code('division'),
-                 division: Division.all[0])
+                 division: Division.first)
     assert division_user.division?
+  end
+
+  test 'department? should show correct department status of user' do
+    assert_not @user.department?
+    assert_not users(:test_admin).department?
+
+    department_user = User.new(cas_directory_id: 'department_user', name: 'Department User')
+    Role.create!(user: department_user,
+                 role_type: RoleType.find_by_code('department'),
+                 department: Department.first)
+    assert department_user.department?
+  end
+
+  test 'unit? should show correct unit status of user' do
+    assert_not @user.unit?
+    assert_not users(:test_admin).unit?
+
+    unit_user = User.new(cas_directory_id: 'unit_user', name: 'Unit User')
+    Role.create!(user: unit_user,
+                 role_type: RoleType.find_by_code('unit'),
+                 unit: Unit.first)
+    assert unit_user.unit?
   end
 
   test 'roles should return roles for the user' do

@@ -28,6 +28,7 @@ class RoleTypeTest < ActiveSupport::TestCase
   end
 
   test 'role type without associated records can be deleted' do
+    @role_type = RoleType.create(code: 'Delete', name: 'DeleteMe')
     assert_equal true, @role_type.allow_delete?
     assert_nothing_raised ActiveRecord::DeleteRestrictionError do
       @role_type.destroy

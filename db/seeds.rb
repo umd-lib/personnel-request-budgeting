@@ -110,3 +110,15 @@ role_types = [{ code: 'admin', name: 'Admin' },
               { code: 'unit', name: 'Unit' }]
 
 role_types.each { |type| RoleType.create!(type) }
+
+# Role Cutoffs
+current_year = Time.zone.now.year
+role_cutoffs = { 'division' => "#{current_year}-12-31",
+                 'department' => "#{current_year}-12-31",
+                 'unit' => "#{current_year}-12-31" }
+
+role_cutoffs.each do |role_type_code, cutoff_date_str|
+  role_cutoff = RoleCutoff.create(cutoff_date: cutoff_date_str)
+  role_type = RoleType.find_by_code(role_type_code)
+  role_type.role_cutoff = role_cutoff
+end

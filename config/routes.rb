@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :role_cutoffs
   resources :roles
   resources :role_types
   root 'static_pages#index'

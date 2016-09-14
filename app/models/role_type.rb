@@ -4,6 +4,7 @@ class RoleType < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :roles, dependent: :restrict_with_exception
+  has_one :role_cutoff, dependent: :restrict_with_exception
 
   def self.policy_class
     AdminOnlyPolicy

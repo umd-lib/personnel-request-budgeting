@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519182727) do
+ActiveRecord::Schema.define(version: 20160909180738) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 20160519182727) do
   end
 
   add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+
+  create_table "role_cutoffs", force: :cascade do |t|
+    t.integer  "role_type_id"
+    t.date     "cutoff_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id", unique: true
 
   create_table "role_types", force: :cascade do |t|
     t.string   "code"

@@ -1,6 +1,7 @@
 # A user of the application
 class User < ActiveRecord::Base
-  has_many :roles, dependent: :restrict_with_exception
+  has_many :roles
+  has_many :role_types, through: :roles
   validates :cas_directory_id, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
@@ -28,16 +29,6 @@ class User < ActiveRecord::Base
   #
   # - role_type_code - a String representing the role type code
   def role?(role_type_code)
-    roles(RoleType.find_by_code(role_type_code)).any?
-  end
-
-  # Returns an array of Roles for this user. Can optionally specify the RoleType
-  # of roles to return.
-  #
-  # If the user has no roles, an empty array is returned.
-  def roles(role_type = nil)
-    return Role.where(user: self).to_ary if role_type.nil?
-
-    Role.where(user: self).where(role_type: role_type).to_ary
+    role_types.any? { |role_type| role_type.code == role_type_code }
   end
 end

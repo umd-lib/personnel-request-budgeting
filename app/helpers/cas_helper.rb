@@ -1,10 +1,9 @@
 # Provides CAS Authentication and whitelist authorization
 module CasHelper
-  attr_reader :current_user
-
   # Uses CAS to authenticate users, and provide white-list authorization
   def authenticate
     CASClient::Frameworks::Rails::Filter.before(self)
+    update_current_user(User.eager_load(:roles, :role_types).find_by_cas_directory_id(session[:cas_user]))
 
     if session[:cas_user] && !allow_access
       render(file: File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false)
@@ -18,28 +17,45 @@ module CasHelper
 
   # Returns the impersonated user
   def impersonated_user
-    User.find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM]) if impersonating_user?
+    unless !@current_user.nil? && session[ImpersonateController::IMPERSONATE_USER_PARAM] == @current_user.id
+      user = User.eager_load(:roles, :role_types).find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM])
+      update_current_user(user)
+    end
+    @current_user
   end
 
   # Returns the actual logged in user, ignoring impersonation
   def actual_user
-    user_id = session[:cas_user]
-    User.find_by_cas_directory_id(user_id)
+    unless !@current_user.nil? && session[:cas_user] == @current_user.cas_directory_id
+      update_current_user(User.eager_load(:roles, :role_types).find_by_cas_directory_id(session[:cas_user]))
+    end
+    @current_user
   end
 
   # Retrieves the User for the current request from the database, using the
   # "cas_user" id from the session, the impersonated user, or nil
   # if the User cannot be found.
   def current_user
-    return impersonated_user if impersonating_user?
+    impersonating_user? ? impersonated_user : actual_user
+  end
 
-    actual_user
+  def logout
+    update_current_user(nil)
   end
 
   private
 
+    attr_writer :current_user
+
     # Returns true if entry is authorized, false otherwise.
     def allow_access
-      !current_user.nil?
+      !@current_user.nil?
+    end
+
+    # Simply updates the current user
+    def update_current_user(user)
+      return nil unless user.is_a?(User)
+      @current_user = user
+      @current_user
     end
 end

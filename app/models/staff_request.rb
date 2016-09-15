@@ -4,6 +4,7 @@ class StaffRequest < ActiveRecord::Base
   belongs_to :request_type
   belongs_to :department
   belongs_to :unit
+  belongs_to :review_status
   validates :employee_type, presence: true
   validates :position_description, presence: true
   validates :request_type, presence: true

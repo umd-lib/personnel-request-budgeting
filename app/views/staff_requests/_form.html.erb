@@ -50,6 +50,14 @@
         <th><%= f.label :justification %></th>
         <td><%= f.text_area :justification %></td>
       </tr>
+      <tr>
+        <th><%= f.label :review_status %></th>
+        <td><%= select("staff_request", "review_status_id", ReviewStatus.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Review Status' }, disabled: !current_user.admin?) %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :review_comment %></th>
+        <td><%= f.text_area :review_comment, :disabled => !current_user.admin? %></td>
+      </tr>
     </tbody>
   </table>
     

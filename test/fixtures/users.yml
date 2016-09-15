@@ -14,6 +14,11 @@ test_admin:
 test_not_admin:
   cas_directory_id: test_not_admin
   name: Test Non-Admin User
+
+# This user never has an Admin role
+test_not_admin_with_dept:
+  cas_directory_id: test_not_admin_with_dept
+  name: Test Non-Admin User With Department
   
 one:
   cas_directory_id: user1

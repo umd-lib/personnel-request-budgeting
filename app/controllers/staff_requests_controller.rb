@@ -86,9 +86,9 @@ class StaffRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_request_params
-      params.require(:staff_request).permit(
-        :employee_type_id, :position_description, :request_type_id,
-        :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
-        :unit_id, :justification)
+      allowed = [:employee_type_id, :position_description, :request_type_id,
+                 :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
+                 :unit_id, :justification] + policy(@staff_request || StaffRequest.new).permitted_attributes
+      params.require(:staff_request).permit(allowed)
     end
 end

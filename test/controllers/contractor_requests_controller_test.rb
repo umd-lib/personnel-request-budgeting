@@ -45,6 +45,39 @@ class ContractorRequestsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should create/update contractor_request but without admin only values when not admin' do
+    run_as_user(users(:test_not_admin_with_dept)) do
+      assert_difference('ContractorRequest.count') do
+        post :create, contractor_request: {
+          annual_base_pay: @contractor_request.annual_base_pay,
+          contractor_name: @contractor_request.contractor_name,
+          department_id: @contractor_request.department_id,
+          employee_type_id: @contractor_request.employee_type_id,
+          justification: @contractor_request.justification,
+          nonop_funds: @contractor_request.nonop_funds,
+          nonop_source: @contractor_request.nonop_source,
+          number_of_months: @contractor_request.number_of_months,
+          position_description: @contractor_request.position_description,
+          request_type_id: @contractor_request.request_type_id,
+          review_status_id: @contractor_request.review_status_id,
+          review_comment: @contractor_request.review_comment,
+          unit_id: @contractor_request.unit_id }
+      end
+      assert_redirected_to contractor_request_path(assigns(:contractor_request))
+      assert_equal assigns(:contractor_request).review_status_id, nil
+      assert_equal assigns(:contractor_request).review_comment, nil
+
+      patch :update, id: assigns(:contractor_request).id,
+                     contractor_request: assigns(:contractor_request).attributes.merge(
+                       review_comment: 'come on mang', review_status_id: 100)
+
+      assert_redirected_to contractor_request_path(assigns(:contractor_request))
+      assert_equal assigns(:contractor_request).review_status_id, nil
+      assert_equal assigns(:contractor_request).review_comment, nil
+      assert_equal assigns(:contractor_request).contractor_name, @contractor_request.contractor_name
+    end
+  end
+
   test 'should update contractor_request' do
     patch :update, id: @contractor_request, contractor_request: {
       annual_base_pay: @contractor_request.annual_base_pay,

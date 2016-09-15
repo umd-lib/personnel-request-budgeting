@@ -14,6 +14,8 @@ c1:
   department: ssdr
   unit: nil
   justification: Help get Ruby on Rails development off the ground.
+  review_status: started
+  review_comment: ping pong shoe shine
 
 fac_hrly_renewal:
   employee_type: fac_hrly

@@ -17,13 +17,14 @@
       <th id="division"><%= sort_link(@q, 'division_code', 'Division') %></th>
       <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
       <th id="unit"><%= sort_link(@q, 'unit_code', 'Unit') %></th>
+      <th id="review_status"><%= sort_link(@q, 'review_status_id', 'Review Status') %></th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
 
   <tbody>
     <% @staff_requests.each do |staff_request| %>
-      <tr>
+      <tr <%= "style=background-color:#{staff_request.review_status.color};" if staff_request.review_status %> >
         <td headers="position_description"><%= staff_request.position_description %></td>
         <td headers="employee_type"><%= staff_request.employee_type.code %></td>
         <td headers="request_type"><%= staff_request.request_type.code %></td>
@@ -32,6 +33,7 @@
         <td headers="division"><%= staff_request.department.division.code %></td>
         <td headers="department"><%= staff_request.department.code %></td>
         <td headers="unit"><%= staff_request.unit.code if staff_request.unit %></td>
+        <td headers="review_status"><%= staff_request.review_status.name if staff_request.review_status  %></td>
         <%= render 'shared/table_action_buttons', object: staff_request %>
       </tr>
     <% end %>

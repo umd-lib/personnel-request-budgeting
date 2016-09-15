@@ -1,0 +1,18 @@
+<%= form_for(@review_status) do |f| %>
+  <%= render 'shared/form_errors', errors: @review_status.errors %>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name %><td>
+      </tr>
+      <tr>
+        <th><%= f.label :color %></th>
+        <td><%= f.color_field :color %><td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @review_status } %>
+<% end %>

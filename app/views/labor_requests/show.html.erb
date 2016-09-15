@@ -68,6 +68,14 @@
       <th>Justification:</th>
       <td id="justification"><%= @labor_request.justification %></td>
     </tr>
+    <tr>
+      <th>Request Status:</th>
+      <td id="request_status"><%= @labor_request.review_status.name if @labor_request.review_status %></td>
+    </tr>
+    <tr>
+      <th>Review Comment:</th>
+      <td id="review_comment"><%= @labor_request.review_comment %></td>
+    </tr>
   </tbody>
 </table>
 

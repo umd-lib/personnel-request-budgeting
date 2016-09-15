@@ -37,6 +37,41 @@ class LaborRequestsControllerTest < ActionController::TestCase
     assert_redirected_to labor_request_path(assigns(:labor_request))
   end
 
+  test 'should create/update labor_request but without admin only values when not admin' do
+    run_as_user(users(:test_not_admin_with_dept)) do
+      assert_difference('LaborRequest.count') do
+        post :create, labor_request: {
+          contractor_name: @labor_request.contractor_name,
+          department_id: @labor_request.department_id,
+          employee_type_id: @labor_request.employee_type_id,
+          hourly_rate: @labor_request.hourly_rate,
+          hours_per_week: @labor_request.hours_per_week,
+          justification: @labor_request.justification,
+          nonop_funds: @labor_request.nonop_funds,
+          nonop_source: @labor_request.nonop_source,
+          number_of_positions: @labor_request.number_of_positions,
+          number_of_weeks: @labor_request.number_of_weeks,
+          position_description: @labor_request.position_description,
+          request_type_id: @labor_request.request_type_id,
+          review_status_id: @labor_request.review_status_id,
+          review_comment: @labor_request.review_comment,
+          unit_id: @labor_request.unit_id }
+      end
+      assert_redirected_to labor_request_path(assigns(:labor_request))
+      assert_equal assigns(:labor_request).review_status_id, nil
+      assert_equal assigns(:labor_request).review_comment, nil
+
+      patch :update, id: assigns(:labor_request).id,
+                     labor_request: assigns(:labor_request).attributes.merge(
+                       review_comment: 'come on mang', review_status_id: 100)
+
+      assert_redirected_to labor_request_path(assigns(:labor_request))
+      assert_equal assigns(:labor_request).review_status_id, nil
+      assert_equal assigns(:labor_request).review_comment, nil
+      assert_equal assigns(:labor_request).contractor_name, @labor_request.contractor_name
+    end
+  end
+
   test 'should show labor_request' do
     get :show, id: @labor_request
     assert_response :success
@@ -61,6 +96,8 @@ class LaborRequestsControllerTest < ActionController::TestCase
       number_of_weeks: @labor_request.number_of_weeks,
       position_description: @labor_request.position_description,
       request_type_id: @labor_request.request_type_id,
+      review_status_id: @labor_request.review_status_id,
+      review_comment: @labor_request.review_comment,
       unit_id: @labor_request.unit_id }
     assert_redirected_to labor_request_path(assigns(:labor_request))
   end

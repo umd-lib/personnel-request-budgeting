@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :role_cutoffs
+  resources :review_statuses
   resources :roles
   resources :role_types
   root 'static_pages#index'
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   resources :labor_requests
   resources :staff_requests
   resources :request_types
+  resources :review_statuses
   resources :employee_types
   resources :employee_categories
   resources :units

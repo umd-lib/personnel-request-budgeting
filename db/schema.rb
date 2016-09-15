@@ -188,6 +188,6 @@ ActiveRecord::Schema.define(version: 20160909180738) do
     t.datetime "updated_at",       null: false
   end
 
-  # add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
+  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
 
 end

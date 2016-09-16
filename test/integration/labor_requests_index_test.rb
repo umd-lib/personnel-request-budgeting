@@ -8,18 +8,17 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
   test 'currency field values show with two decimal places' do
     get labor_requests_path
 
+    doc = Nokogiri::HTML(response.body)
     currency_fields = %w(hourly_rate nonop_funds annual_cost)
-    currency_fields.each do |field|
-      assert_select "td[headers=#{field}]", { text: /\d\.\d\d/ },
-                    "#{field} should have two decimal places"
-    end
+    optional_fields = %w(nonop_funds)
+    verify_two_digit_currency_fields(doc, currency_fields, optional_fields)
   end
 
   test 'index including pagination and sorting' do
     columns = %w(position_description employee_type_code request_type_code
                  contractor_name number_of_positions hourly_rate hours_per_week
-                 number_of_weeks nonop_funds division_code department_code
-                 unit_code review_status_id)
+                 number_of_weeks annual_cost nonop_funds division_code
+                 department_code unit_code review_status_id)
 
     get labor_requests_path
     assert_template 'labor_requests/index'

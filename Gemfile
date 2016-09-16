@@ -76,6 +76,7 @@ group :test do
   # Code analysis tools
   gem 'rubocop', '~> 0.39.0', require: false
   gem 'rubocop-checkstyle_formatter', '~> 0.2.0', require: false
+  gem 'simplecov', require: false
 end
 
 group :production do

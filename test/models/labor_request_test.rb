@@ -123,4 +123,9 @@ class LaborRequestTest < ActiveSupport::TestCase
     @labor_request.unit_id = invalid_unit.id
     assert_not @labor_request.valid?
   end
+
+  test 'annual_cost should be (hourly_rate * hours_per_week * number_of_weeks)' do
+    expected_value = @labor_request.hourly_rate * @labor_request.hours_per_week * @labor_request.number_of_weeks
+    assert_equal expected_value, @labor_request.annual_cost
+  end
 end

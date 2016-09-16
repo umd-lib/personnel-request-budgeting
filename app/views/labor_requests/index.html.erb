@@ -16,6 +16,7 @@
       <th id="hourly_rate"><%= sort_link(@q, :hourly_rate, 'Hourly rate') %></th>
       <th id="hours_per_week"><%= sort_link(@q, :hours_per_week, 'Hours per week') %></th>
       <th id="number_of_weeks"><%= sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
+      <th id="annual_cost"><%= sort_link(@q, :annual_cost, 'Annual Cost') %></th>
       <th id="nonop_funds"><%= sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
       <th id="division"><%= sort_link(@q, 'division_code', 'Division') %></th>
       <th id="department"><%= sort_link(@q, 'department_code', 'Department') %></th>
@@ -36,6 +37,7 @@
         <td headers="hourly_rate"><%= number_to_currency(labor_request.hourly_rate) %></td>
         <td headers="hours_per_week"><%= labor_request.hours_per_week %></td>
         <td headers="number_of_weeks"><%= labor_request.number_of_weeks %></td>
+        <td headers="annual_cost"><%= number_to_currency(labor_request.annual_cost) %></td>
         <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
         <td headers="division"><%= labor_request.department.division.code %></td>
         <td headers="department"><%= labor_request.department.code %></td>

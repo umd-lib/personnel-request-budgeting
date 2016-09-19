@@ -1,1 +1,4 @@
-<th id="actions"></th>
+<% klass ||= nil %>
+<th id="actions">
+ <%= link_to 'Reset Sorting', polymorphic_path(klass), class: "btn btn-default" unless klass.nil? %>
+</th>

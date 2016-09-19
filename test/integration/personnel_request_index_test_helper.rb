@@ -1,6 +1,7 @@
+require 'test_helper'
+
 # Holds common methods for testing the personnel request index pages.
 module PersonnelRequestIndexTestHelper
-
   # Verifies that the given currency fields only display two digits after the
   # decimal point.
   #
@@ -14,7 +15,7 @@ module PersonnelRequestIndexTestHelper
       table_entries.each do |entry|
         display_value = entry.text
         next if display_value.empty? && optional_fields.include?(field)
-        assert_match(/\d\.\d\d$/, display_value, "#{field} should have two decimal places")
+        verify_two_digit_currency_field(field, display_value)
       end
     end
   end

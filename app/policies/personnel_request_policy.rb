@@ -134,8 +134,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     # Returns true if a user is allowed to edit the given record, false
     # otherwise.
-    # rubocop:disable Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
-    def update_allowed_by_role?(user, record)
+    def update_allowed_by_role?(user, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
       return false if user.roles.empty?
 
       return true if user.admin?

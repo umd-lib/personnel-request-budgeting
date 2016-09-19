@@ -72,4 +72,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, users(:test_admin).roles.count
     assert_equal role_types(:admin), users(:test_admin).roles[0].role_type
   end
+
+  test 'should be able to delete a user and its roles' do
+    user_to_delete = User.create!(cas_directory_id: 'delete_me', name: 'nobody')
+    role_to_delete = Role.create!(user: user_to_delete, role_type: role_types(:division),
+                                  division: divisions(:dss)
+                                 )
+    assert User.exists? user_to_delete.id
+    assert_equal 1, user_to_delete.roles.count
+    assert Role.exists? role_to_delete.id
+
+    user_to_delete.destroy
+    assert_not User.exists? user_to_delete.id
+    assert_not Role.exists? role_to_delete.id
+  end
 end

@@ -39,8 +39,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         page = response.body
 
         last_result_index = 0
-        results = LaborRequest.ransack(q_param).result
-        results = sort_and_paginate_results(results)
+        results = LaborRequest.ransack(q_param).result.paginate(page: 1)
         results.each do |entry|
           entry_path = labor_request_path(entry)
           entry_index = page.index(entry_path)

@@ -17,7 +17,7 @@ module CasHelper
 
   # Returns the impersonated user
   def impersonated_user
-    unless !@current_user.nil? && session[ImpersonateController::IMPERSONATE_USER_PARAM] == @current_user.id
+    if @current_user.nil? || session[ImpersonateController::IMPERSONATE_USER_PARAM] != @current_user.id
       user = User.eager_load(:roles, :role_types).find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM])
       update_current_user(user)
     end
@@ -26,7 +26,7 @@ module CasHelper
 
   # Returns the actual logged in user, ignoring impersonation
   def actual_user
-    unless !@current_user.nil? && session[:cas_user] == @current_user.cas_directory_id
+    if @current_user.nil? || session[:cas_user] != @current_user.cas_directory_id
       update_current_user(User.eager_load(:roles, :role_types).find_by_cas_directory_id(session[:cas_user]))
     end
     @current_user
@@ -39,7 +39,7 @@ module CasHelper
     impersonating_user? ? impersonated_user : actual_user
   end
 
-  def logout
+  def clear_current_user
     update_current_user(nil)
   end
 

@@ -1,6 +1,7 @@
 # Manages the date at which a particular role's edit privileges should end
 class RoleCutoff < ActiveRecord::Base
   belongs_to :role_type
+
   validates :cutoff_date, presence: true
   validates :role_type_id, presence: true, uniqueness: true
   validate :role_type_must_not_be_admin

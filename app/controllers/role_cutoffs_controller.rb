@@ -5,7 +5,7 @@ class RoleCutoffsController < ApplicationController
   # GET /role_cutoffs.json
   def index
     authorize RoleCutoff
-    @q = RoleCutoff.ransack(params[:q])
+    @q = RoleCutoff.includes(:role_type).ransack(params[:q])
     @q.sorts = 'cutoff_date' if @q.sorts.empty?
     @role_cutoffs = @q.result
   end

@@ -26,3 +26,5 @@ test/reports
 .env
 .env.production
 
+# Ignore byebug history
+.byebug_history

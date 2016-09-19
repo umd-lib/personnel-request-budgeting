@@ -28,3 +28,6 @@ two:
   cas_directory_id: user2
   name: User Two
 
+johnny_two_roles:
+  cas_directory_id: johnny
+  name: Johnny Dosroles

@@ -34,3 +34,17 @@ nonadmin_with_department:
   division: 
   department: ssdr
   unit_id: 
+
+johnny_with_unit:
+  user: johnny_two_roles
+  role_type: unit
+  division: 
+  department: 
+  unit: hssl
+
+johnny_with_dept:
+  user: johnny_two_roles
+  role_type: department
+  division:
+  department: ssdr 
+  unit:

@@ -32,6 +32,22 @@ fac_hrly_renewal:
   unit: nil
   justification: Can't have enough expertise for this topic.
 
+fac_hrly_with_unit:
+  employee_type: fac_hrly
+  position_description: Shelving Roboticist
+  request_type: renewal
+  contractor_name: Susan Calvin
+  number_of_positions: 1
+  hourly_rate: 100.00
+  hours_per_week: 40.00
+  number_of_weeks: 30
+  nonop_funds: nil
+  nonop_source: nil
+  department: as
+  unit: stk
+  justification: Has expertise in the Three Laws of Robotics
+  
+
 # Sample data for pagination
 labor_request_1:
   employee_type: student

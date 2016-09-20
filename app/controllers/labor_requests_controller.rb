@@ -23,16 +23,18 @@ class LaborRequestsController < ApplicationController
   def new
     authorize LaborRequest
     @labor_request = LaborRequest.new
+    assign_selectable_departments_and_units(@labor_request)
   end
 
   # GET /labor_requests/1/edit
   def edit
     authorize @labor_request
+    assign_selectable_departments_and_units(@labor_request)
   end
 
   # POST /labor_requests
   # POST /labor_requests.json
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     @labor_request = LaborRequest.new(labor_request_params)
     authorize @labor_request
@@ -42,14 +44,19 @@ class LaborRequestsController < ApplicationController
         format.html { redirect_to @labor_request, notice: 'Labor request was successfully created.' }
         format.json { render :show, status: :created, location: @labor_request }
       else
-        format.html { render :new }
+        format.html do
+          assign_selectable_departments_and_units(@labor_request)
+          render :new
+        end
         format.json { render json: @labor_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # PATCH/PUT /labor_requests/1
   # PATCH/PUT /labor_requests/1.json
+  # rubocop:disable Metrics/MethodLength
   def update
     authorize @labor_request
     respond_to do |format|
@@ -57,11 +64,15 @@ class LaborRequestsController < ApplicationController
         format.html { redirect_to @labor_request, notice: 'Labor request was successfully updated.' }
         format.json { render :show, status: :ok, location: @labor_request }
       else
-        format.html { render :edit }
+        format.html do
+          assign_selectable_departments_and_units(@labor_request)
+          render :edit
+        end
         format.json { render json: @labor_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # DELETE /labor_requests/1
   # DELETE /labor_requests/1.json

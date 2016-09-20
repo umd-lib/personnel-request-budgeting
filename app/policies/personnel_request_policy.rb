@@ -1,4 +1,5 @@
 # Policy for Personnel Request actions
+# rubocop:disable Metrics/ClassLength
 class PersonnelRequestPolicy < ApplicationPolicy
   def index?
     true
@@ -57,6 +58,47 @@ class PersonnelRequestPolicy < ApplicationPolicy
     departments += allowed_divisions(user).map(&:departments).flatten
     departments.compact.uniq
   end
+
+  # Returns an array of Units that a user's roles allows them to set in the
+  # GUI, or an empty array.
+  #
+  # This method takes into account role cutoffs.
+  # rubocop:disable Metrics/AbcSize
+  def selectable_departments(user)
+    return Department.all.to_a if user.admin?
+
+    depts = department_edit_allowed? ? user.roles.map(&:department).compact.uniq : []
+    depts += division_edit_allowed? ? PersonnelRequestPolicy.allowed_divisions(user).map(&:departments).flatten : []
+    depts += unit_edit_allowed? ? PersonnelRequestPolicy.allowed_units(user).map(&:department).flatten : []
+
+    depts.compact.uniq
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # Returns an array of Units that a user's roles allows them to set in the
+  # GUI, or an empty array.
+  #
+  # This method takes into account role cutoffs.
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def selectable_units(user)
+    return Unit.all.to_a if user.admin?
+
+    units = []
+    depts = []
+    if division_edit_allowed?
+      depts += PersonnelRequestPolicy.allowed_divisions(user).map(&:departments).flatten
+    end
+
+    if department_edit_allowed?
+      depts += user.roles.map(&:department).compact.uniq
+      depts.each do |d|
+        units += Unit.where(department: d.id).to_a
+      end
+    end
+
+    unit_edit_allowed? ? (units + user.roles.map(&:unit)).compact.uniq : units
+  end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # Limits the scope of returned results based on role
   class Scope < Scope

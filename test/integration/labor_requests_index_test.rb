@@ -52,6 +52,27 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'index including multisorting' do
+    columns = %w(position_description employee_type_code request_type_code
+                 contractor_name number_of_positions hourly_rate hours_per_week
+                 number_of_weeks nonop_funds division_code department_code
+                 unit_code review_status_id)
+    sort_directions = %w( asc desc )
+    run_as_user(users(:johnny_two_roles)) do
+      get labor_requests_path
+      assert_template 'labor_requests/index'
+      (columns.length / 3).times do
+        sort_columns = columns.sample(3)
+        columns -= Array.wrap(sort_columns)
+
+        q_param = { s: sort_columns.map { |c| "#{c} #{sort_directions.sample}" } }
+        get labor_requests_path, q: q_param
+
+        assert_response :success
+      end
+    end
+  end
+
   test '"New" button should only be shown for users with roles' do
     run_as_user(users(:test_admin)) do
       get labor_requests_path

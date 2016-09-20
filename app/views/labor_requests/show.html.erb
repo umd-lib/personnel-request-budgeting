@@ -43,6 +43,11 @@
       <th>Number of weeks:</th>
       <td id="number_of_weeks"><%= @labor_request.number_of_weeks %></td>
     </tr>
+    
+    <tr>
+      <th>Annual cost:</th>
+      <td id="annual_cost"><%= number_to_currency(@labor_request.annual_cost) %></td>
+    </tr>
 
     <tr>
       <th>Nonop funds:</th>

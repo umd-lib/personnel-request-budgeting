@@ -36,7 +36,7 @@ namespace :db do
     generate_common_fields(staff_request, valid_employee_types,
                            StaffRequest::VALID_REQUEST_TYPE_CODES)
 
-    staff_request.annual_base_pay = rand * 500_000.00
+    staff_request.annual_base_pay = (rand * 500_000.00).round(2)
     generate_nonop_fields(staff_request, staff_request.annual_base_pay)
 
     staff_request
@@ -75,7 +75,7 @@ namespace :db do
       contractor_request.contractor_name = Faker::Name.name
     end
     contractor_request.number_of_months = rand(12) + 1
-    contractor_request.annual_base_pay =  rand * 500_000.00
+    contractor_request.annual_base_pay =  (rand * 500_000.00).round(2)
     generate_nonop_fields(contractor_request, contractor_request.annual_base_pay)
 
     contractor_request
@@ -99,7 +99,7 @@ namespace :db do
   def generate_nonop_fields(request, max_funds)
     has_nonop = rand > 0.6
     return unless has_nonop
-    request.nonop_funds = max_funds * rand
+    request.nonop_funds = (max_funds * rand).round(2)
     request.nonop_source = Faker::Company.name
   end
 
@@ -118,7 +118,7 @@ namespace :db do
 
   # Randomly add hourly wage fields to the given +request+
   def generate_hourly_wage_fields(request)
-    request.hourly_rate = rand * 100.0
+    request.hourly_rate = (rand * 100.0).round(2)
     request.hours_per_week = (rand * 40.0).to_i + 1
     request.number_of_weeks = (rand * 52).to_i + 1
   end

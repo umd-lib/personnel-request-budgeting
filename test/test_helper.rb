@@ -50,4 +50,15 @@ class ActiveSupport::TestCase
   def units_with_records
     LaborRequest.select(:unit_id).distinct.collect { |r| r.unit unless r.unit.nil? }.compact
   end
+
+  # Verifies that the given field text only display two digits after the
+  # decimal point.
+  #
+  # field: A description of the field to include in the error description
+  # text: The text to check for correct currency formatting
+  # optional_fields: Array of fields in currency_fields that are allowed to be
+  #
+  def verify_two_digit_currency_field(field, text)
+    assert_match(/\d\.\d\d$/, text, "#{field} should have two decimal places")
+  end
 end

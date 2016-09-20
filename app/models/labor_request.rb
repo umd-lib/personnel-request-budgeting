@@ -35,4 +35,14 @@ class LaborRequest < ActiveRecord::Base
   def contractor_name_required?
     request_type.try(:code) == 'Renewal'
   end
+
+  # Returns the annual cost
+  def annual_cost
+    (hourly_rate * hours_per_week * number_of_weeks)
+  end
+
+  # Ransacker used to define "annual_cost" field. Needed for sorting.
+  ransacker :annual_cost do |parent|
+    (parent.table[:hourly_rate] * parent.table[:hours_per_week] * parent.table[:number_of_weeks])
+  end
 end

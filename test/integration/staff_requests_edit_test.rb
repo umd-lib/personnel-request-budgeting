@@ -17,8 +17,7 @@ class StaffRequestsEditTest < ActionDispatch::IntegrationTest
     currency_fields = %w(staff_request_annual_base_pay staff_request_nonop_funds)
     currency_fields.each do |field|
       assert_select "[id=#{field}]" do |e|
-        assert_match(/\d\.\d\d/, e.attribute('value'),
-                     "#{field} should have two decimal places")
+        verify_two_digit_currency_field(field, e.attribute('value'))
       end
     end
   end

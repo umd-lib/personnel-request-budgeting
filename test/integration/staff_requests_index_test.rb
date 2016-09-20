@@ -8,11 +8,10 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   test 'currency field values show with two decimal places' do
     get staff_requests_path
 
+    doc = Nokogiri::HTML(response.body)
     currency_fields = %w(annual_base_pay nonop_funds)
-    currency_fields.each do |field|
-      assert_select "td[headers=#{field}]", { text: /\d\.\d\d/ },
-                    "#{field} should have two decimal places"
-    end
+    optional_fields = %w(nonop_funds)
+    verify_two_digit_currency_fields(doc, currency_fields, optional_fields)
   end
 
   test 'index including pagination and sorting' do

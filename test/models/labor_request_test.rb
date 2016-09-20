@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # Tests for the "LaborRequest" model
+# rubocop:disable Metrics/ClassLength
 class LaborRequestTest < ActiveSupport::TestCase
   def setup
     @labor_request = labor_requests(:c1)
@@ -122,5 +123,10 @@ class LaborRequestTest < ActiveSupport::TestCase
     invalid_unit = units(:two)
     @labor_request.unit_id = invalid_unit.id
     assert_not @labor_request.valid?
+  end
+
+  test 'annual_cost should be (hourly_rate * hours_per_week * number_of_weeks)' do
+    expected_value = @labor_request.hourly_rate * @labor_request.hours_per_week * @labor_request.number_of_weeks
+    assert_equal expected_value, @labor_request.annual_cost
   end
 end

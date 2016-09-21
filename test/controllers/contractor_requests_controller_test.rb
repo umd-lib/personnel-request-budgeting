@@ -113,6 +113,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should not update invalid contractor_request' do
+    original_attrs = @contractor_request.attributes
     patch :update, id: @contractor_request, contractor_request: {
       annual_base_pay: nil,
       contractor_name: nil,
@@ -125,6 +126,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       position_description: nil,
       request_type_id: nil,
       unit_id: nil }
+    assert_equal original_attrs, ContractorRequest.find(@contractor_request.id).attributes
   end
 
   test 'should destroy contractor_request' do

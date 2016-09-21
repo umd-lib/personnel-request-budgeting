@@ -33,13 +33,18 @@
       </tr>
       <tr>
         <th><%= f.label :department_id %></th>
-        <td><%= select("staff_request", "department_id", Department.order("name").collect { |d| [ d.name, d.id ] }, { prompt: 'Select Department' }) %></td>
+        <td>
+          <%=
+            depts = @selectable_departments.collect { |d| [ d.name, d.id ] }
+            select("staff_request", "department_id", depts, { prompt: 'Select Department' })
+          %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :unit_id %></th>
         <td>
           <%= 
-            units = Unit.order("name").collect { |d| [ d.name, d.id ] }
+            units = @selectable_units.collect { |u| [ u.name, u.id ] }
             # Prepend "<Clear Unit>" if unit is selected
             units.unshift( ["<Clear Unit>", nil ] ) if @staff_request.unit
             select("staff_request", "unit_id", units, { prompt: 'Select Unit' })

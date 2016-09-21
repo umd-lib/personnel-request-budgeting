@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'integration/personnel_requests_test_helper'
 
 # Integration test for the StaffRequest edit page
 class StaffRequestsEditTest < ActionDispatch::IntegrationTest
+  include PersonnelRequestsTestHelper
+
   def setup
     @staff_request = staff_requests(:fac)
     @division1 = divisions_with_records[0]
@@ -55,6 +58,60 @@ class StaffRequestsEditTest < ActionDispatch::IntegrationTest
       get edit_staff_request_path(@staff_request)
       assert_select "select#staff_request_review_status_id[disabled='disabled']"
       assert_select "textarea#staff_request_review_comment[disabled='disabled']"
+    end
+  end
+
+  test 'can only see departments/units allowed by role in drop-downs' do
+    staff_request_with_unit = staff_requests(:fac_with_unit)
+    with_temp_user(units: [staff_request_with_unit.unit.code]) do |temp_user|
+      run_as_user(temp_user) do
+        get edit_staff_request_path(staff_request_with_unit)
+
+        # Verify department options
+        expected_options = [staff_request_with_unit.unit.department.name]
+        verify_options(response, 'staff_request_department_id', expected_options)
+
+        # Verify unit options
+        expected_options = ['<Clear Unit>', staff_request_with_unit.unit.name]
+        verify_options(response, 'staff_request_unit_id', expected_options)
+      end
+    end
+  end
+
+  test 'can only see departments/units allowed by role in drop-downs with role cutoffs' do
+    staff_request = staff_requests(:fac) # c1 is in PRG department
+    department_for_role = staff_request.department
+    unit_for_role = units(:one)
+    with_temp_user(departments: [department_for_role.code], units: [unit_for_role.code]) do |temp_user|
+      run_as_user(temp_user) do
+        unit_role_cutoff = role_cutoffs(:unit)
+        unit_role_cutoff.cutoff_date = 1.day.from_now
+        unit_role_cutoff.save!
+
+        get edit_staff_request_path(staff_request)
+
+        # Verify department options
+        expected_options = [unit_for_role.department.name, staff_request.department.name]
+        verify_options(response, 'staff_request_department_id', expected_options)
+
+        # Verify unit options
+        expected_options = [unit_for_role.name]
+        verify_options(response, 'staff_request_unit_id', expected_options)
+
+        unit_role_cutoff = role_cutoffs(:unit)
+        unit_role_cutoff.cutoff_date = 1.day.ago
+        unit_role_cutoff.save!
+
+        get edit_staff_request_path(staff_request)
+
+        # Verify department options - should no longer include department for unit
+        expected_options = [staff_request.department.name]
+        verify_options(response, 'staff_request_department_id', expected_options)
+
+        # Verify unit options - should have no options
+        expected_options = []
+        verify_options(response, 'staff_request_unit_id', expected_options)
+      end
     end
   end
 end

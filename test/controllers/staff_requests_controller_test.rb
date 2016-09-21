@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# rubocop:disable Metrics/ClassLength
 class StaffRequestsControllerTest < ActionController::TestCase
   setup do
     @staff_request = staff_requests(:fac)
@@ -46,6 +47,21 @@ class StaffRequestsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to staff_request_path(assigns(:staff_request))
+  end
+
+  test 'should not create invalid staff_request' do
+    assert_no_difference('StaffRequest.count') do
+      post :create, staff_request: {
+        annual_base_pay: nil,
+        department_id: nil,
+        employee_type_id: nil,
+        justification: nil,
+        nonop_funds: nil,
+        nonop_source: nil,
+        position_description: nil,
+        request_type_id: nil,
+        unit_id: nil }
+    end
   end
 
   test 'should show staff_request' do
@@ -101,6 +117,21 @@ class StaffRequestsControllerTest < ActionController::TestCase
       request_type_id: @staff_request.request_type_id,
       unit_id: @staff_request.unit_id }
     assert_redirected_to staff_request_path(assigns(:staff_request))
+  end
+
+  test 'should not update invalid staff_request' do
+    original_attrs = @staff_request.attributes
+    patch :update, id: @staff_request, staff_request: {
+      annual_base_pay: nil,
+      department_id: nil,
+      employee_type_id: nil,
+      justification: nil,
+      nonop_funds: nil,
+      nonop_source: nil,
+      position_description: nil,
+      request_type_id: nil,
+      unit_id: nil }
+    assert_equal original_attrs, StaffRequest.find(@staff_request.id).attributes
   end
 
   test 'should destroy staff_request' do

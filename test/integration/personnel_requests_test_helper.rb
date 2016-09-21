@@ -1,7 +1,7 @@
 require 'test_helper'
 
-# Holds common methods for testing the personnel request index pages.
-module PersonnelRequestIndexTestHelper
+# Holds common methods for testing the personnel request pages.
+module PersonnelRequestsTestHelper
   # Verifies that the given currency fields only display two digits after the
   # decimal point.
   #

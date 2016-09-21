@@ -1,8 +1,10 @@
 require 'test_helper'
+require 'integration/personnel_requests_test_helper'
 
 # Integration test for the LaborRequest edit page
-# rubocop:disable Metrics/ClassLength
 class LaborRequestsEditTest < ActionDispatch::IntegrationTest
+  include PersonnelRequestsTestHelper
+
   def setup
     @labor_request = labor_requests(:fac_hrly_renewal)
     @division1 = divisions_with_records[0]
@@ -66,19 +68,12 @@ class LaborRequestsEditTest < ActionDispatch::IntegrationTest
         get edit_labor_request_path(labor_request_with_unit)
 
         # Verify department options
-        doc = Nokogiri::HTML(response.body)
-        dept_options = doc.xpath("//select[@id='labor_request_department_id']/option")
-        depts = dept_options.map(&:text)
-        assert_equal 1, depts.size
-        expected_unit = labor_request_with_unit.unit
-        expected_dept = expected_unit.department
-        assert depts.include?(expected_dept.name)
+        expected_options = [labor_request_with_unit.unit.department.name]
+        verify_options(response, 'labor_request_department_id', expected_options)
 
         # Verify unit options
-        unit_options = doc.xpath("//select[@id='labor_request_unit_id']/option")
-        units = unit_options.map(&:text)
-        assert_equal 2, units.size # 2, because of "Clear Unit" option
-        assert units.include?(expected_unit.name)
+        expected_options = ['<Clear Unit>', labor_request_with_unit.unit.name]
+        verify_options(response, 'labor_request_unit_id', expected_options)
       end
     end
   end
@@ -96,18 +91,12 @@ class LaborRequestsEditTest < ActionDispatch::IntegrationTest
         get edit_labor_request_path(labor_request)
 
         # Verify department options
-        doc = Nokogiri::HTML(response.body)
-        dept_options = doc.xpath("//select[@id='labor_request_department_id']/option")
-        depts_text = dept_options.map(&:text)
-        assert_equal 2, depts_text.size
-        assert depts_text.include? unit_for_role.department.name
-        assert depts_text.include? labor_request.department.name
+        expected_options = [unit_for_role.department.name, labor_request.department.name]
+        verify_options(response, 'labor_request_department_id', expected_options)
 
         # Verify unit options
-        unit_options = doc.xpath("//select[@id='labor_request_unit_id']/option")
-        units = unit_options.map(&:text)
-        assert_equal 1, units.size
-        assert units.include?(unit_for_role.name)
+        expected_options = [unit_for_role.name]
+        verify_options(response, 'labor_request_unit_id', expected_options)
 
         unit_role_cutoff = role_cutoffs(:unit)
         unit_role_cutoff.cutoff_date = 1.day.ago
@@ -116,16 +105,12 @@ class LaborRequestsEditTest < ActionDispatch::IntegrationTest
         get edit_labor_request_path(labor_request)
 
         # Verify department options - should no longer include department for unit
-        doc = Nokogiri::HTML(response.body)
-        dept_options = doc.xpath("//select[@id='labor_request_department_id']/option")
-        depts_text = dept_options.map(&:text)
-        assert_equal 1, depts_text.size
-        assert depts_text.include? labor_request.department.name
+        expected_options = [labor_request.department.name]
+        verify_options(response, 'labor_request_department_id', expected_options)
 
         # Verify unit options - should have no options
-        unit_options = doc.xpath("//select[@id='labor_request_unit_id']/option")
-        units = unit_options.map(&:text)
-        assert units.empty?
+        expected_options = []
+        verify_options(response, 'labor_request_unit_id', expected_options)
       end
     end
   end

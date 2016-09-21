@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# rubocop:disable Metrics/ClassLength
 class LaborRequestsControllerTest < ActionController::TestCase
   setup do
     @labor_request = labor_requests(:c1)
@@ -35,6 +36,25 @@ class LaborRequestsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to labor_request_path(assigns(:labor_request))
+  end
+
+  test 'should not create invalid labor_request' do
+    assert_no_difference('LaborRequest.count') do
+      post :create, labor_request: {
+        contractor_name: nil,
+        department_id: nil,
+        employee_type_id: nil,
+        hourly_rate: nil,
+        hours_per_week: nil,
+        justification: nil,
+        nonop_funds: nil,
+        nonop_source: nil,
+        number_of_positions: nil,
+        number_of_weeks: nil,
+        position_description: nil,
+        request_type_id: nil,
+        unit_id: nil }
+    end
   end
 
   test 'should create/update labor_request but without admin only values when not admin' do
@@ -100,6 +120,25 @@ class LaborRequestsControllerTest < ActionController::TestCase
       review_comment: @labor_request.review_comment,
       unit_id: @labor_request.unit_id }
     assert_redirected_to labor_request_path(assigns(:labor_request))
+  end
+
+  test 'should not update invalid labor_request' do
+    assert_no_difference('LaborRequest.count') do
+      post :update, id: @labor_request, labor_request: {
+        contractor_name: nil,
+        department_id: nil,
+        employee_type_id: nil,
+        hourly_rate: nil,
+        hours_per_week: nil,
+        justification: nil,
+        nonop_funds: nil,
+        nonop_source: nil,
+        number_of_positions: nil,
+        number_of_weeks: nil,
+        position_description: nil,
+        request_type_id: nil,
+        unit_id: nil }
+    end
   end
 
   test 'should destroy labor_request' do

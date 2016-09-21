@@ -19,4 +19,17 @@ module PersonnelRequestsTestHelper
       end
     end
   end
+
+  # Verifies the options in a drop-down with the given id from the given
+  # response by comparing them to the expected options text.
+  #
+  # response - a response to a page request
+  # select_id - the "id" of an HTML "select" element
+  # expected_options_text - the text that should be displayed in the options.
+  def verify_options(response, select_id, expected_options_text)
+    doc = Nokogiri::HTML(response.body)
+    options = doc.xpath("//select[@id='#{select_id}']/option")
+    options_text = options.map(&:text)
+    assert_equal expected_options_text.sort, options_text.sort
+  end
 end

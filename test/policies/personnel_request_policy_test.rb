@@ -13,23 +13,6 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     @dept2 = departments_with_records[1]
     @unit1 = units_with_records[0]
 
-    @admin_user = users(:test_admin)
-
-    @division1_user = User.create(cas_directory_id: 'division1', name: 'Division1 User')
-    Role.create!(user: @division1_user,
-                 role_type: RoleType.find_by_code('division'),
-                 division: @division1)
-
-    @dept1_user = User.create(cas_directory_id: 'dept1', name: 'Dept1 User')
-    Role.create!(user: @dept1_user,
-                 role_type: RoleType.find_by_code('department'),
-                 department: @dept1)
-
-    @unit1_user = User.create(cas_directory_id: 'unit1', name: 'Unit1 User')
-    Role.create!(user: @unit1_user,
-                 role_type: RoleType.find_by_code('unit'),
-                 unit: @unit1)
-
     @division_role_cutoff = RoleCutoff.where(role_type: RoleType.find_by_code('division')).first
     @division_role_cutoff.cutoff_date = 1.day.from_now
     @division_role_cutoff.save!
@@ -44,21 +27,15 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   end
 
   def teardown
-    Role.destroy_all(user: @division1_user)
-    @division1_user.destroy!
-
-    Role.destroy_all(user: @dept1_user)
-    @dept1_user.destroy!
-
-    Role.destroy_all(user: @unit1_user)
-    @unit1_user.destroy!
   end
 
   test 'verify allowed_divisions returns correct divisions' do
     # Single division user
-    divisions = PersonnelRequestPolicy.allowed_divisions(@division1_user)
-    assert_equal 1, divisions.count
-    assert_equal @division1, divisions[0]
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      divisions = PersonnelRequestPolicy.allowed_divisions(temp_user)
+      assert_equal 1, divisions.count
+      assert_equal @division1, divisions[0]
+    end
 
     # Multiple division user
     with_temp_user(divisions: [@division1.code, @division2.code]) do |temp_user|
@@ -87,16 +64,20 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
 
   test 'verify allowed_departments returns correct departments' do
     # Division user
-    departments = PersonnelRequestPolicy.allowed_departments(@division1_user)
-    assert_equal Department.where(division: @division1).count, departments.count
-    departments.each do |department|
-      assert_equal @division1, department.division
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      departments = PersonnelRequestPolicy.allowed_departments(temp_user)
+      assert_equal Department.where(division: @division1).count, departments.count
+      departments.each do |department|
+        assert_equal @division1, department.division
+      end
     end
 
     # Single department user
-    departments = PersonnelRequestPolicy.allowed_departments(@dept1_user)
-    assert_equal 1, departments.count
-    assert_equal @dept1, departments[0]
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      departments = PersonnelRequestPolicy.allowed_departments(temp_user)
+      assert_equal 1, departments.count
+      assert_equal @dept1, departments[0]
+    end
 
     # Multiple department user
     with_temp_user(departments: [@dept1.code, @dept2.code]) do |temp_user|
@@ -130,20 +111,24 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   test 'admin user can "show" all personnel requests' do
     labor_requests_all = LaborRequest.all
 
-    labor_requests_all.each do |r|
-      assert Pundit.policy!(@admin_user, r).show?,
-             "Admin user could not 'show' " \
-             "Labor Request id: #{r.id}, department: #{r.department.code}"
+    with_temp_user(admin: true) do |temp_user|
+      labor_requests_all.each do |r|
+        assert Pundit.policy!(temp_user, r).show?,
+               "Admin user could not 'show' " \
+               "Labor Request id: #{r.id}, department: #{r.department.code}"
+      end
     end
   end
 
   test 'division user can "show" all personnel requests' do
     labor_requests_all = LaborRequest.all
 
-    labor_requests_all.each do |r|
-      assert Pundit.policy!(@division1_user, r).show?,
-             "Division user could not 'show' " \
-             "Labor Request id: #{r.id}, department: #{r.department.code}"
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        assert Pundit.policy!(temp_user, r).show?,
+               "Division user could not 'show' " \
+               "Labor Request id: #{r.id}, department: #{r.department.code}"
+      end
     end
   end
 
@@ -153,17 +138,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@dept1_user, r).show?
-        allow_count += 1
-        assert_equal @dept1, r.department,
-                     "User (dept=#{@dept1.code}) could 'show' " \
-                     "Labor Request id: #{r.id}, dept: #{r.department.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @dept1, r.department,
-                         "User (dept=#{@dept1.code}) could not 'show' " \
-                         "Labor Request id: #{r.id}, dept: #{r.department.code}"
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).show?
+          allow_count += 1
+          assert_equal @dept1, r.department,
+                       "User (dept=#{@dept1.code}) could 'show' " \
+                       "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @dept1, r.department,
+                           "User (dept=#{@dept1.code}) could not 'show' " \
+                           "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        end
       end
     end
 
@@ -177,17 +164,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@unit1_user, r).show?
-        allow_count += 1
-        assert_equal @unit1, r.unit,
-                     "User (unit=#{@unit1.code}) could 'show' " \
-                     "Labor Request id: #{r.id}, unit: #{r.unit.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @unit1, r.unit,
-                         "User (unit=#{@unit1.code}) could not 'show' " \
-                         "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).show?
+          allow_count += 1
+          assert_equal @unit1, r.unit,
+                       "User (unit=#{@unit1.code}) could 'show' " \
+                       "Labor Request id: #{r.id}, unit: #{r.unit.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @unit1, r.unit,
+                           "User (unit=#{@unit1.code}) could not 'show' " \
+                           "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+        end
       end
     end
 
@@ -198,10 +187,12 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   test 'admin user can "create" all personnel requests' do
     labor_requests_all = LaborRequest.all
 
-    labor_requests_all.each do |r|
-      assert Pundit.policy!(@admin_user, r).create?,
-             "Admin user could not 'create' " \
-             "Labor Request id: #{r.id}, department: #{r.department.code}"
+    with_temp_user(admin: true) do |temp_user|
+      labor_requests_all.each do |r|
+        assert Pundit.policy!(temp_user, r).create?,
+               "Admin user could not 'create' " \
+               "Labor Request id: #{r.id}, department: #{r.department.code}"
+      end
     end
   end
 
@@ -211,17 +202,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@division1_user, r).create?
-        allow_count += 1
-        assert_equal @division1, r.department.division,
-                     "User (div=#{@division1.code}) could 'create' " \
-                     "Labor Request #{r.id}, div: #{r.department.division.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @division1, r.department.division,
-                         "User (div=#{@division1.code}) could not 'create' " \
-                         "Labor Request #{r.id}, div: #{r.department.division.code}"
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).create?
+          allow_count += 1
+          assert_equal @division1, r.department.division,
+                       "User (div=#{@division1.code}) could 'create' " \
+                       "Labor Request #{r.id}, div: #{r.department.division.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @division1, r.department.division,
+                           "User (div=#{@division1.code}) could not 'create' " \
+                           "Labor Request #{r.id}, div: #{r.department.division.code}"
+        end
       end
     end
 
@@ -235,17 +228,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@dept1_user, r).create?
-        allow_count += 1
-        assert_equal @dept1, r.department,
-                     "User (dept=#{@dept1.code}) could 'create' " \
-                     "Labor Request id: #{r.id}, dept: #{r.department.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @dept1, r.department,
-                         "User (dept=#{@dept1.code}) could not 'create' " \
-                         "Labor Request id: #{r.id}, dept: #{r.department.code}"
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).create?
+          allow_count += 1
+          assert_equal @dept1, r.department,
+                       "User (dept=#{@dept1.code}) could 'create' " \
+                       "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @dept1, r.department,
+                           "User (dept=#{@dept1.code}) could not 'create' " \
+                           "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        end
       end
     end
 
@@ -259,17 +254,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@unit1_user, r).create?
-        allow_count += 1
-        assert_equal @unit1, r.unit,
-                     "User (unit=#{@unit1.code}) could 'create' " \
-                     "Labor Request id: #{r.id}, unit: #{r.unit.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @unit1, r.unit,
-                         "User (unit=#{@unit1.code}) could not 'create' " \
-                         "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).create?
+          allow_count += 1
+          assert_equal @unit1, r.unit,
+                       "User (unit=#{@unit1.code}) could 'create' " \
+                       "Labor Request id: #{r.id}, unit: #{r.unit.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @unit1, r.unit,
+                           "User (unit=#{@unit1.code}) could not 'create' " \
+                           "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+        end
       end
     end
 
@@ -280,9 +277,11 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   test 'admin user can "update" all personnel requests' do
     labor_requests_all = LaborRequest.all
 
-    labor_requests_all.each do |r|
-      assert Pundit.policy!(@admin_user, r).update?,
-             "Admin user could not 'update' Labor Request id: #{r.id}, department: #{r.department.code}"
+    with_temp_user(admin: true) do |temp_user|
+      labor_requests_all.each do |r|
+        assert Pundit.policy!(temp_user, r).update?,
+               "Admin user could not 'update' Labor Request id: #{r.id}, department: #{r.department.code}"
+      end
     end
   end
 
@@ -292,17 +291,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@division1_user, r).update?
-        allow_count += 1
-        assert_equal @division1, r.department.division,
-                     "User (div=#{@division1.code}) could 'update' " \
-                     "Labor Request #{r.id}, div: #{r.department.division.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @division1, r.department.division,
-                         "User (div=#{@division1.code}) could not 'update' " \
-                         "Labor Request #{r.id}, div: #{r.department.division.code}"
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).update?
+          allow_count += 1
+          assert_equal @division1, r.department.division,
+                       "User (div=#{@division1.code}) could 'update' " \
+                       "Labor Request #{r.id}, div: #{r.department.division.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @division1, r.department.division,
+                           "User (div=#{@division1.code}) could not 'update' " \
+                           "Labor Request #{r.id}, div: #{r.department.division.code}"
+        end
       end
     end
 
@@ -316,17 +317,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@dept1_user, r).update?
-        allow_count += 1
-        assert_equal @dept1, r.department,
-                     "User (dept=#{@dept1.code}) could 'update' " \
-                     "Labor Request id: #{r.id}, dept: #{r.department.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @dept1, r.department,
-                         "User (dept=#{@dept1.code}) could not 'update' " \
-                         "Labor Request id: #{r.id}, dept: #{r.department.code}"
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).update?
+          allow_count += 1
+          assert_equal @dept1, r.department,
+                       "User (dept=#{@dept1.code}) could 'update' " \
+                       "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @dept1, r.department,
+                           "User (dept=#{@dept1.code}) could not 'update' " \
+                           "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        end
       end
     end
 
@@ -339,17 +342,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
 
     allow_count = 0
     disallow_count = 0
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@unit1_user, r).update?
-        allow_count += 1
-        assert_equal @unit1, r.unit,
-                     "User (unit=#{@unit1.code}) could 'update' " \
-                     "Labor Request id: #{r.id}, unit: #{r.unit.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @unit1, r.unit,
-                         "User (unit=#{@unit1.code}) could not 'update' " \
-                         "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).update?
+          allow_count += 1
+          assert_equal @unit1, r.unit,
+                       "User (unit=#{@unit1.code}) could 'update' " \
+                       "Labor Request id: #{r.id}, unit: #{r.unit.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @unit1, r.unit,
+                           "User (unit=#{@unit1.code}) could not 'update' " \
+                           "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+        end
       end
     end
 
@@ -360,9 +365,11 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   test 'admin user can "destroy" all personnel requests' do
     labor_requests_all = LaborRequest.all
 
-    labor_requests_all.each do |r|
-      assert Pundit.policy!(@admin_user, r).destroy?,
-             "Admin user could not 'destroy' Labor Request id: #{r.id}, department: #{r.department.code}"
+    with_temp_user(admin: true) do |temp_user|
+      labor_requests_all.each do |r|
+        assert Pundit.policy!(temp_user, r).destroy?,
+               "Admin user could not 'destroy' Labor Request id: #{r.id}, department: #{r.department.code}"
+      end
     end
   end
 
@@ -372,17 +379,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@division1_user, r).destroy?
-        allow_count += 1
-        assert_equal @division1, r.department.division,
-                     "User (div=#{@division1.code}) could 'destroy' " \
-                     "Labor Request #{r.id}, div: #{r.department.division.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @division1, r.department.division,
-                         "User (div=#{@division1.code}) could not 'destroy' " \
-                         "Labor Request #{r.id}, div: #{r.department.division.code}"
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).destroy?
+          allow_count += 1
+          assert_equal @division1, r.department.division,
+                       "User (div=#{@division1.code}) could 'destroy' " \
+                       "Labor Request #{r.id}, div: #{r.department.division.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @division1, r.department.division,
+                           "User (div=#{@division1.code}) could not 'destroy' " \
+                           "Labor Request #{r.id}, div: #{r.department.division.code}"
+        end
       end
     end
 
@@ -396,17 +405,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     allow_count = 0
     disallow_count = 0
 
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@dept1_user, r).destroy?
-        allow_count += 1
-        assert_equal @dept1, r.department,
-                     "User (dept=#{@dept1.code}) could 'destroy' " \
-                     "Labor Request id: #{r.id}, dept: #{r.department.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @dept1, r.department,
-                         "User (dept=#{@dept1.code}) could not 'destroy' " \
-                         "Labor Request id: #{r.id}, dept: #{r.department.code}"
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).destroy?
+          allow_count += 1
+          assert_equal @dept1, r.department,
+                       "User (dept=#{@dept1.code}) could 'destroy' " \
+                       "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @dept1, r.department,
+                           "User (dept=#{@dept1.code}) could not 'destroy' " \
+                           "Labor Request id: #{r.id}, dept: #{r.department.code}"
+        end
       end
     end
 
@@ -419,17 +430,19 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
 
     allow_count = 0
     disallow_count = 0
-    labor_requests_all.each do |r|
-      if Pundit.policy!(@unit1_user, r).destroy?
-        allow_count += 1
-        assert_equal @unit1, r.unit,
-                     "User (unit=#{@unit1.code}) could 'destroy' " \
-                     "Labor Request id: #{r.id}, unit: #{r.unit.code}"
-      else
-        disallow_count += 1
-        assert_not_equal @unit1, r.unit,
-                         "User (unit=#{@unit1.code}) could not 'destroy' " \
-                         "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      labor_requests_all.each do |r|
+        if Pundit.policy!(temp_user, r).destroy?
+          allow_count += 1
+          assert_equal @unit1, r.unit,
+                       "User (unit=#{@unit1.code}) could 'destroy' " \
+                       "Labor Request id: #{r.id}, unit: #{r.unit.code}"
+        else
+          disallow_count += 1
+          assert_not_equal @unit1, r.unit,
+                           "User (unit=#{@unit1.code}) could not 'destroy' " \
+                           "Labor Request id: #{r.id}, unit: #{r.unit.nil? ? nil : r.unit.code}"
+        end
       end
     end
 
@@ -438,87 +451,101 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   end
 
   test 'user with any roles should be able to "new" personnel requests' do
-    assert Pundit.policy!(@dept1_user, LaborRequest).new?
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      assert Pundit.policy!(temp_user, LaborRequest).new?
+    end
   end
 
   test 'user without roles should not be able to "new" personnel requests' do
-    @no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
-    refute Pundit.policy!(@no_role_user, LaborRequest).new?
-    @no_role_user.destroy!
+    no_role_user = User.create(cas_directory_id: 'no_role', name: 'No Role')
+    refute Pundit.policy!(no_role_user, LaborRequest).new?
+    no_role_user.destroy!
   end
 
   test 'user cannot create "new" personnel when role is past cutoff' do
-    assert Pundit.policy!(@unit1_user, LaborRequest).new?
-    @unit_role_cutoff.cutoff_date = 1.day.ago
-    @unit_role_cutoff.save!
-    refute Pundit.policy!(@unit1_user, LaborRequest).new?
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      assert Pundit.policy!(temp_user, LaborRequest).new?
+      @unit_role_cutoff.cutoff_date = 1.day.ago
+      @unit_role_cutoff.save!
+      refute Pundit.policy!(temp_user, LaborRequest).new?
+    end
 
-    assert Pundit.policy!(@dept1_user, LaborRequest).new?
-    @dept_role_cutoff.cutoff_date = 1.day.ago
-    @dept_role_cutoff.save!
-    refute Pundit.policy!(@dept1_user, LaborRequest).new?
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      assert Pundit.policy!(temp_user, LaborRequest).new?
+      @dept_role_cutoff.cutoff_date = 1.day.ago
+      @dept_role_cutoff.save!
+      refute Pundit.policy!(temp_user, LaborRequest).new?
+    end
 
-    assert Pundit.policy!(@division1_user, LaborRequest).new?
-    @division_role_cutoff.cutoff_date = 1.day.ago
-    @division_role_cutoff.save!
-    refute Pundit.policy!(@division1_user, LaborRequest).new?
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      assert Pundit.policy!(temp_user, LaborRequest).new?
+      @division_role_cutoff.cutoff_date = 1.day.ago
+      @division_role_cutoff.save!
+      refute Pundit.policy!(temp_user, LaborRequest).new?
+    end
   end
 
   test 'verify unit edit permissions with role cutoff' do
-    request = LaborRequest.where(unit_id: @unit1).first
-    assert Pundit.policy!(@unit1_user, request).show?
+    with_temp_user(units: [@unit1.code]) do |temp_user|
+      request = LaborRequest.where(unit_id: @unit1).first
+      assert Pundit.policy!(temp_user, request).show?
 
-    assert Pundit.policy!(@unit1_user, request).create?
-    assert Pundit.policy!(@unit1_user, request).update?
-    assert Pundit.policy!(@unit1_user, request).destroy?
+      assert Pundit.policy!(temp_user, request).create?
+      assert Pundit.policy!(temp_user, request).update?
+      assert Pundit.policy!(temp_user, request).destroy?
 
-    @unit_role_cutoff.cutoff_date = 1.day.ago
-    @unit_role_cutoff.save!
+      @unit_role_cutoff.cutoff_date = 1.day.ago
+      @unit_role_cutoff.save!
 
-    # Still allowed to view after cutoff
-    assert Pundit.policy!(@unit1_user, request).show?
+      # Still allowed to view after cutoff
+      assert Pundit.policy!(temp_user, request).show?
 
-    refute Pundit.policy!(@unit1_user, request).create?
-    refute Pundit.policy!(@unit1_user, request).update?
-    refute Pundit.policy!(@unit1_user, request).destroy?
+      refute Pundit.policy!(temp_user, request).create?
+      refute Pundit.policy!(temp_user, request).update?
+      refute Pundit.policy!(temp_user, request).destroy?
+    end
   end
 
   test 'verify department edit permissions with role cutoff' do
-    request = LaborRequest.where(department_id: @dept1).first
-    assert Pundit.policy!(@dept1_user, request).show?
+    with_temp_user(departments: [@dept1.code]) do |temp_user|
+      request = LaborRequest.where(department_id: @dept1).first
+      assert Pundit.policy!(temp_user, request).show?
 
-    assert Pundit.policy!(@dept1_user, request).create?
-    assert Pundit.policy!(@dept1_user, request).update?
-    assert Pundit.policy!(@dept1_user, request).destroy?
+      assert Pundit.policy!(temp_user, request).create?
+      assert Pundit.policy!(temp_user, request).update?
+      assert Pundit.policy!(temp_user, request).destroy?
 
-    @dept_role_cutoff.cutoff_date = 1.day.ago
-    @dept_role_cutoff.save!
+      @dept_role_cutoff.cutoff_date = 1.day.ago
+      @dept_role_cutoff.save!
 
-    # Still allowed to view after cutoff
-    assert Pundit.policy!(@dept1_user, request).show?
+      # Still allowed to view after cutoff
+      assert Pundit.policy!(temp_user, request).show?
 
-    refute Pundit.policy!(@dept1_user, request).create?
-    refute Pundit.policy!(@dept1_user, request).update?
-    refute Pundit.policy!(@dept1_user, request).destroy?
+      refute Pundit.policy!(temp_user, request).create?
+      refute Pundit.policy!(temp_user, request).update?
+      refute Pundit.policy!(temp_user, request).destroy?
+    end
   end
 
   test 'verify division edit permissions with role cutoff' do
-    request = LaborRequest.where(department_id: @dept_in_division_1).first
-    assert Pundit.policy!(@division1_user, request).show?
+    with_temp_user(divisions: [@division1.code]) do |temp_user|
+      request = LaborRequest.where(department_id: @dept_in_division_1).first
+      assert Pundit.policy!(temp_user, request).show?
 
-    assert Pundit.policy!(@division1_user, request).create?
-    assert Pundit.policy!(@division1_user, request).update?
-    assert Pundit.policy!(@division1_user, request).destroy?
+      assert Pundit.policy!(temp_user, request).create?
+      assert Pundit.policy!(temp_user, request).update?
+      assert Pundit.policy!(temp_user, request).destroy?
 
-    @division_role_cutoff.cutoff_date = 1.day.ago
-    @division_role_cutoff.save!
+      @division_role_cutoff.cutoff_date = 1.day.ago
+      @division_role_cutoff.save!
 
-    # Still allowed to view after cutoff
-    assert Pundit.policy!(@division1_user, request).show?
+      # Still allowed to view after cutoff
+      assert Pundit.policy!(temp_user, request).show?
 
-    refute Pundit.policy!(@division1_user, request).create?
-    refute Pundit.policy!(@division1_user, request).update?
-    refute Pundit.policy!(@division1_user, request).destroy?
+      refute Pundit.policy!(temp_user, request).create?
+      refute Pundit.policy!(temp_user, request).update?
+      refute Pundit.policy!(temp_user, request).destroy?
+    end
   end
 
   test 'verify selectable_units' do

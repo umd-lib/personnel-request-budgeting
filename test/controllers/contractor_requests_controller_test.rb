@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# rubocop:disable Metrics/ClassLength
 class ContractorRequestsControllerTest < ActionController::TestCase
   setup do
     @contractor_request = contractor_requests(:c2)
@@ -33,6 +34,23 @@ class ContractorRequestsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to contractor_request_path(assigns(:contractor_request))
+  end
+
+  test 'should not create invalid contractor_request' do
+    assert_no_difference('ContractorRequest.count') do
+      post :create, contractor_request: {
+        annual_base_pay: nil,
+        contractor_name: nil,
+        department_id: nil,
+        employee_type_id: nil,
+        justification: nil,
+        nonop_funds: nil,
+        nonop_source: nil,
+        number_of_months: nil,
+        position_description: nil,
+        request_type_id: nil,
+        unit_id: nil }
+    end
   end
 
   test 'should show contractor_request' do
@@ -92,6 +110,21 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       request_type_id: @contractor_request.request_type_id,
       unit_id: @contractor_request.unit_id }
     assert_redirected_to contractor_request_path(assigns(:contractor_request))
+  end
+
+  test 'should not update invalid contractor_request' do
+    patch :update, id: @contractor_request, contractor_request: {
+      annual_base_pay: nil,
+      contractor_name: nil,
+      department_id: nil,
+      employee_type_id: nil,
+      justification: nil,
+      nonop_funds: nil,
+      nonop_source: nil,
+      number_of_months: nil,
+      position_description: nil,
+      request_type_id: nil,
+      unit_id: nil }
   end
 
   test 'should destroy contractor_request' do

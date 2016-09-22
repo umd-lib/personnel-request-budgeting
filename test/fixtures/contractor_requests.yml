@@ -29,6 +29,19 @@ cont_fac_renewal:
   unit: nil
   justification: They used mind control on me
 
+c2_with_unit:
+  employee_type: c2
+  position_description: Medieval Studies Librarian
+  request_type: new
+  contractor_name: nil
+  number_of_months: 3
+  annual_base_pay: 10_000.00
+  nonop_funds: nil
+  nonop_source: nil
+  department: rl
+  unit: arch
+  justification: Specialization is medieval plumbing technologies.
+
 # Sample data for pagination
 contractor_request_1:
   employee_type: cont_fac

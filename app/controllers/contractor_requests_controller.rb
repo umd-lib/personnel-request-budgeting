@@ -23,16 +23,18 @@ class ContractorRequestsController < ApplicationController
   def new
     authorize ContractorRequest
     @contractor_request = ContractorRequest.new
+    assign_selectable_departments_and_units(@contractor_request)
   end
 
   # GET /contractor_requests/1/edit
   def edit
     authorize @contractor_request
+    assign_selectable_departments_and_units(@contractor_request)
   end
 
   # POST /contractor_requests
   # POST /contractor_requests.json
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength,  Metrics/AbcSize
   def create
     @contractor_request = ContractorRequest.new(contractor_request_params)
     authorize @contractor_request
@@ -42,14 +44,19 @@ class ContractorRequestsController < ApplicationController
         format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully created.' }
         format.json { render :show, status: :created, location: @contractor_request }
       else
-        format.html { render :new }
+        format.html do
+          assign_selectable_departments_and_units(@contractor_request)
+          render :new
+        end
         format.json { render json: @contractor_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength,  Metrics/AbcSize
 
   # PATCH/PUT /contractor_requests/1
   # PATCH/PUT /contractor_requests/1.json
+  # rubocop:disable Metrics/MethodLength
   def update
     authorize @contractor_request
     respond_to do |format|
@@ -57,11 +64,15 @@ class ContractorRequestsController < ApplicationController
         format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully updated.' }
         format.json { render :show, status: :ok, location: @contractor_request }
       else
-        format.html { render :edit }
+        format.html do
+          assign_selectable_departments_and_units(@contractor_request)
+          render :edit
+        end
         format.json { render json: @contractor_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # DELETE /contractor_requests/1
   # DELETE /contractor_requests/1.json

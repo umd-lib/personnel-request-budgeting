@@ -61,4 +61,61 @@ class ActiveSupport::TestCase
   def verify_two_digit_currency_field(field, text)
     assert_match(/\d\.\d\d$/, text, "#{field} should have two decimal places")
   end
+
+  # Creates a temporary user using the given roles, and then yields to a
+  # provided block.
+  #
+  # admin: true if the user should be an admin, false otherwise.
+  # divisions: An array of division codes the user should have a role for.
+  # departments: An array of department codes the user should have a role for.
+  # units: An array of unit codes the user should have a role for.
+  #
+  # Sample usage:
+  #
+  # a) User with "Admin" role:
+  #
+  #     run_as_temp_user(admin: true) do |temp_user|
+  #       (block can access user as "temp_user")
+  #     end
+  #
+  # b) User with "SSDR" department role:
+  #
+  #     run_as_temp_user(departments: ['SSDR']) do |temp_user|
+  #       (block can access user as "temp_user")
+  #     end
+  #
+  # b) User with "SSDR" department role and "LN" unit role:
+  #
+  #     run_as_temp_user(departments: ['SSDR'], units: ['LN']) do |temp_user|
+  #       (block can access user as "temp_user")
+  #     end
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def with_temp_user(admin: false, divisions: [], departments: [], units: [])
+    temp_user = User.create(cas_directory_id: 'temp', name: 'Temp User')
+
+    if admin
+      Role.create!(user: temp_user, role_type: RoleType.find_by_code('admin'))
+    end
+
+    divisions.each do |division|
+      Role.create!(user: temp_user, role_type: RoleType.find_by_code('division'),
+                   division: Division.find_by_code(division))
+    end
+
+    departments.each do |department|
+      Role.create!(user: temp_user, role_type: RoleType.find_by_code('department'),
+                   department: Department.find_by_code(department))
+    end
+
+    units.each do |unit|
+      Role.create!(user: temp_user, role_type: RoleType.find_by_code('unit'),
+                   unit: Unit.find_by_code(unit))
+    end
+
+    yield temp_user
+
+    Role.destroy_all(user: temp_user)
+    temp_user.destroy!
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

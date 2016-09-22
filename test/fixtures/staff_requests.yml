@@ -8,7 +8,7 @@ fac:
   nonop_funds: 0.00
   nonop_source: nil
   department: prg
-  unit_id: nil
+  unit: nil
   justification: Because we really really need someone.
 
 staff_request_with_status:
@@ -19,10 +19,21 @@ staff_request_with_status:
   nonop_funds: 0.00
   nonop_source: nil
   department: ssdr
-  unit_id: nil
+  unit: nil
   justification: Because we really really need a big tuna.
   review_status: started
   review_comment: This guy is kind of a big deal.
+  
+fac_with_unit:
+  employee_type: fac
+  position_description: Architecture Faculty Position
+  request_type: new
+  annual_base_pay: 50000.00
+  nonop_funds: 0.00
+  nonop_source: nil
+  department: rl
+  unit: arch
+  justification: Because.
 
 # Sample data for pagination
 staff_request_1:

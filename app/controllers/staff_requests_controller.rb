@@ -23,16 +23,18 @@ class StaffRequestsController < ApplicationController
   def new
     authorize StaffRequest
     @staff_request = StaffRequest.new
+    assign_selectable_departments_and_units(@staff_request)
   end
 
   # GET /staff_requests/1/edit
   def edit
     authorize @staff_request
+    assign_selectable_departments_and_units(@staff_request)
   end
 
   # POST /staff_requests
   # POST /staff_requests.json
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     @staff_request = StaffRequest.new(staff_request_params)
     authorize @staff_request
@@ -42,14 +44,19 @@ class StaffRequestsController < ApplicationController
         format.html { redirect_to @staff_request, notice: 'Staff request was successfully created.' }
         format.json { render :show, status: :created, location: @staff_request }
       else
-        format.html { render :new }
+        format.html do
+          assign_selectable_departments_and_units(@staff_request)
+          render :new
+        end
         format.json { render json: @staff_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # PATCH/PUT /staff_requests/1
   # PATCH/PUT /staff_requests/1.json
+  # rubocop:disable Metrics/MethodLength
   def update
     authorize @staff_request
     respond_to do |format|
@@ -57,11 +64,15 @@ class StaffRequestsController < ApplicationController
         format.html { redirect_to @staff_request, notice: 'Staff request was successfully updated.' }
         format.json { render :show, status: :ok, location: @staff_request }
       else
-        format.html { render :edit }
+        format.html do
+          assign_selectable_departments_and_units(@staff_request)
+          render :new
+        end
         format.json { render json: @staff_request.errors, status: :unprocessable_entity }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # DELETE /staff_requests/1
   # DELETE /staff_requests/1.json

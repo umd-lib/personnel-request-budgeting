@@ -1,9 +1,9 @@
 require 'test_helper'
-require 'integration/personnel_request_index_test_helper'
+require 'integration/personnel_requests_test_helper'
 
 # Integration test for the LaborRequest index page
 class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
-  include PersonnelRequestIndexTestHelper
+  include PersonnelRequestsTestHelper
 
   test 'currency field values show with two decimal places' do
     get labor_requests_path

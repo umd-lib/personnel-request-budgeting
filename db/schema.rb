@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923195155) do
+ActiveRecord::Schema.define(version: 20160927084415) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -100,6 +100,19 @@ ActiveRecord::Schema.define(version: 20160923195155) do
   add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id"
   add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id"
   add_index "labor_requests", ["unit_id"], name: "index_labor_requests_on_unit_id"
+
+  create_table "reports", force: :cascade do |t|
+    t.binary   "output"
+    t.text     "parameters"
+    t.integer  "format",     default: 0, null: false
+    t.integer  "status",     default: 0, null: false
+    t.string   "name",                   null: false
+    t.integer  "user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
   create_table "request_types", force: :cascade do |t|
     t.string   "code"

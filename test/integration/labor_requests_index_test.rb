@@ -2,6 +2,7 @@ require 'test_helper'
 require 'integration/personnel_requests_test_helper'
 
 # Integration test for the LaborRequest index page
+# rubocop:disable ClassLength
 class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
   include PersonnelRequestsTestHelper
 
@@ -73,6 +74,58 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'index should download excel as a user with two roles' do
+    run_as_user(users(:johnny_two_roles)) do
+      get labor_requests_path
+      assert_select "[id='export']"
+
+      get labor_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['labor_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal Pundit.policy_scope!(users(:johnny_two_roles), LaborRequest).count + 1,
+                     wb.sheet('LaborRequest').last_row
+        assert_equal LaborRequest.fields.length, wb.sheet('LaborRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
+  test 'index should download excel as an admin' do
+    run_as_user(users(:test_admin)) do
+      get labor_requests_path
+      assert_select "[id='export']"
+
+      get labor_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['labor_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal LaborRequest.all.count + 1,
+                     wb.sheet('LaborRequest').last_row
+        assert_equal LaborRequest.fields.length, wb.sheet('LaborRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
   test '"New" button should only be shown for users with roles' do
     run_as_user(users(:test_admin)) do
       get labor_requests_path
@@ -101,7 +154,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
 
     get labor_requests_path
     doc = Nokogiri::HTML(response.body)
-    review_status_texts = doc.xpath("//td[@headers='review_status']").map(&:text).uniq
+    review_status_texts = doc.xpath("//td[@headers='review_status__name']").map(&:text).uniq
     assert review_status_texts.include?(review_statuses(:approved).name)
     assert review_status_texts.include?(review_statuses(:not_approved).name)
     assert review_status_texts.include?(review_statuses(:contingent).name)

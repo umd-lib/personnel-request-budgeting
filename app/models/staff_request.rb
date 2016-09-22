@@ -1,24 +1,26 @@
 # A Regular Staff/GA staffing request
 class StaffRequest < ActiveRecord::Base
-  belongs_to :employee_type
-  belongs_to :request_type
-  belongs_to :department
-  belongs_to :unit
-  belongs_to :review_status
-  has_one :division, through: :department, autosave: false
-
-  validates :employee_type, presence: true
-  validates :position_description, presence: true
-  validates :request_type, presence: true
-  validates :annual_base_pay, presence: true
-  validates :department_id, presence: true
-  validates_with RequestDepartmentValidator
-
   VALID_EMPLOYEE_CATEGORY_CODE = 'Reg/GA'.freeze
-  validates_with RequestEmployeeTypeValidator, valid_employee_category_code: VALID_EMPLOYEE_CATEGORY_CODE
-
   VALID_REQUEST_TYPE_CODES = %w(New ConvertCont PayAdj).freeze
-  validate :allowed_request_type
+
+  include Requestable
+
+  validates :annual_base_pay, presence: true
+
+  FIELDS = {
+    position_description: { label: 'Position Description' },
+    employee_type__code: { label: 'Employee Type' },
+    request_type__code: { label: 'Request Type' },
+    annual_base_pay: {  label: 'Annual Base Pay',
+                        decorator: :number_to_currency },
+    nonop_funds: {  label: 'Nonop Funds',
+                    decorator: :number_to_currency },
+    division__code: { label: 'Division' },
+    department__code: { label: 'Department' },
+    unit__code: { label: 'Unit' },
+    review_status__name: { label: 'Review Status', 
+                           decorator: :suppress_status }
+  }.freeze
 
   after_initialize :init
 
@@ -31,5 +33,9 @@ class StaffRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'provided is not allowed for this request.')
     end
+  end
+
+  def self.fields
+    FIELDS
   end
 end

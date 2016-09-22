@@ -4,49 +4,5 @@
 
 <%= render partial: 'shared/index_action_buttons',
   locals: { model_type: LaborRequest, pagination_object: @labor_requests } %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th id="position_description"><%= multi_sort_link(@q, :position_description, 'Position description') %></th>
-      <th id="employee_type"><%= multi_sort_link(@q, 'employee_type_code', 'Employee type') %></th>
-      <th id="request_type"><%= multi_sort_link(@q, 'request_type_code', 'Request type') %></th>
-      <th id="contractor_name"><%= multi_sort_link(@q, :contractor_name, 'Contractor name') %></th>
-      <th id="number_of_positions"><%= multi_sort_link(@q, :number_of_positions, 'Number of positions') %></th>
-      <th id="hourly_rate"><%= multi_sort_link(@q, :hourly_rate, 'Hourly rate') %></th>
-      <th id="hours_per_week"><%= multi_sort_link(@q, :hours_per_week, 'Hours per week') %></th>
-      <th id="number_of_weeks"><%= multi_sort_link(@q, :number_of_weeks, 'Number of weeks') %></th>
-      <th id="annual_cost"><%= multi_sort_link(@q, :annual_cost, 'Annual cost') %></th>
-      <th id="nonop_funds"><%= multi_sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
-      <th id="division"><%= multi_sort_link(@q, 'division_code', 'Division') %></th>
-      <th id="department"><%= multi_sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="unit"><%= multi_sort_link(@q, 'unit_code', 'Unit') %></th>
-      <th id="review_status"><%= multi_sort_link(@q, 'review_status_id', 'Review Status') %></th>
-      <%= render 'shared/table_action_buttons_header', klass: LaborRequest %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @labor_requests.each do |labor_request| %>
-      <tr <%= "style=background-color:#{labor_request.review_status.color};" if labor_request.review_status %> >
-        <td headers="position_description"><%= labor_request.position_description %></td>
-        <td headers="employee_type"><%= labor_request.employee_type.code %></td>
-        <td headers="request_type"><%= labor_request.request_type.code %></td>
-        <td headers="contractor_name"><%= labor_request.contractor_name %></td>
-        <td headers="number_of_positions"><%= labor_request.number_of_positions %></td>
-        <td headers="hourly_rate"><%= number_to_currency(labor_request.hourly_rate) %></td>
-        <td headers="hours_per_week"><%= labor_request.hours_per_week %></td>
-        <td headers="number_of_weeks"><%= labor_request.number_of_weeks %></td>
-        <td headers="annual_cost"><%= number_to_currency(labor_request.annual_cost) %></td>
-        <td headers="nonop_funds"><%= number_to_currency(labor_request.nonop_funds) %></td>
-        <td headers="division"><%= labor_request.department.division.code %></td>
-        <td headers="department"><%= labor_request.department.code %></td>
-        <td headers="unit"><%= labor_request.unit.code if labor_request.unit %></td>
-        <td headers="review_status"><%= labor_request.review_status.name if labor_request.review_status  %></td>
-        <%= render 'shared/table_action_buttons', object: labor_request %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= render partial: 'shared/table', locals: { model_type: LaborRequest,  records: @labor_requests } %>
 <%= will_paginate renderer: BootstrapPagination::Rails %>

@@ -15,4 +15,9 @@
   <% if policy(model_type).new? %>
     <div class="btn-group"><%= link_to 'New', new_polymorphic_path(model_type), class: 'btn btn-success', :id => 'toolbar_new' %></div>
   <% end %>    
+  <% if  params["controller"] =~ /_requests$/ %>
+    <div class="btn-group"><%= link_to 'Export', params.merge( format: :xlsx ),
+      class: 'btn btn-info', :id => 'export' %></div>
+  <% end %>
+
 </div>

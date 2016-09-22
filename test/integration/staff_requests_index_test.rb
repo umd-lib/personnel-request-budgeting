@@ -51,6 +51,58 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'index should download excel as a user with two roles' do
+    run_as_user(users(:johnny_two_roles)) do
+      get staff_requests_path
+      assert_select "[id='export']"
+
+      get staff_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['staff_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal Pundit.policy_scope!(users(:johnny_two_roles), StaffRequest).count + 1,
+                     wb.sheet('StaffRequest').last_row
+        assert_equal StaffRequest.fields.length, wb.sheet('StaffRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
+  test 'index should download excel as an admin' do
+    run_as_user(users(:test_admin)) do
+      get staff_requests_path
+      assert_select "[id='export']"
+
+      get staff_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['staff_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal StaffRequest.all.count + 1,
+                     wb.sheet('StaffRequest').last_row
+        assert_equal StaffRequest.fields.length, wb.sheet('StaffRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
   test '"New" button should only be shown for users with roles' do
     run_as_user(users(:test_admin)) do
       get staff_requests_path

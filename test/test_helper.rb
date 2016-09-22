@@ -7,6 +7,10 @@ require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
+require 'roo'
+require 'axlsx_rails'
+require 'tempfile'
+
 Dir[Rails.root.join('test/shared/**/*')].each { |f| require f }
 
 class ActiveSupport::TestCase

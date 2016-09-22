@@ -9,13 +9,14 @@ class ImpersonateController < ApplicationController
     authorize :impersonate
     @q = User.ransack(params[:q])
     @q.sorts = 'cas_directory_id' if @q.sorts.empty?
-    @users = @q.result
+    # Map users to ImpersonatedUser so view knows which policy to use
+    @users = @q.result.map { |u| ImpersonatedUser.new(u) }
   end
 
   # GET /impersonate/user/123
   def create
-    authorize :impersonate
     impersonated_user = User.find_by(id: params[:user_id])
+    authorize ImpersonatedUser.new(impersonated_user)
     impersonate(impersonated_user)
     redirect_to root_path
   end
@@ -29,6 +30,15 @@ class ImpersonateController < ApplicationController
   end
 
   private
+
+    # Delegate class for User, which specifies that the ImpersonatePolicy should
+    # be used
+    class ImpersonatedUser < DelegateClass(User)
+      delegate :id, to: :__getobj__
+      def policy_class
+        ImpersonatePolicy
+      end
+    end
 
     # Sets session parameter for performing impersonations
     #

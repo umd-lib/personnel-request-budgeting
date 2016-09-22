@@ -89,33 +89,42 @@ class ActiveSupport::TestCase
   #     run_as_temp_user(departments: ['SSDR'], units: ['LN']) do |temp_user|
   #       (block can access user as "temp_user")
   #     end
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def with_temp_user(admin: false, divisions: [], departments: [], units: [])
-    temp_user = User.create(cas_directory_id: 'temp', name: 'Temp User')
+    temp_user_id = "temp_#{SecureRandom.uuid}"
 
-    if admin
-      Role.create!(user: temp_user, role_type: RoleType.find_by_code('admin'))
-    end
-
-    divisions.each do |division|
-      Role.create!(user: temp_user, role_type: RoleType.find_by_code('division'),
-                   division: Division.find_by_code(division))
-    end
-
-    departments.each do |department|
-      Role.create!(user: temp_user, role_type: RoleType.find_by_code('department'),
-                   department: Department.find_by_code(department))
-    end
-
-    units.each do |unit|
-      Role.create!(user: temp_user, role_type: RoleType.find_by_code('unit'),
-                   unit: Unit.find_by_code(unit))
-    end
+    temp_user = create_user_with_roles(temp_user_id,
+                                       admin: admin,
+                                       divisions: divisions,
+                                       departments: departments, units: units)
 
     yield temp_user
 
     Role.destroy_all(user: temp_user)
     temp_user.destroy!
+  end
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def create_user_with_roles(cas_directory_id, admin: false, divisions: [], departments: [], units: [])
+    user = User.create(cas_directory_id: cas_directory_id, name: cas_directory_id)
+
+    Role.create!(user: user, role_type: RoleType.find_by_code('admin')) if admin
+
+    divisions.each do |division|
+      Role.create!(user: user, role_type: RoleType.find_by_code('division'),
+                   division: Division.find_by_code(division))
+    end
+
+    departments.each do |department|
+      Role.create!(user: user, role_type: RoleType.find_by_code('department'),
+                   department: Department.find_by_code(department))
+    end
+
+    units.each do |unit|
+      Role.create!(user: user, role_type: RoleType.find_by_code('unit'),
+                   unit: Unit.find_by_code(unit))
+    end
+
+    user
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

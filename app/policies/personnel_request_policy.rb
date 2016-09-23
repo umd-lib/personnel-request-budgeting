@@ -1,69 +1,102 @@
-# Policy for Personnel Request actions
 # rubocop:disable Metrics/ClassLength
+
+# Policy for Personnel Request actions
 class PersonnelRequestPolicy < ApplicationPolicy
+  # @return [Boolean] true if a user is allowed to see a list of personnel
+  #   requests, false otherwise.
   def index?
     true
   end
 
+  # @return [Boolean] true if the user is allowed to view a particular personnel
+  #   request, false otherwise.
   def show?
     show_allowed_by_role?(user, record)
   end
 
+  # @return [Boolean] true if the user is allowed to create a particular
+  #   personnel request, false otherwise.
   def create?
     create_allowed_by_role?(user, record)
   end
 
+  # @return [Boolean] true if the user is allowed to create a new
+  #   personnel request, false otherwise.
   def new?
     new_allowed_by_role?(user)
   end
 
+  # @return [Boolean] true if the user is allowed to update a particular
+  #   personnel request, false otherwise.
   def update?
     update_allowed_by_role?(user, record)
   end
 
+  # @return [Boolean] true if the user is allowed to delete a particular
+  #   personnel request, false otherwise.
   def destroy?
     destroy_allowed_by_role?(user, record)
   end
 
-  # Returns an array of Departments in the division
-  #
-  # division - the Division to return the departments of
+  # @param division [Division] the division to return the departments of
+  # @return [ActiveRecord::Relation<Department>] an ActiveRecord::Relation
+  #   containing the departments in the given division.
   def self.departments_in_division(division)
     division.departments
   end
 
-  # Returns an array of attributes added for admin users for mass assignement
+  # @return [Array<Symbol>] an Array of symbols representing attributes
+  #   permitted for mass assignment
   def permitted_attributes
     user.admin? ? %i( review_status_id review_comment ) : []
   end
 
-  # Returns an array of Divisions the user's roles allow access to.
-  #
-  # user - the User to return the divisions of
+  # @param user [User] the User to return the divisions of
+  # @return [Array<Division>] an array of Divisions the user's roles allow
+  #   access to. Array will be empty if the user does not have any Division
+  #   roles.
+  # @note Only returns divisions based on the "Division" roles a user has.
+  #   For a user with an "Admin" role, this method will return an empty array.
   def self.allowed_divisions(user)
     user.roles.map(&:division).compact.uniq
   end
 
-  # Returns an array of Units the user's roles allow access to
+  # @param user [User] the User to return the units of
+  # @return [Array<Unit>] an array of Units the user's roles allow
+  #   access to. Array will be empty if the user does not have any Unit
+  #   roles.
+  # @note Only returns units based on the "Unit" roles a user has. For a user
+  #   with an "Admin" role, this method will return an empty array.
   def self.allowed_units(user)
     user.roles.map(&:unit).compact.uniq
   end
 
   # Returns an array of Departments the user's roles allow access to.
   # This includes departments the user can see because of a Division role,
-  # but does NOT include departments from Unit roles (because the user is
+  # but does **not** include departments from Unit roles (because the user is
   # only allowed to see the entries for that unit, not the whole department.
+  #
+  # @param user [User] the User to return the departments of
+  # @return [Array<Deparment>] an array of Departments the user's roles allow
+  #   access to. This includes departments the user can see because of a
+  #   Division role, but does **not** include departments from Unit roles
+  #   (because the user is only allowed to see the entries for that unit,
+  #   not the whole department). Array will be empty if the user does not have
+  #   any Department or Division roles.
+  # @note Only returns departments based on the "Department" or "Division" roles
+  #   a user has. For a user with an "Admin" role, this method will return an
+  #   empty array.
   def self.allowed_departments(user)
     departments = user.roles.map(&:department).compact.uniq
     departments += allowed_divisions(user).map(&:departments).flatten
     departments.compact.uniq
   end
 
-  # Returns an array of Units that a user's roles allows them to set in the
-  # GUI, or an empty array.
-  #
-  # This method takes into account role cutoffs.
   # rubocop:disable Metrics/AbcSize
+
+  # @return [Array<Department>] the departments a user's roles allows them to
+  #   set in the GUI, or an empty array.
+  # @note This method takes into account role cutoffs.
   def selectable_departments(user)
     return Department.all.to_a if user.admin?
 
@@ -73,13 +106,14 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
     depts.compact.uniq
   end
+
   # rubocop:enable Metrics/AbcSize
 
-  # Returns an array of Units that a user's roles allows them to set in the
-  # GUI, or an empty array.
-  #
-  # This method takes into account role cutoffs.
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+
+  # @return [Array<Unit>] the units a user's roles allows them to set in the
+  #   GUI, or an empty array.
+  # @note This method takes into account role cutoffs.
   def selectable_units(user)
     return Unit.all.to_a if user.admin?
 
@@ -103,6 +137,9 @@ class PersonnelRequestPolicy < ApplicationPolicy
   # Limits the scope of returned results based on role
   class Scope < Scope
     # rubocop:disable Metrics/AbcSize
+
+    # @return [ActiveRecord::Relation] the ActiveRecord::Relation containing
+    #   the personnel requests the current user is allowed to see.
     def resolve
       # Admin always sees everything
       # Users with Division role can see everything
@@ -116,13 +153,15 @@ class PersonnelRequestPolicy < ApplicationPolicy
       scope.where(scopes.map { |s| s.arel.constraints.reduce(:and) }.reduce(:or))
     end
 
-    # returns an array wrapped  scope of allowed departments
+    # @return [Array<Department>] the departments a user's roles allows them to
+    #   see, or an empty array.
     def allowed_departments(scope)
       allowed_departments = PersonnelRequestPolicy.allowed_departments(user)
       allowed_departments.empty? ? [] : [scope.where(department_id: allowed_departments)]
     end
 
-    # returns an array wrapped scope of allowed units
+    # @return [Array<Unit>] the units a user's roles allows them to
+    #   see, or an empty array.
     def allowed_units(scope)
       allowed_units = PersonnelRequestPolicy.allowed_units(user)
       allowed_units.empty? ? [] : [scope.where(unit_id: allowed_units)]
@@ -131,8 +170,8 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
   private
 
-    # Returns true if a user is allowed to show the given record, false
-    # otherwise.
+    # @return [Boolean] true if a user is allowed to show the given record,
+    #   false otherwise.
     def show_allowed_by_role?(user, record)
       # no roles can see nothing
       return false if user.roles.empty?
@@ -151,16 +190,17 @@ class PersonnelRequestPolicy < ApplicationPolicy
       false
     end
 
-    # Returns true if a user is allowed to create the given record, false
-    # otherwise.
+    # @return [Boolean] true if a user is allowed to create the given record, false
+    #   otherwise.
     def create_allowed_by_role?(user, record)
       update_allowed_by_role?(user, record)
     end
 
-    # Returns true if a user is allowed to generate new records, false
-    # otherwise.
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-    def new_allowed_by_role?(user) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # @return [Boolean] true if a user is allowed to generate new records, false
+    #   otherwise.
+    def new_allowed_by_role?(user)
       return false if user.roles.empty?
 
       return true if user.admin?
@@ -174,9 +214,9 @@ class PersonnelRequestPolicy < ApplicationPolicy
       false
     end
 
-    # Returns true if a user is allowed to edit the given record, false
-    # otherwise.
-    def update_allowed_by_role?(user, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    # @return [Boolean] true if a user is allowed to edit the given record,
+    #   false otherwise.
+    def update_allowed_by_role?(user, record)
       return false if user.roles.empty?
 
       return true if user.admin?
@@ -193,37 +233,33 @@ class PersonnelRequestPolicy < ApplicationPolicy
       false
     end
 
-    # Returns true if a user is allowed to destroy the given record, false
-    # otherwise.
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    # @return [Boolean] true if a user is allowed to destroy the given record,
+    #   false otherwise.
     def destroy_allowed_by_role?(user, record)
       update_allowed_by_role?(user, record)
     end
 
-    # Returns true if unit edits are allowed, false otherwise.
-    #
-    # This method checks against current date against the unit role cutoff date,
-    # if one exists.
+    # @return [Boolean] true if unit edits are allowed, false otherwise.
+    # @note This method takes into account role cutoffs.
     def unit_edit_allowed?
       role_cutoffs['unit'] ? (today < role_cutoffs['unit']) : false
     end
 
-    # Returns true if department edits are allowed, false otherwise.
-    #
-    # This method checks against current date against the department role cutoff
-    # date, if one exists.
+    # @return [Boolean] true if department edits are allowed, false otherwise.
+    # @note This method takes into account role cutoffs.
     def department_edit_allowed?
       role_cutoffs['department'] ? (today < role_cutoffs['department']) : false
     end
 
-    # Returns true if division edits are allowed, false otherwise.
-    #
-    # This method checks against current date against the division role cutoff
-    # date, if one exists.
+    # @return [Boolean] true if division edits are allowed, false otherwise.
+    # @note This method takes into account role cutoffs.
     def division_edit_allowed?
       role_cutoffs['division'] ? (today < role_cutoffs['division']) : false
     end
 
-    # Returns the current date
+    # @return [Date] the current date
     def today
       Time.zone.today
     end

@@ -31,7 +31,7 @@ Requires:
 > rake db:reset_with_sample_data
 ```
 
-### Adding Users and Roles
+### Adding an Admin User and Roles
 
 4) The application uses CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
 
@@ -44,39 +44,28 @@ and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user infor
 > rake 'db:add_cas_user[jsmith, John Smith]'
 ```
 
-5) Users also need a role, of which there are 4 types:
+5) Users also need a role. Since any user with an Admin role can add additional role permissions through the web application, you typically only need to add an "Admin" user to start.
 
-* Admin
-* Division
-* Department
-* Unit
-
-Any existing user can be added to a role using the following Rake task:
+The format of the Rake task to add an "admin" user is:
 
 ```
-> rake 'db:add_role[<CAS DIRECTORY ID>,<ROLE TYPE>,<ORG CODE>]'
+> rake 'db:add_role[<CAS DIRECTORY ID>,admin]'
 ```
-and replacing the "\<CAS DIRECTORY ID>" with the CAS Directory ID of a known user, provide a \<ROLE TYPE> of "admin", "division", "department", or "unit", and an \<ORG CODE> corresponding to the role type (optional for "admin" roles). For example, to create an "Admin" role for the "jsmith" user:
+where "\<CAS DIRECTORY ID>" is the CAS Directory ID of a known user. For example, to create an "Admin" role for the "jsmith" user:
 
 ```
-rake 'db:add_role[jsmith, admin]'
+> rake 'db:add_role[jsmith, admin]'
 ```
 
-To give a Department role to "jsmith" for the "SSDR" department:
-
-```
-rake 'db:add_role[jsmith, department, SSDR]'
-```
-
-Note: Any user with an Admin role can add additional role permissions through the web application, so typically you only need to add an "Admin" user to start.
-
-Also, in a production environment, you will likely need to use "bundle exec" and specify the RAILS_ENV environment, i.e.:
+Note: In a production environment, you will likely need to use "bundle exec" and specify the RAILS_ENV environment, i.e.:
 
 ```
 bundle exec rake 'db:add_role[jsmith, admin]' RAILS_ENV=production
 ```
 
 See [docs/AuthNZ.md](docs/AuthNZ.md) for more information about authentication and authorization.
+
+See [docs/RakeTasks.md](docs/RakeTasks.md) for additional information about the "db:add_cas_user" and "db:add_role" Rake tasks, including how to add other types of roles to users.
 
 ### Run the web application
 

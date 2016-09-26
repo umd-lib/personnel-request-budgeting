@@ -5,7 +5,7 @@ wb.add_worksheet( name: klass.name ) do |sheet|
   records.each do |record| 
     data = klass.fields.map do |field, attrs|
       if attrs[:decorator]
-        self.send( attrs[:decorator], field )
+        self.send( attrs[:decorator], record.call_field(field) )
       else
         record.call_field field
       end

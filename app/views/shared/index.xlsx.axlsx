@@ -1,0 +1,15 @@
+klass = records.first.class
+wb = xlsx_package.workbook
+wb.add_worksheet( name: klass.name ) do |sheet|
+  sheet.add_row klass.fields.map { |k,v| v[:label] }
+  records.each do |record| 
+    data = klass.fields.map do |field, attrs|
+      if attrs[:decorator]
+        self.send( attrs[:decorator], record.call_field(field) )
+      else
+        record.call_field field
+      end
+    end
+    sheet.add_row data
+  end
+end

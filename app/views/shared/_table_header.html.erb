@@ -1,0 +1,8 @@
+<thead>
+  <tr>
+  <%- model_type.fields.each do |field, attrs | %>
+    <th id="<%= field.to_s %>"><%= multi_sort_link(@q, field, attrs[:label] ) %></th>
+  <% end %>
+    <%= render 'shared/table_action_buttons_header',  model_type: model_type  %>
+  </tr>
+</thead>

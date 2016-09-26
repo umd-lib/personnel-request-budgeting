@@ -77,22 +77,22 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           number_of_months: @contractor_request.number_of_months,
           position_description: @contractor_request.position_description,
           request_type_id: @contractor_request.request_type_id,
-          review_status_id: @contractor_request.review_status_id,
-          review_comment: @contractor_request.review_comment,
+          review_status_id: review_statuses(:approved).id, # Should be ignored
+          review_comment: 'Lorem ipsum facto', # Should be ignored
           unit_id: @contractor_request.unit_id }
       end
       assert_redirected_to contractor_request_path(assigns(:contractor_request))
-      assert_equal assigns(:contractor_request).review_status_id, nil
-      assert_equal assigns(:contractor_request).review_comment, nil
+      assert_equal review_statuses(:under_review).id, assigns(:contractor_request).review_status_id
+      assert_equal nil, assigns(:contractor_request).review_comment
 
       patch :update, id: assigns(:contractor_request).id,
                      contractor_request: assigns(:contractor_request).attributes.merge(
                        review_comment: 'come on mang', review_status_id: 100)
 
       assert_redirected_to contractor_request_path(assigns(:contractor_request))
-      assert_equal assigns(:contractor_request).review_status_id, nil
-      assert_equal assigns(:contractor_request).review_comment, nil
-      assert_equal assigns(:contractor_request).contractor_name, @contractor_request.contractor_name
+      assert_equal review_statuses(:under_review).id, assigns(:contractor_request).review_status_id
+      assert_equal nil, assigns(:contractor_request).review_comment
+      assert_equal @contractor_request.contractor_name, assigns(:contractor_request).contractor_name
     end
   end
 

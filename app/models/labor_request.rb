@@ -24,6 +24,12 @@ class LaborRequest < ActiveRecord::Base
   VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
   validate :allowed_request_type
 
+  after_initialize :init
+
+  def init
+    self.review_status ||= ReviewStatus.find_by_code('UnderReview')
+  end
+
   # Validates the request type
   def allowed_request_type
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))

@@ -73,22 +73,22 @@ class LaborRequestsControllerTest < ActionController::TestCase
           number_of_weeks: @labor_request.number_of_weeks,
           position_description: @labor_request.position_description,
           request_type_id: @labor_request.request_type_id,
-          review_status_id: @labor_request.review_status_id,
-          review_comment: @labor_request.review_comment,
+          review_status_id: review_statuses(:approved).id, # Should be ignored
+          review_comment: 'Lorem ipsum facto', # Should be ignored
           unit_id: @labor_request.unit_id }
       end
       assert_redirected_to labor_request_path(assigns(:labor_request))
-      assert_equal assigns(:labor_request).review_status_id, nil
-      assert_equal assigns(:labor_request).review_comment, nil
+      assert_equal review_statuses(:under_review).id, assigns(:labor_request).review_status_id
+      assert_equal nil, assigns(:labor_request).review_comment
 
       patch :update, id: assigns(:labor_request).id,
                      labor_request: assigns(:labor_request).attributes.merge(
                        review_comment: 'come on mang', review_status_id: 100)
 
       assert_redirected_to labor_request_path(assigns(:labor_request))
-      assert_equal assigns(:labor_request).review_status_id, nil
-      assert_equal assigns(:labor_request).review_comment, nil
-      assert_equal assigns(:labor_request).contractor_name, @labor_request.contractor_name
+      assert_equal review_statuses(:under_review).id, assigns(:labor_request).review_status_id
+      assert_equal nil, assigns(:labor_request).review_comment
+      assert_equal @labor_request.contractor_name, assigns(:labor_request).contractor_name
     end
   end
 

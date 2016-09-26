@@ -14,3 +14,23 @@ almost:
   code: almost
   name: almost done
   color: "#000000"
+
+under_review:
+  code: UnderReview
+  name: Under Review
+  color: #ffffff
+
+approved:
+  code: Approved
+  name: Approved
+  color: #dcf5d0
+
+not_approved:
+  code: NotApproved
+  name: Not Approved
+  color: #fa7073
+
+contingent:
+  code: 'Contingent'
+  name: 'Contingent'
+  color: '#b3dffc'

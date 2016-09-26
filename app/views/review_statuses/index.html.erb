@@ -7,6 +7,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= sort_link(@q, :code, 'Code') %></th>
       <th><%= sort_link(@q, :name, 'Name') %></th>
       <th>Color</th>
       <%= render 'shared/table_action_buttons_header' %>
@@ -16,6 +17,7 @@
   <tbody>
     <% @review_statuses.each do |review_status| %>
       <%= content_tag :tr, id: "review_status_#{review_status.id}" do %>
+        <td><%= review_status.code %></td>
         <td><%= review_status.name %></td>
         <td><%= color_field :review_status, :color, value: review_status.color, readonly: true, disabled: true %></td>
         <%= render 'shared/table_action_buttons', object: review_status %>

@@ -3,7 +3,7 @@ require 'test_helper'
 class ReviewStatusesControllerTest < ActionController::TestCase
   setup do
     @review_status = review_statuses(:started)
-    @review_status_with_nutting = review_statuses(:never)
+    @unused_review_status = review_statuses(:never)
   end
 
   test 'should get index' do
@@ -19,7 +19,9 @@ class ReviewStatusesControllerTest < ActionController::TestCase
 
   test 'should create review_status' do
     assert_difference('ReviewStatus.count') do
-      post :create, review_status: { color: @review_status.color, name: @review_status.name }
+      post :create, review_status: { color: @review_status.color,
+                                     name: 'Test Status',
+                                     code: 'test' }
     end
 
     assert_redirected_to review_status_path(assigns(:review_status))
@@ -36,14 +38,27 @@ class ReviewStatusesControllerTest < ActionController::TestCase
   end
 
   test 'should update review_status' do
-    patch :update, id: @review_status, review_status: { color: @review_status.color, name: @review_status.name }
+    patch :update, id: @review_status,
+                   review_status: { color: @review_status.color,
+                                    name: @review_status.name,
+                                    code: @review_status.code }
     assert_redirected_to review_status_path(assigns(:review_status))
   end
 
   test 'should destroy review_status' do
     assert_difference('ReviewStatus.count', -1) do
-      delete :destroy, id: @review_status_with_nutting
+      delete :destroy, id: @unused_review_status
     end
+
+    assert_redirected_to review_statuses_path
+  end
+
+  test 'should show error when cannot destroy review status with associated records' do
+    assert_equal false, @review_status.allow_delete?
+    assert_no_difference('ReviewStatus.count') do
+      delete :destroy, id: @review_status
+    end
+    assert !flash.empty?
 
     assert_redirected_to review_statuses_path
   end
@@ -62,10 +77,15 @@ class ReviewStatusesControllerTest < ActionController::TestCase
       get :edit, id: @review_status
       assert_response :forbidden
 
-      post :create, review_status: { color: 'black', name: @review_status.name }
+      post :create, review_status: { color: 'black',
+                                     name: @review_status.name,
+                                     code: @review_status.code }
       assert_response :forbidden
 
-      patch :update, id: @review_status, review_status: { color: 'white', name: @review_status.name }
+      patch :update, id: @review_status,
+                     review_status: { color: 'white',
+                                      name: @review_status.name,
+                                      code: @review_status.code }
       assert_response :forbidden
 
       delete :destroy, id: @review_status

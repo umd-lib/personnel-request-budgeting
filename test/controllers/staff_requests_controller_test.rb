@@ -86,22 +86,22 @@ class StaffRequestsControllerTest < ActionController::TestCase
           nonop_source: @staff_request_with_status.nonop_source,
           position_description: @staff_request_with_status.position_description,
           request_type_id: @staff_request_with_status.request_type_id,
-          review_status_id: @staff_request_with_status.review_status_id,
-          review_comment: @staff_request_with_status.review_comment,
+          review_status_id: review_statuses(:approved).id, # Should be ignored
+          review_comment: 'Lorem ipsum facto', # Should be ignored
           unit_id: @staff_request_with_status.unit_id }
       end
       assert_redirected_to staff_request_path(assigns(:staff_request))
-      assert_equal assigns(:staff_request).review_status_id, nil
-      assert_equal assigns(:staff_request).review_comment, nil
+      assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
+      assert_equal nil, assigns(:staff_request).review_comment
 
       patch :update, id: assigns(:staff_request).id,
                      staff_request: assigns(:staff_request).attributes.merge(
                        review_comment: 'come on mang', review_status_id: 100)
 
       assert_redirected_to staff_request_path(assigns(:staff_request))
-      assert_equal assigns(:staff_request).review_status_id, nil
-      assert_equal assigns(:staff_request).review_comment, nil
-      assert_equal assigns(:staff_request).annual_base_pay, @staff_request_with_status.annual_base_pay
+      assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
+      assert_equal nil, assigns(:staff_request).review_comment
+      assert_equal @staff_request_with_status.annual_base_pay, assigns(:staff_request).annual_base_pay
     end
   end
 

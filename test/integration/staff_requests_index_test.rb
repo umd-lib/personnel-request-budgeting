@@ -17,7 +17,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   test 'index including pagination and sorting' do
     columns = %w(position_description employee_type_code request_type_code
                  annual_base_pay nonop_funds division_code department_code
-                 unit_code review_status_id)
+                 unit_code review_status_name)
 
     get staff_requests_path
     assert_template 'staff_requests/index'
@@ -63,5 +63,27 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
       assert_select "[id='toolbar_new']", 0
     end
     no_role_user.destroy!
+  end
+
+  test '"Under Review" status should not be displayed but others should be' do
+    review_statuses = [review_statuses(:under_review), review_statuses(:approved),
+                       review_statuses(:not_approved), review_statuses(:contingent)]
+
+    # Assign a review status to each request, using request id to pick the
+    # status
+    StaffRequest.find_each do |staff_request|
+      id = staff_request.id
+      staff_request.review_status_id = review_statuses[id % 4].id
+      staff_request.save!
+    end
+
+    get staff_requests_path
+    doc = Nokogiri::HTML(response.body)
+    review_status_texts = doc.xpath("//td[@headers='review_status']").map(&:text).uniq
+    assert review_status_texts.include?(review_statuses(:approved).name)
+    assert review_status_texts.include?(review_statuses(:not_approved).name)
+    assert review_status_texts.include?(review_statuses(:contingent).name)
+    assert_not review_status_texts.include?(review_statuses(:under_review).name)
+    assert review_status_texts.include?('')
   end
 end

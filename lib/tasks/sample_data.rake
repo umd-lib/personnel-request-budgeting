@@ -91,6 +91,7 @@ namespace :db do
 
     generate_department_fields(request)
     request.justification = Faker::Lorem.words(rand(50) + 1).join(' ')
+    generate_request_status(request)
   end
 
   # Randomly chooses to add nonop_funds and nonop_source entries to the given
@@ -121,5 +122,17 @@ namespace :db do
     request.hourly_rate = (rand * 100.0).round(2)
     request.hours_per_week = (rand * 40.0).to_i + 1
     request.number_of_weeks = (rand * 52).to_i + 1
+  end
+
+  # Randomly assign a request status and comment to the given +request+
+  def generate_request_status(request)
+    under_review_status = ReviewStatus.find_by_code('UnderReview')
+
+    review_status = under_review_status
+
+    review_status = ReviewStatus.all.sample if rand > 0.80
+
+    request.review_status = review_status
+    request.review_comment = Faker::Lorem.words(rand(50) + 1).join(' ') unless review_status == under_review_status
   end
 end

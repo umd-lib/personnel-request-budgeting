@@ -21,8 +21,9 @@ class ImpersonateIndexTest < ActionDispatch::IntegrationTest
           assert_template 'impersonate/index'
 
           User.ransack(q_param).result.each do |entry|
-            # Each user should have an impersonate link, unless they are the current user
-            if entry.cas_directory_id == admin.cas_directory_id
+            # Each user should have an impersonate link, unless they are the
+            # current user, or an admin
+            if (entry.cas_directory_id == admin.cas_directory_id) || entry.admin?
               assert_select 'a[href=?]', impersonate_user_path(entry), false
             else
               assert_select 'a[href=?]', impersonate_user_path(entry)

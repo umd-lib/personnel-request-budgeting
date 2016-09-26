@@ -37,7 +37,7 @@
       </a>
       <ul class="dropdown-menu">
         <li><%= link_to 'Profile', current_user %></li>
-        <% if policy(:impersonate).create? %>
+        <% if policy(:impersonate).index? %>
           <li role="separator" class="divider"></li>
           <li id='impersonate_user'><%= link_to 'Impersonate User', impersonate_path %></li>
         <% end %>

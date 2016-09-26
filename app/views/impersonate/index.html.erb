@@ -17,7 +17,7 @@
         <td><%= user.cas_directory_id %></td>
         <td><%= user.name %></td>
         <td headers="impersonate">
-          <% if user != current_user %>
+          <% if policy(user).create? %>
             <%= link_to impersonate_user_path(user), class: "btn btn-impersonate", title: "Impersonate" do %>
             <i class="glyphicon glyphicon-sunglasses"></i>
             <% end %>

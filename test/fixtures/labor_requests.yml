@@ -31,6 +31,8 @@ fac_hrly_renewal:
   department: scua
   unit: nil
   justification: Can't have enough expertise for this topic.
+  review_status: under_review
+  review_comment: nil
 
 fac_hrly_with_unit:
   employee_type: fac_hrly
@@ -46,6 +48,8 @@ fac_hrly_with_unit:
   department: as
   unit: stk
   justification: Has expertise in the Three Laws of Robotics
+  review_status: under_review
+  review_comment: nil
   
 
 # Sample data for pagination
@@ -60,6 +64,8 @@ labor_request_1:
   department: rl
   unit: hssl
   justification: delectus est soluta culpa aut nulla inventore eius est reprehenderit eum magnam alias fugiat sint in laboriosam voluptatem doloremque sit voluptates excepturi aut veritatis consectetur suscipit assumenda molestiae tenetur aperiam dolores accusantium rem sapiente deserunt aut error
+  review_status: under_review
+  review_comment: nil
 
 labor_request_2:
   employee_type: student
@@ -71,6 +77,8 @@ labor_request_2:
   number_of_weeks: 40
   department: ps
   justification: minus mollitia cum saepe nihil qui itaque eos qui dolores eum iusto nesciunt harum tenetur aperiam incidunt enim in rerum nobis omnis aut
+  review_status: under_review
+  review_comment: nil
 
 labor_request_3:
   employee_type: fac_hrly
@@ -85,6 +93,8 @@ labor_request_3:
   nonop_source: Anderson-Osinski
   department: mds
   justification: odit voluptatem cupiditate officia dolore
+  review_status: under_review
+  review_comment: nil
 
 labor_request_4:
   employee_type: fac_hrly
@@ -98,6 +108,8 @@ labor_request_4:
   nonop_source: Gerhold and Sons
   department: dcmr
   justification: deleniti porro et cumque sit aut consequatur in facere numquam et repellendus aut odit
+  review_status: under_review
+  review_comment: nil
 
 labor_request_5:
   employee_type: student
@@ -110,6 +122,8 @@ labor_request_5:
   number_of_weeks: 49
   department: as
   justification: aliquam delectus accusamus saepe aut rerum dolores error et aperiam quia iste ratione sed
+  review_status: under_review
+  review_comment: nil
 
 labor_request_6:
   employee_type: c1
@@ -121,6 +135,8 @@ labor_request_6:
   number_of_weeks: 14
   department: acq
   justification: porro vitae minima et consequatur aut mollitia
+  review_status: under_review
+  review_comment: nil
 
 labor_request_7:
   employee_type: fac_hrly
@@ -135,6 +151,8 @@ labor_request_7:
   nonop_source: Haley-Durgan
   department: acq
   justification: sapiente non occaecati quaerat aspernatur recusandae incidunt minus sit dolorem odio labore autem molestias perspiciatis quisquam voluptates ut aliquam voluptas id quis mollitia voluptatem sunt alias temporibus atque ut commodi explicabo enim voluptatem repudiandae aut facilis et culpa quia et est optio voluptate consequatur ab et officia doloribus
+  review_status: under_review
+  review_comment: nil
 
 labor_request_8:
   employee_type: student
@@ -147,6 +165,8 @@ labor_request_8:
   number_of_weeks: 43
   department: rl
   justification: ea deserunt necessitatibus quaerat dolores sunt illum debitis tempore dolorum enim facilis esse officia vel saepe accusantium architecto autem repellendus dicta ut ex maiores ut assumenda nisi
+  review_status: under_review
+  review_comment: nil
 
 labor_request_9:
   employee_type: c1
@@ -159,6 +179,8 @@ labor_request_9:
   number_of_weeks: 41
   department: scua
   justification: suscipit iste et atque est debitis facilis dignissimos quis voluptatibus
+  review_status: under_review
+  review_comment: nil
 
 labor_request_10:
   employee_type: student
@@ -173,6 +195,8 @@ labor_request_10:
   nonop_source: Kerluke-Mraz
   department: mds
   justification: placeat recusandae dolores officiis iste iusto sequi et libero non qui omnis necessitatibus veritatis blanditiis illo doloribus sed ipsum dolor praesentium ex fugit amet et maiores laborum alias earum cum magnam est id nobis sit voluptates sunt maxime voluptatem et et minus quia repellendus ipsam aut
+  review_status: under_review
+  review_comment: nil
 
 labor_request_11:
   employee_type: fac_hrly
@@ -187,6 +211,8 @@ labor_request_11:
   nonop_source: Auer-Hettinger
   department: do
   justification: dicta aut repudiandae voluptatem quas ut culpa sint et qui mollitia expedita explicabo sapiente magnam voluptatibus omnis ipsum aut voluptates architecto est similique sunt totam ea non eius dolore aliquam quis consectetur qui enim nulla dolores deserunt quaerat
+  review_status: under_review
+  review_comment: nil
 
 labor_request_12:
   employee_type: student
@@ -199,6 +225,8 @@ labor_request_12:
   number_of_weeks: 48
   department: ps
   justification: soluta occaecati
+  review_status: under_review
+  review_comment: nil
 
 labor_request_13:
   employee_type: student
@@ -212,6 +240,8 @@ labor_request_13:
   nonop_source: Kutch Inc
   department: lf
   justification: ipsam veniam commodi eum assumenda aut corporis voluptatem fuga eum autem recusandae labore vitae nam quaerat quasi maiores architecto ut ea alias enim non tenetur eaque impedit atque enim quia quis dolor quis rerum optio dolore
+  review_status: under_review
+  review_comment: nil
 
 labor_request_14:
   employee_type: c1
@@ -224,6 +254,8 @@ labor_request_14:
   number_of_weeks: 29
   department: lms
   justification: dicta quis debitis eos et culpa ex voluptate doloremque rerum eius recusandae deleniti qui corporis eum itaque sit quidem dolor qui sed aliquid
+  review_status: under_review
+  review_comment: nil
 
 labor_request_15:
   employee_type: fac_hrly
@@ -236,6 +268,8 @@ labor_request_15:
   department: rl
   unit: tl
   justification: voluptas magni voluptas fuga sequi odio nam recusandae et molestiae doloremque sit consequatur possimus repellat quis sint eligendi sit sed itaque praesentium est et enim veritatis sunt voluptatem quia mollitia laborum totam expedita eum quisquam sunt et dolores ut voluptatem ut vel ullam nihil quidem perferendis voluptas nobis aut vero
+  review_status: under_review
+  review_comment: nil
 
 labor_request_16:
   employee_type: student
@@ -250,6 +284,8 @@ labor_request_16:
   nonop_source: Abbott, Kautzer and Rowe
   department: ssdr
   justification: aut placeat illo pariatur incidunt necessitatibus omnis repellendus voluptatem ea sunt voluptatem
+  review_status: under_review
+  review_comment: nil
 
 labor_request_17:
   employee_type: student
@@ -261,6 +297,8 @@ labor_request_17:
   number_of_weeks: 3
   department: rl
   justification: quas id amet dolor ea in quia impedit vero aspernatur doloribus a in et sequi quo nam fugit nulla esse officiis veniam est velit praesentium dignissimos autem sapiente nisi repellendus aut
+  review_status: under_review
+  review_comment: nil
 
 labor_request_18:
   employee_type: fac_hrly
@@ -274,6 +312,8 @@ labor_request_18:
   department: rl
   unit: art
   justification: qui
+  review_status: under_review
+  review_comment: nil
 
 labor_request_19:
   employee_type: student
@@ -285,6 +325,8 @@ labor_request_19:
   number_of_weeks: 34
   department: bbs
   justification: ad voluptatum enim et illo consequatur aut excepturi dolores enim facere est eligendi ipsam sint at dolor repellat est saepe est voluptas ut eos et aliquid iure inventore voluptatem ea quod aliquam praesentium
+  review_status: under_review
+  review_comment: nil
 
 labor_request_20:
   employee_type: c1
@@ -297,6 +339,8 @@ labor_request_20:
   department: rl
   unit: arch
   justification: molestias laudantium quidem labore sequi qui sed laboriosam provident ea ullam perspiciatis quo ad dolore quae ipsam sit iste animi praesentium mollitia vero
+  review_status: under_review
+  review_comment: nil
 
 labor_request_21:
   employee_type: c1
@@ -312,6 +356,8 @@ labor_request_21:
   department: as
   unit: lsd
   justification: et minima
+  review_status: under_review
+  review_comment: nil
 
 labor_request_22:
   employee_type: c1
@@ -324,6 +370,8 @@ labor_request_22:
   department: rl
   unit: rc
   justification: et sapiente mollitia et inventore cum rerum dolorum dolores qui voluptates sunt magni suscipit corporis at iusto eaque quia aperiam et consequatur deleniti ex assumenda fugit numquam officia omnis aut vitae quaerat nesciunt quia odio reiciendis perferendis non alias eum libero corrupti et soluta qui ad saepe earum velit a
+  review_status: under_review
+  review_comment: nil
 
 labor_request_23:
   employee_type: fac_hrly
@@ -337,6 +385,8 @@ labor_request_23:
   department: rl
   unit: art
   justification: fugiat pariatur vitae minus laudantium voluptas qui enim qui sapiente eum et error quo quis consequatur quasi
+  review_status: under_review
+  review_comment: nil
 
 labor_request_24:
   employee_type: c1
@@ -350,6 +400,8 @@ labor_request_24:
   nonop_source: Graham-Sporer
   department: lhr
   justification: occaecati placeat nesciunt quaerat reiciendis itaque tenetur repudiandae officia
+  review_status: under_review
+  review_comment: nil
 
 labor_request_25:
   employee_type: c1
@@ -363,6 +415,8 @@ labor_request_25:
   nonop_source: Walsh Group
   department: mds
   justification: porro quae nobis quam ratione ab omnis excepturi vero impedit eaque quia ut tempore aut dolorem et ipsum veritatis vitae sed debitis corrupti et id omnis quisquam vel doloribus deleniti ex iste eos consequuntur reiciendis quis similique aut iure ullam
+  review_status: under_review
+  review_comment: nil
 
 labor_request_26:
   employee_type: student
@@ -375,6 +429,8 @@ labor_request_26:
   number_of_weeks: 40
   department: com
   justification: nostrum facere qui est ad quia eius nemo minima voluptatem
+  review_status: under_review
+  review_comment: nil
 
 labor_request_27:
   employee_type: c1
@@ -387,6 +443,8 @@ labor_request_27:
   department: rl
   unit: rc
   justification: labore qui omnis maiores ut provident sequi sint exercitationem ipsa nihil dolores optio adipisci quae natus vel nobis consequatur explicabo nemo rerum sit delectus officiis cum aliquid aut impedit voluptatem qui harum velit quibusdam enim facere recusandae laudantium
+  review_status: under_review
+  review_comment: nil
 
 labor_request_28:
   employee_type: fac_hrly
@@ -401,6 +459,8 @@ labor_request_28:
   nonop_source: Roberts-Wilkinson
   department: lms
   justification: omnis ipsa at provident qui quam qui eum natus vel nemo est sunt vitae accusantium suscipit et delectus totam molestiae ut voluptas
+  review_status: under_review
+  review_comment: nil
 
 labor_request_29:
   employee_type: c1
@@ -413,6 +473,8 @@ labor_request_29:
   number_of_weeks: 30
   department: ssdr
   justification: doloribus sit et quasi alias tenetur laudantium iste molestias dolore similique voluptatibus natus voluptas architecto est sed enim nostrum in odio fugiat perferendis eos aliquid
+  review_status: under_review
+  review_comment: nil
 
 labor_request_30:
   employee_type: fac_hrly
@@ -427,6 +489,8 @@ labor_request_30:
   nonop_source: Monahan, Daniel and McGlynn
   department: lhr
   justification: veritatis repellat sed in qui nisi quidem sunt reiciendis magni non et veniam amet vel ea est maiores iure earum molestiae et tempora occaecati necessitatibus sint ab ad doloremque dolor possimus corrupti voluptatem
+  review_status: under_review
+  review_comment: nil
 
 labor_request_31:
   employee_type: fac_hrly
@@ -439,6 +503,8 @@ labor_request_31:
   number_of_weeks: 27
   department: prg
   justification: laboriosam vel id dignissimos unde dolore qui qui eius numquam iste ducimus velit eos recusandae reprehenderit quo aut nam similique omnis cupiditate ut minus quisquam tenetur et iusto
+  review_status: under_review
+  review_comment: nil
 
 labor_request_32:
   employee_type: c1
@@ -453,6 +519,8 @@ labor_request_32:
   nonop_source: Runte LLC
   department: cd
   justification: corrupti aliquam rerum fuga sit similique iure voluptas harum dolorem quos quia repudiandae et natus omnis ipsum earum
+  review_status: under_review
+  review_comment: nil
 
 labor_request_33:
   employee_type: fac_hrly
@@ -466,6 +534,8 @@ labor_request_33:
   department: rl
   unit: epsl
   justification: alias omnis ducimus provident eligendi officiis quis quisquam error maxime ut ullam est ex qui deleniti voluptatem officia qui optio quod itaque esse quaerat voluptas fugiat libero illo qui voluptatem tempora commodi magni
+  review_status: under_review
+  review_comment: nil
 
 labor_request_34:
   employee_type: c1
@@ -478,6 +548,8 @@ labor_request_34:
   number_of_weeks: 3
   department: scua
   justification: velit est expedita soluta libero occaecati
+  review_status: under_review
+  review_comment: nil
 
 labor_request_35:
   employee_type: c1
@@ -492,6 +564,8 @@ labor_request_35:
   nonop_source: Lueilwitz LLC
   department: ps
   justification: possimus accusantium pariatur est quisquam expedita illum consequuntur qui eveniet iste sunt quam et eum et qui culpa necessitatibus cupiditate sed odio consequatur aut quia ducimus laudantium reprehenderit sed dicta vero voluptas ipsam consectetur sit inventore deleniti ut sit quae cum quibusdam eum nam ab quidem provident reiciendis aspernatur
+  review_status: under_review
+  review_comment: nil
 
 labor_request_36:
   employee_type: student
@@ -504,6 +578,8 @@ labor_request_36:
   department: as
   unit: lsd
   justification: sed sint et deserunt laborum est impedit sed voluptate autem aut voluptas aperiam rerum at magnam libero quia dolore incidunt culpa hic delectus omnis voluptas praesentium voluptas sequi sit sit dolor dolores id fugiat temporibus eligendi nostrum molestiae adipisci est molestias exercitationem
+  review_status: under_review
+  review_comment: nil
 
 labor_request_37:
   employee_type: fac_hrly
@@ -517,6 +593,8 @@ labor_request_37:
   nonop_source: Schoen Group
   department: uss
   justification: quis eligendi animi suscipit aspernatur consequatur fugit voluptatem sunt omnis ad porro architecto quasi dolores nostrum nemo ut aut ut velit rerum deserunt sit voluptas aut aliquid harum labore ut est sunt expedita maiores molestias earum quibusdam eaque aperiam molestiae voluptate
+  review_status: under_review
+  review_comment: nil
 
 labor_request_38:
   employee_type: student
@@ -530,6 +608,8 @@ labor_request_38:
   department: rl
   unit: rl
   justification: placeat deleniti maiores possimus unde voluptates quis ab ratione totam occaecati nisi qui est eum laudantium explicabo ipsum et aliquam
+  review_status: under_review
+  review_comment: nil
 
 labor_request_39:
   employee_type: fac_hrly
@@ -543,6 +623,8 @@ labor_request_39:
   department: rl
   unit: rl
   justification: itaque architecto blanditiis a perferendis sint aut dolores aspernatur expedita magnam aut id rerum nesciunt ut quo libero ea non
+  review_status: under_review
+  review_comment: nil
 
 labor_request_40:
   employee_type: student
@@ -555,6 +637,8 @@ labor_request_40:
   department: rl
   unit: rc
   justification: et est saepe quia sit ipsam molestias eum perspiciatis quia incidunt aliquid ut quam ut consequatur iure et magnam omnis ut et recusandae quo in
+  review_status: under_review
+  review_comment: nil
 
 labor_request_41:
   employee_type: fac_hrly
@@ -569,6 +653,8 @@ labor_request_41:
   department: rl
   unit: tl
   justification: voluptas adipisci possimus ut exercitationem id voluptate placeat eveniet unde debitis in sed qui quis sit non repellendus dicta eos qui iusto sit error ipsam reiciendis quia veniam amet vitae quidem pariatur aut aliquam deleniti esse rerum ab
+  review_status: under_review
+  review_comment: nil
 
 labor_request_42:
   employee_type: c1
@@ -580,6 +666,8 @@ labor_request_42:
   number_of_weeks: 45
   department: dpi
   justification: quidem est ipsa repellendus qui maxime rerum aut sequi earum
+  review_status: under_review
+  review_comment: nil
 
 labor_request_43:
   employee_type: c1
@@ -591,6 +679,8 @@ labor_request_43:
   number_of_weeks: 17
   department: dpi
   justification: tempora inventore aliquam iure molestiae a quidem maiores vel voluptatum saepe voluptatem voluptatem iste libero quia ad praesentium non nesciunt eos tenetur quod autem qui reprehenderit ipsam animi sit atque qui incidunt debitis qui consectetur ipsa ab exercitationem alias quo nemo eligendi illum delectus ut veniam officiis
+  review_status: under_review
+  review_comment: nil
 
 labor_request_44:
   employee_type: c1
@@ -602,6 +692,8 @@ labor_request_44:
   number_of_weeks: 52
   department: ps
   justification: voluptas illo placeat a at dolorem et est dolorem quod dolor veniam est in sit eligendi molestias accusamus cum aut consequatur quia aut nulla rerum id iusto alias praesentium voluptatem enim animi laboriosam commodi ullam impedit itaque provident perspiciatis
+  review_status: under_review
+  review_comment: nil
 
 labor_request_45:
   employee_type: student
@@ -614,6 +706,8 @@ labor_request_45:
   number_of_weeks: 15
   department: ssdr
   justification: est nihil voluptatum molestias minima eum pariatur quia rem et dolore voluptatem repudiandae cupiditate quas fugiat assumenda ut id eum autem soluta deleniti numquam ut necessitatibus aperiam iste non quia illum ut libero quia nulla hic maiores in odit suscipit asperiores sint inventore ipsam modi velit quia doloremque qui mollitia
+  review_status: under_review
+  review_comment: nil
 
 labor_request_46:
   employee_type: fac_hrly
@@ -629,6 +723,8 @@ labor_request_46:
   department: as
   unit: tlc
   justification: sunt voluptas similique et doloremque officia quod repudiandae laudantium qui earum quisquam occaecati neque porro aut est vitae quos sed in dolorem perspiciatis dolores dolor quia itaque deleniti nihil sint veritatis provident atque totam
+  review_status: under_review
+  review_comment: nil
 
 labor_request_47:
   employee_type: fac_hrly
@@ -641,6 +737,8 @@ labor_request_47:
   number_of_weeks: 45
   department: com
   justification: est assumenda quo necessitatibus ut eveniet dolorem voluptas ipsa in deserunt ut omnis ad rem earum incidunt odio veniam eum
+  review_status: under_review
+  review_comment: nil
 
 labor_request_48:
   employee_type: c1
@@ -654,6 +752,8 @@ labor_request_48:
   department: rl
   unit: rl
   justification: voluptas eveniet voluptatem vel necessitatibus aut occaecati qui cum nam magnam ut expedita odio animi sit unde autem velit laudantium id
+  review_status: under_review
+  review_comment: nil
 
 labor_request_49:
   employee_type: fac_hrly
@@ -666,6 +766,8 @@ labor_request_49:
   department: rl
   unit: epsl
   justification: amet laboriosam repellendus perferendis vero dolores distinctio deleniti ut rem nobis perspiciatis quod illo excepturi et quasi ea tempore minus voluptatum dignissimos soluta molestiae quo ipsum
+  review_status: under_review
+  review_comment: nil
 
 labor_request_50:
   employee_type: c1
@@ -679,3 +781,5 @@ labor_request_50:
   department: rl
   unit: art
   justification: provident sunt molestias eum corporis asperiores maxime natus ratione non laudantium quia reiciendis ut atque quasi hic quia eos dicta suscipit et aperiam omnis recusandae sint animi consequatur qui libero iure ab
+  review_status: under_review
+  review_comment: nil

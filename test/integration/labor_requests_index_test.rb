@@ -18,7 +18,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     columns = %w(position_description employee_type_code request_type_code
                  contractor_name number_of_positions hourly_rate hours_per_week
                  number_of_weeks annual_cost nonop_funds division_code
-                 department_code unit_code review_status_id)
+                 department_code unit_code review_status_name)
 
     get labor_requests_path
     assert_template 'labor_requests/index'
@@ -56,7 +56,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
     columns = %w(position_description employee_type_code request_type_code
                  contractor_name number_of_positions hourly_rate hours_per_week
                  number_of_weeks nonop_funds division_code department_code
-                 unit_code review_status_id)
+                 unit_code review_status_name)
     sort_directions = %w( asc desc )
     run_as_user(users(:johnny_two_roles)) do
       get labor_requests_path
@@ -85,5 +85,27 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
       assert_select "[id='toolbar_new']", 0
     end
     no_role_user.destroy!
+  end
+
+  test '"Under Review" status should not be displayed but others should be' do
+    review_statuses = [review_statuses(:under_review), review_statuses(:approved),
+                       review_statuses(:not_approved), review_statuses(:contingent)]
+
+    # Assign a review status to each request, using request id to pick the
+    # status
+    LaborRequest.find_each do |labor_request|
+      id = labor_request.id
+      labor_request.review_status_id = review_statuses[id % 4].id
+      labor_request.save!
+    end
+
+    get labor_requests_path
+    doc = Nokogiri::HTML(response.body)
+    review_status_texts = doc.xpath("//td[@headers='review_status']").map(&:text).uniq
+    assert review_status_texts.include?(review_statuses(:approved).name)
+    assert review_status_texts.include?(review_statuses(:not_approved).name)
+    assert review_status_texts.include?(review_statuses(:contingent).name)
+    assert_not review_status_texts.include?(review_statuses(:under_review).name)
+    assert review_status_texts.include?('')
   end
 end

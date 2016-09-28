@@ -65,14 +65,29 @@ class ReviewStatusesController < ApplicationController
   # DELETE /review_statuses/1.json
   def destroy
     authorize ReviewStatus
-    @review_status.destroy
     respond_to do |format|
-      format.html { redirect_to review_statuses_url, notice: 'Review status was successfully destroyed.' }
-      format.json { head :no_content }
+      if delete
+        format.html { redirect_to review_statuses_url, notice: 'Review status was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to review_statuses_url, flash: { error: @error_msg } }
+        format.json { render json: [error], status: :unprocessable_entity }
+      end
     end
   end
 
   private
+
+    # Returns true if the current division was deleted. If the division
+    # cannot be deleted due an ActiveRecord::DeleteRestrictionError, populates
+    # @error_msg and returns false.
+    def delete
+      @review_status.destroy
+      return true
+    rescue ActiveRecord::DeleteRestrictionError
+      @error_msg = 'Review Status cannot be removed as it is used by other records.'
+      return false
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_review_status
@@ -81,6 +96,6 @@ class ReviewStatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_status_params
-      params.require(:review_status).permit(:name, :color)
+      params.require(:review_status).permit(:code, :name, :color)
     end
 end

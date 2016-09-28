@@ -21,14 +21,14 @@
       <th id="division"><%= multi_sort_link(@q, 'division_code', 'Division') %></th>
       <th id="department"><%= multi_sort_link(@q, 'department_code', 'Department') %></th>
       <th id="unit"><%= multi_sort_link(@q, 'unit_code', 'Unit') %></th>
-      <th id="review_status"><%= multi_sort_link(@q, 'review_status_id', 'Review Status') %></th>
+      <th id="review_status"><%= multi_sort_link(@q, 'review_status_name', 'Review Status') %></th>
       <%= render 'shared/table_action_buttons_header', klass: LaborRequest %>
     </tr>
   </thead>
 
   <tbody>
     <% @labor_requests.each do |labor_request| %>
-      <tr <%= "style=background-color:#{labor_request.review_status.color};" if labor_request.review_status %> >
+      <tr <%= "style=background-color:#{labor_request.review_status.color};" if (labor_request.review_status.code != 'UnderReview') %> >
         <td headers="position_description"><%= labor_request.position_description %></td>
         <td headers="employee_type"><%= labor_request.employee_type.code %></td>
         <td headers="request_type"><%= labor_request.request_type.code %></td>
@@ -42,7 +42,7 @@
         <td headers="division"><%= labor_request.department.division.code %></td>
         <td headers="department"><%= labor_request.department.code %></td>
         <td headers="unit"><%= labor_request.unit.code if labor_request.unit %></td>
-        <td headers="review_status"><%= labor_request.review_status.name if labor_request.review_status  %></td>
+        <td headers="review_status"><%= labor_request.review_status.name if (labor_request.review_status.code != 'UnderReview')  %></td>
         <%= render 'shared/table_action_buttons', object: labor_request %>
       </tr>
     <% end %>

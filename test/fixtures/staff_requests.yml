@@ -10,6 +10,8 @@ fac:
   department: prg
   unit: nil
   justification: Because we really really need someone.
+  review_status: under_review
+  review_comment: nil
 
 staff_request_with_status:
   employee_type: fac
@@ -34,6 +36,8 @@ fac_with_unit:
   department: rl
   unit: arch
   justification: Because.
+  review_status: under_review
+  review_comment: nil
 
 # Sample data for pagination
 staff_request_1:
@@ -46,6 +50,8 @@ staff_request_1:
   department: rl
   unit: rc
   justification: deleniti itaque quidem commodi veritatis molestias consequatur doloremque delectus sit ut perspiciatis voluptates
+  review_status: under_review
+  review_comment: nil
 
 staff_request_2:
   employee_type: ex
@@ -54,6 +60,8 @@ staff_request_2:
   annual_base_pay: 198994.68
   department: dds
   justification: odio commodi ut voluptas et error
+  review_status: under_review
+  review_comment: nil
 
 staff_request_3:
   employee_type: ex
@@ -65,6 +73,8 @@ staff_request_3:
   department: as
   unit: lsd
   justification: architecto illum pariatur praesentium necessitatibus ad et aliquid qui quos laborum et velit aperiam velit rerum consectetur voluptatum qui quod molestiae omnis atque expedita ipsam fugiat facilis est
+  review_status: under_review
+  review_comment: nil
 
 staff_request_4:
   employee_type: nex
@@ -83,6 +93,8 @@ staff_request_5:
   annual_base_pay: 148601.90
   department: uss
   justification: praesentium eos alias id est accusantium quia corporis et officia dolorum aperiam similique tenetur totam dignissimos quas libero magnam quis tempora rerum reprehenderit omnis asperiores ducimus nihil consequatur laudantium autem iusto dolore excepturi provident quos eveniet rerum eligendi
+  review_status: under_review
+  review_comment: nil
 
 staff_request_6:
   employee_type: ex
@@ -94,6 +106,8 @@ staff_request_6:
   department: rl
   unit: epsl
   justification: sit aut quidem non assumenda facilis non quia dolorum maiores omnis culpa provident nostrum doloribus enim est tempora reprehenderit rerum qui illo architecto dolorem in occaecati nam amet ducimus et dolor voluptatem accusamus quam debitis velit blanditiis aut molestiae tempore
+  review_status: under_review
+  review_comment: nil
 
 staff_request_7:
   employee_type: ex
@@ -104,6 +118,8 @@ staff_request_7:
   nonop_source: Homenick-Ratke
   department: prg
   justification: odio et quidem aut recusandae explicabo voluptas quos architecto vel ut similique reprehenderit
+  review_status: under_review
+  review_comment: nil
 
 staff_request_8:
   employee_type: ga
@@ -114,6 +130,8 @@ staff_request_8:
   nonop_source: Dibbert and Sons
   department: scua
   justification: dolore est et optio reprehenderit nisi velit voluptates aut et voluptatem est occaecati explicabo cupiditate sunt molestiae dolor nostrum perferendis ut quos laboriosam pariatur beatae voluptate
+  review_status: under_review
+  review_comment: nil
 
 staff_request_9:
   employee_type: ex
@@ -123,6 +141,8 @@ staff_request_9:
   department: rl
   unit: rl
   justification: saepe occaecati velit natus et magni aliquam similique odit voluptates ipsa ea voluptas blanditiis quia eligendi qui sunt ullam quaerat maxime doloribus nihil fugit hic praesentium ipsam et eos sed doloremque facilis tempora corrupti minus est distinctio voluptate dolorum reiciendis et et eveniet et nobis quia odio cumque aut dolores
+  review_status: under_review
+  review_comment: nil
 
 staff_request_10:
   employee_type: fac
@@ -134,6 +154,8 @@ staff_request_10:
   department: as
   unit: lsd
   justification: est earum sint sunt et omnis facere ipsa quam aspernatur et dolor ea ut dolore eveniet fugiat dolorem qui corporis voluptas odio non sed pariatur enim
+  review_status: under_review
+  review_comment: nil
 
 staff_request_11:
   employee_type: ga
@@ -143,6 +165,8 @@ staff_request_11:
   department: as
   unit: ill
   justification: quibusdam ipsa adipisci voluptatem mollitia iste beatae nobis dolores aut quis expedita sit eaque esse commodi quae eveniet in est provident dicta dolor
+  review_status: under_review
+  review_comment: nil
 
 staff_request_12:
   employee_type: fac
@@ -151,6 +175,8 @@ staff_request_12:
   annual_base_pay: 492025.09
   department: do
   justification: quis veritatis iste maiores officiis omnis et aut modi facere autem delectus reiciendis et excepturi expedita aut porro suscipit velit laudantium optio fugit voluptatibus inventore impedit recusandae perferendis facilis molestiae et accusantium adipisci rerum nemo ad quia et veniam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_13:
   employee_type: nex
@@ -162,6 +188,8 @@ staff_request_13:
   department: as
   unit: lsd
   justification: sint enim consectetur nostrum perspiciatis expedita et sapiente quo eos fuga voluptatibus eos iure repudiandae dolor pariatur quod debitis nobis quia laborum natus tempore ut impedit
+  review_status: under_review
+  review_comment: nil
 
 staff_request_14:
   employee_type: ga
@@ -171,6 +199,8 @@ staff_request_14:
   department: rl
   unit: rc
   justification: est placeat dolor et aliquam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_15:
   employee_type: ga
@@ -179,6 +209,8 @@ staff_request_15:
   annual_base_pay: 38482.90
   department: uss
   justification: et ut perspiciatis delectus repellat nam ab consequuntur sunt dolor distinctio reprehenderit voluptatem dignissimos qui eos consequatur sequi eum quis magnam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_16:
   employee_type: ga
@@ -188,6 +220,8 @@ staff_request_16:
   department: as
   unit: tlc
   justification: animi vel voluptatem modi sequi dolorum mollitia eos similique totam quo vel velit cupiditate fugiat ut consequatur quia assumenda
+  review_status: under_review
+  review_comment: nil
 
 staff_request_17:
   employee_type: fac
@@ -196,6 +230,8 @@ staff_request_17:
   annual_base_pay: 474576.93
   department: prg
   justification: dolor quia atque et et aliquid accusantium numquam provident
+  review_status: under_review
+  review_comment: nil
 
 staff_request_18:
   employee_type: ga
@@ -204,6 +240,8 @@ staff_request_18:
   annual_base_pay: 69641.93
   department: acq
   justification: dolorum harum voluptatem ipsam hic nisi quod natus
+  review_status: under_review
+  review_comment: nil
 
 staff_request_19:
   employee_type: fac
@@ -213,6 +251,8 @@ staff_request_19:
   department: as
   unit: ill
   justification: ducimus expedita atque delectus sit fuga sed nostrum quia nemo vitae nobis blanditiis aut qui vero labore voluptatem iusto molestiae culpa et
+  review_status: under_review
+  review_comment: nil
 
 staff_request_20:
   employee_type: ex
@@ -223,6 +263,8 @@ staff_request_20:
   nonop_source: Strosin LLC
   department: prg
   justification: praesentium laborum quo ratione architecto iusto quia cupiditate quaerat error eos maxime aut id officia est excepturi voluptate eos fugit non sequi et tempore rerum quidem impedit qui enim vel placeat nesciunt blanditiis eum
+  review_status: under_review
+  review_comment: nil
 
 staff_request_21:
   employee_type: fac
@@ -231,6 +273,8 @@ staff_request_21:
   annual_base_pay: 128175.90
   department: as
   justification: sed sit voluptatem ullam inventore consequuntur est cumque consectetur aut magni officia asperiores explicabo doloribus quia ut ratione ea expedita rerum repudiandae nihil et minus et eaque voluptates praesentium voluptatem nostrum error impedit rem tempore dolorem et qui repellendus dicta nemo reiciendis libero veritatis aut modi vitae
+  review_status: under_review
+  review_comment: nil
 
 staff_request_22:
   employee_type: nex
@@ -240,6 +284,8 @@ staff_request_22:
   department: rl
   unit: hssl
   justification: quam eum minus voluptatibus blanditiis nesciunt beatae est necessitatibus quo sed similique exercitationem ducimus voluptatem sed excepturi officiis quisquam dignissimos et molestiae illo fuga omnis dolor earum iste magnam consectetur et in et dolores doloremque vel incidunt ad sit maiores
+  review_status: under_review
+  review_comment: nil
 
 staff_request_23:
   employee_type: fac
@@ -249,6 +295,8 @@ staff_request_23:
   department: as
   unit: lsd
   justification: officia nostrum dolore debitis ut architecto qui quam inventore et perferendis temporibus id omnis voluptatem amet ex autem doloribus dolor ut voluptatem quia similique ratione numquam tenetur aut fuga molestiae animi nisi fugiat provident dolores dolores quia autem
+  review_status: under_review
+  review_comment: nil
 
 staff_request_24:
   employee_type: ex
@@ -257,6 +305,8 @@ staff_request_24:
   annual_base_pay: 4673.18
   department: dds
   justification: omnis sunt nam ex distinctio omnis laboriosam sed veniam cupiditate recusandae consectetur laudantium vel est doloremque ut quia qui dolorem dolorem ipsam voluptas aut qui possimus omnis cum incidunt est animi beatae ut temporibus eius molestiae et velit ut nesciunt iure ducimus
+  review_status: under_review
+  review_comment: nil
 
 staff_request_25:
   employee_type: nex
@@ -268,6 +318,8 @@ staff_request_25:
   department: rl
   unit: art
   justification: neque iure est delectus quibusdam dolorum et reiciendis officia et recusandae molestiae commodi omnis iusto eos velit consectetur veritatis tempore sed excepturi repellat quasi in ut dolorem esse sapiente
+  review_status: under_review
+  review_comment: nil
 
 staff_request_26:
   employee_type: fac
@@ -276,6 +328,8 @@ staff_request_26:
   annual_base_pay: 195907.95
   department: bbs
   justification: et et repellendus qui natus qui quis nihil dolor minus eveniet qui aut perspiciatis iste aperiam repellat iure possimus ex quos sunt dolores esse soluta consequatur eum aut quia rerum ad nemo laborum
+  review_status: under_review
+  review_comment: nil
 
 staff_request_27:
   employee_type: ex
@@ -286,6 +340,8 @@ staff_request_27:
   nonop_source: Turcotte, Kshlerin and Murray
   department: ps
   justification: qui officiis laborum quod quaerat sit est et reprehenderit quidem fugiat asperiores veniam hic natus cum nisi exercitationem voluptas blanditiis qui enim vel
+  review_status: under_review
+  review_comment: nil
 
 staff_request_28:
   employee_type: ex
@@ -294,6 +350,8 @@ staff_request_28:
   annual_base_pay: 53657.73
   department: prg
   justification: aut dolorem reiciendis aspernatur fugit quas et accusantium similique
+  review_status: under_review
+  review_comment: nil
 
 staff_request_29:
   employee_type: ga
@@ -305,6 +363,8 @@ staff_request_29:
   department: rl
   unit: tl
   justification: laboriosam est aut nobis vel
+  review_status: under_review
+  review_comment: nil
 
 staff_request_30:
   employee_type: ex
@@ -313,6 +373,8 @@ staff_request_30:
   annual_base_pay: 170813.64
   department: lms
   justification: earum quas aut expedita iusto rerum mollitia explicabo nihil ea qui rem excepturi placeat atque porro itaque distinctio quo neque maiores vero
+  review_status: under_review
+  review_comment: nil
 
 staff_request_31:
   employee_type: nex
@@ -321,6 +383,8 @@ staff_request_31:
   annual_base_pay: 368753.64
   department: cd
   justification: optio maiores et veniam ea dolor consequatur dignissimos beatae qui consectetur fuga maxime assumenda sit nobis ullam illum consequatur inventore quis id possimus omnis occaecati qui sit ex et distinctio dolor amet minus rerum unde ut nisi aliquam eius enim non voluptas sapiente
+  review_status: under_review
+  review_comment: nil
 
 staff_request_32:
   employee_type: fac
@@ -331,6 +395,8 @@ staff_request_32:
   nonop_source: Ryan Inc
   department: mds
   justification: et quos ullam placeat est qui sequi voluptates aut enim modi assumenda non aut dolores neque ducimus doloremque commodi ut pariatur a quidem sint exercitationem cumque amet aut at et totam illum perferendis aperiam beatae facilis eveniet natus repellat veniam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_33:
   employee_type: ga
@@ -340,6 +406,8 @@ staff_request_33:
   department: as
   unit: lsd
   justification: minus autem deserunt iste tenetur vel possimus perferendis distinctio inventore officia magni voluptates quo nam magnam rerum sint ut et sit maxime doloribus ut in non
+  review_status: under_review
+  review_comment: nil
 
 staff_request_34:
   employee_type: fac
@@ -349,6 +417,8 @@ staff_request_34:
   department: as
   unit: ill
   justification: nostrum commodi non illo quisquam numquam aliquam aut dolor mollitia harum necessitatibus aliquid est voluptatum veniam fuga ratione vel consequatur
+  review_status: under_review
+  review_comment: nil
 
 staff_request_35:
   employee_type: fac
@@ -357,6 +427,8 @@ staff_request_35:
   annual_base_pay: 1915.15
   department: dcmr
   justification: aliquam nobis illum molestias quas facere voluptatibus repudiandae aperiam ipsum voluptatum qui molestiae in incidunt perspiciatis qui saepe iste autem asperiores ut qui ut harum dicta dolore provident et consequatur error sed vero sunt ab laboriosam inventore neque quaerat nostrum debitis accusamus ad libero
+  review_status: under_review
+  review_comment: nil
 
 staff_request_36:
   employee_type: nex
@@ -365,6 +437,8 @@ staff_request_36:
   annual_base_pay: 39214.84
   department: lhr
   justification: excepturi non nihil atque id ut veritatis totam ad voluptatem nesciunt aliquam dolores reiciendis sunt praesentium earum ipsam ut aut sed laudantium ea autem eligendi rerum sequi
+  review_status: under_review
+  review_comment: nil
 
 staff_request_37:
   employee_type: fac
@@ -373,6 +447,8 @@ staff_request_37:
   annual_base_pay: 79691.74
   department: bbs
   justification: cumque delectus aut iure nihil voluptas omnis error voluptatem illum consequuntur et non
+  review_status: under_review
+  review_comment: nil
 
 staff_request_38:
   employee_type: ga
@@ -383,6 +459,8 @@ staff_request_38:
   nonop_source: Cormier and Sons
   department: dds
   justification: culpa aspernatur dicta ea id aut alias expedita sit non voluptas accusantium quod in id ut nesciunt necessitatibus consequatur autem tempora doloremque sequi quo voluptatem
+  review_status: under_review
+  review_comment: nil
 
 staff_request_39:
   employee_type: ex
@@ -393,6 +471,8 @@ staff_request_39:
   nonop_source: Balistreri Group
   department: lhr
   justification: vero ut asperiores quia at inventore quod qui sed aut quis laborum corporis velit dolor harum tempora officia magnam numquam veniam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_40:
   employee_type: nex
@@ -401,6 +481,8 @@ staff_request_40:
   annual_base_pay: 235164.61
   department: cd
   justification: facere voluptatibus non illo eum accusantium officiis suscipit ut ex ullam ut sit tempore qui aut nam delectus qui
+  review_status: under_review
+  review_comment: nil
 
 staff_request_41:
   employee_type: ga
@@ -409,6 +491,8 @@ staff_request_41:
   annual_base_pay: 228955.46
   department: dds
   justification: a porro architecto ipsum nostrum similique veniam et
+  review_status: under_review
+  review_comment: nil
 
 staff_request_42:
   employee_type: ga
@@ -419,6 +503,8 @@ staff_request_42:
   nonop_source: Stamm-Towne
   department: scua
   justification: doloribus praesentium animi et incidunt odit aut magnam nulla ut quibusdam suscipit accusantium consequatur aut in exercitationem vitae molestiae ea repellendus voluptatem unde cumque
+  review_status: under_review
+  review_comment: nil
 
 staff_request_43:
   employee_type: ga
@@ -429,6 +515,8 @@ staff_request_43:
   nonop_source: Denesik and Sons
   department: dcmr
   justification: reiciendis adipisci aut ad vero ipsum officiis in debitis necessitatibus amet magnam cumque facilis omnis inventore voluptatem praesentium enim totam corporis dolorem rerum assumenda velit voluptas consequatur et aperiam iure quos alias quod quis quia occaecati qui asperiores tenetur sit est porro dolor neque dolores veniam
+  review_status: under_review
+  review_comment: nil
 
 staff_request_44:
   employee_type: ga
@@ -447,6 +535,8 @@ staff_request_45:
   nonop_source: Ankunding-Mayer
   department: uss
   justification: aliquid quasi quisquam assumenda aliquam nostrum et et praesentium error repellendus earum veritatis quae quo autem ea cum consequatur adipisci ducimus iure cupiditate laboriosam alias sint libero sunt minus voluptatem recusandae reprehenderit dolor culpa voluptas corrupti saepe et ea voluptatem quos illo sed animi ut dolores provident
+  review_status: under_review
+  review_comment: nil
 
 staff_request_46:
   employee_type: ex
@@ -457,6 +547,8 @@ staff_request_46:
   nonop_source: Goodwin-Kohler
   department: lf
   justification: consequatur doloribus soluta eos necessitatibus accusamus qui autem eaque neque eum laudantium sequi
+  review_status: under_review
+  review_comment: nil
 
 staff_request_47:
   employee_type: nex
@@ -465,6 +557,8 @@ staff_request_47:
   annual_base_pay: 244143.22
   department: mds
   justification: rerum itaque rem dolor voluptatem atque qui amet facilis rerum pariatur nisi culpa voluptates distinctio voluptas sint quis aut est quis quia earum ipsa corrupti quas repudiandae numquam alias aperiam qui eaque sunt laborum ut unde a commodi qui sed autem quisquam adipisci vel est labore
+  review_status: under_review
+  review_comment: nil
 
 staff_request_48:
   employee_type: fac
@@ -473,6 +567,8 @@ staff_request_48:
   annual_base_pay: 267663.32
   department: scua
   justification: nihil sint vitae in consequatur nesciunt et soluta eum sit sed porro hic sunt libero labore accusantium omnis velit qui voluptatem vel placeat dignissimos nisi cum similique repudiandae quam eligendi quia et iure voluptatem
+  review_status: under_review
+  review_comment: nil
 
 staff_request_49:
   employee_type: fac
@@ -482,6 +578,8 @@ staff_request_49:
   department: rl
   unit: epsl
   justification: ut corporis est voluptatem exercitationem eum quidem rerum eos numquam ipsa qui repudiandae rerum a cum repellat voluptatem accusamus amet perspiciatis quam quae qui et quisquam illum voluptatibus quia fugit consequatur repellendus magnam eligendi porro autem perferendis velit sit ex consectetur et reiciendis minima
+  review_status: under_review
+  review_comment: nil
 
 staff_request_50:
   employee_type: nex
@@ -490,3 +588,5 @@ staff_request_50:
   annual_base_pay: 29244.41
   department: as
   justification: mollitia ut magnam vitae ut odio autem iste et voluptatem magni occaecati id est sed et cum amet sint praesentium eligendi delectus sit consequatur dolorum excepturi eum voluptates
+  review_status: under_review
+  review_comment: nil

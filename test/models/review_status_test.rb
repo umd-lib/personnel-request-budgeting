@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Tests for reviewstatus model
+# Tests for "ReviewStatus" model
 class ReviewStatusTest < ActiveSupport::TestCase
   def setup
     @review_status = review_statuses(:never)
@@ -13,6 +13,18 @@ class ReviewStatusTest < ActiveSupport::TestCase
   test 'name should be present' do
     @review_status.name = '  '
     assert_not @review_status.valid?
+  end
+
+  test 'code should be present' do
+    @review_status.code = '  '
+    assert_not @review_status.valid?
+  end
+
+  test 'code should be unique' do
+    duplicate_status = @review_status.dup
+    duplicate_status.code = @review_status.code.upcase
+    @review_status.save!
+    assert_not duplicate_status.valid?
   end
 
   test 'request type without associated records can be deleted' do

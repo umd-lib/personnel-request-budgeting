@@ -29,6 +29,8 @@ namespace :upgrade do
   task libitd496_set_default_review_status: :environment do
     default_review_status = ReviewStatus.find_by_code('UnderReview')
     puts "Setting default review status to: '#{default_review_status.name}'"
+
+    puts 'Labor Requests'
     ActiveRecord::Base.transaction do
       LaborRequest.find_each do |request|
         if request.review_status.nil?
@@ -40,6 +42,33 @@ namespace :upgrade do
         end
       end
     end
+
+    puts "\nStaff Requests"
+    ActiveRecord::Base.transaction do
+      StaffRequest.find_each do |request|
+        if request.review_status.nil?
+          request.review_status = default_review_status
+          request.review_status.save!
+          print 'U'
+        else
+          print '.'
+        end
+      end
+    end
+
+    puts "\nContractor Requests"
+    ActiveRecord::Base.transaction do
+      ContractorRequest.find_each do |request|
+        if request.review_status.nil?
+          request.review_status = default_review_status
+          request.review_status.save!
+          print 'U'
+        else
+          print '.'
+        end
+      end
+    end
+
     puts "\nDone."
   end
 end

@@ -38,4 +38,10 @@ en:
       staff_request:
         nonop_funds: *nonop_funds
         nonop_source: *nonop_source
-        
+
+  # Help descriptions for fields
+  # Can use "&#13;" to denote a line break.
+  help_text:
+    position_description: The job title of the position.
+    employee_type: The category of employee (C1, C2, etc.)
+    request_type: The type of request.

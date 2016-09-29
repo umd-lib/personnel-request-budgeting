@@ -51,6 +51,58 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'index should download excel as a user with two roles' do
+    run_as_user(users(:johnny_two_roles)) do
+      get contractor_requests_path
+      assert_select "[id='export']"
+
+      get contractor_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['contractor_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).count + 1,
+                     wb.sheet('ContractorRequest').last_row
+        assert_equal ContractorRequest.fields.length, wb.sheet('ContractorRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
+  test 'index should download excel as an admin' do
+    run_as_user(users(:test_admin)) do
+      get contractor_requests_path
+      assert_select "[id='export']"
+
+      get contractor_requests_path(format: 'xlsx')
+      assert_response :success
+      wb = nil
+
+      begin
+        file = Tempfile.new(['contractor_request', '.xlsx'])
+        file.write(response.body)
+        file.rewind
+        assert_nothing_raised do
+          wb = Roo::Excelx.new(file.path)
+        end
+        assert_equal ContractorRequest.all.count + 1,
+                     wb.sheet('ContractorRequest').last_row
+        assert_equal ContractorRequest.fields.length, wb.sheet('ContractorRequest').last_column
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+  end
+
   test '"New" button should only be shown for users with roles' do
     run_as_user(users(:test_admin)) do
       get contractor_requests_path
@@ -79,7 +131,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
 
     get contractor_requests_path
     doc = Nokogiri::HTML(response.body)
-    review_status_texts = doc.xpath("//td[@headers='review_status']").map(&:text).uniq
+    review_status_texts = doc.xpath("//td[@headers='review_status__name']").map(&:text).uniq
     assert review_status_texts.include?(review_statuses(:approved).name)
     assert review_status_texts.include?(review_statuses(:not_approved).name)
     assert review_status_texts.include?(review_statuses(:contingent).name)

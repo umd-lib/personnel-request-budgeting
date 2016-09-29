@@ -56,6 +56,9 @@ gem 'dotenv-rails', '~> 2.1.1'
 # Used by Rake tasks to generate sample data
 gem 'faker', '~> 1.6'
 
+# Excel support
+gem 'axlsx_rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -77,6 +80,10 @@ group :test do
   gem 'rubocop', '~> 0.39.0', require: false
   gem 'rubocop-checkstyle_formatter', '~> 0.2.0', require: false
   gem 'simplecov', require: false
+
+  # for checking the excel files
+  gem 'roo'
+  gem 'rubyzip', '~> 0.9.9'
 end
 
 group :production do

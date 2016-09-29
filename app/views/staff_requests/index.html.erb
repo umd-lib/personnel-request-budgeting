@@ -4,40 +4,5 @@
 
 <%= render partial: 'shared/index_action_buttons',
   locals: { model_type: StaffRequest, pagination_object: @staff_requests } %>
-
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th id="position_description"><%= multi_sort_link(@q, :position_description, 'Position description') %></th>
-      <th id="employee_type"><%= multi_sort_link(@q, 'employee_type_code', 'Employee type') %></th>
-      <th id="request_type"><%= multi_sort_link(@q, 'request_type_code', 'Request type') %></th>
-      <th id="annual_base_pay"><%= multi_sort_link(@q, :annual_base_pay, 'Annual base pay') %></th>
-      <th id="nonop_funds"><%= multi_sort_link(@q, :nonop_funds, 'Nonop funds') %></th>
-      <th id="division"><%= multi_sort_link(@q, 'division_code', 'Division') %></th>
-      <th id="department"><%= multi_sort_link(@q, 'department_code', 'Department') %></th>
-      <th id="unit"><%= multi_sort_link(@q, 'unit_code', 'Unit') %></th>
-      <th id="review_status"><%= multi_sort_link(@q, 'review_status_name', 'Review Status') %></th>
-      <%= render 'shared/table_action_buttons_header', klass: StaffRequest %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @staff_requests.each do |staff_request| %>
-      <tr <%= "style=background-color:#{staff_request.review_status.color};" if (staff_request.review_status.code != 'UnderReview') %> >
-        <td headers="position_description"><%= staff_request.position_description %></td>
-        <td headers="employee_type"><%= staff_request.employee_type.code %></td>
-        <td headers="request_type"><%= staff_request.request_type.code %></td>
-        <td headers="annual_base_pay"><%= number_to_currency(staff_request.annual_base_pay) %></td>
-        <td headers="nonop_funds"><%= number_to_currency(staff_request.nonop_funds) %></td>
-        <td headers="division"><%= staff_request.department.division.code %></td>
-        <td headers="department"><%= staff_request.department.code %></td>
-        <td headers="unit"><%= staff_request.unit.code if staff_request.unit %></td>
-        <td headers="review_status"><%= staff_request.review_status.name if (staff_request.review_status.code != 'UnderReview') %></td>
-        <%= render 'shared/table_action_buttons', object: staff_request %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= render partial: 'shared/table', locals: { model_type: StaffRequest,  records: @staff_requests } %>
 <%= will_paginate renderer: BootstrapPagination::Rails %>

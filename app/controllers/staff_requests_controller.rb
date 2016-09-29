@@ -7,10 +7,15 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests.json
   def index
     @q = StaffRequest.ransack(params[:q])
-    @q.sorts = %w( division_code department_code unit_code employee_type_code ) if @q.sorts.empty?
 
-    results = @q.result.includes(%i( division employee_type request_type unit ))
-    @staff_requests = policy_scope(results.page(params[:page])) || []
+    default_sorts!
+    include_associations!(%i( division department employee_type request_type unit ))
+    @staff_requests = scope_records(params)
+
+    respond_to do |format|
+      format.html
+      format.xlsx { send_xlsx(@staff_requests, 'staff_requests') }
+    end
   end
 
   # GET /staff_requests/1

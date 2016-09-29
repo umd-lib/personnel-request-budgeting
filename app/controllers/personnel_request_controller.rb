@@ -17,7 +17,7 @@ module PersonnelRequestController
     # Returns the per_page used in the pagniation. xlsx should have all
     # records, otherwise defaults to the WillPaginate global
     def per_page
-      params[:format] == 'xlsx' ? -1 : WillPaginate.per_page
+      params[:format] == 'xlsx' ? 2**10 : WillPaginate.per_page
     end
 
     # Returns a send_data of the XLSX of a record set ( used in the request

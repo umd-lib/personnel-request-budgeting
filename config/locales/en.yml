@@ -20,9 +20,22 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  dictionary: 
+    personnel_request:
+      nonop_funds: &nonop_funds Gift/Other Funds
+      nonop_source: &nonop_source Gift/Other Funds source
   
   activerecord:
     attributes:
       user:
         cas_directory_id: CAS Directory ID
+      contractor_request:
+        nonop_funds: *nonop_funds
+        nonop_source: *nonop_source
+      labor_request:
+        nonop_funds: *nonop_funds
+        nonop_source: *nonop_source
+      staff_request:
+        nonop_funds: *nonop_funds
+        nonop_source: *nonop_source
+        

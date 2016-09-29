@@ -23,7 +23,7 @@ class LaborRequest < ActiveRecord::Base
     number_of_weeks: { label: 'Numbers of Weeks' },
     annual_cost: {  label: 'Annual Cost',
                     decorator: :number_to_currency },
-    nonop_funds: {  label: 'Nonop Funds',
+    nonop_funds: {  label: LaborRequest.human_attribute_name('nonop_funds'),
                     decorator: :number_to_currency },
     division__code: { label: 'Division' },
     department__code: { label: 'Department' },

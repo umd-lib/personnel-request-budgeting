@@ -21,4 +21,18 @@ class LaborRequestsShowTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'nonop funds labels should be internationalized' do
+    get labor_request_path(@labor_request)
+    nonop_funds_i18n_key = 'activerecord.attributes.labor_request.nonop_funds'
+    nonop_source_i18n_key = 'activerecord.attributes.labor_request.nonop_source'
+
+    assert I18n.exists?(nonop_funds_i18n_key, :en)
+    assert I18n.exists?(nonop_source_i18n_key, :en)
+
+    assert_select 'th', { count: 1, text: I18n.t(nonop_funds_i18n_key) },
+                  "No label matching '#{I18n.t(nonop_funds_i18n_key)}' was found."
+    assert_select 'th', { count: 1, text: I18n.t(nonop_source_i18n_key) },
+                  "No label matching '#{I18n.t(nonop_source_i18n_key)}' was found."
+  end
 end

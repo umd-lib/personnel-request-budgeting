@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'integration/personnel_requests_test_helper'
 
 # Integration test for the LaborRequest show page
 class LaborRequestsShowTest < ActionDispatch::IntegrationTest
+  include PersonnelRequestsTestHelper
+
   def setup
     @labor_request = labor_requests(:fac_hrly_renewal)
   end
@@ -24,15 +27,7 @@ class LaborRequestsShowTest < ActionDispatch::IntegrationTest
 
   test 'nonop funds labels should be internationalized' do
     get labor_request_path(@labor_request)
-    nonop_funds_i18n_key = 'activerecord.attributes.labor_request.nonop_funds'
-    nonop_source_i18n_key = 'activerecord.attributes.labor_request.nonop_source'
-
-    assert I18n.exists?(nonop_funds_i18n_key, :en)
-    assert I18n.exists?(nonop_source_i18n_key, :en)
-
-    assert_select 'th', { count: 1, text: I18n.t(nonop_funds_i18n_key) },
-                  "No label matching '#{I18n.t(nonop_funds_i18n_key)}' was found."
-    assert_select 'th', { count: 1, text: I18n.t(nonop_source_i18n_key) },
-                  "No label matching '#{I18n.t(nonop_source_i18n_key)}' was found."
+    verify_i18n_label('th', 'activerecord.attributes.labor_request.nonop_funds')
+    verify_i18n_label('th', 'activerecord.attributes.labor_request.nonop_source')
   end
 end

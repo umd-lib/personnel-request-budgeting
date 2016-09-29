@@ -28,7 +28,7 @@ class LaborRequest < ActiveRecord::Base
     division__code: { label: 'Division' },
     department__code: { label: 'Department' },
     unit__code: { label: 'Unit' },
-    review_status__name: { label: 'Review Status', 
+    review_status__name: { label: 'Review Status',
                            decorator: :suppress_status }
   }.freeze
 
@@ -43,7 +43,8 @@ class LaborRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'Not an allowed request type for this request.')
     end
-  end 
+  end
+
   # Returns an array that can be used to generate index/xslx views
   # to set this up, each key is callable on the object. to chain methods,
   # use a double _ ( e.g. labor_request.request_type.code = request_type__code )

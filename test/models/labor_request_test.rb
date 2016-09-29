@@ -1,7 +1,6 @@
 require 'test_helper'
 
 # Tests for the "LaborRequest" model
-# rubocop:disable Metrics/ClassLength
 class LaborRequestTest < ActiveSupport::TestCase
   def setup
     @labor_request = labor_requests(:c1)

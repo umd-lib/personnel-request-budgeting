@@ -18,7 +18,7 @@ class StaffRequest < ActiveRecord::Base
     division__code: { label: 'Division' },
     department__code: { label: 'Department' },
     unit__code: { label: 'Unit' },
-    review_status__name: { label: 'Review Status', 
+    review_status__name: { label: 'Review Status',
                            decorator: :suppress_status }
   }.freeze
 

@@ -1,6 +1,5 @@
 require 'test_helper'
 
-# rubocop:disable Metrics/ClassLength
 class ContractorRequestsControllerTest < ActionController::TestCase
   setup do
     @contractor_request = contractor_requests(:c2)

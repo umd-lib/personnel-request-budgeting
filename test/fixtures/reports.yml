@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+awesome:
+  status: completed
+  format: xlsx 
+  name: AwesomeReport 
+  user: test_admin
+  created_at: Time.now
+  output: Crap
+
+requests:
+  status: completed
+  format: xlsx 
+  name: RequestsByTypeReport 
+  user: test_admin
+  created_at: Time.now
+
+killme:
+  status: completed
+  format: xlsx 
+  name: BrainDeadReport 
+  user: test_admin
+  created_at: Time.now
+
+stuck:
+  status: error
+  format: xlsx 
+  name: BrainDeadReport 
+  user: test_admin
+  created_at: Time.now

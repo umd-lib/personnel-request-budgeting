@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :divisions
   resources :users
 
+  resources :reports
+  get '/reports/:id/download' => 'reports#download', as: :report_download
+
   get 'impersonate' => 'impersonate#index', as: :impersonate
   get 'impersonate/user/:user_id' => 'impersonate#create', as: :impersonate_user
   delete 'impersonate/revert' => 'impersonate#destroy', as: :revert_impersonate_user

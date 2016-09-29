@@ -10,10 +10,15 @@ AllCops:
     - 'config/application.rb'
     - 'db/schema.rb'
     - 'db/migrate/*'
+  TargetRubyVersion: 2.2
 
 # Increase max allowed line length
 Metrics/LineLength:
   Max: 120
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
 
 # The following configuration exclude checks that seem
 # silly, or conflict with the way Rails naturally does
@@ -28,7 +33,7 @@ Style/Documentation:
 
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'test/test_helper.rb'
+    - 'test/**/*'
 
 Style/IndentationConsistency:
   EnforcedStyle: rails

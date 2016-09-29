@@ -1,15 +1,22 @@
-klass = records.first.class
+record_set = Array.wrap(record_set)
+worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
+
 wb = xlsx_package.workbook
-wb.add_worksheet( name: klass.name ) do |sheet|
-  sheet.add_row klass.fields.map { |k,v| v[:label] }
-  records.each do |record| 
-    data = klass.fields.map do |field, attrs|
-      if attrs[:decorator]
-        self.send( attrs[:decorator], record.call_field(field) )
-      else
-        record.call_field field
+
+record_set.each_with_index do |records, i|
+  name = worksheets[i] ? worksheets[i] : worksheets.first 
+  fields = klass.fields.has_key?(name) ? klass.fields[name] : klass.fields 
+  wb.add_worksheet( name: name ) do |sheet|
+    sheet.add_row [ "Request Type" ] + fields.map { |k,v| v[:label] }
+    records.each do |record| 
+      data = [ record.class.to_s.underscore.humanize ] + fields.map do |field, attrs|
+        if attrs[:decorator]
+          self.send( attrs[:decorator], record.call_field(field) )
+        else
+          record.call_field field
+        end
       end
+      sheet.add_row data
     end
-    sheet.add_row data
   end
 end

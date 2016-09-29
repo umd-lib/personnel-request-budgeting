@@ -36,6 +36,7 @@ module Requestable
 
   # method to call the fields expressed in .fields
   def call_field(field)
+    field = field.to_sym
     return nil unless self.class.fields.include?(field)
     field.to_s.split('__').inject(self) { |a, e| a.send(e) unless a.nil? }
   end

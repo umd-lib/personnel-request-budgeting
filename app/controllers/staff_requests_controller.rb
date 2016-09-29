@@ -14,7 +14,7 @@ class StaffRequestsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xlsx { send_xlsx(@staff_requests, 'staff_requests') }
+      format.xlsx { send_xlsx(@staff_requests, StaffRequest) }
     end
   end
 

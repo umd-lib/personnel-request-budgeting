@@ -27,4 +27,6 @@ class AdminOnlyPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  alias download? show?
 end

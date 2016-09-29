@@ -23,11 +23,11 @@ module PersonnelRequestController
     # Returns a send_data of the XLSX of a record set ( used in the request
     # controllers )
     #
-    # records: the ransack results in the query
+    # record_set: the ransack results in the query
     # filename: the filename sent in the response headers
-    def send_xlsx(records, filename = 'export')
-      stream = render_to_string(template: 'shared/index', locals: { records: records })
-      send_data(stream, filename: "#{filename}_#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.xlsx")
+    def send_xlsx(record_set, klass)
+      stream = render_to_string(template: 'shared/index', locals: { klass: klass, record_set: [record_set] })
+      send_data(stream, filename: "#{klass.to_s.underscore}_#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.xlsx")
     end
 
     # Sets the default sort columns for request index pages

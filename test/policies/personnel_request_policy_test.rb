@@ -1,7 +1,6 @@
 require 'test_helper'
 
 # Tests for PersonnelRequestPolicy class
-# rubocop:disable Metrics/ClassLength
 class PersonnelRequestPolicyTest < ActiveSupport::TestCase
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def setup

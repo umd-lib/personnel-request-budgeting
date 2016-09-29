@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>Reports</h1>
+</div>
+
+<%= render 'shared/index_action_buttons', model_type: Report %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :name, 'Name') %></th>
+      <th><%= sort_link(@q, :format, 'Format') %></th>
+      <th><%= sort_link(@q, :creator_name, 'Creator') %></th>
+      <th><%= sort_link(@q, :created_at, "Created At") %></th> 
+      <th><%= sort_link(@q, :status, 'Status') %></th>
+      <td>Output</td>
+      <%= render 'shared/table_action_buttons_header' %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <%= content_tag :tr, id: "report_#{report.id}" do %>
+        <td><%= report.name.underscore.humanize %></td>
+        <td><%= report.format %></td>
+        <td><%= report.creator.name  %></td>
+        <td><%= report.created_at  %></td>
+        <td><%= report.status %></td>
+        <td><%= link_to "Download", report_download_path(report, format: report.format), class: 'download' unless report.output.nil? %></td> 
+        <%= render 'shared/table_action_buttons', object: report %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate renderer: BootstrapPagination::Rails %>

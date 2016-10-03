@@ -117,4 +117,9 @@ class StaffRequestsEditTest < ActionDispatch::IntegrationTest
     verify_i18n_label("label[for='staff_request_nonop_funds']", 'activerecord.attributes.staff_request.nonop_funds')
     verify_i18n_label("label[for='staff_request_nonop_source']", 'activerecord.attributes.staff_request.nonop_source')
   end
+
+  test 'help descriptors should be shown' do
+    get edit_staff_request_path(@staff_request)
+    assert_select 'i.help-text-icon'
+  end
 end

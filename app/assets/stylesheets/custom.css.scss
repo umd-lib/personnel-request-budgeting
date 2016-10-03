@@ -26,7 +26,17 @@ input[id$="nonop_source"],
 textarea[id$="justification"],
 textarea[id$='review_comment']
 {
-  width: 100%;
+  width: 96%; // Leave space for "tooltip" icon
+}
+
+// Help text icon - override icon colors and size
+.help-text-icon:after {
+  background-color: transparent;
+  color: #3366ff;
+  font-size: 110%;
+  font-family: "Glyphicons Halflings";
+  content: "\e085"; // glyphicon-question-sign
+  font-style: normal
 }
 
 // Display white space when displaying Justification field

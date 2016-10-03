@@ -5,47 +5,78 @@
     <tbody>
       <tr>
         <th><%= f.label :position_description %></th>
-        <td><%= f.text_field :position_description %></td>
+        <td>
+          <%= f.text_field :position_description %>
+          <%= help_text_icon('help_text.position_description') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :employee_type_id %></th>
-        <td><%= select("labor_request", "employee_type_id", 
+        <td>
+          <%= select("labor_request", "employee_type_id", 
            EmployeeType.employee_types_with_category(LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE).order("name").collect {|e| [ e.name, e.id ] },
-           {prompt: 'Select Employee Type'}) %></td>
+           {prompt: 'Select Employee Type'}) %>
+          <%= help_text_icon('help_text.employee_type') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :request_type_id %></th>
-        <td><%= select("labor_request", "request_type_id",
-          RequestType.order("name").select { |a| LaborRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
-          {prompt: 'Select Request Type'}) %></td>
+        <td>
+          <%= select("labor_request", "request_type_id",
+            RequestType.order("name").select { |a| LaborRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
+            {prompt: 'Select Request Type'}) %>
+          <%= help_text_icon('help_text.request_type') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :contractor_name %></th>
-        <td><%= f.text_field :contractor_name %></td>
+        <td>
+          <%= f.text_field :contractor_name %>
+          <%= help_text_icon('help_text.contractor_name') %>
       </tr>
       <tr>
         <th><%= f.label :number_of_positions %></th>
-        <td><%= f.number_field :number_of_positions, min: 1, value: 1 %></td>
+        <td>
+          <%= f.number_field :number_of_positions, min: 1, value: 1 %>
+          <%= help_text_icon('help_text.number_of_positions') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :hourly_rate %></th>
-        <td><%= f.text_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, precision: 2) %></td>
+        <td>
+          <%= f.text_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, precision: 2) %>
+          <%= help_text_icon('help_text.hourly_rate') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :hours_per_week %></th>
-        <td><%= f.text_field :hours_per_week %></td>
+        <td>
+          <%= f.text_field :hours_per_week %>
+          <%= help_text_icon('help_text.hours_per_week') %>
+        </td>
+
       </tr>
       <tr>
         <th><%= f.label :number_of_weeks %></th>
-        <td><%= f.number_field :number_of_weeks, min: 1, value: 1 %></td>
+        <td>
+          <%= f.number_field :number_of_weeks, min: 1, value: 1 %>
+          <%= help_text_icon('help_text.number_of_weeks') %>
+        </td>
+
       </tr>
       <tr>
         <th><%= f.label :nonop_funds %></th>
-        <td><%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %></td>
+        <td>
+          <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %>
+          <%= help_text_icon('help_text.nonop_funds') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :nonop_source %></th>
-        <td><%= f.text_field :nonop_source %></td>
+        <td>
+          <%= f.text_field :nonop_source %>
+          <%= help_text_icon('help_text.nonop_source') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :department_id %></th>
@@ -54,6 +85,7 @@
             depts = @selectable_departments.collect { |d| [ d.name, d.id ] }
             select("labor_request", "department_id", depts, { prompt: 'Select Department' }) 
           %>
+          <%= help_text_icon('help_text.department') %>
         </td>
       </tr>
       <tr>
@@ -65,19 +97,29 @@
             units.unshift( ["<Clear Unit>", nil ] ) if @labor_request.unit
             select("labor_request", "unit_id", units, { prompt: 'Select Unit' })
           %>
+          <%= help_text_icon('help_text.unit') %>
         </td>
       </tr>
       <tr>
         <th><%= f.label :justification %></th>
-        <td><%= f.text_area :justification %></td>
+        <td>
+          <%= f.text_area :justification %>
+          <%= help_text_icon('help_text.justification') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :review_status %></th>
-        <td><%= select("labor_request", "review_status_id", ReviewStatus.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Review Status' }, disabled: !current_user.admin?) %></td>
+        <td>
+          <%= select("labor_request", "review_status_id", ReviewStatus.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Review Status' }, disabled: !current_user.admin?) %>
+          <%= help_text_icon('help_text.review_status') %>
+        </td>
       </tr>
       <tr>
         <th><%= f.label :review_comment %></th>
-        <td><%= f.text_area :review_comment, :disabled => !current_user.admin? %></td>
+        <td>
+          <%= f.text_area :review_comment, :disabled => !current_user.admin? %>
+          <%= help_text_icon('help_text.review_comment') %>
+        </td>
       </tr>
     </tbody>
   </table>

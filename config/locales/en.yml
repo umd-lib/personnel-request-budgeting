@@ -38,4 +38,19 @@ en:
       staff_request:
         nonop_funds: *nonop_funds
         nonop_source: *nonop_source
-        
+
+  # Help descriptions for fields
+  # Can use "&#13;" to denote a line break.
+  help_text:
+    annual_base_pay: Estimated annual salary for the position
+    contractor_name: Name of person in the position being replaced or renewed.
+    hourly_rate:  Please note current minimum wage is $8.75/hr
+    hours_per_week: Estimated number of hours the person will work per week. 
+    justification: Provide a brief explanation justifying the purpose for the request 
+    nonop_funds: Amount of gift, grant or other funds supporting the position
+    nonop_source: Name of gift, grant or other account supporting the position
+    number_of_months: Length of Contract period in months
+    number_of_positions: You may combine students on the same line provided they are at the same rate of pay and the same number of hours per week.
+    number_of_weeks: Estimated number of weeks the person will work during the fiscal year.  Refer to the Number of Weeks document for assistance.
+    position_description: Position name/title
+    unit: Select Unit name within a department, if applicable.

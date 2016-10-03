@@ -32,4 +32,19 @@ module PersonnelRequestsTestHelper
     options_text = options.map(&:text)
     assert_equal expected_options_text.sort, options_text.sort
   end
+
+  # Verifies that the given i18n_key exists, and that the text for the
+  # given selector matches the text for the i18n_key
+  #
+  # This method assumes that a "response" object containing the page response
+  # exists.
+  #
+  # selector - the selector passed to 'assert_select' for finding the text
+  # i18n_key - the I18N key for retrieving the expected text. The key must
+  #   exist in localization file.
+  def verify_i18n_label(selector, i18n_key)
+    assert I18n.exists?(i18n_key, :en)
+    assert_select selector, { count: 1, text: I18n.t(i18n_key) },
+                  "No label matching '#{I18n.t(i18n_key)}' was found."
+  end
 end

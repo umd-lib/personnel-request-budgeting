@@ -111,4 +111,10 @@ class StaffRequestsEditTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'nonop funds labels should be internationalized' do
+    get edit_staff_request_path(@staff_request)
+    verify_i18n_label("label[for='staff_request_nonop_funds']", 'activerecord.attributes.staff_request.nonop_funds')
+    verify_i18n_label("label[for='staff_request_nonop_source']", 'activerecord.attributes.staff_request.nonop_source')
+  end
 end

@@ -111,4 +111,12 @@ class ContractorRequestsEditTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'nonop funds labels should be internationalized' do
+    get edit_contractor_request_path(@contractor_request)
+    verify_i18n_label("label[for='contractor_request_nonop_funds']",
+                      'activerecord.attributes.contractor_request.nonop_funds')
+    verify_i18n_label("label[for='contractor_request_nonop_source']",
+                      'activerecord.attributes.contractor_request.nonop_source')
+  end
 end

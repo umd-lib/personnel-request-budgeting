@@ -111,4 +111,10 @@ class LaborRequestsEditTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'nonop funds labels should be internationalized' do
+    get edit_labor_request_path(@labor_request)
+    verify_i18n_label("label[for='labor_request_nonop_funds']", 'activerecord.attributes.labor_request.nonop_funds')
+    verify_i18n_label("label[for='labor_request_nonop_source']", 'activerecord.attributes.labor_request.nonop_source')
+  end
 end

@@ -13,7 +13,7 @@ class StaffRequest < ActiveRecord::Base
     request_type__code: { label: 'Request Type' },
     annual_base_pay: {  label: 'Annual Base Pay',
                         decorator: :number_to_currency },
-    nonop_funds: {  label: 'Nonop Funds',
+    nonop_funds: {  label: StaffRequest.human_attribute_name('nonop_funds'),
                     decorator: :number_to_currency },
     division__code: { label: 'Division' },
     department__code: { label: 'Department' },

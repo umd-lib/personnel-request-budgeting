@@ -138,4 +138,9 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
     assert_not review_status_texts.include?(review_statuses(:under_review).name)
     assert review_status_texts.include?('')
   end
+
+  test 'nonop funds label should be internationalized' do
+    get contractor_requests_path
+    verify_i18n_label('th#nonop_funds', 'activerecord.attributes.contractor_request.nonop_funds')
+  end
 end

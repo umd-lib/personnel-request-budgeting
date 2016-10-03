@@ -18,7 +18,7 @@ class ContractorRequest < ActiveRecord::Base
     number_of_months: { label: 'Number of Months' },
     annual_base_pay: {  label: 'Annual Base Pay',
                         decorator: :number_to_currency },
-    nonop_funds: { label: 'Nonop Funds',
+    nonop_funds: { label: ContractorRequest.human_attribute_name('nonop_funds'),
                    decorator: :number_to_currency },
     division__code: { label: 'Division' },
     department__code: { label: 'Department' },

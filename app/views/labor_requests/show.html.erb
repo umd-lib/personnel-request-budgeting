@@ -50,12 +50,12 @@
     </tr>
 
     <tr>
-      <th>Nonop funds:</th>
+      <th><%= LaborRequest.human_attribute_name('nonop_funds') %></th>
       <td id="nonop_funds"><%= number_to_currency(@labor_request.nonop_funds) %></td>
     </tr>
 
     <tr>
-      <th>Nonop source:</th>
+      <th><%= LaborRequest.human_attribute_name('nonop_source') %></th>
       <td id="nonop_source"><%= @labor_request.nonop_source %></td>
     </tr>
 

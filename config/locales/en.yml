@@ -42,6 +42,20 @@ en:
   # Help descriptions for fields
   # Can use "&#13;" to denote a line break.
   help_text:
-    position_description: The job title of the position.
-    employee_type: The category of employee (C1, C2, etc.)
-    request_type: The type of request.
+    annual_base_pay: Annual base pay
+    contractor_name: Contractor Name
+    department: Department
+    employee_type: Employee Type
+    hourly_rate: Hourly rate
+    hours_per_week: Hours per week
+    justification: Justification
+    nonop_funds: Nonop funds
+    nonop_source: Nonop Source
+    number_of_months: Number of months
+    number_of_positions: Number of positions
+    number_of_weeks: Number of weeks
+    position_description: Position Description
+    request_type: Request Type
+    review_comment: Review Comment
+    review_status: Review Status
+    unit: Unit

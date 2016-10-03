@@ -85,6 +85,7 @@ group :test do
   gem 'rubocop', '~> 0.39.0', require: false
   gem 'rubocop-checkstyle_formatter', '~> 0.2.0', require: false
   gem 'simplecov', require: false
+  gem 'simplecov-rcov', require: false
 
   # for checking the excel files
   gem 'roo'

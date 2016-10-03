@@ -86,6 +86,7 @@ GEM
     execjs (2.6.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    github-markup (1.4.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     htmlentities (4.3.4)
@@ -164,6 +165,7 @@ GEM
       polyamorous (~> 1.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    redcarpet (3.3.4)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -223,6 +225,7 @@ GEM
     will_paginate (3.1.0)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
+    yard (0.9.5)
 
 PLATFORMS
   ruby
@@ -234,6 +237,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   dotenv-rails (~> 2.1.1)
   faker (~> 1.6)
+  github-markup
   jbuilder (~> 2.0)
   jquery-rails
   minitest-ci (~> 3.0.3)
@@ -242,6 +246,7 @@ DEPENDENCIES
   pundit (~> 1.1)
   rails (= 4.2.6)
   ransack (~> 1.7.0)
+  redcarpet
   roo
   rubocop (~> 0.39.0)
   rubocop-checkstyle_formatter (~> 0.2.0)
@@ -258,6 +263,7 @@ DEPENDENCIES
   web-console (~> 2.0)
   will_paginate (~> 3.1.0)
   will_paginate-bootstrap (~> 1.0.0)
+  yard
 
 BUNDLED WITH
    1.11.2

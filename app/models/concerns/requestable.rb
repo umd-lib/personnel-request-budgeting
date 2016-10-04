@@ -27,17 +27,8 @@ module Requestable
     end
   end
 
-  # Returns an array that can be used to generate index/xslx views
-  # to set this up, each key is callable on the object. to chain methods,
-  # use a double _ ( e.g. labor_request.request_type.code = request_type__code )
-  def self.fields
-    {}
-  end
-
   # method to call the fields expressed in .fields
   def call_field(field)
-    field = field.to_sym
-    return nil unless self.class.fields.include?(field)
     field.to_s.split('__').inject(self) { |a, e| a.send(e) unless a.nil? }
   end
 end

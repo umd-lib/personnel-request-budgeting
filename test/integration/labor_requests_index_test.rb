@@ -91,7 +91,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), LaborRequest).count + 1,
                      wb.sheet('LaborRequests').last_row
-        assert_equal 15, wb.sheet('LaborRequests').last_column
+        assert_equal 20, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink
@@ -117,7 +117,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal LaborRequest.all.count + 1,
                      wb.sheet('LaborRequests').last_row
-        assert_equal 15, wb.sheet('LaborRequests').last_column
+        assert_equal 20, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink

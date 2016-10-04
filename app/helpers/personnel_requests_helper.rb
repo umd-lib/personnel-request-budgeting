@@ -3,9 +3,14 @@ module PersonnelRequestsHelper
   # Returns a list of fields for a record
   #
   # @param klass [Class] the active record klass being displayed
+  # @param show_all [Boolean] option to include all fields in class 
   # @return [Array] the list of fields being displayed
-  def fields(klass)
-    send(:"#{klass.to_s.underscore}_fields")
+  def fields(klass, show_all = false )
+    fields = send(:"#{klass.to_s.underscore}_fields") 
+    if show_all
+      fields += klass.attribute_names.select { |a| !a.match(/id$/) }.map(&:intern) 
+    end
+    fields.uniq 
   end
 
   # Calls the field on the record and attempts to display it.

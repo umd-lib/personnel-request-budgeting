@@ -1,9 +1,4 @@
 module ApplicationHelper
-  # simply removes the status if it is "UnderReview"
-  def suppress_status(status)
-    status == 'Under Review' ? '' : status
-  end
-
   # Returns HTML content for a tooltip displaying the given translation key,
   # or nil if the translation key is not set.
   def help_text_icon(translation_key)

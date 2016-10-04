@@ -1,8 +1,8 @@
-<thead>
+<thead class='<%= "#{klass.to_s.underscore}_fields" %>'>
   <tr>
-  <%- model_type.fields.each do |field, attrs | %>
-    <th id="<%= field.to_s %>"><%= multi_sort_link(@q, field, attrs[:label] ) %></th>
+  <%- fields(klass).each do |field | %>
+    <th id="<%= field.to_s %>"><%= multi_sort_link( @q, field, klass.human_attribute_name(field) ) %></th>
   <% end %>
-    <%= render 'shared/table_action_buttons_header',  model_type: model_type  %>
+    <%= render 'shared/table_action_buttons_header',  model_type: klass  %>
   </tr>
 </thead>

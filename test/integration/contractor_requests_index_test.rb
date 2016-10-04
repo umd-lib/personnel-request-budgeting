@@ -68,8 +68,8 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
           wb = Roo::Excelx.new(file.path)
         end
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).count + 1,
-                     wb.sheet('ContractorRequest').last_row
-        assert_equal ContractorRequest.fields.length + 1, wb.sheet('ContractorRequest').last_column
+                     wb.sheet('ContractorRequests').last_row
+        assert_equal 17, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink
@@ -94,8 +94,8 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
           wb = Roo::Excelx.new(file.path)
         end
         assert_equal ContractorRequest.all.count + 1,
-                     wb.sheet('ContractorRequest').last_row
-        assert_equal ContractorRequest.fields.length + 1, wb.sheet('ContractorRequest').last_column
+                     wb.sheet('ContractorRequests').last_row
+        assert_equal 17, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink

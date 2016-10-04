@@ -90,8 +90,8 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
           wb = Roo::Excelx.new(file.path)
         end
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), LaborRequest).count + 1,
-                     wb.sheet('LaborRequest').last_row
-        assert_equal LaborRequest.fields.length + 1, wb.sheet('LaborRequest').last_column
+                     wb.sheet('LaborRequests').last_row
+        assert_equal 20, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink
@@ -116,8 +116,8 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
           wb = Roo::Excelx.new(file.path)
         end
         assert_equal LaborRequest.all.count + 1,
-                     wb.sheet('LaborRequest').last_row
-        assert_equal LaborRequest.fields.length + 1, wb.sheet('LaborRequest').last_column
+                     wb.sheet('LaborRequests').last_row
+        assert_equal 20, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink

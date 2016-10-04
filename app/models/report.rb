@@ -3,8 +3,17 @@ class Report < ActiveRecord::Base
   belongs_to :user
   alias_attribute :creator, :user
 
-  enum status: %i( pending running error completed )
-  enum format: %i( xlsx pdf )
+  enum status: {
+    pending: 0,
+    running: 1,
+    error: 2,
+    completed: 3
+  }
+
+  enum format: {
+    xlsx: 0,
+    pdf: 1
+  }
 
   %i( format status name ).each { |f| validates f, presence: true }
 

@@ -3,17 +3,19 @@ require 'test_helper'
 # Integration test for the Reports index page
 class ReportsIndexTest < ActionDispatch::IntegrationTest
   test 'index including sorting' do
-    columns = %w(name format creator_name created_at status)
+    # Ransack doesn't understand aliases for sorting, so using
+    # "user_name" instead of "creator_name"
+    sort_columns = %w(name format user_name created_at status)
     enum_fields = %w(format status)
 
     get reports_path
     assert_template 'reports/index'
 
     # Verify sort links
-    assert_select 'a.sort_link', count: columns.size
+    assert_select 'a.sort_link', count: sort_columns.size
 
     # Verify sorting
-    columns.each do |column|
+    sort_columns.each do |column|
       %w(asc desc).each do |order|
         q_param = { s: column + ' ' + order }
         get reports_path, q: q_param

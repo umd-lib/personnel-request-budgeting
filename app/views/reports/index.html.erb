@@ -8,7 +8,9 @@
     <tr>
       <th id="name"><%= sort_link(@q, :name, 'Name') %></th>
       <th id="format"><%= sort_link(@q, :format, 'Format') %></th>
-      <th id="creator_name"><%= sort_link(@q, :creator_name, 'Creator') %></th>
+      <!-- Ransack doesn't understand aliases when sorting, so need to use
+           "user_name" instead of "creator_name" -->
+      <th id="creator_name"><%= sort_link(@q, :user_name, 'Creator') %></th>
       <th id="created_at"><%= sort_link(@q, :created_at, "Created At") %></th> 
       <th id="status"><%= sort_link(@q, :status, 'Status') %></th>
       <th id="download">Output</th>

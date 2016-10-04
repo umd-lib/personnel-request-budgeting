@@ -69,7 +69,11 @@ class ReportsController < ApplicationController
   def download
     authorize Report
     respond_to do |format|
-      format.xlsx { send_data @report.output, filename: "#{@report.name}.xlsx", disposition: 'attachment' }
+      format.xlsx do
+        send_data @report.output,
+                  filename: "#{@report.name}_#{@report.created_at.strftime('%Y%m%d%H%M%S')}.xlsx",
+                  disposition: 'attachment'
+      end
     end
   end
 

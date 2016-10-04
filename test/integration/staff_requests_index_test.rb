@@ -69,7 +69,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), StaffRequest).count + 1,
                      wb.sheet('StaffRequests').last_row
-        assert_equal 15, wb.sheet('StaffRequests').last_column
+        assert_equal 16, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink
@@ -95,7 +95,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal StaffRequest.all.count + 1,
                      wb.sheet('StaffRequests').last_row
-        assert_equal 15, wb.sheet('StaffRequests').last_column
+        assert_equal 16, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink

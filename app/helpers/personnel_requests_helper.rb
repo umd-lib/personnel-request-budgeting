@@ -1,16 +1,15 @@
 module PersonnelRequestsHelper
-  
   # Returns a list of fields for a record
   #
   # @param klass [Class] the active record klass being displayed
-  # @param show_all [Boolean] option to include all fields in class 
+  # @param show_all [Boolean] option to include all fields in class
   # @return [Array] the list of fields being displayed
-  def fields(klass, show_all = false )
-    fields = send(:"#{klass.to_s.underscore}_fields") 
+  def fields(klass, show_all = false)
+    fields = send(:"#{klass.to_s.underscore}_fields")
     if show_all
-      fields += klass.attribute_names.select { |a| !a.match(/id$/) }.map(&:intern) 
+      fields += klass.attribute_names.select { |a| !a.match(/id$/) }.map(&:intern)
     end
-    fields.uniq 
+    fields.uniq
   end
 
   # Calls the field on the record and attempts to display it.
@@ -19,7 +18,7 @@ module PersonnelRequestsHelper
   #
   # @param record [ActiveRecord] the record with the field
   # @param field [Symbol] the field name ( use __ to indicate associations )
-  # @return [String] value from record field 
+  # @return [String] value from record field
   def call_record_field(record, field)
     method = "render_#{field}".intern
     if respond_to? method
@@ -37,8 +36,8 @@ module PersonnelRequestsHelper
   # Formats review status based on the codey
   # @param record [ActiveRecord] the record to be called
   def render_review_status__name(record)
-    if record.review_status.code == "UnderReview"
-      ""
+    if record.review_status.code == 'UnderReview'
+      ''
     else
       record.call_field(:review_status__name)
     end
@@ -53,7 +52,7 @@ module PersonnelRequestsHelper
         nonop_funds division__code department__code unit__code review_status__name
       )
   end
-  
+
   # Returns an array of the fields used in staff_requests
   #
   # @return [Array] list of fields
@@ -62,7 +61,7 @@ module PersonnelRequestsHelper
         nonop_funds division__code department__code unit__code review_status__name
       )
   end
-  
+
   # Returns an array of the fields used in contractor_requests
   #
   # @return [Array] list of fields

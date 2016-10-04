@@ -69,7 +69,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).count + 1,
                      wb.sheet('ContractorRequests').last_row
-        assert_equal 17, wb.sheet('ContractorRequests').last_column
+        assert_equal 18, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink
@@ -95,7 +95,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         end
         assert_equal ContractorRequest.all.count + 1,
                      wb.sheet('ContractorRequests').last_row
-        assert_equal 17, wb.sheet('ContractorRequests').last_column
+        assert_equal 18, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink

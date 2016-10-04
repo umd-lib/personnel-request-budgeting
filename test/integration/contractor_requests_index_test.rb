@@ -74,10 +74,10 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
                      wb.sheet('ContractorRequests').last_row
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
-        # the record type
+        # the record type & +1 for URL
         all_columns = @columns + ContractorRequest.attribute_names.select { |a| !a.match(/id$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('ContractorRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink
@@ -104,9 +104,12 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheet's rows should equal the number of records +1 for the header
         assert_equal ContractorRequest.all.count + 1,
                      wb.sheet('ContractorRequests').last_row
-        # the spreadsheets coulumns should equal the number of fields + 1 for
-        # the record type
-        assert_equal ContractorRequest.column_names.length + 1, wb.sheet('ContractorRequests').last_column
+        # the spreadsheets coulumns should equal the number of columns that are
+        # not id's + 1 for
+        # the record type & +1 for URL
+        all_columns = @columns + ContractorRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns.map!(&:intern).uniq!
+        assert_equal all_columns.length + 2, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink

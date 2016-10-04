@@ -12,6 +12,7 @@ class ReportFlowTest < ActionDispatch::IntegrationTest
 
   test 'should be able to download an excel' do
     report = reports(:requests)
+
     ReportJob.perform_later report
 
     get report_download_path(report, format: report.format)

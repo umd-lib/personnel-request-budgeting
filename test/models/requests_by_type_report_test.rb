@@ -14,8 +14,4 @@ class RequestsByTypeReportTest < ActiveSupport::TestCase
     assert @report.query.respond_to? :each
     assert @report.class.query.respond_to? :each
   end
-
-  test 'should return its fields' do
-    assert @report.fields.is_a? Hash
-  end
 end

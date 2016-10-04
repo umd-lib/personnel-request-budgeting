@@ -5,16 +5,14 @@ wb = xlsx_package.workbook
 
 record_set.each_with_index do |records, i|
   name = worksheets[i] ? worksheets[i] : worksheets.first 
-  fields = klass.fields.has_key?(name) ? klass.fields[name] : klass.fields 
-  wb.add_worksheet( name: name ) do |sheet|
-    sheet.add_row [ "Request Type" ] + fields.map { |k,v| v[:label] }
+  wb.add_worksheet( name: name.pluralize ) do |sheet|
+    sheet_klass = name.constantize 
+    fields = fields(sheet_klass, true) 
+    
+    sheet.add_row [ "URL",  "Request Type" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }
     records.each do |record| 
-      data = [ record.class.to_s.underscore.humanize ] + fields.map do |field, attrs|
-        if attrs[:decorator]
-          self.send( attrs[:decorator], record.call_field(field) )
-        else
-          record.call_field field
-        end
+      data = [ polymorphic_url(record), record.class.to_s.underscore.humanize ] + fields.map do |field|
+          call_record_field record, field 
       end
       sheet.add_row data
     end

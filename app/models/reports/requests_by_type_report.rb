@@ -16,20 +16,13 @@ class RequestsByTypeReport
       [StaffRequest.enum_for(:find_each), ContractorRequest.enum_for(:find_each), LaborRequest.enum_for(:find_each)]
     end
 
-    def fields
-      { "StaffRequests": StaffRequest.fields,
-        "ContractorRequests": ContractorRequest.fields,
-        "LaborRequests": LaborRequest.fields
-       }.with_indifferent_access
-    end
-
     def formats
       %w( xlsx )
     end
 
     # Here you add your worksheet tit to be made in the report
     def worksheets
-      %w( StaffRequests ContractorRequests LaborRequests )
+      %w( StaffRequest ContractorRequest LaborRequest )
     end
   end
 end

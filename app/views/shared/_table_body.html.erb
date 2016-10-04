@@ -1,12 +1,8 @@
 <tbody>
   <%- records.each do |record| %>
     <tr <%= "style=background-color:#{record.review_status.color};" if record.review_status %> >
-      <%- record.class.fields.each do |field, attrs| %> 
-        <%- if attrs[:decorator] %>
-          <td headers="<%= field.to_s %>"><%= self.send(attrs[:decorator], record.call_field(field) )  %></td>
-        <%- else %>
-          <td headers="<%= field.to_s %>"><%= record.call_field field %></td>
-        <% end %>   
+      <%- fields(record.class).each do |field| %> 
+          <td headers="<%= field.to_s %>"><%= call_record_field record, field %></td>
       <% end %> 
       <%= render 'shared/table_action_buttons', object: record %> 
     </tr>

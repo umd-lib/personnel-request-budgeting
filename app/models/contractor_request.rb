@@ -10,23 +10,6 @@ class ContractorRequest < ActiveRecord::Base
   validates :annual_base_pay, presence: true
   validates_with RequestDepartmentValidator
 
-  FIELDS = {
-    position_description: { label: 'Position Description' },
-    employee_type__code: { label: 'Employee Type' },
-    request_type__code: { label: 'Request Type' },
-    contractor_name: { label: 'Contractor Name' },
-    number_of_months: { label: 'Number of Months' },
-    annual_base_pay: {  label: 'Annual Base Pay',
-                        decorator: :number_to_currency },
-    nonop_funds: { label: ContractorRequest.human_attribute_name('nonop_funds'),
-                   decorator: :number_to_currency },
-    division__code: { label: 'Division' },
-    department__code: { label: 'Department' },
-    unit__code: { label: 'Unit' },
-    review_status__name: { label: 'Review Status',
-                           decorator: :suppress_status }
-  }.freeze
-
   after_initialize :init
 
   def init
@@ -38,13 +21,6 @@ class ContractorRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'Not an allowed request type for this request.')
     end
-  end
-
-  # Returns an array that can be used to generate index/xslx views
-  # to set this up, each key is callable on the object. to chain methods,
-  # use a double _ ( e.g. labor_request.request_type.code = request_type__code )
-  def self.fields
-    FIELDS
   end
 
   # Returns true if the contractor name is required.

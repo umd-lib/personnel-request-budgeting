@@ -7,21 +7,6 @@ class StaffRequest < ActiveRecord::Base
 
   validates :annual_base_pay, presence: true
 
-  FIELDS = {
-    position_description: { label: 'Position Description' },
-    employee_type__code: { label: 'Employee Type' },
-    request_type__code: { label: 'Request Type' },
-    annual_base_pay: {  label: 'Annual Base Pay',
-                        decorator: :number_to_currency },
-    nonop_funds: {  label: StaffRequest.human_attribute_name('nonop_funds'),
-                    decorator: :number_to_currency },
-    division__code: { label: 'Division' },
-    department__code: { label: 'Department' },
-    unit__code: { label: 'Unit' },
-    review_status__name: { label: 'Review Status',
-                           decorator: :suppress_status }
-  }.freeze
-
   after_initialize :init
 
   def init
@@ -33,9 +18,5 @@ class StaffRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'provided is not allowed for this request.')
     end
-  end
-
-  def self.fields
-    FIELDS
   end
 end

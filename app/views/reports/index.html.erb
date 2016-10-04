@@ -6,12 +6,12 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sort_link(@q, :name, 'Name') %></th>
-      <th><%= sort_link(@q, :format, 'Format') %></th>
-      <th><%= sort_link(@q, :creator_name, 'Creator') %></th>
-      <th><%= sort_link(@q, :created_at, "Created At") %></th> 
-      <th><%= sort_link(@q, :status, 'Status') %></th>
-      <td>Output</td>
+      <th id="name"><%= sort_link(@q, :name, 'Name') %></th>
+      <th id="format"><%= sort_link(@q, :format, 'Format') %></th>
+      <th id="creator_name"><%= sort_link(@q, :creator_name, 'Creator') %></th>
+      <th id="created_at"><%= sort_link(@q, :created_at, "Created At") %></th> 
+      <th id="status"><%= sort_link(@q, :status, 'Status') %></th>
+      <th id="download">Output</th>
       <%= render 'shared/table_action_buttons_header' %>
     </tr>
   </thead>
@@ -19,12 +19,12 @@
   <tbody>
     <% @reports.each do |report| %>
       <%= content_tag :tr, id: "report_#{report.id}" do %>
-        <td><%= report.name.underscore.humanize %></td>
-        <td><%= report.format %></td>
-        <td><%= report.creator.name  %></td>
-        <td><%= report.created_at  %></td>
-        <td><%= report.status %></td>
-        <td><%= link_to "Download", report_download_path(report, format: report.format), class: 'download' unless report.output.nil? %></td> 
+        <td headers="name"><%= report.name.underscore.humanize %></td>
+        <td headers="format"><%= report.format %></td>
+        <td headers="creator_name"><%= report.creator.name  %></td>
+        <td headers="created_at"><%= report.created_at  %></td>
+        <td headers="status"><%= report.status %></td>
+        <td headers="download"><%= link_to "Download", report_download_path(report, format: report.format), class: 'download' unless report.output.nil? %></td> 
         <%= render 'shared/table_action_buttons', object: report %>
       <% end %>
     <% end %>

@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   validates :cas_directory_id, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
+  # Provide human-readable identifier of the record.
+  alias_attribute :description, :name
+
   # Returns true if this user has an Admin role, false otherwise.
   def admin?
     role?('admin')

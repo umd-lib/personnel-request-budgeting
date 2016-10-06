@@ -5,6 +5,9 @@ class Division < ActiveRecord::Base
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
+  # Provide human-readable description the delete confirmation prompt
+  alias_attribute :description, :name
+
   def self.policy_class
     AdminOnlyPolicy
   end

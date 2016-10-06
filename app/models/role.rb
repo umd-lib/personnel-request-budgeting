@@ -60,4 +60,18 @@ class Role < ActiveRecord::Base
       errors.add(:base, 'Role already exists')
     end
   end
+
+  # @return [String] a short human-readable description for the delete
+  #   confirmation prompt
+  def description
+    name = user.name
+    type = role_type.name
+
+    return "#{name}, #{type}" if role_type.code == 'admin'
+    org = division.name if role_type.code == 'division' && division
+    org = department.name if role_type.code == 'department' && department
+    org = unit.name if role_type.code == 'unit' && unit
+
+    "#{name}, #{type}, #{org}"
+  end
 end

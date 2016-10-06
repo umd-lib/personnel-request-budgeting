@@ -3,6 +3,9 @@ class Report < ActiveRecord::Base
   belongs_to :user
   alias_attribute :creator, :user
 
+  # Provide human-readable description the delete confirmation prompt
+  alias_attribute :description, :name
+
   enum status: {
     pending: 0,
     running: 1,

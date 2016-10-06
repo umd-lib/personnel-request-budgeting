@@ -13,6 +13,9 @@ class LaborRequest < ActiveRecord::Base
 
   after_initialize :init
 
+  # Provide human-readable description the delete confirmation prompt
+  alias_attribute :description, :position_description
+
   def init
     self.review_status ||= ReviewStatus.find_by_code('UnderReview')
   end

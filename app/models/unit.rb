@@ -9,6 +9,9 @@ class Unit < ActiveRecord::Base
   validates :name, presence: true
   validates :department_id, presence: true
 
+  # Provide human-readable description the delete confirmation prompt
+  alias_attribute :description, :name
+
   def self.policy_class
     AdminOnlyPolicy
   end

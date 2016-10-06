@@ -6,6 +6,9 @@ class RoleType < ActiveRecord::Base
   has_many :roles, dependent: :restrict_with_exception
   has_one :role_cutoff, dependent: :restrict_with_exception
 
+  # Provide human-readable description the delete confirmation prompt
+  alias_attribute :description, :name
+
   def self.policy_class
     AdminOnlyPolicy
   end

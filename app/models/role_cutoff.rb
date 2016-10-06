@@ -10,6 +10,12 @@ class RoleCutoff < ActiveRecord::Base
     AdminOnlyPolicy
   end
 
+  # @return [String] a short human-readable description for the delete
+  #   confirmation prompt
+  def description
+    role_type.name
+  end
+
   private
 
     # Verifies that "admin" is not given a role cutoff

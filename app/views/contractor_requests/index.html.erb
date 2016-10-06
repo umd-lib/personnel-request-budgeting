@@ -3,6 +3,6 @@
 </div>
 
 <%= render partial: 'shared/index_action_buttons',
-  locals: { model_type: ContractorRequest, pagination_object: @contractor_requests } %>
-<%= render partial: 'shared/table', locals: { model_type: ContractorRequest,  records: @contractor_requests } %>
+  locals: { klass: ContractorRequest, pagination_object: @contractor_requests } %>
+<%= render partial: 'shared/table', locals: { klass: ContractorRequest,  records: @contractor_requests } %>
 <%= will_paginate renderer: BootstrapPagination::Rails %>

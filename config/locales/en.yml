@@ -21,23 +21,25 @@
 
 en:
   dictionary: 
-    personnel_request:
-      nonop_funds: &nonop_funds Gift/Other Funds
-      nonop_source: &nonop_source Gift/Other Funds source
-  
+    personnel_request: &personnel_request
+      nonop_funds: Gift/Other Funds
+      nonop_source: Gift/Other Funds source
+      employee_type__code: Employee Type
+      request_type__code: Request Type
+      division__code: Division
+      department__code: Division
+      unit__code: Unit
+      review_status__name: Review Status
   activerecord:
     attributes:
       user:
         cas_directory_id: CAS Directory ID
       contractor_request:
-        nonop_funds: *nonop_funds
-        nonop_source: *nonop_source
+        <<: *personnel_request 
       labor_request:
-        nonop_funds: *nonop_funds
-        nonop_source: *nonop_source
+        <<: *personnel_request 
       staff_request:
-        nonop_funds: *nonop_funds
-        nonop_source: *nonop_source
+        <<: *personnel_request 
 
   # Help descriptions for fields
   # Can use "&#13;" to denote a line break.

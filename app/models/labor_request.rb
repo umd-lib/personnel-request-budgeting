@@ -11,27 +11,6 @@ class LaborRequest < ActiveRecord::Base
   validates :hours_per_week, presence: true, numericality: { greater_than: 0.00 }
   validates :number_of_weeks, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  FIELDS = {
-    position_description: { label: 'Position Description' },
-    employee_type__code: { label: 'Employee Type' },
-    request_type__code: { label: 'Request Type' },
-    contractor_name: { label: 'Contractor Name' },
-    number_of_positions: { label: 'Number of Positions' },
-    hourly_rate: {  label: 'Hourly Rate',
-                    decorator: :number_to_currency },
-    hours_per_week: { label: 'Hours per Week' },
-    number_of_weeks: { label: 'Numbers of Weeks' },
-    annual_cost: {  label: 'Annual Cost',
-                    decorator: :number_to_currency },
-    nonop_funds: {  label: LaborRequest.human_attribute_name('nonop_funds'),
-                    decorator: :number_to_currency },
-    division__code: { label: 'Division' },
-    department__code: { label: 'Department' },
-    unit__code: { label: 'Unit' },
-    review_status__name: { label: 'Review Status',
-                           decorator: :suppress_status }
-  }.freeze
-
   after_initialize :init
 
   def init
@@ -43,13 +22,6 @@ class LaborRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'Not an allowed request type for this request.')
     end
-  end
-
-  # Returns an array that can be used to generate index/xslx views
-  # to set this up, each key is callable on the object. to chain methods,
-  # use a double _ ( e.g. labor_request.request_type.code = request_type__code )
-  def self.fields
-    FIELDS
   end
 
   # Returns true if the contractor name is required.

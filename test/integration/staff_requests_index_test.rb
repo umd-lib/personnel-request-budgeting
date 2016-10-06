@@ -7,8 +7,8 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
 
   def setup
     @columns = %w(position_description employee_type_code request_type_code
-                 annual_base_pay nonop_funds division_code department_code
-                 unit_code review_status_name)
+                  annual_base_pay nonop_funds division_code department_code
+                  unit_code review_status_name)
   end
 
   test 'currency field values show with two decimal places' do
@@ -21,7 +21,6 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index including pagination and sorting' do
-
     get staff_requests_path
     assert_template 'staff_requests/index'
 
@@ -70,11 +69,11 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         assert_nothing_raised do
           wb = Roo::Excelx.new(file.path)
         end
-        # the spreadsheet's rows should equal the number of records +1 for the header  
+        # the spreadsheet's rows should equal the number of records +1 for the header
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), StaffRequest).count + 1,
                      wb.sheet('StaffRequests').last_row
         # the spreadsheets coulumns should equal the number of fields + 1 for
-        # the record type 
+        # the record type
         assert_equal @columns.length + 1, wb.sheet('StaffRequests').last_column
       ensure
         file.close

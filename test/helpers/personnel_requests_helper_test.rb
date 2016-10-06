@@ -18,15 +18,16 @@ class PersonnelRequestsHelperTest < ActionView::TestCase
   def test_currency_formats
     fields = %w( nonop_funds  annual_cost  annual_base_pay  hourly_rate  )
    
-    # this abstracts out the AM class being used
-    thingy = OpenStruct.new
-    thingy.define_singleton_method(:call_field) { |field| self.send(field) } 
+    # this abstracts out the ActiveModel class being used
+    proxy = OpenStruct.new
+    proxy.define_singleton_method(:call_field) { |field| self.send(field) } 
     
     fields.each do |m|
       val = rand(10000) 
-      thingy.send("#{m}=".intern, val) 
-      assert_equal  number_to_currency( val ), call_record_field( thingy , m )
+      proxy.send("#{m}=".intern, val) 
+      assert_equal  number_to_currency( val ), call_record_field( proxy , m )
     end
+  
   end
 
 end

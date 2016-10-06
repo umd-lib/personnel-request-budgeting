@@ -5,6 +5,12 @@ require 'integration/personnel_requests_test_helper'
 class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   include PersonnelRequestsTestHelper
 
+  def setup
+    @columns = %w(position_description employee_type_code request_type_code
+                 annual_base_pay nonop_funds division_code department_code
+                 unit_code review_status_name)
+  end
+
   test 'currency field values show with two decimal places' do
     get staff_requests_path
 
@@ -15,17 +21,14 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index including pagination and sorting' do
-    columns = %w(position_description employee_type_code request_type_code
-                 annual_base_pay nonop_funds division_code department_code
-                 unit_code review_status_name)
 
     get staff_requests_path
     assert_template 'staff_requests/index'
 
     # Verify sort links
-    assert_select 'a.sort_link', count: columns.size
+    assert_select 'a.sort_link', count: @columns.size
 
-    columns.each do |sort_column|
+    @columns.each do |sort_column|
       %w(asc desc).each do |sort_direction|
         q_param = { s: sort_column + ' ' + sort_direction }
         get staff_requests_path, q: q_param
@@ -67,9 +70,12 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         assert_nothing_raised do
           wb = Roo::Excelx.new(file.path)
         end
+        # the spreadsheet's rows should equal the number of records +1 for the header  
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), StaffRequest).count + 1,
                      wb.sheet('StaffRequests').last_row
-        assert_equal 10, wb.sheet('StaffRequests').last_column
+        # the spreadsheets coulumns should equal the number of fields + 1 for
+        # the record type 
+        assert_equal @columns.length + 1, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink

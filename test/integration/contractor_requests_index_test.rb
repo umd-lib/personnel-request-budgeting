@@ -4,6 +4,12 @@ require 'integration/personnel_requests_test_helper'
 # Integration test for the ContractorRequest index page
 class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
   include PersonnelRequestsTestHelper
+  
+  def setup
+    @columns = %w(position_description employee_type_code request_type_code
+                 contractor_name number_of_months annual_base_pay nonop_funds
+                 division_code department_code unit_code review_status_name)  
+  end
 
   test 'currency field values show with two decimal places' do
     get contractor_requests_path
@@ -15,17 +21,14 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
   end
 
   test 'index including pagination and sorting' do
-    columns = %w(position_description employee_type_code request_type_code
-                 contractor_name number_of_months annual_base_pay nonop_funds
-                 division_code department_code unit_code review_status_name)
 
     get contractor_requests_path
     assert_template 'contractor_requests/index'
 
     # Verify sort links
-    assert_select 'a.sort_link', count: columns.size
+    assert_select 'a.sort_link', count: @columns.size
 
-    columns.each do |sort_column|
+    @columns.each do |sort_column|
       %w(asc desc).each do |sort_direction|
         q_param = { s: sort_column + ' ' + sort_direction }
         get contractor_requests_path, q: q_param
@@ -67,9 +70,12 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         assert_nothing_raised do
           wb = Roo::Excelx.new(file.path)
         end
+        # the spreadsheet's rows should equal the number of records +1 for the header 
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).count + 1,
                      wb.sheet('ContractorRequests').last_row
-        assert_equal 12, wb.sheet('ContractorRequests').last_column
+        # the spreadsheets coulumns should equal the number of fields + 1 for
+        # the record type 
+        assert_equal @columns.length + 1, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink
@@ -93,9 +99,12 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         assert_nothing_raised do
           wb = Roo::Excelx.new(file.path)
         end
+        # the spreadsheet's rows should equal the number of records +1 for the header 
         assert_equal ContractorRequest.all.count + 1,
                      wb.sheet('ContractorRequests').last_row
-        assert_equal 12, wb.sheet('ContractorRequests').last_column
+        # the spreadsheets coulumns should equal the number of fields + 1 for
+        # the record type 
+        assert_equal @columns.length + 1, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink

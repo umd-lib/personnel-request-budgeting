@@ -28,6 +28,13 @@ test_other_admin_role:
   department: 
   unit:
 
+two_with_division:
+  user: two
+  role_type: division
+  division: psd
+  department: 
+  unit_id: 
+
 one_with_department:
   user: one
   role_type: department

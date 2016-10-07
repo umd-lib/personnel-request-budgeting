@@ -60,4 +60,17 @@ class RoleTest < ActiveSupport::TestCase
                     division: divisions(:dss))
     assert_not role.valid?
   end
+
+  test 'verify "description" method for various roles' do
+    test_cases = {
+      test_admin_role: 'Test Admin User, Admin',
+      two_with_division: 'User Two, Division, Public Services',
+      one_with_department: 'User One, Department, Software Systems Development and Research',
+      johnny_with_unit: 'Johnny Dosroles, Unit, Humanities & Social Services'
+    }
+
+    test_cases.each do |role, expected_description|
+      assert_equal expected_description, roles(role).description
+    end
+  end
 end

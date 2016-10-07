@@ -91,14 +91,12 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheet's rows should equal the number of records +1 for the header
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), LaborRequest).count + 1,
                      wb.sheet('LaborRequests').last_row
-        # the spreadsheets coulumns should equal the number of fields + 1 for
-        # the record type
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
-        # the record type
+        # the record type & +1 for URL
         all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink
@@ -127,10 +125,10 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
                      wb.sheet('LaborRequests').last_row
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
-        # the record type
+        # the record type & +1 for URL
         all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink

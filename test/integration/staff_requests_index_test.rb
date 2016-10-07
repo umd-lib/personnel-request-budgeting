@@ -74,10 +74,10 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
                      wb.sheet('StaffRequests').last_row
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
-        # the record type
+        # the record type and + 1 for URL
         all_columns = @columns + StaffRequest.attribute_names.select { |a| !a.match(/id$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('StaffRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink
@@ -105,10 +105,10 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
                      wb.sheet('StaffRequests').last_row
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
-        # the record type
+        # the record type and + 1 for URL
         all_columns = @columns + StaffRequest.attribute_names.select { |a| !a.match(/id$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('StaffRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink

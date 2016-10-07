@@ -14,7 +14,8 @@ record_set.each_with_index do |records, i|
       data = [ polymorphic_url(record), record.class.to_s.underscore.humanize ] + fields.map do |field|
           call_record_field record, field 
       end
-      sheet.add_row data
+      row = sheet.add_row data
+      sheet.add_hyperlink location: polymorphic_url(record), ref: row.cells.first 
     end
   end
 end

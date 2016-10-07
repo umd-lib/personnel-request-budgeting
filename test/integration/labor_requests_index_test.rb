@@ -93,7 +93,12 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
                      wb.sheet('LaborRequests').last_row
         # the spreadsheets coulumns should equal the number of fields + 1 for
         # the record type
-        assert_equal @columns.length + 1, wb.sheet('LaborRequests').last_column
+        # the spreadsheets coulumns should equal the number of columns that are
+        # not id's + 1 for
+        # the record type
+        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns.map!(&:intern).uniq!
+        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink
@@ -120,9 +125,12 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheet's rows should equal the number of records +1 for the header
         assert_equal LaborRequest.all.count + 1,
                      wb.sheet('LaborRequests').last_row
-        # the spreadsheets coulumns should equal the number of fields + 1 for
+        # the spreadsheets coulumns should equal the number of columns that are
+        # not id's + 1 for
         # the record type
-        assert_equal @columns.length + 1, wb.sheet('LaborRequests').last_column
+        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns.map!(&:intern).uniq!
+        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink

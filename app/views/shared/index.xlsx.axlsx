@@ -7,7 +7,7 @@ record_set.each_with_index do |records, i|
   name = worksheets[i] ? worksheets[i] : worksheets.first 
   wb.add_worksheet( name: name.pluralize ) do |sheet|
     sheet_klass = name.constantize 
-    fields = fields(sheet_klass) 
+    fields = fields(sheet_klass, true) 
     
     sheet.add_row [ "Request Type" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }
     records.each do |record| 

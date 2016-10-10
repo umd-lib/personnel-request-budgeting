@@ -14,6 +14,8 @@ class LaborRequest < ActiveRecord::Base
   after_initialize :init
 
   def init
+    self.number_of_positions ||= 1 if has_attribute?(:number_of_positions)
+    self.number_of_weeks ||= 1 if has_attribute?(:number_of_weeks)
     self.review_status ||= ReviewStatus.find_by_code('UnderReview')
   end
 

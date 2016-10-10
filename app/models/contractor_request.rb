@@ -13,6 +13,7 @@ class ContractorRequest < ActiveRecord::Base
   after_initialize :init
 
   def init
+    self.number_of_months ||= 1 if has_attribute?(:number_of_months)
     self.review_status ||= ReviewStatus.find_by_code('UnderReview')
   end
 

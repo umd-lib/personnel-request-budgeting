@@ -1,4 +1,6 @@
 module PersonnelRequestsHelper
+  CURRENCY_FIELDS = %i( nonop_funds annual_cost annual_base_pay hourly_rate  ).freeze
+
   # Returns a list of fields for a record
   #
   # @param klass [Class] the active record klass being displayed
@@ -10,6 +12,27 @@ module PersonnelRequestsHelper
       fields += klass.attribute_names.select { |a| !a.match(/id$/) }.map(&:intern)
     end
     fields.uniq
+  end
+
+  # Returns a list of the formats used for styling export outputs
+  #
+  # @param fields [Array] the fields to generate a list of formats
+  # @return [Array] list of associated formats to the fields
+  def field_formats(fields)
+    fields.map { |field| currency_fields.include?(field) ? :currency : :default }
+  end
+
+  # Returns a list of fields for a record and a list of formats for those
+  # fields
+  #
+  # @param klass [Class] the active record klass being displayed
+  # @param show_all [Boolean] option to include all fields in class
+  # @return [Array] the list of fields being displayed
+  # @return [Array] the list of formats to be displayed
+  def fields_and_formats(klass, show_all = false)
+    fields = fields(klass, show_all)
+    formats = field_formats(fields)
+    [fields, formats]
   end
 
   # Calls the field on the record and attempts to display it.
@@ -28,8 +51,13 @@ module PersonnelRequestsHelper
     end
   end
 
+  # Just return the currency fields
+  def currency_fields
+    CURRENCY_FIELDS
+  end
+
   # these are the fields that we want to render into a currency
-  %w( nonop_funds annual_cost annual_base_pay hourly_rate  ).each do |m|
+  CURRENCY_FIELDS.each do |m|
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
   end
 

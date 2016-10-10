@@ -9,13 +9,6 @@ class RequestsByTypeReport
       'A basic report that collects all requests by type'
     end
 
-    # this is actually not great....but, maybe we can figure this out..
-    # currently, this loads all the requests into memory. idealls, we can
-    # have this lazy load during iteration...
-    def query
-      [StaffRequest.enum_for(:find_each), ContractorRequest.enum_for(:find_each), LaborRequest.enum_for(:find_each)]
-    end
-
     def formats
       %w( xlsx )
     end
@@ -24,5 +17,12 @@ class RequestsByTypeReport
     def worksheets
       %w( StaffRequest ContractorRequest LaborRequest )
     end
+  end
+
+  # this is actually not great....but, maybe we can figure this out..
+  # currently, this loads all the requests into memory. idealls, we can
+  # have this lazy load during iteration...
+  def query
+    [StaffRequest.enum_for(:find_each), ContractorRequest.enum_for(:find_each), LaborRequest.enum_for(:find_each)]
   end
 end

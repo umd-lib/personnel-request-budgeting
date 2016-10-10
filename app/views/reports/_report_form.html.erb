@@ -1,6 +1,6 @@
-<%= form_for @report,  namespace: "requests_by_type_" do |f| %>
+<%= form_for @report,  namespace: "#{subreport.class.to_s.underscore}_" do |f| %>
   <%= render 'shared/form_errors', errors: @report.errors %>
-  <h3><%= report_name %></h3> 
+  <div class "panel-heading"><h3 class="panel-title"><%= report_name %> : <%= subreport.description %></h3></div> 
   <table class="table table-striped">
     <tbody>
       <tr>

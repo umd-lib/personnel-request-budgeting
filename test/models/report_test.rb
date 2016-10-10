@@ -36,17 +36,20 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal(@report.class.policy_class.to_s, 'ReportPolicy')
   end
 
-  test 'should register the reports that are present' do
+  test 'should not register the reports that are not Reportable' do
+    # A class that should not register
     class ::CrazyReport; end
     @report = reports(:report_completed)
     @report.manager.register_report(CrazyReport)
-    assert_includes(@report.manager.reports, ['Crazy Report', 'crazy_report'])
+    refute_includes(@report.manager.reports, 'crazy_report')
   end
 
   test 'should return an instance of a report when manager is asked' do
-    class ::NotCrazyReport; end
+    # A class that should register
+    class ::NotCrazyReport; include Reportable end
     @report = reports(:report_completed)
     @report.manager.register_report(NotCrazyReport)
+    assert_includes(@report.manager.reports, 'not_crazy_report')
     not_crazy_report = @report.manager.report_for('not_crazy_report')
     assert_instance_of(NotCrazyReport, not_crazy_report)
   end

@@ -12,6 +12,5 @@ class RequestsByTypeReportTest < ActiveSupport::TestCase
 
   test 'should return an enumerable-like / iterable object with a query' do
     assert @report.query.respond_to? :each
-    assert @report.class.query.respond_to? :each
   end
 end

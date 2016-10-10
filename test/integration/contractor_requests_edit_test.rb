@@ -124,4 +124,15 @@ class ContractorRequestsEditTest < ActionDispatch::IntegrationTest
     get edit_contractor_request_path(@contractor_request)
     assert_select 'i.help-text-icon'
   end
+
+  test 'verify that number_of_months displays properly' do
+    request = contractor_requests(:libitd_528)
+    expected_number_of_months = request.number_of_months
+
+    get edit_contractor_request_path(request)
+
+    doc = Nokogiri::HTML(response.body)
+    num_months = doc.xpath("//input[@id='contractor_request_number_of_months']/@value").to_s.to_i
+    assert_equal expected_number_of_months, num_months
+  end
 end

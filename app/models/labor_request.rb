@@ -13,7 +13,7 @@ class LaborRequest < ActiveRecord::Base
 
   after_initialize :init
 
-  # Provide human-readable description the delete confirmation prompt
+  # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :position_description
 
   def init

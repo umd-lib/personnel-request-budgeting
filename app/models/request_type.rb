@@ -6,7 +6,7 @@ class RequestType < ActiveRecord::Base
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
-  # Provide human-readable description the delete confirmation prompt
+  # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :name
 
   def self.policy_class

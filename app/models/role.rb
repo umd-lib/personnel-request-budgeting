@@ -61,8 +61,8 @@ class Role < ActiveRecord::Base
     end
   end
 
-  # @return [String] a short human-readable description for the delete
-  #   confirmation prompt
+  # @return [String] a short human-readable description for this record, for
+  #   GUI prompts
   def description
     name = user.name
     type = role_type.name

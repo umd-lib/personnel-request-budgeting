@@ -3,7 +3,7 @@ class Report < ActiveRecord::Base
   belongs_to :user
   alias_attribute :creator, :user
 
-  # Provide human-readable description the delete confirmation prompt
+  # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :name
 
   enum status: {

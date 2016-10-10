@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
   setup do
-    @report = reports(:requests)
+    @report = reports(:requests_by_type)
   end
 
   test 'should get index' do
@@ -57,7 +57,7 @@ class ReportsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy a report' do
-    trash = reports(:killme)
+    trash = reports(:report_with_error)
     assert_difference('Report.count', -1) do
       delete :destroy, id: trash
     end

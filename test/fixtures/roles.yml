@@ -21,6 +21,13 @@ test_admin_role:
   department: 
   unit:
 
+test_other_admin_role:
+  user: test_other_admin
+  role_type: admin
+  division: 
+  department: 
+  unit:
+
 one_with_department:
   user: one
   role_type: department

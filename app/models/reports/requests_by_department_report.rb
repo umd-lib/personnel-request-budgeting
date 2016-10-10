@@ -1,12 +1,12 @@
 require 'reportable'
 
 # A basic report that just gets all teh request types
-class RequestsByDivisionReport
+class RequestsByDepartmentReport
   include Reportable
 
   class << self
     def description
-      'A basic report that collects requests by division'
+      'A basic report that collects requests by department'
     end
 
     def formats

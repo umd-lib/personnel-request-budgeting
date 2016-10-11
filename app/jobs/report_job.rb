@@ -21,9 +21,10 @@ class ReportJob < ActiveJob::Base
     klass = report.name.constantize
 
     record_set = klass.new(report.parameters).query
+    report_template = klass.template
 
     output = ApplicationController.new
-                                  .render_to_string(template: 'shared/index', formats: report.format,
+                                  .render_to_string(template: report_template, formats: report.format,
                                                     locals: { klass: klass, record_set: record_set })
 
     report.update! status: 'completed', output: output

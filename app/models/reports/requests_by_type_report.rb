@@ -17,6 +17,10 @@ class RequestsByTypeReport
     def worksheets
       %w( StaffRequest ContractorRequest LaborRequest )
     end
+
+    def template
+      'shared/index'
+    end
   end
 
   def query

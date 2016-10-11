@@ -122,4 +122,18 @@ class LaborRequestsEditTest < ActionDispatch::IntegrationTest
     get edit_labor_request_path(@labor_request)
     assert_select 'i.help-text-icon'
   end
+
+  test 'verify that number_of_positions and number_of_weeks display properly' do
+    request = labor_requests(:libitd_528)
+    expected_number_of_positions = request.number_of_positions
+    expected_number_of_weeks = request.number_of_weeks
+
+    get edit_labor_request_path(request)
+
+    doc = Nokogiri::HTML(response.body)
+    num_positions = doc.xpath("//input[@id='labor_request_number_of_positions']/@value").to_s.to_i
+    assert_equal expected_number_of_positions, num_positions
+    num_weeks = doc.xpath("//input[@id='labor_request_number_of_weeks']/@value").to_s.to_i
+    assert_equal expected_number_of_weeks, num_weeks
+  end
 end

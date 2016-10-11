@@ -46,6 +46,21 @@ c2_with_unit:
   review_status: under_review
   review_comment: nil
 
+libitd_528:
+  employee_type: c2
+  position_description: LIBITD-528
+  request_type: new
+  contractor_name: nil
+  number_of_months: 6
+  annual_base_pay: 100_000.00
+  nonop_funds: nil
+  nonop_source: nil
+  department: ssdr
+  unit: nil
+  justification: Needed for testing
+  review_status: under_review
+  review_comment: nil
+
 # Sample data for pagination
 contractor_request_1:
   employee_type: cont_fac

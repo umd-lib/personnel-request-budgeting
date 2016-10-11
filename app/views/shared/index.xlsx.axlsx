@@ -8,7 +8,7 @@ record_set.each_with_index do |records, i|
   wb.add_worksheet( name: name.pluralize ) do |sheet|
   
     defined_styles = { default: 0,
-                       currency: sheet.styles.add_style(:format_code=>"$#,##0.##;[Red]$-#,##0.##")
+                       currency: sheet.styles.add_style( num_fmt: 8 )
                       } 
 
     sheet_klass = name.constantize 
@@ -17,9 +17,9 @@ record_set.each_with_index do |records, i|
     sheet.add_row [ "Request Type" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }
     records.each do |record| 
       data = [ record.class.to_s.underscore.humanize ] + fields.map do |field|
-          # for currency fields we actually dont want to call view helpers, use get the field 
+          # for currency fields we need to call the special xlsx view helper
           if currency_fields.include?(field.intern) 
-            record.call_field field 
+            call_record_field record, field, :xlsx
           # otherwise we want all the view helpers called 
           else 
             call_record_field record,field

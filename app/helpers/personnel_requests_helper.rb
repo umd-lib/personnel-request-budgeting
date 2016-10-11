@@ -41,9 +41,10 @@ module PersonnelRequestsHelper
   #
   # @param record [ActiveRecord] the record with the field
   # @param field [Symbol] the field name ( use __ to indicate associations )
+  # @param format [Symbol] any special format to call a specific render method
   # @return [String] value from record field
-  def call_record_field(record, field)
-    method = "render_#{field}".intern
+  def call_record_field(record, field, format = nil)
+    method = "render_#{field}_#{format}".chomp('_').intern
     if respond_to? method
       send(method, record)
     else
@@ -57,8 +58,14 @@ module PersonnelRequestsHelper
   end
 
   # these are the fields that we want to render into a currency
+  # since we've added special xlsx formatting, we need to call a special helper
+  # for the excel exports that is _xslx.
   CURRENCY_FIELDS.each do |m|
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
+    define_method("render_#{m}_xlsx".intern) do |r|
+      field = r.call_field(m.intern) || BigDecimal(0)
+      format '%.2f', field.truncate(2)
+    end
   end
 
   # Formats review status based on the codey

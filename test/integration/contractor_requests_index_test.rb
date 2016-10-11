@@ -75,8 +75,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
 
         # We check to see if the annual_base_pay is in the sheet in the format
         headers = wb.sheet('ContractorRequests').row(1)
-        # get the index. be aware that Spreadsheets ( unlike Arrays )  are stupid and don't know 0
-        # is the first number so we add one.
+        # get the index. be aware that Roo:Excelx starts with a position of 1
         annual_base_pay_col = headers.index(ContractorRequest.human_attribute_name(:annual_base_pay)) + 1
         annual_base_pays = wb.sheet('ContractorRequests').column(annual_base_pay_col)
 

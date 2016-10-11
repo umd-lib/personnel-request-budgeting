@@ -92,10 +92,9 @@ class ReportsController < ApplicationController
       @report = Report.find(params[:id])
     end
 
-    # only admins can create reports, so we can assume they're not evil
     def report_params
       report_parameters_keys = params[:report][:parameters].try(:keys)
       params.require(:report).permit(:name, :format, :user_id, :user_id,
-                               { parameters: report_parameters_keys })
+                                     parameters: report_parameters_keys)
     end
 end

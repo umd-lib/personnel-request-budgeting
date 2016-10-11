@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Tests for the "RoleType" model
+# Tests requests by type reports
 class RequestsByTypeReportTest < ActiveSupport::TestCase
   def setup
     @report = RequestsByTypeReport.new

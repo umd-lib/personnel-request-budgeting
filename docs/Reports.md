@@ -2,6 +2,8 @@
  @title Reports 
 -->
 
+# Reports
+
 There are a few parts to be aware of when making reports:
 
 * Report --  The ActiveRecord for requesting and saving requested reports.
@@ -9,7 +11,7 @@ There are a few parts to be aware of when making reports:
 * ReportJob -- The ActiveJob class used to run the requested reports
 * Reportable -- The mixin that creates a specific report
 * the Reportable report -- the class that holds your query and formatting
-  options.  see RequestsByTypeReport for an example ).
+  options.  ( See RequestsByTypeReport for an example ).
 * the reports form partial - the request UI for a report.  uses _report_form partial by default.
 
 To make a new report, first you'll need to define your report class. This
@@ -79,4 +81,4 @@ reportable specific form partial:
 <% end %>
 ```
 This will add something like: report[:parameters] = { department_id: 19 }
-to your Report object when saving in the Reportnew action.
+to your Report object when saving in the report#new action.

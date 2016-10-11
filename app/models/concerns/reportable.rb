@@ -2,7 +2,6 @@
 ## including this in your report adds common functionality and registers it in
 # the reportmanager
 module Reportable
-  # not sure we need a AS here...
   extend ActiveSupport::Concern
 
   class << self

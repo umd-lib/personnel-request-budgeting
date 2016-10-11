@@ -27,7 +27,7 @@ en:
       employee_type__code: Employee Type
       request_type__code: Request Type
       division__code: Division
-      department__code: Division
+      department__code: Department
       unit__code: Unit
       review_status__name: Review Status
   activerecord:

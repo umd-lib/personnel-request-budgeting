@@ -13,7 +13,7 @@ class RequestsByTypeReport
       %w( xlsx )
     end
 
-    # Here you add your worksheet tit to be made in the report
+    # Here you add your worksheet title to be made in the report
     def worksheets
       %w( StaffRequest ContractorRequest LaborRequest )
     end

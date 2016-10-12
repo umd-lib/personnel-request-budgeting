@@ -23,7 +23,7 @@ module Reportable
       %w( xlsx )
     end
 
-    # Some brief test to describe what the report does
+    # Some brief text to describe what the report does
     def description
       'Text to be overridden in the Reportable subclass'
     end

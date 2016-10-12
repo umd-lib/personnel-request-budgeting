@@ -1,4 +1,6 @@
 module PersonnelRequestsHelper
+  CURRENCY_FIELDS = %i( nonop_funds annual_cost annual_base_pay hourly_rate  ).freeze
+
   # Returns a list of fields for a record
   #
   # @param klass [Class] the active record klass being displayed
@@ -12,15 +14,37 @@ module PersonnelRequestsHelper
     fields.uniq
   end
 
+  # Returns a list of the formats used for styling export outputs
+  #
+  # @param fields [Array] the fields to generate a list of formats
+  # @return [Array] list of associated formats to the fields
+  def field_formats(fields)
+    fields.map { |field| currency_fields.include?(field) ? :currency : :default }
+  end
+
+  # Returns a list of fields for a record and a list of formats for those
+  # fields
+  #
+  # @param klass [Class] the active record klass being displayed
+  # @param show_all [Boolean] option to include all fields in class
+  # @return [Array] the list of fields being displayed
+  # @return [Array] the list of formats to be displayed
+  def fields_and_formats(klass, show_all = false)
+    fields = fields(klass, show_all)
+    formats = field_formats(fields)
+    [fields, formats]
+  end
+
   # Calls the field on the record and attempts to display it.
   # If there is special formatting on the field, define a "render_FIELD_NAME"
   # method that takes the record and tweaks the field
   #
   # @param record [ActiveRecord] the record with the field
   # @param field [Symbol] the field name ( use __ to indicate associations )
+  # @param format [Symbol] any special format to call a specific render method
   # @return [String] value from record field
-  def call_record_field(record, field)
-    method = "render_#{field}".intern
+  def call_record_field(record, field, format = nil)
+    method = "render_#{field}_#{format}".chomp('_').intern
     if respond_to? method
       send(method, record)
     else
@@ -28,9 +52,20 @@ module PersonnelRequestsHelper
     end
   end
 
+  # Just return the currency fields
+  def currency_fields
+    CURRENCY_FIELDS
+  end
+
   # these are the fields that we want to render into a currency
-  %w( nonop_funds annual_cost annual_base_pay hourly_rate  ).each do |m|
+  # since we've added special xlsx formatting, we need to call a special helper
+  # for the excel exports that is _xslx.
+  CURRENCY_FIELDS.each do |m|
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
+    define_method("render_#{m}_xlsx".intern) do |r|
+      field = r.call_field(m.intern) || BigDecimal(0)
+      format '%.2f', field.truncate(2)
+    end
   end
 
   # Formats review status based on the codey

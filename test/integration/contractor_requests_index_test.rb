@@ -72,6 +72,17 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheet's rows should equal the number of records +1 for the header
         assert_equal Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).count + 1,
                      wb.sheet('ContractorRequests').last_row
+
+        # We check to see if the annual_base_pay is in the sheet in the format
+        headers = wb.sheet('ContractorRequests').row(1)
+        # get the index. be aware that Roo:Excelx starts with a position of 1
+        annual_base_pay_col = headers.index(ContractorRequest.human_attribute_name(:annual_base_pay)) + 1
+        annual_base_pays = wb.sheet('ContractorRequests').column(annual_base_pay_col)
+
+        Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).all.each do |req|
+          assert_includes annual_base_pays, req.annual_base_pay
+        end
+
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
         # the record type

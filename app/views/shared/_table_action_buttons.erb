@@ -16,7 +16,7 @@
         <button class="btn btn-danger delete" disabled="disabled"><i class="glyphicon glyphicon-trash"></i></button>
       <% else %>
         <%= link_to object, method: :delete,
-              data: { confirm: 'Are you sure?' }, class: "btn btn-danger delete", title: "Delete" do %>
+              data: { confirm: confirm_delete_text(object) }, class: "btn btn-danger delete", title: "Delete" do %>
           <i class="glyphicon glyphicon-trash"></i>
         <% end %>
       <% end %>    

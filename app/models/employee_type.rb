@@ -8,6 +8,9 @@ class EmployeeType < ActiveRecord::Base
   validates :name, presence: true
   validates :employee_category, presence: true
 
+  # Provides a short human-readable description for this record, for GUI prompts
+  alias_attribute :description, :name
+
   def self.policy_class
     AdminOnlyPolicy
   end

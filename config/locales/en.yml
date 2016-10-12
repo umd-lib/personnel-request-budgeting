@@ -46,7 +46,7 @@ en:
   help_text:
     annual_base_pay: Estimated annual salary for the position
     contractor_name: Name of person in the position being replaced or renewed.
-    hourly_rate:  Please note current minimum wage is $8.75/hr
+    hourly_rate: Please note current minimum wage is $8.75/hr
     hours_per_week: Estimated number of hours the person will work per week. 
     justification: Provide a brief explanation justifying the purpose for the request 
     nonop_funds: Amount of gift, grant or other funds supporting the position
@@ -56,3 +56,7 @@ en:
     number_of_weeks: Estimated number of weeks the person will work during the fiscal year.  Refer to the Number of Weeks document for assistance.
     position_description: Position name/title
     unit: Select Unit name within a department, if applicable.
+  
+  confirm_delete_prompt:
+    default: Are you sure?
+    with_description: "Are you sure you want to delete '%{description}'?" 

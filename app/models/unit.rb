@@ -9,6 +9,9 @@ class Unit < ActiveRecord::Base
   validates :name, presence: true
   validates :department_id, presence: true
 
+  # Provides a short human-readable description for this record, for GUI prompts
+  alias_attribute :description, :name
+
   def self.policy_class
     AdminOnlyPolicy
   end

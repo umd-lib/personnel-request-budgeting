@@ -19,7 +19,8 @@ class ReportJob < ActiveJob::Base
     report.update! status: 'running'
 
     klass = report.name.constantize
-    record_set = klass.query
+
+    record_set = klass.new(report.parameters).query
 
     output = ApplicationController.new
                                   .render_to_string(template: 'shared/index', formats: report.format,

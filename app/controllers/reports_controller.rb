@@ -92,8 +92,9 @@ class ReportsController < ApplicationController
       @report = Report.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:name, :format, :user_id, :user_id, :parameters)
+      report_parameters_keys = params[:report][:parameters].try(:keys)
+      params.require(:report).permit(:name, :format, :user_id, :user_id,
+                                     parameters: report_parameters_keys)
     end
 end

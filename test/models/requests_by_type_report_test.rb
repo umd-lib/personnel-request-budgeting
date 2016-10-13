@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Tests for the "RoleType" model
+# Tests requests by type reports
 class RequestsByTypeReportTest < ActiveSupport::TestCase
   def setup
     @report = RequestsByTypeReport.new
@@ -12,6 +12,5 @@ class RequestsByTypeReportTest < ActiveSupport::TestCase
 
   test 'should return an enumerable-like / iterable object with a query' do
     assert @report.query.respond_to? :each
-    assert @report.class.query.respond_to? :each
   end
 end

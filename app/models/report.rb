@@ -2,6 +2,7 @@
 class Report < ActiveRecord::Base
   belongs_to :user
   alias_attribute :creator, :user
+  serialize :parameters
 
   # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :name
@@ -32,12 +33,16 @@ class Report < ActiveRecord::Base
   # registers the available reports
   class Manager
     class << self
-      attr_accessor :reports
+      attr_accessor :reports, :allowed_parameters
 
       # Add the report to our list of registered reports...
       def register_report(klass)
         @reports ||= []
-        @reports.unshift(klass) # last in, first up
+        @reports.unshift(klass) if klass.include?(Reportable) # last in, first up
+      end
+
+      def allowed_parameters
+        @reports.map(&:allowed_parameters).flatten
       end
 
       # really just a sanity check for Rails autoloading
@@ -47,7 +52,7 @@ class Report < ActiveRecord::Base
 
       def reports
         load_reports! if @reports.blank?
-        @reports.map { |r| [r.to_s.underscore.titleize, r.to_s.underscore] }
+        @reports.map { |r| r.name.underscore }
       end
 
       # we go through our registered reports and see if we can get and
@@ -55,7 +60,7 @@ class Report < ActiveRecord::Base
       def report_for(report, *args)
         load_reports! if @reports.blank?
         @reports.each do |klass|
-          return klass.new(*args) if report == klass.to_s.underscore
+          return klass.new(*args) if report == klass.name.underscore
         end
       end
     end

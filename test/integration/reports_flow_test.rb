@@ -4,8 +4,8 @@ require 'test_helper'
 class ReportFlowTest < ActionDispatch::IntegrationTest
   test 'should be able to make a new report' do
     get new_report_path
-    assert_select "form[id='requests_by_type__new_report']" do |_el|
-      assert_select "[id='requests_by_type__report_format']"
+    assert_select "form[id='requests_by_type_report__new_report']" do |_el|
+      assert_select "[id='requests_by_type_report__report_format']"
       assert_select "input[type='submit']"
     end
   end

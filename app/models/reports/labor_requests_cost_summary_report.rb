@@ -52,7 +52,7 @@ class LaborRequestsCostSummaryReport
       other_support_totals[division_code] += nonop_funds unless nonop_funds.nil?
     end
 
-    # Stores in an array (to preserve the division ordering), a "value" map
+    # Stores in an array (to preserve the division ordering), a "value" Hash
     # representing that division's row in the table.
     data = []
     Division.order(:code).each do |div|

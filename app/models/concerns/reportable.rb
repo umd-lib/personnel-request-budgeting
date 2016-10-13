@@ -1,6 +1,7 @@
-## Generic for all request type objects
-## including this in your report adds common functionality and registers it in
-# the reportmanager
+# Generic for all request type objects.
+#
+# Including this in your report adds common functionality and registers it in
+# the ReportManager
 module Reportable
   extend ActiveSupport::Concern
 
@@ -13,31 +14,39 @@ module Reportable
 
   # These are class methods that are extended
   module ClassMethods
-    # Any parameters you will need to pass to your query
+    # @return [Array<Symbol>] the parameters allowed for user input
     def allowed_parameters
       %i( )
     end
 
-    # The formats your report responds to
+    # @return [Array<String, Symbol>] the output formats this report is
+    #   available in.
     def formats
       %w( xlsx )
     end
 
-    # Some brief text to describe what the report does
+    # @return [String] human-readable description of the report, displayed in
+    #   the GUI.
     def description
       'Text to be overridden in the Reportable subclass'
+    end
+
+    # @return [String] the view template to use in formatting the report output
+    def template
+      'shared/index'
     end
   end
 
   attr_accessor :parameters
 
-  # when we make a Reportable obj, we pass the parameters serialized in the
+  # when we make a Reportable object, we pass the parameters serialized in the
   # master Report instance
   def initialize(parameters = nil)
     @parameters = parameters
   end
 
   # Override this method to define your query
+  # @return [Object] the data used by the template
   def query; end
 
   # alias to .formats
@@ -48,5 +57,10 @@ module Reportable
   # alias to .description
   def description
     self.class.description
+  end
+
+  # alias to .template
+  def template
+    self.class.template
   end
 end

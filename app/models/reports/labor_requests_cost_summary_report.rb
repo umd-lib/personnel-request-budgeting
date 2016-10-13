@@ -3,23 +3,31 @@ require 'reportable'
 class LaborRequestsCostSummaryReport
   include Reportable
   class << self
+    # @return [String] human-readable description of the report, displayed in
+    #   the GUI.
     def description
       'A summary report for the costs of Labor and Assistance requests, by division'
     end
+
+    # @return [Array<String, Symbol>] the output formats this report is
+    #   available in.
     def formats
       %w( xlsx )
     end
-    # Here you add your worksheets to be made in the report
+
+    # @return [Array<String>] the worksheet names (for spreadsheet output)
     def worksheets
       %w( LaborRequest )
     end
 
+    # @return [String] the view template to use in formatting the report output
     def template
       'shared/labor_requests_cost_summary'
     end
   end
-  def query
-    request_types = {}
+
+  # @return [Object] the data used by the template
+  def query # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     headers = {
       division: 'Div Name',
       c1: "C1's",
@@ -28,8 +36,10 @@ class LaborRequestsCostSummaryReport
       other_support: 'Other Support'
     }
 
-
+    # Stores annual cost totals, keyed by [division_code, emp_type_code]
     annual_cost_totals = Hash.new(0)
+
+    # Stores nonop_fund totals, keyed by division_code
     other_support_totals = Hash.new(0)
 
     LaborRequest.includes(:department, :division, :employee_type).each do |request|
@@ -42,6 +52,8 @@ class LaborRequestsCostSummaryReport
       other_support_totals[division_code] += nonop_funds unless nonop_funds.nil?
     end
 
+    # Stores in an array (to preserve the division ordering), a "value" map
+    # representing that division's row in the table.
     data = []
     Division.order(:code).each do |div|
       division_code = div.code
@@ -56,34 +68,6 @@ class LaborRequestsCostSummaryReport
       data << value
     end
 
-#    data = [ { division: 'ASD',
-#               c1: nil,
-#               hourly_faculty: nil,
-#               students: 5689.45,
-#               other_support: nil },
-#             { division: 'CSS',
-#               c1: 26660.00,
-#               hourly_faculty: 56150.00,
-#               students: 141495.00,
-#               other_support: 16160.00 },
-#             { division: 'DO',
-#               c1: nil,
-#               hourly_faculty: nil,
-#               students: 27713.00,
-#               other_support: nil },
-#             { division: 'DSS',
-#               c1: 68880,
-#               hourly_faculty: nil,
-#               students: 110100.00,
-#               other_support: 65040.00 },
-#             { division: 'PSD',
-#               c1: 269031.00,
-#               hourly_faculty: 45654.00,
-#               students: 788053.00,
-#               other_support: 153934.00 } ]
-
-
-#    [LaborRequest.enum_for(:find_each)]
     [headers, data]
   end
 end

@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927084415) do
+ActiveRecord::Schema.define(version: 20161011073834) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
     t.string   "position_description"
     t.integer  "request_type_id"
     t.string   "contractor_name"
-    t.integer  "number_of_months"
+    t.integer  "number_of_months",     default: 1
     t.decimal  "annual_base_pay"
     t.decimal  "nonop_funds"
     t.string   "nonop_source"
     t.integer  "department_id"
     t.integer  "unit_id"
     t.text     "justification"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "review_status_id"
     t.text     "review_comment"
   end
@@ -81,17 +81,17 @@ ActiveRecord::Schema.define(version: 20160927084415) do
     t.string   "position_description"
     t.integer  "request_type_id"
     t.string   "contractor_name"
-    t.integer  "number_of_positions"
+    t.integer  "number_of_positions",  default: 1
     t.decimal  "hourly_rate"
     t.decimal  "hours_per_week"
-    t.integer  "number_of_weeks"
+    t.integer  "number_of_weeks",      default: 1
     t.decimal  "nonop_funds"
     t.string   "nonop_source"
     t.integer  "department_id"
     t.integer  "unit_id"
     t.text     "justification"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "review_status_id"
     t.text     "review_comment"
   end

@@ -51,6 +51,22 @@ fac_hrly_with_unit:
   review_status: under_review
   review_comment: nil
   
+libitd_528:
+  employee_type: fac_hrly
+  position_description: LIBITD-528
+  request_type: new
+  contractor_name: nil
+  number_of_positions: 5
+  hourly_rate: 100.00
+  hours_per_week: 40.00
+  number_of_weeks: 30
+  nonop_funds: nil
+  nonop_source: nil
+  department: as
+  unit: stk
+  justification: Needed for testing
+  review_status: under_review
+  review_comment: nil
 
 # Sample data for pagination
 labor_request_1:

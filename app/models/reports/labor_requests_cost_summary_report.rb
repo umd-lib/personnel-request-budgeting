@@ -15,11 +15,6 @@ class LaborRequestsCostSummaryReport
       %w( xlsx )
     end
 
-    # @return [Array<String>] the worksheet names (for spreadsheet output)
-    def worksheets
-      %w( LaborRequest )
-    end
-
     # @return [String] the view template to use in formatting the report output
     def template
       'shared/labor_requests_cost_summary'

@@ -39,8 +39,7 @@ module Reportable
 
   attr_accessor :parameters
 
-  # when we make a Reportable object, we pass the parameters serialized in the
-  # master Report instance
+  # @param parameters the parameters serialized in the master Report instance
   def initialize(parameters = nil)
     @parameters = parameters
   end

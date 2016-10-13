@@ -44,7 +44,9 @@ class MyReport
       %w( xlsx )
     end
 
-    # @return [Array<String>] the worksheet names (for spreadsheet output)
+    # Used by the template to define worksheet names. This method is
+    # template-specific, and so may not be needed by all templates.
+    # @return [Array<String>] the worksheet names
     def worksheets
       %w( StaffRequest )
     end

@@ -1,11 +1,9 @@
-#record_set = Array.wrap(record_set)
 worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
 
 headers = record_set[0]
 data = record_set[1]
 
 row_num = 1
-
 
 wb = xlsx_package.workbook
 currency = wb.styles.add_style :format_code=>"$#,##0.00"

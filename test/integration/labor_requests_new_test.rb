@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Integration test for the ContractorRequest new page
+# Integration test for the LaborRequest new page
 class LaborRequestsNewTest < ActionDispatch::IntegrationTest
   def setup
   end

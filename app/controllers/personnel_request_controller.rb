@@ -17,7 +17,7 @@ module PersonnelRequestController
     # Returns the per_page used in the pagniation. xlsx should have all
     # records, otherwise defaults to the WillPaginate global
     def per_page
-      params[:format] == 'xlsx' ? 2**10 : WillPaginate.per_page
+      WillPaginate.per_page
     end
 
     # Returns a send_data of the XLSX of a record set ( used in the request
@@ -49,6 +49,13 @@ module PersonnelRequestController
     #
     # params: indifferent hash that's just the controller params passed in
     def scope_records(params = {})
-      policy_scope(@q.result.page(params[:page]).per_page(per_page)) || []
+      if params[:format] == 'xlsx'
+        # xlsx format should not use pagination, and always return all records
+        # allowed by scope
+        policy_scope(@q.result)
+      else
+        # Other formats use pagination
+        policy_scope(@q.result.page(params[:page]).per_page(per_page)) || []
+      end
     end
 end

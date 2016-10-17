@@ -37,7 +37,7 @@ class RequestTypesController < ApplicationController
 
     respond_to do |format|
       if @request_type.save
-        format.html { redirect_to @request_type, notice: 'Request type was successfully created.' }
+        format.html { redirect_to @request_type, notice: "Request type #{@request_type.description} was successfully created." }
         format.json { render :show, status: :created, location: @request_type }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class RequestTypesController < ApplicationController
     authorize RequestType
     respond_to do |format|
       if @request_type.update(request_type_params)
-        format.html { redirect_to @request_type, notice: 'Request type was successfully updated.' }
+        format.html { redirect_to @request_type, notice: "Request type #{@request_type.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @request_type }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class RequestTypesController < ApplicationController
     authorize RequestType
     respond_to do |format|
       if delete
-        format.html { redirect_to request_types_url, notice: 'Request type was successfully destroyed.' }
+        format.html { redirect_to request_types_url, notice: "Request type #{@request_type.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to request_types_url, flash: { error: @error_msg } }

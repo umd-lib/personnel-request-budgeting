@@ -37,7 +37,7 @@ class EmployeeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @employee_category.save
-        format.html { redirect_to @employee_category, notice: 'Employee category was successfully created.' }
+        format.html { redirect_to @employee_category, notice: "Employee category #{@employee_category.description} was successfully created." }
         format.json { render :show, status: :created, location: @employee_category }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class EmployeeCategoriesController < ApplicationController
     authorize EmployeeCategory
     respond_to do |format|
       if @employee_category.update(employee_category_params)
-        format.html { redirect_to @employee_category, notice: 'Employee category was successfully updated.' }
+        format.html { redirect_to @employee_category, notice: "Employee category #{@employee_category.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @employee_category }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class EmployeeCategoriesController < ApplicationController
     authorize EmployeeCategory
     respond_to do |format|
       if delete
-        format.html { redirect_to employee_categories_url, notice: 'Employee category was successfully destroyed.' }
+        format.html { redirect_to employee_categories_url, notice: "Employee category #{@employee_category.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to employee_categories_url, flash: { error: @error_msg } }

@@ -46,7 +46,7 @@ class ContractorRequestsController < ApplicationController
 
     respond_to do |format|
       if @contractor_request.save
-        format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully created.' }
+        format.html { redirect_to @contractor_request, notice: "Contractor request for #{@contractor_request.description} was successfully created." }
         format.json { render :show, status: :created, location: @contractor_request }
       else
         format.html do
@@ -66,7 +66,7 @@ class ContractorRequestsController < ApplicationController
     authorize @contractor_request
     respond_to do |format|
       if @contractor_request.update(contractor_request_params)
-        format.html { redirect_to @contractor_request, notice: 'Contractor request was successfully updated.' }
+        format.html { redirect_to @contractor_request, notice:  "Contractor request for #{@contractor_request.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @contractor_request }
       else
         format.html do
@@ -85,7 +85,7 @@ class ContractorRequestsController < ApplicationController
     authorize @contractor_request
     @contractor_request.destroy
     respond_to do |format|
-      format.html { redirect_to contractor_requests_url, notice: 'Contractor request was successfully destroyed.' }
+      format.html { redirect_to contractor_requests_url, notice:  "Contractor request for #{@contractor_request.description} was successfully destroyed." }
       format.json { head :no_content }
     end
   end

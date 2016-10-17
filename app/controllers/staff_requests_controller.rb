@@ -46,7 +46,7 @@ class StaffRequestsController < ApplicationController
 
     respond_to do |format|
       if @staff_request.save
-        format.html { redirect_to @staff_request, notice: 'Staff request was successfully created.' }
+        format.html { redirect_to @staff_request, notice: "Staff request for #{@staff_request.description} was successfully created." }
         format.json { render :show, status: :created, location: @staff_request }
       else
         format.html do
@@ -66,7 +66,7 @@ class StaffRequestsController < ApplicationController
     authorize @staff_request
     respond_to do |format|
       if @staff_request.update(staff_request_params)
-        format.html { redirect_to @staff_request, notice: 'Staff request was successfully updated.' }
+        format.html { redirect_to @staff_request, notice:"Staff request for #{@staff_request.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @staff_request }
       else
         format.html do
@@ -85,7 +85,7 @@ class StaffRequestsController < ApplicationController
     authorize @staff_request
     @staff_request.destroy
     respond_to do |format|
-      format.html { redirect_to staff_requests_url, notice: 'Staff request was successfully destroyed.' }
+      format.html { redirect_to staff_requests_url, notice: "Staff request for #{@staff_request.description} was successfully destroyed." }
       format.json { head :no_content }
     end
   end

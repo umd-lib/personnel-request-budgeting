@@ -37,7 +37,7 @@ class ReviewStatusesController < ApplicationController
 
     respond_to do |format|
       if @review_status.save
-        format.html { redirect_to @review_status, notice: 'Review status was successfully created.' }
+        format.html { redirect_to @review_status, notice: "Review status #{@review_status.description} was successfully created." }
         format.json { render :show, status: :created, location: @review_status }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class ReviewStatusesController < ApplicationController
     authorize ReviewStatus
     respond_to do |format|
       if @review_status.update(review_status_params)
-        format.html { redirect_to @review_status, notice: 'Review status was successfully updated.' }
+        format.html { redirect_to @review_status, notice: "Review status #{@review_status.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @review_status }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class ReviewStatusesController < ApplicationController
     authorize ReviewStatus
     respond_to do |format|
       if delete
-        format.html { redirect_to review_statuses_url, notice: 'Review status was successfully destroyed.' }
+        format.html { redirect_to review_statuses_url, notice: "Review status #{@review_status.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to review_statuses_url, flash: { error: @error_msg } }

@@ -37,7 +37,7 @@ class UnitsController < ApplicationController
 
     respond_to do |format|
       if @unit.save
-        format.html { redirect_to @unit, notice: 'Unit was successfully created.' }
+        format.html { redirect_to @unit, notice: "Unit #{@unit.description} was successfully created." }
         format.json { render :show, status: :created, location: @unit }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class UnitsController < ApplicationController
     authorize Unit
     respond_to do |format|
       if @unit.update(unit_params)
-        format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
+        format.html { redirect_to @unit, notice: "Unit #{@unit.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @unit }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class UnitsController < ApplicationController
     authorize Unit
     respond_to do |format|
       if delete
-        format.html { redirect_to units_url, notice: 'Unit was successfully destroyed.' }
+        format.html { redirect_to units_url, notice: "Unit #{@unit.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to units_url, flash: { error: @error_msg } }

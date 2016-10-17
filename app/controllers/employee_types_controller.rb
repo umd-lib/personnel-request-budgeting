@@ -37,7 +37,7 @@ class EmployeeTypesController < ApplicationController
 
     respond_to do |format|
       if @employee_type.save
-        format.html { redirect_to @employee_type, notice: 'Employee type was successfully created.' }
+        format.html { redirect_to @employee_type, notice: "Employee type #{@employee_type.description} was successfully created." }
         format.json { render :show, status: :created, location: @employee_type }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class EmployeeTypesController < ApplicationController
     authorize EmployeeType
     respond_to do |format|
       if @employee_type.update(employee_type_params)
-        format.html { redirect_to @employee_type, notice: 'Employee type was successfully updated.' }
+        format.html { redirect_to @employee_type, notice: "Employee type #{@employee_type.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @employee_type }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class EmployeeTypesController < ApplicationController
     authorize EmployeeType
     respond_to do |format|
       if delete
-        format.html { redirect_to employee_types_url, notice: 'Employee type was successfully destroyed.' }
+        format.html { redirect_to employee_types_url, notice: "Employee type #{@employee_type.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to employee_types_url, flash: { error: @error_msg } }

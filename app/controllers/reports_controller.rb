@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       if @report.save
         ReportJob.perform_later @report
-        format.html { redirect_to @report, notice: 'Request type was successfully created.' }
+        format.html { redirect_to @report, notice: "Report was successfully created." }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class ReportsController < ApplicationController
     authorize Report
     respond_to do |format|
       if delete
-        format.html { redirect_to reports_url, notice: 'Request type was successfully destroyed.' }
+        format.html { redirect_to reports_url, notice: "Report was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to reports_url, flash: { error: @error_msg } }

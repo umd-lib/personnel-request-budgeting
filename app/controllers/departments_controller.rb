@@ -37,7 +37,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
+        format.html { redirect_to @department, notice: "Department #{@department.description} was successfully created." }
         format.json { render :show, status: :created, location: @department }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class DepartmentsController < ApplicationController
     authorize Department
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+        format.html { redirect_to @department, notice: "Department #{@department.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @department }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class DepartmentsController < ApplicationController
     authorize Department
     respond_to do |format|
       if delete
-        format.html { redirect_to departments_url, notice: 'Department was successfully destroyed.' }
+        format.html { redirect_to departments_url, notice: "Department #{@department.description} was successfully destroyed." }
         format.json { head :no_content }
       else
         format.html { redirect_to departments_url, flash: { error: @error_msg } }

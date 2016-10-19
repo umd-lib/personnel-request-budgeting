@@ -36,7 +36,7 @@ class RoleCutoffsController < ApplicationController
 
     respond_to do |format|
       if @role_cutoff.save
-        format.html { redirect_to @role_cutoff, notice: 'Role cutoff was successfully created.' }
+        format.html { redirect_to @role_cutoff, notice: "Role cutoff #{@role_cutoff.description} was successfully created." }
         format.json { render :show, status: :created, location: @role_cutoff }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class RoleCutoffsController < ApplicationController
     authorize RoleCutoff
     respond_to do |format|
       if @role_cutoff.update(role_cutoff_params)
-        format.html { redirect_to @role_cutoff, notice: 'Role cutoff was successfully updated.' }
+        format.html { redirect_to @role_cutoff, notice: "Role cutoff #{@role_cutoff.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @role_cutoff }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class RoleCutoffsController < ApplicationController
     authorize RoleCutoff
     @role_cutoff.destroy
     respond_to do |format|
-      format.html { redirect_to role_cutoffs_url, notice: 'Role cutoff was successfully destroyed.' }
+      format.html { redirect_to role_cutoffs_url, notice: "Role cutoff #{@role_cutoff.description} was successfully destroyed." }
       format.json { head :no_content }
     end
   end

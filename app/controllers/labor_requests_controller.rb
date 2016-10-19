@@ -46,7 +46,7 @@ class LaborRequestsController < ApplicationController
 
     respond_to do |format|
       if @labor_request.save
-        format.html { redirect_to @labor_request, notice: 'Labor request was successfully created.' }
+        format.html { redirect_to @labor_request, notice:  "Labor request for #{@labor_request.description} was successfully created." }
         format.json { render :show, status: :created, location: @labor_request }
       else
         format.html do
@@ -66,7 +66,7 @@ class LaborRequestsController < ApplicationController
     authorize @labor_request
     respond_to do |format|
       if @labor_request.update(labor_request_params)
-        format.html { redirect_to @labor_request, notice: 'Labor request was successfully updated.' }
+        format.html { redirect_to @labor_request, notice: "Labor request for #{@labor_request.description} was successfully updated." }
         format.json { render :show, status: :ok, location: @labor_request }
       else
         format.html do
@@ -85,7 +85,7 @@ class LaborRequestsController < ApplicationController
     authorize @labor_request
     @labor_request.destroy
     respond_to do |format|
-      format.html { redirect_to labor_requests_url, notice: 'Labor request was successfully destroyed.' }
+      format.html { redirect_to labor_requests_url, notice:  "Labor request for #{@labor_request.description} was successfully destroyed." }
       format.json { head :no_content }
     end
   end

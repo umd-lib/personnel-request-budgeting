@@ -2,7 +2,7 @@
 
 fac:
   employee_type: fac
-  position_description: Faculty Position
+  position_title: Faculty Position
   request_type: new
   annual_base_pay: 50000.00
   nonop_funds: 0.00
@@ -15,7 +15,7 @@ fac:
 
 staff_request_with_status:
   employee_type: fac
-  position_description: High status 
+  position_title: High status 
   request_type: new
   annual_base_pay: 500000000.00
   nonop_funds: 0.00
@@ -28,7 +28,7 @@ staff_request_with_status:
   
 fac_with_unit:
   employee_type: fac
-  position_description: Architecture Faculty Position
+  position_title: Architecture Faculty Position
   request_type: new
   annual_base_pay: 50000.00
   nonop_funds: 0.00
@@ -42,7 +42,7 @@ fac_with_unit:
 # Sample data for pagination
 staff_request_1:
   employee_type: fac
-  position_description: Customer Markets Planner
+  position_title: Customer Markets Planner
   request_type: pay_adj
   annual_base_pay: 475917.87
   nonop_funds: 247483.60
@@ -55,7 +55,7 @@ staff_request_1:
 
 staff_request_2:
   employee_type: ex
-  position_description: Corporate Implementation Analyst
+  position_title: Corporate Implementation Analyst
   request_type: pay_adj
   annual_base_pay: 198994.68
   department: dds
@@ -65,7 +65,7 @@ staff_request_2:
 
 staff_request_3:
   employee_type: ex
-  position_description: Principal Solutions Technician
+  position_title: Principal Solutions Technician
   request_type: new
   annual_base_pay: 193647.29
   nonop_funds: 66562.96
@@ -78,7 +78,7 @@ staff_request_3:
 
 staff_request_4:
   employee_type: nex
-  position_description: Dynamic Implementation Representative
+  position_title: Dynamic Implementation Representative
   request_type: new
   annual_base_pay: 205818.50
   nonop_funds: 59103.19
@@ -88,7 +88,7 @@ staff_request_4:
 
 staff_request_5:
   employee_type: fac
-  position_description: Internal Tactics Planner
+  position_title: Internal Tactics Planner
   request_type: new
   annual_base_pay: 148601.90
   department: uss
@@ -98,7 +98,7 @@ staff_request_5:
 
 staff_request_6:
   employee_type: ex
-  position_description: Chief Program Architect
+  position_title: Chief Program Architect
   request_type: convert_cont
   annual_base_pay: 189633.46
   nonop_funds: 188828.62
@@ -111,7 +111,7 @@ staff_request_6:
 
 staff_request_7:
   employee_type: ex
-  position_description: Central Assurance Engineer
+  position_title: Central Assurance Engineer
   request_type: new
   annual_base_pay: 446194.16
   nonop_funds: 194701.30
@@ -123,7 +123,7 @@ staff_request_7:
 
 staff_request_8:
   employee_type: ga
-  position_description: Central Communications Orchestrator
+  position_title: Central Communications Orchestrator
   request_type: convert_cont
   annual_base_pay: 302521.39
   nonop_funds: 15737.36
@@ -135,7 +135,7 @@ staff_request_8:
 
 staff_request_9:
   employee_type: ex
-  position_description: Investor Division Specialist
+  position_title: Investor Division Specialist
   request_type: pay_adj
   annual_base_pay: 300294.85
   department: rl
@@ -146,7 +146,7 @@ staff_request_9:
 
 staff_request_10:
   employee_type: fac
-  position_description: Forward Metrics Representative
+  position_title: Forward Metrics Representative
   request_type: new
   annual_base_pay: 259693.01
   nonop_funds: 161655.74
@@ -159,7 +159,7 @@ staff_request_10:
 
 staff_request_11:
   employee_type: ga
-  position_description: Lead Web Administrator
+  position_title: Lead Web Administrator
   request_type: convert_cont
   annual_base_pay: 261754.95
   department: as
@@ -170,7 +170,7 @@ staff_request_11:
 
 staff_request_12:
   employee_type: fac
-  position_description: National Branding Planner
+  position_title: National Branding Planner
   request_type: pay_adj
   annual_base_pay: 492025.09
   department: do
@@ -180,7 +180,7 @@ staff_request_12:
 
 staff_request_13:
   employee_type: nex
-  position_description: Lead Division Executive
+  position_title: Lead Division Executive
   request_type: new
   annual_base_pay: 159489.36
   nonop_funds: 95031.74
@@ -193,7 +193,7 @@ staff_request_13:
 
 staff_request_14:
   employee_type: ga
-  position_description: Senior Functionality Technician
+  position_title: Senior Functionality Technician
   request_type: new
   annual_base_pay: 483445.02
   department: rl
@@ -204,7 +204,7 @@ staff_request_14:
 
 staff_request_15:
   employee_type: ga
-  position_description: Future Implementation Engineer
+  position_title: Future Implementation Engineer
   request_type: convert_cont
   annual_base_pay: 38482.90
   department: uss
@@ -214,7 +214,7 @@ staff_request_15:
 
 staff_request_16:
   employee_type: ga
-  position_description: Dynamic Assurance Supervisor
+  position_title: Dynamic Assurance Supervisor
   request_type: convert_cont
   annual_base_pay: 34306.76
   department: as
@@ -225,7 +225,7 @@ staff_request_16:
 
 staff_request_17:
   employee_type: fac
-  position_description: Corporate Assurance Executive
+  position_title: Corporate Assurance Executive
   request_type: new
   annual_base_pay: 474576.93
   department: prg
@@ -235,7 +235,7 @@ staff_request_17:
 
 staff_request_18:
   employee_type: ga
-  position_description: Dynamic Research Director
+  position_title: Dynamic Research Director
   request_type: pay_adj
   annual_base_pay: 69641.93
   department: acq
@@ -245,7 +245,7 @@ staff_request_18:
 
 staff_request_19:
   employee_type: fac
-  position_description: Legacy Functionality Technician
+  position_title: Legacy Functionality Technician
   request_type: new
   annual_base_pay: 448032.86
   department: as
@@ -256,7 +256,7 @@ staff_request_19:
 
 staff_request_20:
   employee_type: ex
-  position_description: Product Operations Representative
+  position_title: Product Operations Representative
   request_type: convert_cont
   annual_base_pay: 100227.87
   nonop_funds: 96745.75
@@ -268,7 +268,7 @@ staff_request_20:
 
 staff_request_21:
   employee_type: fac
-  position_description: Principal Implementation Officer
+  position_title: Principal Implementation Officer
   request_type: convert_cont
   annual_base_pay: 128175.90
   department: as
@@ -278,7 +278,7 @@ staff_request_21:
 
 staff_request_22:
   employee_type: nex
-  position_description: Regional Paradigm Executive
+  position_title: Regional Paradigm Executive
   request_type: new
   annual_base_pay: 346535.51
   department: rl
@@ -289,7 +289,7 @@ staff_request_22:
 
 staff_request_23:
   employee_type: fac
-  position_description: District Markets Agent
+  position_title: District Markets Agent
   request_type: pay_adj
   annual_base_pay: 253822.54
   department: as
@@ -300,7 +300,7 @@ staff_request_23:
 
 staff_request_24:
   employee_type: ex
-  position_description: Investor Directives Specialist
+  position_title: Investor Directives Specialist
   request_type: pay_adj
   annual_base_pay: 4673.18
   department: dds
@@ -310,7 +310,7 @@ staff_request_24:
 
 staff_request_25:
   employee_type: nex
-  position_description: Investor Directives Developer
+  position_title: Investor Directives Developer
   request_type: new
   annual_base_pay: 411299.90
   nonop_funds: 321801.16
@@ -323,7 +323,7 @@ staff_request_25:
 
 staff_request_26:
   employee_type: fac
-  position_description: Dynamic Solutions Strategist
+  position_title: Dynamic Solutions Strategist
   request_type: pay_adj
   annual_base_pay: 195907.95
   department: bbs
@@ -333,7 +333,7 @@ staff_request_26:
 
 staff_request_27:
   employee_type: ex
-  position_description: Product Assurance Executive
+  position_title: Product Assurance Executive
   request_type: convert_cont
   annual_base_pay: 274773.39
   nonop_funds: 164306.34
@@ -345,7 +345,7 @@ staff_request_27:
 
 staff_request_28:
   employee_type: ex
-  position_description: Dynamic Paradigm Administrator
+  position_title: Dynamic Paradigm Administrator
   request_type: pay_adj
   annual_base_pay: 53657.73
   department: prg
@@ -355,7 +355,7 @@ staff_request_28:
 
 staff_request_29:
   employee_type: ga
-  position_description: Human Functionality Director
+  position_title: Human Functionality Director
   request_type: new
   annual_base_pay: 373704.12
   nonop_funds: 126635.76
@@ -368,7 +368,7 @@ staff_request_29:
 
 staff_request_30:
   employee_type: ex
-  position_description: Dynamic Brand Planner
+  position_title: Dynamic Brand Planner
   request_type: pay_adj
   annual_base_pay: 170813.64
   department: lms
@@ -378,7 +378,7 @@ staff_request_30:
 
 staff_request_31:
   employee_type: nex
-  position_description: Direct Program Analyst
+  position_title: Direct Program Analyst
   request_type: convert_cont
   annual_base_pay: 368753.64
   department: cd
@@ -388,7 +388,7 @@ staff_request_31:
 
 staff_request_32:
   employee_type: fac
-  position_description: Forward Applications Specialist
+  position_title: Forward Applications Specialist
   request_type: new
   annual_base_pay: 324178.83
   nonop_funds: 304574.65
@@ -400,7 +400,7 @@ staff_request_32:
 
 staff_request_33:
   employee_type: ga
-  position_description: Dynamic Integration Orchestrator
+  position_title: Dynamic Integration Orchestrator
   request_type: new
   annual_base_pay: 99938.19
   department: as
@@ -411,7 +411,7 @@ staff_request_33:
 
 staff_request_34:
   employee_type: fac
-  position_description: Customer Infrastructure Analyst
+  position_title: Customer Infrastructure Analyst
   request_type: convert_cont
   annual_base_pay: 252404.12
   department: as
@@ -422,7 +422,7 @@ staff_request_34:
 
 staff_request_35:
   employee_type: fac
-  position_description: Senior Branding Liaison
+  position_title: Senior Branding Liaison
   request_type: new
   annual_base_pay: 1915.15
   department: dcmr
@@ -432,7 +432,7 @@ staff_request_35:
 
 staff_request_36:
   employee_type: nex
-  position_description: Dynamic Intranet Consultant
+  position_title: Dynamic Intranet Consultant
   request_type: new
   annual_base_pay: 39214.84
   department: lhr
@@ -442,7 +442,7 @@ staff_request_36:
 
 staff_request_37:
   employee_type: fac
-  position_description: District Assurance Specialist
+  position_title: District Assurance Specialist
   request_type: convert_cont
   annual_base_pay: 79691.74
   department: bbs
@@ -452,7 +452,7 @@ staff_request_37:
 
 staff_request_38:
   employee_type: ga
-  position_description: Global Markets Supervisor
+  position_title: Global Markets Supervisor
   request_type: convert_cont
   annual_base_pay: 406281.19
   nonop_funds: 265034.84
@@ -464,7 +464,7 @@ staff_request_38:
 
 staff_request_39:
   employee_type: ex
-  position_description: District Data Assistant
+  position_title: District Data Assistant
   request_type: convert_cont
   annual_base_pay: 496471.62
   nonop_funds: 484781.65
@@ -476,7 +476,7 @@ staff_request_39:
 
 staff_request_40:
   employee_type: nex
-  position_description: Dynamic Research Coordinator
+  position_title: Dynamic Research Coordinator
   request_type: pay_adj
   annual_base_pay: 235164.61
   department: cd
@@ -486,7 +486,7 @@ staff_request_40:
 
 staff_request_41:
   employee_type: ga
-  position_description: Corporate Configuration Manager
+  position_title: Corporate Configuration Manager
   request_type: convert_cont
   annual_base_pay: 228955.46
   department: dds
@@ -496,7 +496,7 @@ staff_request_41:
 
 staff_request_42:
   employee_type: ga
-  position_description: Principal Accountability Supervisor
+  position_title: Principal Accountability Supervisor
   request_type: pay_adj
   annual_base_pay: 165278.34
   nonop_funds: 53391.66
@@ -508,7 +508,7 @@ staff_request_42:
 
 staff_request_43:
   employee_type: ga
-  position_description: Customer Brand Analyst
+  position_title: Customer Brand Analyst
   request_type: convert_cont
   annual_base_pay: 237653.98
   nonop_funds: 50693.66
@@ -520,7 +520,7 @@ staff_request_43:
 
 staff_request_44:
   employee_type: ga
-  position_description: Senior Quality Consultant
+  position_title: Senior Quality Consultant
   request_type: new
   annual_base_pay: 232681.25
   department: mds
@@ -528,7 +528,7 @@ staff_request_44:
 
 staff_request_45:
   employee_type: ga
-  position_description: Corporate Response Strategist
+  position_title: Corporate Response Strategist
   request_type: new
   annual_base_pay: 462986.68
   nonop_funds: 74751.44
@@ -540,7 +540,7 @@ staff_request_45:
 
 staff_request_46:
   employee_type: ex
-  position_description: Dynamic Web Associate
+  position_title: Dynamic Web Associate
   request_type: new
   annual_base_pay: 447606.31
   nonop_funds: 132939.06
@@ -552,7 +552,7 @@ staff_request_46:
 
 staff_request_47:
   employee_type: nex
-  position_description: Central Infrastructure Coordinator
+  position_title: Central Infrastructure Coordinator
   request_type: pay_adj
   annual_base_pay: 244143.22
   department: mds
@@ -562,7 +562,7 @@ staff_request_47:
 
 staff_request_48:
   employee_type: fac
-  position_description: Human Branding Strategist
+  position_title: Human Branding Strategist
   request_type: pay_adj
   annual_base_pay: 267663.32
   department: scua
@@ -572,7 +572,7 @@ staff_request_48:
 
 staff_request_49:
   employee_type: fac
-  position_description: Dynamic Research Officer
+  position_title: Dynamic Research Officer
   request_type: convert_cont
   annual_base_pay: 40486.76
   department: rl
@@ -583,7 +583,7 @@ staff_request_49:
 
 staff_request_50:
   employee_type: nex
-  position_description: Principal Creative Officer
+  position_title: Principal Creative Officer
   request_type: new
   annual_base_pay: 29244.41
   department: as

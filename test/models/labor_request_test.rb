@@ -15,8 +15,8 @@ class LaborRequestTest < ActiveSupport::TestCase
     assert_not @labor_request.valid?
   end
 
-  test 'position description should be present' do
-    @labor_request.position_description = '   '
+  test 'position title should be present' do
+    @labor_request.position_title = '   '
     assert_not @labor_request.valid?
   end
 

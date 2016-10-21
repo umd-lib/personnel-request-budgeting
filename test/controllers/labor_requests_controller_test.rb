@@ -29,7 +29,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
         nonop_source: @labor_request.nonop_source,
         number_of_positions: @labor_request.number_of_positions,
         number_of_weeks: @labor_request.number_of_weeks,
-        position_description: @labor_request.position_description,
+        position_title: @labor_request.position_title,
         request_type_id: @labor_request.request_type_id,
         unit_id: @labor_request.unit_id }
     end
@@ -50,7 +50,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
         nonop_source: nil,
         number_of_positions: nil,
         number_of_weeks: nil,
-        position_description: nil,
+        position_title: nil,
         request_type_id: nil,
         unit_id: nil }
     end
@@ -70,7 +70,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
           nonop_source: @labor_request.nonop_source,
           number_of_positions: @labor_request.number_of_positions,
           number_of_weeks: @labor_request.number_of_weeks,
-          position_description: @labor_request.position_description,
+          position_title: @labor_request.position_title,
           request_type_id: @labor_request.request_type_id,
           review_status_id: review_statuses(:approved).id, # Should be ignored
           review_comment: 'Lorem ipsum facto', # Should be ignored
@@ -113,7 +113,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
       nonop_source: @labor_request.nonop_source,
       number_of_positions: @labor_request.number_of_positions,
       number_of_weeks: @labor_request.number_of_weeks,
-      position_description: @labor_request.position_description,
+      position_title: @labor_request.position_title,
       request_type_id: @labor_request.request_type_id,
       review_status_id: @labor_request.review_status_id,
       review_comment: @labor_request.review_comment,
@@ -134,7 +134,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
       nonop_source: nil,
       number_of_positions: nil,
       number_of_weeks: nil,
-      position_description: nil,
+      position_title: nil,
       request_type_id: nil,
       unit_id: nil }
     assert_equal original_attrs, LaborRequest.find(@labor_request.id).attributes

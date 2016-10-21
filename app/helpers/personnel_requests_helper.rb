@@ -82,7 +82,7 @@ module PersonnelRequestsHelper
   #
   # @return [Array] list of fields
   def labor_request_fields
-    %i( position_description employee_type__code request_type__code contractor_name
+    %i( position_title employee_type__code request_type__code contractor_name
         number_of_positions hourly_rate hours_per_week number_of_weeks annual_cost
         nonop_funds division__code department__code unit__code review_status__name
       )
@@ -92,7 +92,7 @@ module PersonnelRequestsHelper
   #
   # @return [Array] list of fields
   def staff_request_fields
-    %i( position_description employee_type__code request_type__code annual_base_pay
+    %i( position_title employee_type__code request_type__code annual_base_pay
         nonop_funds division__code department__code unit__code review_status__name
       )
   end
@@ -101,7 +101,7 @@ module PersonnelRequestsHelper
   #
   # @return [Array] list of fields
   def contractor_request_fields
-    %i( position_description employee_type__code request_type__code contractor_name
+    %i( position_title employee_type__code request_type__code contractor_name
         number_of_months annual_base_pay nonop_funds division__code department__code
         unit__code review_status__name )
   end

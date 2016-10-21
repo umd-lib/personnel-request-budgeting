@@ -27,7 +27,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
         nonop_funds: @contractor_request.nonop_funds,
         nonop_source: @contractor_request.nonop_source,
         number_of_months: @contractor_request.number_of_months,
-        position_description: @contractor_request.position_description,
+        position_title: @contractor_request.position_title,
         request_type_id: @contractor_request.request_type_id,
         unit_id: @contractor_request.unit_id }
     end
@@ -46,7 +46,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
         nonop_funds: nil,
         nonop_source: nil,
         number_of_months: nil,
-        position_description: nil,
+        position_title: nil,
         request_type_id: nil,
         unit_id: nil }
     end
@@ -74,7 +74,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           nonop_funds: @contractor_request.nonop_funds,
           nonop_source: @contractor_request.nonop_source,
           number_of_months: @contractor_request.number_of_months,
-          position_description: @contractor_request.position_description,
+          position_title: @contractor_request.position_title,
           request_type_id: @contractor_request.request_type_id,
           review_status_id: review_statuses(:approved).id, # Should be ignored
           review_comment: 'Lorem ipsum facto', # Should be ignored
@@ -105,7 +105,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       nonop_funds: @contractor_request.nonop_funds,
       nonop_source: @contractor_request.nonop_source,
       number_of_months: @contractor_request.number_of_months,
-      position_description: @contractor_request.position_description,
+      position_title: @contractor_request.position_title,
       request_type_id: @contractor_request.request_type_id,
       unit_id: @contractor_request.unit_id }
     assert_redirected_to contractor_request_path(assigns(:contractor_request))
@@ -122,7 +122,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       nonop_funds: nil,
       nonop_source: nil,
       number_of_months: nil,
-      position_description: nil,
+      position_title: nil,
       request_type_id: nil,
       unit_id: nil }
     assert_equal original_attrs, ContractorRequest.find(@contractor_request.id).attributes

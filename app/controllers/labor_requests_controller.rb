@@ -99,7 +99,7 @@ class LaborRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def labor_request_params
-      allowed = [:employee_type_id, :position_description, :request_type_id,
+      allowed = [:employee_type_id, :position_title, :request_type_id,
                  :contractor_name, :number_of_positions, :hourly_rate, :hours_per_week,
                  :number_of_weeks, :nonop_funds, :nonop_source, :department_id,
                  :unit_id, :justification] + policy(@labor_request || LaborRequest.new).permitted_attributes

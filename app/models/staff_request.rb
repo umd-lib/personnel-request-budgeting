@@ -10,7 +10,7 @@ class StaffRequest < ActiveRecord::Base
   after_initialize :init
 
   # Provides a short human-readable description for this record, for GUI prompts
-  alias_attribute :description, :position_description
+  alias_attribute :description, :position_title
 
   def init
     self.review_status ||= ReviewStatus.find_by_code('UnderReview')

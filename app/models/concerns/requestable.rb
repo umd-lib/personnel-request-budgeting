@@ -11,7 +11,7 @@ module Requestable
     has_one :division, through: :department, autosave: false
 
     validates :employee_type, presence: true
-    validates :position_description, presence: true
+    validates :position_title, presence: true
     validates :request_type, presence: true
     validates :department_id, presence: true
     validates_with RequestDepartmentValidator

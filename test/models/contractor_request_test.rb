@@ -15,8 +15,8 @@ class ContractorRequestTest < ActiveSupport::TestCase
     assert_not @contractor_request.valid?
   end
 
-  test 'position description should be present' do
-    @contractor_request.position_description = '   '
+  test 'position title should be present' do
+    @contractor_request.position_title = '   '
     assert_not @contractor_request.valid?
   end
 

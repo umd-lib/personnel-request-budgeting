@@ -40,7 +40,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
         justification: @staff_request.justification,
         nonop_funds: @staff_request.nonop_funds,
         nonop_source: @staff_request.nonop_source,
-        position_description: @staff_request.position_description,
+        position_title: @staff_request.position_title,
         request_type_id: @staff_request.request_type_id,
         unit_id: @staff_request.unit_id }
     end
@@ -57,7 +57,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
         justification: nil,
         nonop_funds: nil,
         nonop_source: nil,
-        position_description: nil,
+        position_title: nil,
         request_type_id: nil,
         unit_id: nil }
     end
@@ -83,7 +83,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
           justification: @staff_request_with_status.justification,
           nonop_funds: @staff_request_with_status.nonop_funds,
           nonop_source: @staff_request_with_status.nonop_source,
-          position_description: @staff_request_with_status.position_description,
+          position_title: @staff_request_with_status.position_title,
           request_type_id: @staff_request_with_status.request_type_id,
           review_status_id: review_statuses(:approved).id, # Should be ignored
           review_comment: 'Lorem ipsum facto', # Should be ignored
@@ -112,7 +112,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
       justification: @staff_request.justification,
       nonop_funds: @staff_request.nonop_funds,
       nonop_source: @staff_request.nonop_source,
-      position_description: @staff_request.position_description,
+      position_title: @staff_request.position_title,
       request_type_id: @staff_request.request_type_id,
       unit_id: @staff_request.unit_id }
     assert_redirected_to staff_request_path(assigns(:staff_request))
@@ -127,7 +127,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
       justification: nil,
       nonop_funds: nil,
       nonop_source: nil,
-      position_description: nil,
+      position_title: nil,
       request_type_id: nil,
       unit_id: nil }
     assert_equal original_attrs, StaffRequest.find(@staff_request.id).attributes

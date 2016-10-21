@@ -2,7 +2,7 @@
 
 c1:
   employee_type: c1
-  position_description: Software Developer - Ruby
+  position_title: Software Developer - Ruby
   request_type: new
   contractor_name: nil
   number_of_positions: 1
@@ -19,7 +19,7 @@ c1:
 
 fac_hrly_renewal:
   employee_type: fac_hrly
-  position_description: Medieval Plumbing Librarian
+  position_title: Medieval Plumbing Librarian
   request_type: renewal
   contractor_name: Luke O. Below
   number_of_positions: 1
@@ -36,7 +36,7 @@ fac_hrly_renewal:
 
 fac_hrly_with_unit:
   employee_type: fac_hrly
-  position_description: Shelving Roboticist
+  position_title: Shelving Roboticist
   request_type: renewal
   contractor_name: Susan Calvin
   number_of_positions: 1
@@ -53,7 +53,7 @@ fac_hrly_with_unit:
   
 libitd_528:
   employee_type: fac_hrly
-  position_description: LIBITD-528
+  position_title: LIBITD-528
   request_type: new
   contractor_name: nil
   number_of_positions: 5
@@ -71,7 +71,7 @@ libitd_528:
 # Sample data for pagination
 labor_request_1:
   employee_type: student
-  position_description: Customer Accounts Representative
+  position_title: Customer Accounts Representative
   request_type: new
   number_of_positions: 13
   hourly_rate: 40.56
@@ -85,7 +85,7 @@ labor_request_1:
 
 labor_request_2:
   employee_type: student
-  position_description: Direct Implementation Orchestrator
+  position_title: Direct Implementation Orchestrator
   request_type: new
   number_of_positions: 15
   hourly_rate: 17.34
@@ -98,7 +98,7 @@ labor_request_2:
 
 labor_request_3:
   employee_type: fac_hrly
-  position_description: Principal Accountability Manager
+  position_title: Principal Accountability Manager
   request_type: renewal
   contractor_name: Miss Bud Moore
   number_of_positions: 1
@@ -114,7 +114,7 @@ labor_request_3:
 
 labor_request_4:
   employee_type: fac_hrly
-  position_description: Internal Accounts Consultant
+  position_title: Internal Accounts Consultant
   request_type: new
   number_of_positions: 9
   hourly_rate: 63.48
@@ -129,7 +129,7 @@ labor_request_4:
 
 labor_request_5:
   employee_type: student
-  position_description: Senior Creative Consultant
+  position_title: Senior Creative Consultant
   request_type: renewal
   contractor_name: Myriam Bogisich
   number_of_positions: 1
@@ -143,7 +143,7 @@ labor_request_5:
 
 labor_request_6:
   employee_type: c1
-  position_description: Dynamic Web Specialist
+  position_title: Dynamic Web Specialist
   request_type: new
   number_of_positions: 1
   hourly_rate: 58.51
@@ -156,7 +156,7 @@ labor_request_6:
 
 labor_request_7:
   employee_type: fac_hrly
-  position_description: Dynamic Data Producer
+  position_title: Dynamic Data Producer
   request_type: renewal
   contractor_name: Jennie Cruickshank
   number_of_positions: 1
@@ -172,7 +172,7 @@ labor_request_7:
 
 labor_request_8:
   employee_type: student
-  position_description: Regional Creative Agent
+  position_title: Regional Creative Agent
   request_type: renewal
   contractor_name: Mr. Jermaine Bahringer
   number_of_positions: 1
@@ -186,7 +186,7 @@ labor_request_8:
 
 labor_request_9:
   employee_type: c1
-  position_description: Dynamic Tactics Facilitator
+  position_title: Dynamic Tactics Facilitator
   request_type: renewal
   contractor_name: Justina Zulauf
   number_of_positions: 1
@@ -200,7 +200,7 @@ labor_request_9:
 
 labor_request_10:
   employee_type: student
-  position_description: Global Implementation Specialist
+  position_title: Global Implementation Specialist
   request_type: renewal
   contractor_name: Dr. Adele Bayer
   number_of_positions: 1
@@ -216,7 +216,7 @@ labor_request_10:
 
 labor_request_11:
   employee_type: fac_hrly
-  position_description: Global Interactions Producer
+  position_title: Global Interactions Producer
   request_type: renewal
   contractor_name: Nigel Braun DVM
   number_of_positions: 1
@@ -232,7 +232,7 @@ labor_request_11:
 
 labor_request_12:
   employee_type: student
-  position_description: Customer Metrics Specialist
+  position_title: Customer Metrics Specialist
   request_type: renewal
   contractor_name: Mrs. Jessica Bechtelar
   number_of_positions: 1
@@ -246,7 +246,7 @@ labor_request_12:
 
 labor_request_13:
   employee_type: student
-  position_description: Investor Accountability Architect
+  position_title: Investor Accountability Architect
   request_type: new
   number_of_positions: 11
   hourly_rate: 84.98
@@ -261,7 +261,7 @@ labor_request_13:
 
 labor_request_14:
   employee_type: c1
-  position_description: Direct Factors Coordinator
+  position_title: Direct Factors Coordinator
   request_type: renewal
   contractor_name: Daren Sauer
   number_of_positions: 1
@@ -275,7 +275,7 @@ labor_request_14:
 
 labor_request_15:
   employee_type: fac_hrly
-  position_description: Principal Solutions Producer
+  position_title: Principal Solutions Producer
   request_type: new
   number_of_positions: 10
   hourly_rate: 40.11
@@ -289,7 +289,7 @@ labor_request_15:
 
 labor_request_16:
   employee_type: student
-  position_description: Future Group Manager
+  position_title: Future Group Manager
   request_type: renewal
   contractor_name: Cordelia Douglas DVM
   number_of_positions: 1
@@ -305,7 +305,7 @@ labor_request_16:
 
 labor_request_17:
   employee_type: student
-  position_description: District Solutions Developer
+  position_title: District Solutions Developer
   request_type: new
   number_of_positions: 9
   hourly_rate: 62.72
@@ -318,7 +318,7 @@ labor_request_17:
 
 labor_request_18:
   employee_type: fac_hrly
-  position_description: Internal Accounts Orchestrator
+  position_title: Internal Accounts Orchestrator
   request_type: renewal
   contractor_name: Erna Roob
   number_of_positions: 1
@@ -333,7 +333,7 @@ labor_request_18:
 
 labor_request_19:
   employee_type: student
-  position_description: Global Communications Coordinator
+  position_title: Global Communications Coordinator
   request_type: new
   number_of_positions: 1
   hourly_rate: 62.68
@@ -346,7 +346,7 @@ labor_request_19:
 
 labor_request_20:
   employee_type: c1
-  position_description: Chief Accountability Officer
+  position_title: Chief Accountability Officer
   request_type: new
   number_of_positions: 8
   hourly_rate: 74.01
@@ -360,7 +360,7 @@ labor_request_20:
 
 labor_request_21:
   employee_type: c1
-  position_description: Global Quality Officer
+  position_title: Global Quality Officer
   request_type: renewal
   contractor_name: Chris Swift
   number_of_positions: 1
@@ -377,7 +377,7 @@ labor_request_21:
 
 labor_request_22:
   employee_type: c1
-  position_description: Human Research Assistant
+  position_title: Human Research Assistant
   request_type: new
   number_of_positions: 1
   hourly_rate: 56.38
@@ -391,7 +391,7 @@ labor_request_22:
 
 labor_request_23:
   employee_type: fac_hrly
-  position_description: Future Communications Consultant
+  position_title: Future Communications Consultant
   request_type: renewal
   contractor_name: Antonio Wunsch
   number_of_positions: 1
@@ -406,7 +406,7 @@ labor_request_23:
 
 labor_request_24:
   employee_type: c1
-  position_description: Corporate Paradigm Developer
+  position_title: Corporate Paradigm Developer
   request_type: new
   number_of_positions: 9
   hourly_rate: 7.41
@@ -421,7 +421,7 @@ labor_request_24:
 
 labor_request_25:
   employee_type: c1
-  position_description: International Communications Architect
+  position_title: International Communications Architect
   request_type: new
   number_of_positions: 7
   hourly_rate: 31.03
@@ -436,7 +436,7 @@ labor_request_25:
 
 labor_request_26:
   employee_type: student
-  position_description: Lead Intranet Architect
+  position_title: Lead Intranet Architect
   request_type: renewal
   contractor_name: Terry Roob
   number_of_positions: 1
@@ -450,7 +450,7 @@ labor_request_26:
 
 labor_request_27:
   employee_type: c1
-  position_description: Regional Tactics Associate
+  position_title: Regional Tactics Associate
   request_type: new
   number_of_positions: 10
   hourly_rate: 37.15
@@ -464,7 +464,7 @@ labor_request_27:
 
 labor_request_28:
   employee_type: fac_hrly
-  position_description: Forward Web Producer
+  position_title: Forward Web Producer
   request_type: renewal
   contractor_name: Mr. Earlene Spencer
   number_of_positions: 1
@@ -480,7 +480,7 @@ labor_request_28:
 
 labor_request_29:
   employee_type: c1
-  position_description: Forward Usability Facilitator
+  position_title: Forward Usability Facilitator
   request_type: renewal
   contractor_name: Sister Hane
   number_of_positions: 1
@@ -494,7 +494,7 @@ labor_request_29:
 
 labor_request_30:
   employee_type: fac_hrly
-  position_description: Customer Mobility Administrator
+  position_title: Customer Mobility Administrator
   request_type: renewal
   contractor_name: Anastasia Schoen PhD
   number_of_positions: 1
@@ -510,7 +510,7 @@ labor_request_30:
 
 labor_request_31:
   employee_type: fac_hrly
-  position_description: Human Creative Supervisor
+  position_title: Human Creative Supervisor
   request_type: renewal
   contractor_name: Maximus Lebsack
   number_of_positions: 1
@@ -524,7 +524,7 @@ labor_request_31:
 
 labor_request_32:
   employee_type: c1
-  position_description: Future Accountability Producer
+  position_title: Future Accountability Producer
   request_type: renewal
   contractor_name: Kaleb Conroy
   number_of_positions: 1
@@ -540,7 +540,7 @@ labor_request_32:
 
 labor_request_33:
   employee_type: fac_hrly
-  position_description: National Functionality Manager
+  position_title: National Functionality Manager
   request_type: renewal
   contractor_name: Brianne Schulist
   number_of_positions: 1
@@ -555,7 +555,7 @@ labor_request_33:
 
 labor_request_34:
   employee_type: c1
-  position_description: Investor Implementation Associate
+  position_title: Investor Implementation Associate
   request_type: renewal
   contractor_name: Kaya Murphy
   number_of_positions: 1
@@ -569,7 +569,7 @@ labor_request_34:
 
 labor_request_35:
   employee_type: c1
-  position_description: Lead Operations Assistant
+  position_title: Lead Operations Assistant
   request_type: renewal
   contractor_name: Joyce Boyle
   number_of_positions: 1
@@ -585,7 +585,7 @@ labor_request_35:
 
 labor_request_36:
   employee_type: student
-  position_description: Principal Communications Agent
+  position_title: Principal Communications Agent
   request_type: new
   number_of_positions: 13
   hourly_rate: 83.80
@@ -599,7 +599,7 @@ labor_request_36:
 
 labor_request_37:
   employee_type: fac_hrly
-  position_description: Human Directives Designer
+  position_title: Human Directives Designer
   request_type: new
   number_of_positions: 7
   hourly_rate: 23.34
@@ -614,7 +614,7 @@ labor_request_37:
 
 labor_request_38:
   employee_type: student
-  position_description: Lead Markets Orchestrator
+  position_title: Lead Markets Orchestrator
   request_type: renewal
   contractor_name: Mr. Earl Dach
   number_of_positions: 1
@@ -629,7 +629,7 @@ labor_request_38:
 
 labor_request_39:
   employee_type: fac_hrly
-  position_description: Principal Accounts Representative
+  position_title: Principal Accounts Representative
   request_type: renewal
   contractor_name: Darwin Ryan
   number_of_positions: 1
@@ -644,7 +644,7 @@ labor_request_39:
 
 labor_request_40:
   employee_type: student
-  position_description: District Directives Agent
+  position_title: District Directives Agent
   request_type: new
   number_of_positions: 5
   hourly_rate: 19.46
@@ -658,7 +658,7 @@ labor_request_40:
 
 labor_request_41:
   employee_type: fac_hrly
-  position_description: Human Metrics Representative
+  position_title: Human Metrics Representative
   request_type: new
   number_of_positions: 5
   hourly_rate: 72.94
@@ -674,7 +674,7 @@ labor_request_41:
 
 labor_request_42:
   employee_type: c1
-  position_description: Central Response Agent
+  position_title: Central Response Agent
   request_type: new
   number_of_positions: 17
   hourly_rate: 6.60
@@ -687,7 +687,7 @@ labor_request_42:
 
 labor_request_43:
   employee_type: c1
-  position_description: Future Program Executive
+  position_title: Future Program Executive
   request_type: new
   number_of_positions: 13
   hourly_rate: 19.23
@@ -700,7 +700,7 @@ labor_request_43:
 
 labor_request_44:
   employee_type: c1
-  position_description: Corporate Optimization Coordinator
+  position_title: Corporate Optimization Coordinator
   request_type: new
   number_of_positions: 19
   hourly_rate: 30.38
@@ -713,7 +713,7 @@ labor_request_44:
 
 labor_request_45:
   employee_type: student
-  position_description: Direct Interactions Consultant
+  position_title: Direct Interactions Consultant
   request_type: renewal
   contractor_name: Shawna Aufderhar
   number_of_positions: 1
@@ -727,7 +727,7 @@ labor_request_45:
 
 labor_request_46:
   employee_type: fac_hrly
-  position_description: Investor Usability Engineer
+  position_title: Investor Usability Engineer
   request_type: renewal
   contractor_name: Ulices Wisozk
   number_of_positions: 1
@@ -744,7 +744,7 @@ labor_request_46:
 
 labor_request_47:
   employee_type: fac_hrly
-  position_description: Lead Security Coordinator
+  position_title: Lead Security Coordinator
   request_type: renewal
   contractor_name: Elyse Toy
   number_of_positions: 1
@@ -758,7 +758,7 @@ labor_request_47:
 
 labor_request_48:
   employee_type: c1
-  position_description: Chief Quality Officer
+  position_title: Chief Quality Officer
   request_type: renewal
   contractor_name: Dariana Windler PhD
   number_of_positions: 1
@@ -773,7 +773,7 @@ labor_request_48:
 
 labor_request_49:
   employee_type: fac_hrly
-  position_description: Legacy Accounts Facilitator
+  position_title: Legacy Accounts Facilitator
   request_type: new
   number_of_positions: 14
   hourly_rate: 10.80
@@ -787,7 +787,7 @@ labor_request_49:
 
 labor_request_50:
   employee_type: c1
-  position_description: Principal Marketing Assistant
+  position_title: Principal Marketing Assistant
   request_type: renewal
   contractor_name: Ephraim Abshire
   number_of_positions: 1

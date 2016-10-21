@@ -54,7 +54,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           nonop_source: dept1_request.nonop_source,
           number_of_positions: dept1_request.number_of_positions,
           number_of_weeks: dept1_request.number_of_weeks,
-          position_description: dept1_request.position_description,
+          position_title: dept1_request.position_title,
           request_type_id: dept1_request.request_type_id,
           unit_id: dept1_request.unit_id }
         assert_redirected_to labor_request_path(assigns(:labor_request))
@@ -70,16 +70,16 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           nonop_source: dept2_request.nonop_source,
           number_of_positions: dept2_request.number_of_positions,
           number_of_weeks: dept2_request.number_of_weeks,
-          position_description: dept2_request.position_description,
+          position_title: dept2_request.position_title,
           request_type_id: dept2_request.request_type_id,
           unit_id: dept2_request.unit_id }
         assert_response :forbidden
 
         # Update
-        patch labor_request_path(dept1_request), labor_request: { position_description: 'Foo' }
+        patch labor_request_path(dept1_request), labor_request: { position_title: 'Foo' }
         assert_redirected_to labor_request_path(dept1_request)
 
-        patch labor_request_path(dept2_request), labor_request: { position_description: 'Foo' }
+        patch labor_request_path(dept2_request), labor_request: { position_title: 'Foo' }
         assert_response :forbidden
 
         # Destroy

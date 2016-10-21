@@ -6,7 +6,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
   include PersonnelRequestsTestHelper
 
   def setup
-    @columns = %w(position_description employee_type_code request_type_code
+    @columns = %w(position_title employee_type_code request_type_code
                   contractor_name number_of_positions hourly_rate hours_per_week
                   number_of_weeks annual_cost nonop_funds division_code
                   department_code unit_code review_status_name)

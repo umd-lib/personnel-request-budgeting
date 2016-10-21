@@ -2,7 +2,7 @@
 
 c2:
   employee_type: c2
-  position_description: Programmer
+  position_title: Programmer
   request_type: new
   contractor_name: nil
   number_of_months: 6
@@ -18,7 +18,7 @@ c2:
 
 cont_fac_renewal:
   employee_type: cont_fac
-  position_description: Superhero Studies Librarian
+  position_title: Superhero Studies Librarian
   request_type: renewal
   contractor_name: Clark Kent
   number_of_months: 12
@@ -33,7 +33,7 @@ cont_fac_renewal:
 
 c2_with_unit:
   employee_type: c2
-  position_description: Medieval Studies Librarian
+  position_title: Medieval Studies Librarian
   request_type: new
   contractor_name: nil
   number_of_months: 3
@@ -48,7 +48,7 @@ c2_with_unit:
 
 libitd_528:
   employee_type: c2
-  position_description: LIBITD-528
+  position_title: LIBITD-528
   request_type: new
   contractor_name: nil
   number_of_months: 6
@@ -64,7 +64,7 @@ libitd_528:
 # Sample data for pagination
 contractor_request_1:
   employee_type: cont_fac
-  position_description: Regional Functionality Orchestrator
+  position_title: Regional Functionality Orchestrator
   request_type: new
   number_of_months: 10
   annual_base_pay: 72819.53
@@ -75,7 +75,7 @@ contractor_request_1:
 
 contractor_request_2:
   employee_type: c2
-  position_description: Future Operations Director
+  position_title: Future Operations Director
   request_type: renewal
   contractor_name: Marguerite VonRueden
   number_of_months: 3
@@ -87,7 +87,7 @@ contractor_request_2:
 
 contractor_request_3:
   employee_type: cont_fac
-  position_description: National Brand Producer
+  position_title: National Brand Producer
   request_type: new
   number_of_months: 2
   annual_base_pay: 42346.09
@@ -99,7 +99,7 @@ contractor_request_3:
 
 contractor_request_4:
   employee_type: cont_fac
-  position_description: Customer Applications Orchestrator
+  position_title: Customer Applications Orchestrator
   request_type: renewal
   contractor_name: Ethel Krajcik
   number_of_months: 10
@@ -111,7 +111,7 @@ contractor_request_4:
 
 contractor_request_5:
   employee_type: cont_fac
-  position_description: Global Marketing Consultant
+  position_title: Global Marketing Consultant
   request_type: new
   number_of_months: 11
   annual_base_pay: 490369.04
@@ -124,7 +124,7 @@ contractor_request_5:
 
 contractor_request_6:
   employee_type: c2
-  position_description: Investor Integration Assistant
+  position_title: Investor Integration Assistant
   request_type: new
   number_of_months: 5
   annual_base_pay: 337362.14
@@ -137,7 +137,7 @@ contractor_request_6:
 
 contractor_request_7:
   employee_type: c2
-  position_description: Future Markets Specialist
+  position_title: Future Markets Specialist
   request_type: renewal
   contractor_name: Ms. Jovanny Corkery
   number_of_months: 5
@@ -151,7 +151,7 @@ contractor_request_7:
 
 contractor_request_8:
   employee_type: c2
-  position_description: Principal Division Associate
+  position_title: Principal Division Associate
   request_type: renewal
   contractor_name: Emelie Deckow PhD
   number_of_months: 8
@@ -166,7 +166,7 @@ contractor_request_8:
 
 contractor_request_9:
   employee_type: c2
-  position_description: Future Security Representative
+  position_title: Future Security Representative
   request_type: new
   number_of_months: 1
   annual_base_pay: 351433.63
@@ -177,7 +177,7 @@ contractor_request_9:
 
 contractor_request_10:
   employee_type: c2
-  position_description: Human Factors Coordinator
+  position_title: Human Factors Coordinator
   request_type: new
   number_of_months: 8
   annual_base_pay: 211775.01
@@ -188,7 +188,7 @@ contractor_request_10:
 
 contractor_request_11:
   employee_type: cont_fac
-  position_description: Global Functionality Specialist
+  position_title: Global Functionality Specialist
   request_type: renewal
   contractor_name: Jeffery Gerhold
   number_of_months: 6
@@ -201,7 +201,7 @@ contractor_request_11:
 
 contractor_request_12:
   employee_type: cont_fac
-  position_description: Direct Applications Orchestrator
+  position_title: Direct Applications Orchestrator
   request_type: renewal
   contractor_name: Dennis Gaylord
   number_of_months: 1
@@ -213,7 +213,7 @@ contractor_request_12:
 
 contractor_request_13:
   employee_type: cont_fac
-  position_description: Human Factors Representative
+  position_title: Human Factors Representative
   request_type: new
   number_of_months: 6
   annual_base_pay: 62374.94
@@ -224,7 +224,7 @@ contractor_request_13:
 
 contractor_request_14:
   employee_type: cont_fac
-  position_description: Dynamic Directives Planner
+  position_title: Dynamic Directives Planner
   request_type: new
   number_of_months: 8
   annual_base_pay: 479315.79
@@ -238,7 +238,7 @@ contractor_request_14:
 
 contractor_request_15:
   employee_type: c2
-  position_description: Investor Creative Technician
+  position_title: Investor Creative Technician
   request_type: new
   number_of_months: 12
   annual_base_pay: 494026.12
@@ -252,7 +252,7 @@ contractor_request_15:
 
 contractor_request_16:
   employee_type: cont_fac
-  position_description: Human Web Administrator
+  position_title: Human Web Administrator
   request_type: new
   number_of_months: 8
   annual_base_pay: 81830.09
@@ -265,7 +265,7 @@ contractor_request_16:
 
 contractor_request_17:
   employee_type: cont_fac
-  position_description: Future Integration Technician
+  position_title: Future Integration Technician
   request_type: renewal
   contractor_name: Mrs. Shanie Nader
   number_of_months: 2
@@ -280,7 +280,7 @@ contractor_request_17:
 
 contractor_request_18:
   employee_type: cont_fac
-  position_description: Customer Tactics Assistant
+  position_title: Customer Tactics Assistant
   request_type: new
   number_of_months: 4
   annual_base_pay: 304237.75
@@ -293,7 +293,7 @@ contractor_request_18:
 
 contractor_request_19:
   employee_type: cont_fac
-  position_description: Global Accountability Architect
+  position_title: Global Accountability Architect
   request_type: renewal
   contractor_name: Misty Conn
   number_of_months: 12
@@ -305,7 +305,7 @@ contractor_request_19:
 
 contractor_request_20:
   employee_type: c2
-  position_description: National Web Engineer
+  position_title: National Web Engineer
   request_type: renewal
   contractor_name: Mr. Boris O'Conner
   number_of_months: 2
@@ -320,7 +320,7 @@ contractor_request_20:
 
 contractor_request_21:
   employee_type: c2
-  position_description: Senior Infrastructure Officer
+  position_title: Senior Infrastructure Officer
   request_type: new
   number_of_months: 5
   annual_base_pay: 348908.50
@@ -333,7 +333,7 @@ contractor_request_21:
 
 contractor_request_22:
   employee_type: c2
-  position_description: Dynamic Quality Technician
+  position_title: Dynamic Quality Technician
   request_type: new
   number_of_months: 10
   annual_base_pay: 93986.54
@@ -345,7 +345,7 @@ contractor_request_22:
 
 contractor_request_23:
   employee_type: cont_fac
-  position_description: Forward Solutions Director
+  position_title: Forward Solutions Director
   request_type: new
   number_of_months: 3
   annual_base_pay: 302395.27
@@ -356,7 +356,7 @@ contractor_request_23:
 
 contractor_request_24:
   employee_type: cont_fac
-  position_description: Dynamic Paradigm Agent
+  position_title: Dynamic Paradigm Agent
   request_type: renewal
   contractor_name: Maxime Lakin
   number_of_months: 9
@@ -369,7 +369,7 @@ contractor_request_24:
 
 contractor_request_25:
   employee_type: c2
-  position_description: Chief Metrics Architect
+  position_title: Chief Metrics Architect
   request_type: new
   number_of_months: 3
   annual_base_pay: 495109.55
@@ -382,7 +382,7 @@ contractor_request_25:
 
 contractor_request_26:
   employee_type: cont_fac
-  position_description: Product Branding Developer
+  position_title: Product Branding Developer
   request_type: renewal
   contractor_name: Hettie Murphy
   number_of_months: 10
@@ -394,7 +394,7 @@ contractor_request_26:
 
 contractor_request_27:
   employee_type: cont_fac
-  position_description: Senior Branding Designer
+  position_title: Senior Branding Designer
   request_type: renewal
   contractor_name: Griffin Nicolas
   number_of_months: 11
@@ -408,7 +408,7 @@ contractor_request_27:
 
 contractor_request_28:
   employee_type: cont_fac
-  position_description: Future Group Analyst
+  position_title: Future Group Analyst
   request_type: new
   number_of_months: 11
   annual_base_pay: 160427.56
@@ -421,7 +421,7 @@ contractor_request_28:
 
 contractor_request_29:
   employee_type: c2
-  position_description: National Response Director
+  position_title: National Response Director
   request_type: new
   number_of_months: 4
   annual_base_pay: 65610.70
@@ -434,7 +434,7 @@ contractor_request_29:
 
 contractor_request_30:
   employee_type: c2
-  position_description: Legacy Marketing Designer
+  position_title: Legacy Marketing Designer
   request_type: new
   number_of_months: 9
   annual_base_pay: 460419.33
@@ -446,7 +446,7 @@ contractor_request_30:
 
 contractor_request_31:
   employee_type: cont_fac
-  position_description: Lead Quality Engineer
+  position_title: Lead Quality Engineer
   request_type: renewal
   contractor_name: Marta Langosh IV
   number_of_months: 9
@@ -460,7 +460,7 @@ contractor_request_31:
 
 contractor_request_32:
   employee_type: cont_fac
-  position_description: Global Integration Associate
+  position_title: Global Integration Associate
   request_type: new
   number_of_months: 8
   annual_base_pay: 485121.60
@@ -472,7 +472,7 @@ contractor_request_32:
 
 contractor_request_33:
   employee_type: cont_fac
-  position_description: Customer Assurance Supervisor
+  position_title: Customer Assurance Supervisor
   request_type: renewal
   contractor_name: Remington Corkery
   number_of_months: 3
@@ -485,7 +485,7 @@ contractor_request_33:
 
 contractor_request_34:
   employee_type: cont_fac
-  position_description: Customer Research Architect
+  position_title: Customer Research Architect
   request_type: renewal
   contractor_name: Dale Carroll I
   number_of_months: 3
@@ -499,7 +499,7 @@ contractor_request_34:
 
 contractor_request_35:
   employee_type: cont_fac
-  position_description: Chief Tactics Consultant
+  position_title: Chief Tactics Consultant
   request_type: renewal
   contractor_name: Eve Zemlak
   number_of_months: 11
@@ -511,7 +511,7 @@ contractor_request_35:
 
 contractor_request_36:
   employee_type: c2
-  position_description: Corporate Operations Strategist
+  position_title: Corporate Operations Strategist
   request_type: renewal
   contractor_name: Laron Konopelski
   number_of_months: 12
@@ -526,7 +526,7 @@ contractor_request_36:
 
 contractor_request_37:
   employee_type: c2
-  position_description: Lead Markets Engineer
+  position_title: Lead Markets Engineer
   request_type: renewal
   contractor_name: Anderson Botsford
   number_of_months: 8
@@ -538,7 +538,7 @@ contractor_request_37:
 
 contractor_request_38:
   employee_type: c2
-  position_description: Internal Accounts Liaison
+  position_title: Internal Accounts Liaison
   request_type: new
   number_of_months: 2
   annual_base_pay: 281795.93
@@ -552,7 +552,7 @@ contractor_request_38:
 
 contractor_request_39:
   employee_type: cont_fac
-  position_description: Product Metrics Officer
+  position_title: Product Metrics Officer
   request_type: renewal
   contractor_name: Wade Altenwerth
   number_of_months: 9
@@ -565,7 +565,7 @@ contractor_request_39:
 
 contractor_request_40:
   employee_type: c2
-  position_description: Customer Solutions Officer
+  position_title: Customer Solutions Officer
   request_type: renewal
   contractor_name: Mr. Ashly Krajcik
   number_of_months: 6
@@ -577,7 +577,7 @@ contractor_request_40:
 
 contractor_request_41:
   employee_type: c2
-  position_description: Customer Accountability Engineer
+  position_title: Customer Accountability Engineer
   request_type: new
   number_of_months: 5
   annual_base_pay: 294097.89
@@ -589,7 +589,7 @@ contractor_request_41:
 
 contractor_request_42:
   employee_type: cont_fac
-  position_description: Senior Optimization Engineer
+  position_title: Senior Optimization Engineer
   request_type: new
   number_of_months: 4
   annual_base_pay: 176820.14
@@ -601,7 +601,7 @@ contractor_request_42:
 
 contractor_request_43:
   employee_type: c2
-  position_description: Human Group Manager
+  position_title: Human Group Manager
   request_type: new
   number_of_months: 4
   annual_base_pay: 193224.13
@@ -612,7 +612,7 @@ contractor_request_43:
 
 contractor_request_44:
   employee_type: c2
-  position_description: Lead Accountability Director
+  position_title: Lead Accountability Director
   request_type: renewal
   contractor_name: Tyrique Hills
   number_of_months: 6
@@ -624,7 +624,7 @@ contractor_request_44:
 
 contractor_request_45:
   employee_type: c2
-  position_description: Principal Research Strategist
+  position_title: Principal Research Strategist
   request_type: renewal
   contractor_name: Mekhi Denesik
   number_of_months: 5
@@ -639,7 +639,7 @@ contractor_request_45:
 
 contractor_request_46:
   employee_type: c2
-  position_description: International Data Officer
+  position_title: International Data Officer
   request_type: new
   number_of_months: 3
   annual_base_pay: 381075.25
@@ -650,7 +650,7 @@ contractor_request_46:
 
 contractor_request_47:
   employee_type: cont_fac
-  position_description: National Configuration Supervisor
+  position_title: National Configuration Supervisor
   request_type: new
   number_of_months: 1
   annual_base_pay: 163200.16
@@ -662,7 +662,7 @@ contractor_request_47:
 
 contractor_request_48:
   employee_type: cont_fac
-  position_description: National Configuration Designer
+  position_title: National Configuration Designer
   request_type: new
   number_of_months: 11
   annual_base_pay: 412163.82
@@ -673,7 +673,7 @@ contractor_request_48:
 
 contractor_request_49:
   employee_type: cont_fac
-  position_description: Internal Assurance Planner
+  position_title: Internal Assurance Planner
   request_type: renewal
   contractor_name: Ms. Derrick Braun
   number_of_months: 11
@@ -685,7 +685,7 @@ contractor_request_49:
 
 contractor_request_50:
   employee_type: c2
-  position_description: International Branding Technician
+  position_title: International Branding Technician
   request_type: new
   number_of_months: 8
   annual_base_pay: 202289.91

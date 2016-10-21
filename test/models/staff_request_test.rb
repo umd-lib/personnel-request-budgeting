@@ -15,8 +15,8 @@ class StaffRequestTest < ActiveSupport::TestCase
     assert_not @staff_request.valid?
   end
 
-  test 'position description should be present' do
-    @staff_request.position_description = '   '
+  test 'position title should be present' do
+    @staff_request.position_title = '   '
     assert_not @staff_request.valid?
   end
 

@@ -11,7 +11,7 @@ class ErrorsForAssociationTest < ActionDispatch::IntegrationTest
     assert_no_difference 'ContractorRequest.count' do
       post contractor_requests_path, contractor_request: {
         employee_type_id: nil,
-        position_description: nil,
+        position_title: nil,
         request_type_id: nil,
         contractor_name: nil,
         number_of_months: nil,

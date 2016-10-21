@@ -85,7 +85,7 @@ namespace :db do
   # +request+, choosing the employee type and request type from the
   # provided arrays of +valid_employee_type_ids+ and +valid_request_type_codes+
   def generate_common_fields(request, valid_employee_type_ids, valid_request_type_codes)
-    request.position_description = Faker::Name.title
+    request.position_title = Faker::Name.title
     request.employee_type = EmployeeType.find_by_id(valid_employee_type_ids.sample)
     request.request_type = RequestType.find_by_code(valid_request_type_codes.sample)
 

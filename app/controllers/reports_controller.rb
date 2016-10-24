@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
 
   # POST /reports
   # POST /reports.json
-  def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def create # rubocop:disable Metrics/MethodLength
     authorize Report
     @report = Report.new(report_params)
 

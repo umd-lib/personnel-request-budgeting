@@ -16,7 +16,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
     run_as_user(no_role_user) do
       # New
       get new_labor_request_path
-      assert_response :forbidden
+      assert_redirected_to root_url
     end
     no_role_user.destroy!
 
@@ -29,7 +29,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         get labor_request_path(dept2_request)
-        assert_response :forbidden
+        assert_redirected_to root_url
 
         # New
         get new_labor_request_path
@@ -40,7 +40,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         get edit_labor_request_path(dept2_request)
-        assert_response :forbidden
+        assert_redirected_to root_url
 
         # Create
         post labor_requests_path, labor_request: {
@@ -73,21 +73,22 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           position_title: dept2_request.position_title,
           request_type_id: dept2_request.request_type_id,
           unit_id: dept2_request.unit_id }
-        assert_response :forbidden
+        assert_equal path, labor_requests_path
+        assert_select '.alert-danger', "Department You are not allowed to make departmental requests to department: #{dept2_request.department.name}"
 
         # Update
         patch labor_request_path(dept1_request), labor_request: { position_title: 'Foo' }
         assert_redirected_to labor_request_path(dept1_request)
 
         patch labor_request_path(dept2_request), labor_request: { position_title: 'Foo' }
-        assert_response :forbidden
+        assert_redirected_to root_url
 
         # Destroy
         delete labor_request_path(dept1_request)
         assert_redirected_to labor_requests_url
 
         delete labor_request_path(dept2_request)
-        assert_response :forbidden
+        assert_redirected_to root_url
       end
     end
   end

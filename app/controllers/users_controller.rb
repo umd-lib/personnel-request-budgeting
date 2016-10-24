@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
@@ -30,7 +31,6 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize User
     @user = User.new(user_params)

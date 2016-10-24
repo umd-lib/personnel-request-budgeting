@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   before_action :set_role, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
@@ -31,7 +32,6 @@ class RolesController < ApplicationController
 
   # POST /roles
   # POST /roles.json
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize Role
     @role = Role.new(role_params)

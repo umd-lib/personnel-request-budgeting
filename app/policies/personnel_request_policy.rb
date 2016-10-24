@@ -221,7 +221,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
       return true if user.admin?
 
-      return true if division_edit_allowed? && user.division? &&
+      return true if division_edit_allowed? && user.division? && record.department &&
                      PersonnelRequestPolicy.allowed_divisions(user).include?(record.department.division)
 
       return true if department_edit_allowed? && user.department? &&
@@ -230,7 +230,20 @@ class PersonnelRequestPolicy < ApplicationPolicy
       return true if unit_edit_allowed? && user.unit? &&
                      PersonnelRequestPolicy.allowed_units(user).include?(record.unit)
 
+      check_dept_and_unit(user, record) if record.new_record?
+
       false
+    end
+
+    # @return [void]
+    def check_dept_and_unit(user, record)
+      if !record.department.nil? && !PersonnelRequestPolicy.allowed_departments(user).include?(record.department)
+        raise Pundit::NotAuthorizedDepartmentError, record: record, policy: self
+      end
+
+      if !record.unit.nil? && !PersonnelRequestPolicy.allowed_unitss(user).include?(record.unit)
+        raise Pundit::NotAuthorizedUnitError, record: record, policy: self
+      end
     end
 
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

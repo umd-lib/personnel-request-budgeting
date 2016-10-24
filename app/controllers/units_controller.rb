@@ -1,4 +1,5 @@
 class UnitsController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
@@ -30,7 +31,6 @@ class UnitsController < ApplicationController
 
   # POST /units
   # POST /units.json
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize Unit
     @unit = Unit.new(unit_params)

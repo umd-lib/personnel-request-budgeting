@@ -1,4 +1,19 @@
 module ApplicationHelper
+  def bootstrap_class_for(flash_type)
+    { success: 'alert-success', error: 'alert-danger', alert: 'alert-warning',
+      notice: 'alert-info' }[flash_type.intern] || flash_type.to_s
+  end
+
+  def flash_messages(_opts = {})
+    flash.each do |msg_type, message|
+      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
+               concat content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
+               concat message
+             end)
+    end
+    nil
+  end
+
   # @param [String, Symbol] i18n_key the key in the I18N translation file
   # @return [String, nil] the HTML content for a tooltip displaying text from
   #   the given translation key, or nil if the translation key is not set.

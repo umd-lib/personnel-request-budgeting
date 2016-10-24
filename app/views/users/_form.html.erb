@@ -5,7 +5,7 @@
     <tbody>
       <tr>
         <th><%= f.label :cas_directory_id %></th>
-        <td><%= f.text_field :cas_directory_id %></td>
+        <td><%= f.text_field :cas_directory_id, readonly: @user.id? %></td>
       </tr>
 
       <tr>

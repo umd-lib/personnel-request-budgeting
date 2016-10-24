@@ -1,10 +1,18 @@
 module ApplicationHelper
   # @param [String, Symbol] i18n_key the key in the I18N translation file
-  # @return [String, nil] the HTML content for a tooltip displaying text from
+  # @return [String, nil] the HTML content for a popover displaying text from
   #   the given translation key, or nil if the translation key is not set.
   def help_text_icon(i18n_key)
     help_text = raw t(i18n_key, default: '')
-    content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false) unless help_text.empty?
+    content_tag(
+      :button,
+      content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false),
+      'type' => 'button',
+      'class' => 'btn btn-xs btn-default',
+      'data-toggle' => 'popover',
+      'data-content' => help_text,
+      'data-placement' => 'top'
+    ) unless help_text.empty?
   end
 
   # Returns confirmation prompt text for delete action on the given object.

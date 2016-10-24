@@ -21,7 +21,7 @@ departments_by_division = {
             { code: 'LF', name: 'Libraries Facilities' },
             { code: 'LHR', name: 'Libraries Human Resources' }],
   'CSS' => [{ code: 'ACQ', name: 'Acquisitions' },
-            { code: 'CD', name: 'Collections Development' },
+            { code: 'CD', name: 'Collection' },
             { code: 'MDS', name: 'Metadata Services' },
             { code: 'PRG', name: 'Prange' },
             { code: 'SCUA', name: 'Special Collections & University Archives' }],

@@ -99,24 +99,31 @@ class ContractorRequestsController < ApplicationController
 
     # called when there's a policy failure
     def not_authorized(exception)
-      raise exception if exception.record.is_a? Class
-      raise exception unless exception.record.new_record?
-      # if we are making a new record, lets just reshow the form to let folks
-      # try and fix and resubmit
-      assign_selectable_departments_and_units(@contractor_request)
-      case exception
-      when Pundit::NotAuthorizedDepartmentError
-        @contractor_request.errors.add(:department_id,
-                                       "You are not allowed to make departmental requests to department: #{@contractor_request.department.name}")
-      when Pundit::NotAuthorizedUnitError
-        @contractor_request.errors.add(:unit_id,
-                                       "You are not allowed to make requests to unit #{@contractor_request.unit.name}")
-
+      if exception.record.is_a? Class || !exception.record.new_record?
+        flash[:error] = "Access Denied -- #{exception.message}"
+        redirect_to root_url
+      else
+        # if we are making a new record, lets just reshow the form to let folks
+        # try and fix and resubmit
+        assign_selectable_departments_and_units(@contractor_request)
+        case exception
+        when Pundit::NotAuthorizedDepartmentError
+          @contractor_request.errors.add(
+            :department_id,
+            "You are not allowed to make departmental requests to department: #{@contractor_request.department.name}"
+          )
+          render :edit
+        when Pundit::NotAuthorizedUnitError
+          @contractor_request.errors.add(
+            :unit_id,
+            "You are not allowed to make requests to unit #{@contractor_request.unit.name}"
+          )
+          render :edit
+        when Pundit::NotAuthorizedError
+          flash[:error] = "Access Denied -- #{exception.message}"
+          redirect_to root_url
+        end
       end
-      render :edit
-    rescue Pundit::NotAuthorizedError => e
-      flash[:error] = "Access Denied -- #{e.message}"
-      redirect_to root_url
     end
 
     # Use callbacks to share common setup or constraints between actions.

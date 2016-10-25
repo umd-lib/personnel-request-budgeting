@@ -221,8 +221,11 @@ class PersonnelRequestPolicy < ApplicationPolicy
 
       return true if user.admin?
 
-      return true if division_edit_allowed? && user.division? && record.department &&
-                     PersonnelRequestPolicy.allowed_divisions(user).include?(record.department.division)
+      # only check for inclusion in the allowed divisions if there is a
+      # department in the request record; otherwise, return true and let the
+      # validation process catch the "no department" error
+      return true if division_edit_allowed? && user.division? && (!record.department ||
+                     PersonnelRequestPolicy.allowed_divisions(user).include?(record.department.division))
 
       return true if department_edit_allowed? && user.department? &&
                      PersonnelRequestPolicy.allowed_departments(user).include?(record.department)

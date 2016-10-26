@@ -6,6 +6,7 @@ class StaffRequest < ActiveRecord::Base
   include Requestable
 
   validates :annual_base_pay, presence: true
+  validates :employee_name, presence: true, if: :employee_name_required?
 
   after_initialize :init
 
@@ -21,5 +22,10 @@ class StaffRequest < ActiveRecord::Base
     unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
       errors.add(:request_type, 'provided is not allowed for this request.')
     end
+  end
+
+  # Returns true if the employee name is required.
+  def employee_name_required?
+    request_type.try(:code) == 'PayAdj'
   end
 end

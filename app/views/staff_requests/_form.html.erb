@@ -31,14 +31,14 @@
       <tr>
         <th><%= f.label :annual_base_pay %></th>
         <td>
-          <%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2) %>
+          <%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2, delimiter: ',') %>
           <%= help_text_icon('help_text.annual_base_pay') %>
         </td>
       </tr>
       <tr>
         <th><%= f.label :nonop_funds %></th>
         <td>
-          <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2) %>
+          <%= f.text_field :nonop_funds, step: 0.01, value: number_with_precision(f.object.nonop_funds, precision: 2, delimiter: ',') %>
           <%= help_text_icon('help_text.nonop_funds') %>
         </td>
       </tr>

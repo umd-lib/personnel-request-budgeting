@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
@@ -30,7 +31,6 @@ class DepartmentsController < ApplicationController
 
   # POST /departments
   # POST /departments.json
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize Department
     @department = Department.new(department_params)

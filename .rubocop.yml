@@ -12,9 +12,16 @@ AllCops:
     - 'db/migrate/*'
   TargetRubyVersion: 2.2
 
+Metrics/AbcSize:
+  Exclude:
+    - 'app/controllers/*_controller.rb'
+
 # Increase max allowed line length
 Metrics/LineLength:
   Max: 120
+  Exclude:
+    - 'app/controllers/*_controller.rb'
+    - 'test/**/*'
 
 Metrics/ClassLength:
   Exclude:
@@ -27,9 +34,7 @@ Style/Documentation:
   Exclude:
     - 'app/controllers/*_controller.rb'
     - 'app/helpers/*_helper.rb'
-    - 'test/test_helper.rb'
-    - 'test/controllers/*_controller_test.rb'
-    - 'test/helpers/*_helper_test.rb'
+    - 'test/**/*'
 
 Style/ClassAndModuleChildren:
   Exclude:

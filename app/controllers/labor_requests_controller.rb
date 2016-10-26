@@ -1,5 +1,9 @@
 class LaborRequestsController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   include PersonnelRequestController
+
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
   before_action :set_labor_request, only: [:show, :edit, :update, :destroy]
   after_action :verify_policy_scoped, only: :index
 
@@ -39,7 +43,6 @@ class LaborRequestsController < ApplicationController
 
   # POST /labor_requests
   # POST /labor_requests.json
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     @labor_request = LaborRequest.new(labor_request_params)
     authorize @labor_request
@@ -57,11 +60,9 @@ class LaborRequestsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # PATCH/PUT /labor_requests/1
   # PATCH/PUT /labor_requests/1.json
-  # rubocop:disable Metrics/MethodLength
   def update
     authorize @labor_request
     respond_to do |format|
@@ -77,7 +78,6 @@ class LaborRequestsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   # DELETE /labor_requests/1
   # DELETE /labor_requests/1.json
@@ -91,6 +91,35 @@ class LaborRequestsController < ApplicationController
   end
 
   private
+
+    # called when there's a policy failure
+    def not_authorized(exception)
+      if exception.record.is_a? Class || !exception.record.new_record?
+        flash[:error] = "Access Denied -- #{exception.message}"
+        redirect_to root_url
+      else
+        # if we are making a new record, lets just reshow the form to let folks
+        # try and fix and resubmit
+        assign_selectable_departments_and_units(@labor_request)
+        case exception
+        when Pundit::NotAuthorizedDepartmentError
+          @labor_request.errors.add(
+            :department_id,
+            "You are not allowed to make departmental requests to department: #{@labor_request.department.name}"
+          )
+          render :edit
+        when Pundit::NotAuthorizedUnitError
+          @labor_request.errors.add(
+            :unit_id,
+            "You are not allowed to make requests to unit #{@labor_request.unit.name}"
+          )
+          render :edit
+        when Pundit::NotAuthorizedError
+          flash[:error] = "Access Denied -- #{exception.message}"
+          redirect_to root_url
+        end
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_labor_request

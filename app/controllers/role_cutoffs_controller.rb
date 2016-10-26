@@ -1,4 +1,5 @@
 class RoleCutoffsController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   before_action :set_role_cutoff, only: [:show, :edit, :update, :destroy]
 
   # GET /role_cutoffs
@@ -29,7 +30,6 @@ class RoleCutoffsController < ApplicationController
 
   # POST /role_cutoffs
   # POST /role_cutoffs.json
-  # rubocop:disable Metrics/MethodLength
   def create
     authorize RoleCutoff
     @role_cutoff = RoleCutoff.new(role_cutoff_params)

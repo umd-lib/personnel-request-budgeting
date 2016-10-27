@@ -1,5 +1,1 @@
-<div class="page-header">
-  <h1><%= @role_cutoff.role_type.name %> <small>Role Cutoff</small></h1>
-</div>
-
-<%= render 'form' %>
+<%= render 'shared/new_or_edit', title: "#{@role_cutoff.role_type.name } <small>Role Cutoff</small>" %>

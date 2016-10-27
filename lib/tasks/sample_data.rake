@@ -36,6 +36,7 @@ namespace :db do
     generate_common_fields(staff_request, valid_employee_types,
                            StaffRequest::VALID_REQUEST_TYPE_CODES)
 
+    staff_request.employee_name = Faker::Name.name if staff_request.request_type_id == RequestType.find_by_code("PayAdj").id
     staff_request.annual_base_pay = (rand * 500_000.00).round(2)
     generate_nonop_fields(staff_request, staff_request.annual_base_pay)
 

@@ -1,5 +1,1 @@
-<div class="page-header">
-  <h1><%= @request_type.code %> <small>Request Type</small></h1>
-</div>
-
-<%= render 'form' %>
+<%= render 'shared/new_or_edit', title: "#{@request_type.code } <small>Request Type</small>" %>

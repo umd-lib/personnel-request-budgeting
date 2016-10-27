@@ -26,10 +26,18 @@ class StaffRequestTest < ActiveSupport::TestCase
   end
 
   test 'should allow valid request types' do
+    # lets do all cept payadj which also requires a employee_name 
     StaffRequest::VALID_REQUEST_TYPE_CODES.each do |code|
+      next if code == "PayAdj" 
       @staff_request.request_type_id = RequestType.find_by_code(code).id
       assert @staff_request.valid?, "'#{code}' was not accepted as a valid request type!"
     end
+   
+    # now lets test payadj
+    code = "PayAdj" 
+    @staff_request.request_type_id = RequestType.find_by_code(code).id
+    @staff_request.employee_name = "David Simon"
+    assert @staff_request.valid?, "Problem with payadj #{@staff_request.errors.inspect }"
   end
 
   test 'should not allow invalid request types' do

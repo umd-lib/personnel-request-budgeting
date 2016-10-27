@@ -8,7 +8,7 @@ class ReportJob < ActiveJob::Base
       begin
         run_report(report)
       rescue => e
-        report.update_attributes status:  'error'
+        report.update_attributes status: 'error'
         raise e
       end
     end

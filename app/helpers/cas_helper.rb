@@ -3,11 +3,10 @@ module CasHelper
   # Uses CAS to authenticate users, and provide white-list authorization
   def authenticate
     CASClient::Frameworks::Rails::Filter.before(self)
-    update_current_user(User.eager_load(:roles, :role_types).find_by_cas_directory_id(session[:cas_user]))
+    update_current_user(User.eager_load(:roles, :role_types).find_by(cas_directory_id: session[:cas_user]))
 
-    if session[:cas_user] && !allow_access
-      render(file: File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false)
-    end
+    return unless session[:cas_user] && !allow_access
+    render(file: File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false)
   end
 
   # Returns true if a user is being impersonated, false otherwise
@@ -27,7 +26,7 @@ module CasHelper
   # Returns the actual logged in user, ignoring impersonation
   def actual_user
     if @current_user.nil? || session[:cas_user] != @current_user.cas_directory_id
-      update_current_user(User.eager_load(:roles, :role_types).find_by_cas_directory_id(session[:cas_user]))
+      update_current_user(User.eager_load(:roles, :role_types).find_by(cas_directory_id: session[:cas_user]))
     end
     @current_user
   end

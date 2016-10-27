@@ -14,12 +14,12 @@ class RequestsByTypeReport
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w( xlsx )
+      %w(xlsx)
     end
 
     # @return [Array<String>] the worksheet names (for spreadsheet output)
     def worksheets
-      %w( StaffRequest ContractorRequest LaborRequest )
+      %w(StaffRequest ContractorRequest LaborRequest)
     end
 
     # @return [String] the view template to use in formatting the report output

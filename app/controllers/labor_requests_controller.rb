@@ -13,7 +13,7 @@ class LaborRequestsController < ApplicationController
     @q = LaborRequest.ransack(params[:q])
 
     default_sorts!
-    include_associations!(%i( division department employee_type request_type unit ))
+    include_associations!(%i(division department employee_type request_type unit))
     @labor_requests = scope_records(params)
 
     respond_to do |format|
@@ -49,7 +49,7 @@ class LaborRequestsController < ApplicationController
 
     respond_to do |format|
       if @labor_request.save
-        format.html { redirect_to @labor_request, notice:  "Labor request for #{@labor_request.description} was successfully created." }
+        format.html { redirect_to @labor_request, notice: "Labor request for #{@labor_request.description} was successfully created." }
         format.json { render :show, status: :created, location: @labor_request }
       else
         format.html do
@@ -85,41 +85,12 @@ class LaborRequestsController < ApplicationController
     authorize @labor_request
     @labor_request.destroy
     respond_to do |format|
-      format.html { redirect_to labor_requests_url, notice:  "Labor request for #{@labor_request.description} was successfully destroyed." }
+      format.html { redirect_to labor_requests_url, notice: "Labor request for #{@labor_request.description} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-
-    # called when there's a policy failure
-    def not_authorized(exception)
-      if exception.record.is_a? Class || !exception.record.new_record?
-        flash[:error] = "Access Denied -- #{exception.message}"
-        redirect_to root_url
-      else
-        # if we are making a new record, lets just reshow the form to let folks
-        # try and fix and resubmit
-        assign_selectable_departments_and_units(@labor_request)
-        case exception
-        when Pundit::NotAuthorizedDepartmentError
-          @labor_request.errors.add(
-            :department_id,
-            "You are not allowed to make departmental requests to department: #{@labor_request.department.name}"
-          )
-          render :edit
-        when Pundit::NotAuthorizedUnitError
-          @labor_request.errors.add(
-            :unit_id,
-            "You are not allowed to make requests to unit #{@labor_request.unit.name}"
-          )
-          render :edit
-        when Pundit::NotAuthorizedError
-          flash[:error] = "Access Denied -- #{exception.message}"
-          redirect_to root_url
-        end
-      end
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_labor_request

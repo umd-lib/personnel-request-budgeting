@@ -19,7 +19,8 @@ class EmployeeType < ActiveRecord::Base
   # employee category code
   def self.employee_types_with_category(employee_category_code)
     EmployeeType.joins(:employee_category).where(
-      'employee_categories.code=?', employee_category_code)
+      'employee_categories.code=?', employee_category_code
+    )
   end
 
   # Convenience method that returns true if the current object can be deleted

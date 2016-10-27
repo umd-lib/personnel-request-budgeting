@@ -74,7 +74,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           request_type_id: dept2_request.request_type_id,
           unit_id: dept2_request.unit_id }
         assert_equal path, labor_requests_path
-        assert_select '.alert-danger', "Department You are not allowed to make departmental requests to department: #{dept2_request.department.name}"
+        assert_select '.alert-danger', "Department You are not allowed to make requests to department: #{dept2_request.department.name}"
 
         # Update
         patch labor_request_path(dept1_request), labor_request: { position_title: 'Foo' }
@@ -153,7 +153,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           request_type_id: dept2_request.request_type_id,
           unit_id: dept2_request.unit_id }
         assert_equal path, contractor_requests_path
-        assert_select '.alert-danger', "Department You are not allowed to make departmental requests to department: #{dept2_request.department.name}"
+        assert_select '.alert-danger', "Department You are not allowed to make requests to department: #{dept2_request.department.name}"
 
         # Update
         patch contractor_request_path(dept1_request), contractor_request: { position_title: 'Foo' }
@@ -230,7 +230,7 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           request_type_id: dept2_request.request_type_id,
           unit_id: dept2_request.unit_id }
         assert_equal path, staff_requests_path
-        assert_select '.alert-danger', "Department You are not allowed to make departmental requests to department: #{dept2_request.department.name}"
+        assert_select '.alert-danger', "Department You are not allowed to make requests to department: #{dept2_request.department.name}"
 
         # Update
         patch staff_request_path(dept1_request), staff_request: { position_title: 'Foo' }

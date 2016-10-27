@@ -10,6 +10,9 @@ AllCops:
     - 'config/application.rb'
     - 'db/schema.rb'
     - 'db/migrate/*'
+    - 'test/**/*'
+    - 'lib/tasks/**/*'
+    - 'db/seeds.rb'
   TargetRubyVersion: 2.2
 
 Metrics/AbcSize:

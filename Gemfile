@@ -59,6 +59,9 @@ gem 'faker', '~> 1.6'
 # Excel support
 gem 'axlsx_rails'
 
+# ActiveRecord support for localized numbers
+gem 'delocalize'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

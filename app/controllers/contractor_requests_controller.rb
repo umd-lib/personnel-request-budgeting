@@ -133,10 +133,11 @@ class ContractorRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contractor_request_params
+      localized_fields = { annual_base_pay: :number, nonop_funds: :number }
       allowed = [:employee_type_id, :position_title, :request_type_id,
                  :contractor_name, :number_of_months, :annual_base_pay,
                  :nonop_funds, :nonop_source, :department_id, :unit_id,
                  :justification] + policy(@contractor_request || ContractorRequest.new).permitted_attributes
-      params.require(:contractor_request).permit(allowed)
+      params.require(:contractor_request).permit(allowed).delocalize(localized_fields)
     end
 end

@@ -77,6 +77,8 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
     debug_inspector (0.0.2)
+    delocalize (1.1.0)
+      rails (>= 2)
     docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -237,6 +239,7 @@ DEPENDENCIES
   axlsx_rails
   byebug
   coffee-rails (~> 4.1.0)
+  delocalize
   dotenv-rails (~> 2.1.1)
   faker (~> 1.6)
   github-markup
@@ -269,4 +272,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.11.2
+   1.13.3

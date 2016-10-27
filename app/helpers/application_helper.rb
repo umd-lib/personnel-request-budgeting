@@ -18,7 +18,7 @@ module ApplicationHelper
   # @return [String, nil] the HTML content for a popover displaying text from
   #   the given translation key, or nil if the translation key is not set.
   def help_text_icon(i18n_key)
-    help_text = raw t(i18n_key, default: '')
+    help_text = safe_join [t(i18n_key, default: '')]
     content_tag(
       :button,
       content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false),

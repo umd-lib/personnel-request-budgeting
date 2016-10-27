@@ -22,9 +22,8 @@ module Requestable
 
   # Validates the request type
   def allowed_request_type
-    unless self.class::VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-      errors.add(:request_type, 'Not an allowed request type for this request.')
-    end
+    return if self.class::VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
+    errors.add(:request_type, 'Not an allowed request type for this request.')
   end
 
   # method to call the fields expressed in .fields

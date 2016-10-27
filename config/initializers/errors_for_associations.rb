@@ -19,10 +19,9 @@ module ActionView
 
         # Returns an AssociationReflection, or nil
         def many_associations
-          if @method_name.end_with?('_ids')
-            association_name = @method_name.chomp('_ids').pluralize.to_sym
-            object.class.reflect_on_association(association_name)
-          end
+          return unless @method_name.end_with?('_ids')
+          association_name = @method_name.chomp('_ids').pluralize.to_sym
+          object.class.reflect_on_association(association_name)
         end
 
         # Returns an association if a foreign key match is found, or nil

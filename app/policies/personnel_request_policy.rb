@@ -48,7 +48,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
   # @return [Array<Symbol>] an Array of symbols representing attributes
   #   permitted for mass assignment
   def permitted_attributes
-    user.admin? ? %i( review_status_id review_comment ) : []
+    user.admin? ? %i(review_status_id review_comment) : []
   end
 
   # @param user [User] the User to return the divisions of
@@ -247,6 +247,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
       if !record.unit.nil? && !PersonnelRequestPolicy.allowed_unitss(user).include?(record.unit)
         raise Pundit::NotAuthorizedUnitError, record: record, policy: self
       end
+      true
     end
 
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

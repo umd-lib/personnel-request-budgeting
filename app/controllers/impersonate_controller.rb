@@ -44,20 +44,18 @@ class ImpersonateController < ApplicationController
     #
     # +impersonated_user+: the user to impersonate
     def impersonate(impersonated_user)
-      unless impersonated_user.nil?
-        clear_current_user # just a sanity check
-        session[IMPERSONATE_USER_PARAM] = impersonated_user.id
-        logger.info "#{actual_user.cas_directory_id} now impersonating #{current_user.cas_directory_id}"
-      end
+      return if impersonated_user.nil?
+      clear_current_user # just a sanity check
+      session[IMPERSONATE_USER_PARAM] = impersonated_user.id
+      logger.info "#{actual_user.cas_directory_id} now impersonating #{current_user.cas_directory_id}"
     end
 
     # Stops impersonation
     def revert_impersonate
-      unless session[IMPERSONATE_USER_PARAM].nil?
-        clear_current_user
-        impersonated_user = current_user
-        session[IMPERSONATE_USER_PARAM] = nil
-        logger.info "#{actual_user.cas_directory_id} has stopped impersonating #{impersonated_user.cas_directory_id}"
-      end
+      return if session[IMPERSONATE_USER_PARAM].nil?
+      clear_current_user
+      impersonated_user = current_user
+      session[IMPERSONATE_USER_PARAM] = nil
+      logger.info "#{actual_user.cas_directory_id} has stopped impersonating #{impersonated_user.cas_directory_id}"
     end
 end

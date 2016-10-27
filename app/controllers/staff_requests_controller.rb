@@ -1,4 +1,4 @@
-# rubocop:disable ClassLength, Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength
 class StaffRequestsController < ApplicationController
   include PersonnelRequestController
   before_action :set_staff_request, only: [:show, :edit, :update, :destroy]
@@ -12,7 +12,7 @@ class StaffRequestsController < ApplicationController
     @q = StaffRequest.ransack(params[:q])
 
     default_sorts!
-    include_associations!(%i( division department employee_type request_type unit ))
+    include_associations!(%i(division department employee_type request_type unit))
     @staff_requests = scope_records(params)
 
     respond_to do |format|
@@ -100,35 +100,6 @@ class StaffRequestsController < ApplicationController
 
   private
 
-    # called when there's a policy failure
-    def not_authorized(exception)
-      if exception.record.is_a? Class || !exception.record.new_record?
-        flash[:error] = "Access Denied -- #{exception.message}"
-        redirect_to root_url
-      else
-        # if we are making a new record, lets just reshow the form to let folks
-        # try and fix and resubmit
-        assign_selectable_departments_and_units(@staff_request)
-        case exception
-        when Pundit::NotAuthorizedDepartmentError
-          @staff_request.errors.add(
-            :department_id,
-            "You are not allowed to make departmental requests to department: #{@staff_request.department.name}"
-          )
-          render :edit
-        when Pundit::NotAuthorizedUnitError
-          @staff_request.errors.add(
-            :unit_id,
-            "You are not allowed to make requests to unit #{@staff_request.unit.name}"
-          )
-          render :edit
-        when Pundit::NotAuthorizedError
-          flash[:error] = "Access Denied -- #{exception.message}"
-          redirect_to root_url
-        end
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_staff_request
       @staff_request = StaffRequest.find(params[:id])
@@ -137,7 +108,7 @@ class StaffRequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_request_params
       localized_fields = { annual_base_pay: :number, nonop_funds: :number }
-      allowed = [ :employee_name, :employee_type_id, :position_title, :request_type_id,
+      allowed = [:employee_name, :employee_type_id, :position_title, :request_type_id,
                  :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
                  :unit_id, :justification] + policy(@staff_request || StaffRequest.new).permitted_attributes
       params.require(:staff_request).permit(allowed).delocalize(localized_fields)

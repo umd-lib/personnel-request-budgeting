@@ -34,7 +34,7 @@ module PersonnelRequestController
     # This modifies the ransack @q instance var
     def default_sorts!
       return false unless @q
-      @q.sorts = %w( division_code department_code unit_code employee_type_code ) if @q.sorts.empty?
+      @q.sorts = %w(division_code department_code unit_code employee_type_code) if @q.sorts.empty?
     end
 
     # sets the associations to be included in the result set
@@ -57,5 +57,54 @@ module PersonnelRequestController
         # Other formats use pagination
         policy_scope(@q.result.page(params[:page]).per_page(per_page)) || []
       end
+    end
+
+    # called when there's a policy failure. 
+    # @param exception [Exception] the error that has been raise in validation
+    def not_authorized(exception)
+      # in edit and index situations just redirect to the root 
+      if exception.record.is_a?(Class) || !exception.record.new_record?
+        deny_and_redirect exception.message
+      # if there's a specific record issue, let's handle that. 
+      else
+        handle_record_not_authorized exception
+      end
+    end
+    
+    # Called when there's a policy error on a specific record 
+    # @param exception [Exception] the error that has been raise in validation
+    def handle_record_not_authorized(exception)
+      # if we are making a new record, lets just reshow the form to let folks
+      # try and fix and resubmit
+      variable = "@#{controller_name.singularize}".intern
+      record = instance_variable_get(variable).dup
+      case exception
+      when Pundit::NotAuthorizedDepartmentError
+        add_errors_and_render(variable, :department_id, "You are not allowed to make requests to department: #{record.department.name}")
+      when Pundit::NotAuthorizedUnitError
+        add_errors_and_render(variable, :unit_id, "You are not allowed to make requests to unit: #{record.unit.name}")
+      when Pundit::NotAuthorizedError
+        deny_and_redirect exception.message
+      end
+    end
+
+    # This just flashes a message and redirects to the root url
+    #
+    # @param msg [String] A message to be displayed in the flash 
+    def deny_and_redirect(msg)
+      flash[:error] = "Access Denied -- #{msg}"
+      redirect_to root_url
+    end
+    
+    # Add vailadation errors to the record and instructs users to try again
+    #
+    # @param variable [Symbol] The name of the instance variable the record is
+    # stored in
+    # @param field [Symbol] The name record field to add the error to 
+    # @param msg [String] A message to be displayed in the flash 
+    def add_errors_and_render(variable, field, msg)
+      instance_variable_get(variable).errors.add(field, msg)
+      assign_selectable_departments_and_units(instance_variable_get(variable))
+      render :edit
     end
 end

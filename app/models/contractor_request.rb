@@ -16,14 +16,13 @@ class ContractorRequest < ActiveRecord::Base
   alias_attribute :description, :position_title
 
   def init
-    self.review_status ||= ReviewStatus.find_by_code('UnderReview')
+    self.review_status ||= ReviewStatus.find_by(code: 'UnderReview')
   end
 
   # Validates the request type
   def allowed_request_type
-    unless VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-      errors.add(:request_type, 'Not an allowed request type for this request.')
-    end
+    return if VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
+    errors.add(:request_type, 'Not an allowed request type for this request.')
   end
 
   # Returns true if the contractor name is required.

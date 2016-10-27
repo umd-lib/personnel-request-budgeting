@@ -137,7 +137,7 @@ class StaffRequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_request_params
       localized_fields = { annual_base_pay: :number, nonop_funds: :number }
-      allowed = [:employee_type_id, :position_title, :request_type_id,
+      allowed = [ :employee_name, :employee_type_id, :position_title, :request_type_id,
                  :annual_base_pay, :nonop_funds, :nonop_source, :department_id,
                  :unit_id, :justification] + policy(@staff_request || StaffRequest.new).permitted_attributes
       params.require(:staff_request).permit(allowed).delocalize(localized_fields)

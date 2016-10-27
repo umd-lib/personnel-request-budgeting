@@ -214,7 +214,9 @@ class PersonnelRequestPolicyIntegrationTest < ActionDispatch::IntegrationTest
           nonop_source: dept1_request.nonop_source,
           position_title: dept1_request.position_title,
           request_type_id: dept1_request.request_type_id,
+          employee_name: dept1_request.employee_name, 
           unit_id: dept1_request.unit_id }
+
         assert_redirected_to staff_request_path(assigns(:staff_request))
 
         post staff_requests_path, staff_request: {

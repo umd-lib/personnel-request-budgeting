@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021141851) do
+ActiveRecord::Schema.define(version: 20161026154824) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20161021141851) do
     t.datetime "updated_at",       null: false
     t.integer  "review_status_id"
     t.text     "review_comment"
+    t.string   "employee_name"
   end
 
   add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"

@@ -29,6 +29,13 @@
         </td>
       </tr>
       <tr>
+        <th><%= f.label :employee_name %></th>
+        <td>
+          <%= f.text_field :employee_name %>
+          <%= help_text_icon('help_text.employee_name') %>
+        </td>
+      </tr>
+      <tr>
         <th><%= f.label :annual_base_pay %></th>
         <td>
           <%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2, delimiter: ',') %>

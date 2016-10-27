@@ -1,10 +1,13 @@
-<div class="page-header">
-  <h1>New Report</h1>
-</div>
-<% @report.manager.reports.each do |subreport| %>
-  <div class="panel panel-default"> 
-    <div class="panel-body"> 
-    <%= render_report_form(subreport)  %>
-    </div>
+<div class='container'>
+  <div class="page-header">
+    <h1>New Report</h1>
   </div>
-<% end %>
+
+  <% @report.manager.reports.each do |subreport| %>
+    <div class="panel panel-default"> 
+      <div class="panel-body"> 
+          <%= render_report_form(subreport)  %>
+      </div>   
+    </div>
+  <% end %>
+</div>

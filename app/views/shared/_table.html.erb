@@ -1,4 +1,6 @@
-<table class="table table-striped">
-  <%= render partial: "shared/table_header", locals: { klass: klass } %>
-  <%= render partial: "shared/table_body", locals: { records: records }  %> 
-</table>
+<div class='table-responsive' >
+  <table class="table table-striped">
+    <%= render partial: "shared/table_header", locals: { klass: klass } %>
+    <%= render partial: "shared/table_body", locals: { records: records }  %> 
+  </table>
+</div>

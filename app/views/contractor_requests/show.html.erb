@@ -1,72 +1,74 @@
-<div class="page-header">
-  <h1>Salaried Contractor Request</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Salaried Contractor Request</h1>
+  </div>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>Position title</th>
+        <td id="position_title"><%= @contractor_request.position_title %></td>
+      </tr>
+
+      <tr>
+        <th>Employee type</th>
+        <td id="employee_type"><%= @contractor_request.employee_type.code %></td>
+      </tr>
+
+      <tr>
+        <th>Request type</th>
+        <td id="request_type"><%= @contractor_request.request_type.code %></td>
+      </tr>
+
+      <tr>
+        <th>Contractor name</th>
+        <td id="contractor_name"><%= @contractor_request.contractor_name %></td>
+      </tr>
+
+      <tr>
+        <th>Number of months</th>
+        <td id="number_of_months"><%= @contractor_request.number_of_months %></td>
+      </tr>
+
+      <tr>
+        <th>Annual base pay</th>
+        <td id="annual_base_pay"><%= number_to_currency(@contractor_request.annual_base_pay) %></td>
+      </tr>
+
+      <tr>
+        <th><%= ContractorRequest.human_attribute_name('nonop_funds') %></th>
+        <td id="nonop_funds"><%= number_to_currency(@contractor_request.nonop_funds) %></td>
+      </tr>
+
+      <tr>
+        <th><%=  ContractorRequest.human_attribute_name('nonop_source') %></th>
+        <td id="nonop_source"><%= @contractor_request.nonop_source %></td>
+      </tr>
+
+      <tr>
+        <th>Department</th>
+        <td id="department"><%= @contractor_request.department.code %></td>
+      </tr>
+
+      <tr>
+        <th>Unit</th>
+        <td id="unit"><%= @contractor_request.unit.code if @contractor_request.unit %></td>
+      </tr>
+
+      <tr>
+        <th>Justification</th>
+        <td id="justification"><%= @contractor_request.justification %></td>
+      </tr>
+      <tr>
+        <th>Request Status:</th>
+        <td id="request_status"><%= @contractor_request.review_status.name if @contractor_request.review_status %></td>
+      </tr>
+      <tr>
+        <th>Review Comment:</th>
+        <td id="review_comment"><%= @contractor_request.review_comment %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= render 'shared/show_action_buttons', object: @contractor_request %>
 </div>
-
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <th>Position title</th>
-      <td id="position_title"><%= @contractor_request.position_title %></td>
-    </tr>
-
-    <tr>
-      <th>Employee type</th>
-      <td id="employee_type"><%= @contractor_request.employee_type.code %></td>
-    </tr>
-
-    <tr>
-      <th>Request type</th>
-      <td id="request_type"><%= @contractor_request.request_type.code %></td>
-    </tr>
-
-    <tr>
-      <th>Contractor name</th>
-      <td id="contractor_name"><%= @contractor_request.contractor_name %></td>
-    </tr>
-
-    <tr>
-      <th>Number of months</th>
-      <td id="number_of_months"><%= @contractor_request.number_of_months %></td>
-    </tr>
-
-    <tr>
-      <th>Annual base pay</th>
-      <td id="annual_base_pay"><%= number_to_currency(@contractor_request.annual_base_pay) %></td>
-    </tr>
-
-    <tr>
-      <th><%= ContractorRequest.human_attribute_name('nonop_funds') %></th>
-      <td id="nonop_funds"><%= number_to_currency(@contractor_request.nonop_funds) %></td>
-    </tr>
-
-    <tr>
-      <th><%=  ContractorRequest.human_attribute_name('nonop_source') %></th>
-      <td id="nonop_source"><%= @contractor_request.nonop_source %></td>
-    </tr>
-
-    <tr>
-      <th>Department</th>
-      <td id="department"><%= @contractor_request.department.code %></td>
-    </tr>
-
-    <tr>
-      <th>Unit</th>
-      <td id="unit"><%= @contractor_request.unit.code if @contractor_request.unit %></td>
-    </tr>
-
-    <tr>
-      <th>Justification</th>
-      <td id="justification"><%= @contractor_request.justification %></td>
-    </tr>
-    <tr>
-      <th>Request Status:</th>
-      <td id="request_status"><%= @contractor_request.review_status.name if @contractor_request.review_status %></td>
-    </tr>
-    <tr>
-      <th>Review Comment:</th>
-      <td id="review_comment"><%= @contractor_request.review_comment %></td>
-    </tr>
-  </tbody>
-</table>
-
-<%= render 'shared/show_action_buttons', object: @contractor_request %>

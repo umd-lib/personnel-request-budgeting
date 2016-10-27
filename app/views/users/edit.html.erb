@@ -1,6 +1,1 @@
-<div class="page-header">
-  <h1><%= @user.cas_directory_id %> <small>User</small></h1>
-</div>
-
-<%= render 'form' %>
-
+<%= render 'shared/new_or_edit', title: "#{@user.cas_directory_id } <small>User</small>" %>

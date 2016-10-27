@@ -1,5 +1,1 @@
-<div class="page-header">
-  <h1><%= @employee_type.code %> <small>Employee Type</small></h1>
-</div>
-
-<%= render 'form' %>
+<%= render 'shared/new_or_edit', title: "#{@employee_type.code } <small>Employee Type</small>" %>

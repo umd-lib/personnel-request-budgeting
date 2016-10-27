@@ -1,3 +1,4 @@
+<div class="container">
 <div class="page-header">
   <h1><%= @report.name.underscore.humanize %> 
     <div class='pull-right' data-turbolinks='false'><%= link_to "Download", report_download_path(@report, format: @report.format), 
@@ -37,3 +38,4 @@
 </table>
 
 <%= render 'shared/show_action_buttons', object: @report %>
+</div>

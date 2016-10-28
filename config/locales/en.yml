@@ -49,8 +49,8 @@ en:
     hourly_rate: Please note current minimum wage is $8.75/hr
     hours_per_week: Estimated number of hours the person will work per week. 
     justification: Provide a brief explanation justifying the purpose for the request 
-    nonop_funds: Amount of gift, grant or other funds supporting the position
-    nonop_source: Name of gift, grant or other account supporting the position
+    nonop_funds: The dollar amount of gift or other funds supporting the request
+    nonop_source: Name of the gift account or name of the source of funds supporting the request
     number_of_months: Length of Contract period in months
     number_of_positions: You may combine students on the same line provided they are at the same rate of pay and the same number of hours per week.
     number_of_weeks: Estimated number of weeks the person will work during the fiscal year.  Refer to the Number of Weeks document for assistance.

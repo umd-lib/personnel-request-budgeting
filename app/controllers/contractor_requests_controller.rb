@@ -12,7 +12,6 @@ class ContractorRequestsController < ApplicationController
     @q = ContractorRequest.ransack(params[:q])
 
     default_sorts!
-    include_associations!(%i(division department employee_type request_type unit))
     @contractor_requests = scope_records(params)
 
     respond_to do |format|

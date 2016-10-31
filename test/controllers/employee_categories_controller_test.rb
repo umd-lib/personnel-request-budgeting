@@ -51,6 +51,7 @@ class EmployeeCategoriesControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy employee category with associated records' do
+    @employee_category.reload 
     assert_equal false, @employee_category.allow_delete?
     assert_no_difference('EmployeeCategory.count') do
       delete :destroy, id: @employee_category

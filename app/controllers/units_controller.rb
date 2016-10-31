@@ -9,7 +9,7 @@ class UnitsController < ApplicationController
     authorize Unit
     @q = Unit.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
-    @units = @q.result
+    @units = @q.result.includes([{ department: [:division] }])
   end
 
   # GET /units/1

@@ -51,6 +51,7 @@ class DivisionsControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy division with associated records' do
+    @division.reload 
     assert_equal false, @division.allow_delete?
     assert_no_difference('Division.count') do
       delete :destroy, id: @division

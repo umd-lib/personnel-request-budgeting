@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026154824) do
+ActiveRecord::Schema.define(version: 20161028185124) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -39,9 +39,14 @@ ActiveRecord::Schema.define(version: 20161026154824) do
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.integer  "division_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "code"
+    t.integer  "countractor_requests_count", default: 0
+    t.integer  "units_count",                default: 0
+    t.integer  "contractor_requests_count",  default: 0
+    t.integer  "labor_requests_count",       default: 0
+    t.integer  "staff_requests_count",       default: 0
   end
 
   add_index "departments", ["code"], name: "index_departments_on_code", unique: true
@@ -49,9 +54,10 @@ ActiveRecord::Schema.define(version: 20161026154824) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "code"
+    t.integer  "departments_count", default: 0
   end
 
   add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true
@@ -59,8 +65,9 @@ ActiveRecord::Schema.define(version: 20161026154824) do
   create_table "employee_categories", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "employee_types_count", default: 0
   end
 
   add_index "employee_categories", ["code"], name: "index_employee_categories_on_code", unique: true
@@ -69,8 +76,11 @@ ActiveRecord::Schema.define(version: 20161026154824) do
     t.string   "code"
     t.string   "name"
     t.integer  "employee_category_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "contractor_requests_count", default: 0
+    t.integer  "labor_requests_count",      default: 0
+    t.integer  "staff_requests_count",      default: 0
   end
 
   add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true
@@ -117,18 +127,24 @@ ActiveRecord::Schema.define(version: 20161026154824) do
   create_table "request_types", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "contractor_requests_count", default: 0
+    t.integer  "labor_requests_count",      default: 0
+    t.integer  "staff_requests_count",      default: 0
   end
 
   add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"
-    t.string   "color",      default: "#ffffff"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "color",                     default: "#ffffff"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "code"
+    t.integer  "contractor_requests_count", default: 0
+    t.integer  "labor_requests_count",      default: 0
+    t.integer  "staff_requests_count",      default: 0
   end
 
   create_table "role_cutoffs", force: :cascade do |t|
@@ -143,8 +159,9 @@ ActiveRecord::Schema.define(version: 20161026154824) do
   create_table "role_types", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "roles_count", default: 0
   end
 
   create_table "roles", force: :cascade do |t|
@@ -189,8 +206,11 @@ ActiveRecord::Schema.define(version: 20161026154824) do
     t.string   "code"
     t.string   "name"
     t.integer  "department_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "contractor_requests_count", default: 0
+    t.integer  "labor_requests_count",      default: 0
+    t.integer  "staff_requests_count",      default: 0
   end
 
   add_index "units", ["code"], name: "index_units_on_code", unique: true

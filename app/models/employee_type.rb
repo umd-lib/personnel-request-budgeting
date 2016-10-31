@@ -1,6 +1,6 @@
 # A type of employee (C1, C2, Fac, GA, etc.)
 class EmployeeType < ActiveRecord::Base
-  belongs_to :employee_category
+  belongs_to :employee_category, counter_cache: true
   has_many :contractor_requests, dependent: :restrict_with_exception
   has_many :labor_requests, dependent: :restrict_with_exception
   has_many :staff_requests, dependent: :restrict_with_exception

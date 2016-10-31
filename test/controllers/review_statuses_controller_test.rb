@@ -54,6 +54,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy review status with associated records' do
+    @review_status.reload 
     assert_equal false, @review_status.allow_delete?
     assert_no_difference('ReviewStatus.count') do
       delete :destroy, id: @review_status

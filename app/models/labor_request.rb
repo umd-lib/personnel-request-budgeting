@@ -5,20 +5,20 @@ class LaborRequest < ActiveRecord::Base
 
   include Requestable
 
+  belongs_to :department, counter_cache: true
+  belongs_to :unit, counter_cache: true
+  belongs_to :employee_type, counter_cache: true
+  belongs_to :request_type, counter_cache: true
+  belongs_to :review_status, counter_cache: true
+
   validates :contractor_name, presence: true, if: :contractor_name_required?
   validates :number_of_positions, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :hourly_rate, presence: true, numericality: { greater_than: 0.00 }
   validates :hours_per_week, presence: true, numericality: { greater_than: 0.00 }
   validates :number_of_weeks, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  after_initialize :init
-
   # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :position_title
-
-  def init
-    self.review_status ||= ReviewStatus.find_by(code: 'UnderReview')
-  end
 
   # Validates the request type
   def allowed_request_type

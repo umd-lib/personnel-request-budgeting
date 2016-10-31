@@ -10,7 +10,7 @@ class ImpersonateController < ApplicationController
     @q = User.ransack(params[:q])
     @q.sorts = 'cas_directory_id' if @q.sorts.empty?
     # Map users to ImpersonatedUser so view knows which policy to use
-    @users = @q.result.map { |u| ImpersonatedUser.new(u) }
+    @users = @q.result.includes(:role_types, :roles).map { |u| ImpersonatedUser.new(u) }
   end
 
   # GET /impersonate/user/123

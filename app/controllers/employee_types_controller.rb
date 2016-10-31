@@ -8,7 +8,7 @@ class EmployeeTypesController < ApplicationController
     authorize EmployeeType
     @q = EmployeeType.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
-    @employee_types = @q.result
+    @employee_types = @q.result.includes(:employee_category)
   end
 
   # GET /employee_types/1

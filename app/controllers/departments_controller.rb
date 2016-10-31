@@ -9,7 +9,7 @@ class DepartmentsController < ApplicationController
     authorize Department
     @q = Department.ransack(params[:q])
     @q.sorts = 'code' if @q.sorts.empty?
-    @departments = @q.result
+    @departments = @q.result.includes(:division)
   end
 
   # GET /departments/1

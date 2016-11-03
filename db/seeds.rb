@@ -99,6 +99,7 @@ request_types = [{ code: 'ConvertC1', name: 'ConvertC1' },
                  { code: 'ConvertCont', name: 'ConvertCont' },
                  { code: 'New', name: 'New' },
                  { code: 'PayAdj', name: 'Pay Adjustment' },
+                 { code: 'Backfill', name: 'Backfill' },
                  { code: 'Renewal', name: 'Renewal' }]
 
 request_types.each { |type| RequestType.create!(type) }

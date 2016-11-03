@@ -35,9 +35,9 @@ class StaffRequestTest < ActiveSupport::TestCase
    
     # now lets test payadj
     code = "PayAdj" 
-    @staff_request.request_type_id = RequestType.find_by_code(code).id
-    @staff_request.employee_name = "David Simon"
-    assert @staff_request.valid?, "Problem with payadj #{@staff_request.errors.inspect }"
+#    @staff_request.request_type_id = RequestType.find_by_code(code).id
+#    @staff_request.employee_name = "David Simon"
+#    assert @staff_request.valid?, "Problem with payadj #{@staff_request.errors.inspect }"
   end
 
   test 'should not allow invalid request types' do

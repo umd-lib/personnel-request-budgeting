@@ -15,13 +15,20 @@ Minitest::Reporters.use!
 require 'roo'
 require 'axlsx_rails'
 require 'tempfile'
+require_relative '../lib/counter_cache_manager'
 
 Dir[Rails.root.join('test/shared/**/*')].each { |f| require f }
+
+
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def after_setup
+    CounterCacheManager.run
+    super
+  end
   # Add more helper methods to be used by all tests here...
 
   # Default user for testing has Admin privileges

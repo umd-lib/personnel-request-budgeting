@@ -37,12 +37,10 @@ module PersonnelRequestController
       @q.sorts = %w(division_code department_code unit_code employee_type_code) if @q.sorts.empty?
     end
 
-    # sets the associations to be included in the result set
-    #
-    # assocs: an array of associations to be included in the query
-    def include_associations!(assocs = [])
-      return false unless @q
-      @q.result.includes(assocs)
+    def assocs
+      base_assocs = %i(division department employee_type request_type review_status unit)
+      base_assocs << :employee_type if controller_name =~ /^ContractorRequest/
+      base_assocs
     end
 
     # scopes the ransack @q query according to the pundit policy and paginated
@@ -52,26 +50,27 @@ module PersonnelRequestController
       if params[:format] == 'xlsx'
         # xlsx format should not use pagination, and always return all records
         # allowed by scope
-        policy_scope(@q.result)
+        policy_scope(@q.result.includes(assocs))
       else
         # Other formats use pagination
-        policy_scope(@q.result.page(params[:page]).per_page(per_page)) || []
+        policy_scope(@q.result.includes(assocs)
+                     .page(params[:page]).per_page(per_page)) || []
       end
     end
 
-    # called when there's a policy failure. 
+    # called when there's a policy failure.
     # @param exception [Exception] the error that has been raise in validation
     def not_authorized(exception)
-      # in edit and index situations just redirect to the root 
+      # in edit and index situations just redirect to the root
       if exception.record.is_a?(Class) || !exception.record.new_record?
         deny_and_redirect exception.message
-      # if there's a specific record issue, let's handle that. 
+      # if there's a specific record issue, let's handle that.
       else
         handle_record_not_authorized exception
       end
     end
-    
-    # Called when there's a policy error on a specific record 
+
+    # Called when there's a policy error on a specific record
     # @param exception [Exception] the error that has been raise in validation
     def handle_record_not_authorized(exception)
       # if we are making a new record, lets just reshow the form to let folks
@@ -90,18 +89,18 @@ module PersonnelRequestController
 
     # This just flashes a message and redirects to the root url
     #
-    # @param msg [String] A message to be displayed in the flash 
+    # @param msg [String] A message to be displayed in the flash
     def deny_and_redirect(msg)
       flash[:error] = "Access Denied -- #{msg}"
       redirect_to root_url
     end
-    
+
     # Add vailadation errors to the record and instructs users to try again
     #
     # @param variable [Symbol] The name of the instance variable the record is
     # stored in
-    # @param field [Symbol] The name record field to add the error to 
-    # @param msg [String] A message to be displayed in the flash 
+    # @param field [Symbol] The name record field to add the error to
+    # @param msg [String] A message to be displayed in the flash
     def add_errors_and_render(variable, field, msg)
       instance_variable_get(variable).errors.add(field, msg)
       assign_selectable_departments_and_units(instance_variable_get(variable))

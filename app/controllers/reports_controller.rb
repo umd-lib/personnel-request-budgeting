@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
     authorize Report
     @q = Report.ransack(params[:q])
     @q.sorts = 'created_at' if @q.sorts.empty?
-    @reports = @q.result.page(params[:page])
+    @reports = @q.result.includes(:user).page(params[:page])
   end
 
   # GET /reports/1

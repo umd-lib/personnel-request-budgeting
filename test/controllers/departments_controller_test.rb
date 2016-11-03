@@ -53,6 +53,7 @@ class DepartmentsControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy department with associated records' do
+    @department.reload 
     assert_equal false, @department.allow_delete?
     assert_no_difference('Department.count') do
       delete :destroy, id: @department

@@ -40,7 +40,7 @@ class EmployeeCategoryTest < ActiveSupport::TestCase
     emp_category = EmployeeCategory.create(code: 'NoDelete', name: 'DoNotDeleteMe')
     EmployeeType.create(code: 'Test', name: 'Test Employee Type', employee_category: emp_category)
 
-    assert_equal false, @emp_category.allow_delete?
+    assert_equal false, emp_category.allow_delete?
     assert_raise ActiveRecord::DeleteRestrictionError do
       emp_category.destroy
     end

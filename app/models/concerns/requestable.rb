@@ -18,6 +18,17 @@ module Requestable
 
     validates_with RequestEmployeeTypeValidator, valid_employee_category_code: self::VALID_EMPLOYEE_CATEGORY_CODE
     validate :allowed_request_type
+
+    after_initialize :init
+
+    # Sets the review status to default
+    def init
+      return if has_attribute?(:review_status_id) && review_status_id
+      self.review_status = ReviewStatus.find_by(code: 'UnderReview')
+    end
+  end
+
+  class_methods do
   end
 
   # Validates the request type

@@ -10,7 +10,7 @@ class RolesController < ApplicationController
     @q = Role.ransack(params[:q])
     @q.sorts = 'user' if @q.sorts.empty?
 
-    @roles = @q.result.page(params[:page])
+    @roles = @q.result.includes(:user, :role_type, :division, :department, :unit).page(params[:page])
   end
 
   # GET /roles/1

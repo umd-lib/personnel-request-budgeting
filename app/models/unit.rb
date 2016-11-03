@@ -1,6 +1,6 @@
 # A unit within a department
 class Unit < ActiveRecord::Base
-  belongs_to :department
+  belongs_to :department, counter_cache: true
   has_many :contractor_requests, dependent: :restrict_with_exception
   has_many :labor_requests, dependent: :restrict_with_exception
   has_many :staff_requests, dependent: :restrict_with_exception

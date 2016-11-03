@@ -5,19 +5,19 @@ class ContractorRequest < ActiveRecord::Base
 
   include Requestable
 
+  belongs_to :department, counter_cache: true
+  belongs_to :unit, counter_cache: true
+  belongs_to :employee_type, counter_cache: true
+  belongs_to :request_type, counter_cache: true
+  belongs_to :review_status, counter_cache: true
+
   validates :contractor_name, presence: true, if: :contractor_name_required?
   validates :number_of_months, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :annual_base_pay, presence: true
   validates_with RequestDepartmentValidator
 
-  after_initialize :init
-
   # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :position_title
-
-  def init
-    self.review_status ||= ReviewStatus.find_by(code: 'UnderReview')
-  end
 
   # Validates the request type
   def allowed_request_type

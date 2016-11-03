@@ -57,6 +57,7 @@ class UnitsControllerTest < ActionController::TestCase
     staff_request.department = @unit.department
     staff_request.unit = @unit
     staff_request.save!
+    @unit.reload 
     assert_equal false, @unit.allow_delete?
 
     assert_no_difference('Unit.count') do

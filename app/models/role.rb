@@ -1,7 +1,7 @@
 # A role describing access permissions
 class Role < ActiveRecord::Base
   belongs_to :user
-  belongs_to :role_type
+  belongs_to :role_type, counter_cache: true
 
   belongs_to :division
   belongs_to :department

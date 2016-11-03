@@ -39,14 +39,13 @@ ActiveRecord::Schema.define(version: 20161028185124) do
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.integer  "division_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "code"
-    t.integer  "countractor_requests_count", default: 0
-    t.integer  "units_count",                default: 0
-    t.integer  "contractor_requests_count",  default: 0
-    t.integer  "labor_requests_count",       default: 0
-    t.integer  "staff_requests_count",       default: 0
+    t.integer  "units_count",               default: 0
+    t.integer  "contractor_requests_count", default: 0
+    t.integer  "labor_requests_count",      default: 0
+    t.integer  "staff_requests_count",      default: 0
   end
 
   add_index "departments", ["code"], name: "index_departments_on_code", unique: true

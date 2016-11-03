@@ -21,22 +21,22 @@ c2:
   employee_category: salaried_contractor
   
 cont_fac:
-  code: ContFac
+  code: CFAC
   name: ContFac
   employee_category: salaried_contractor
 
 ex:
-  code: Ex
+  code: EX
   name: Ex
   employee_category: reg_ga
   
 fac:
-  code: Fac
+  code: FAC
   name: Faculty
   employee_category: reg_ga
 
 fac_hrly:
-  code: FAC-Hrly
+  code: FHRLY
   name: Faculty Hourly
   employee_category: l_and_a
 
@@ -51,6 +51,6 @@ nex:
   employee_category: reg_ga
   
 student:
-  code: Student
+  code: STUD
   name: Student
   employee_category: l_and_a

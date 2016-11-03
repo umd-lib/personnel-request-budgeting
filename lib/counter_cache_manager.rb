@@ -18,7 +18,7 @@ class CounterCacheManager
           # get all the ids for the cache
           ids = one_klass
                 .joins(many_table.to_sym)
-                .group("#{one_table}.id")
+                .group("#{one_table}.id", "#{many_table}_count")
                 .having("#{one_table}.#{many_table}_count != COUNT(#{many_table}.id)")
                 .pluck("#{one_table}.id")
           # logger ||= Logger.new(STDOUT)

@@ -4,14 +4,14 @@
   <table class="table table-striped">
     <tbody>
       <tr>
-        <th><%= f.label :position_title %></th>
+        <th><%= f.label :position_title, class: :required %></th>
         <td>
           <%= f.text_field :position_title %>
           <%= help_text_icon('help_text.position_title') %>
         </td>
       </tr>
       <tr>
-        <th><%= f.label :employee_type_id %></th>
+        <th><%= f.label :employee_type_id, class: :required   %></th>
         <td>
           <%= select("labor_request", "employee_type_id", 
            EmployeeType.employee_types_with_category(LaborRequest::VALID_EMPLOYEE_CATEGORY_CODE).order("name").collect {|e| [ e.name, e.id ] },
@@ -20,7 +20,7 @@
         </td>
       </tr>
       <tr>
-        <th><%= f.label :request_type_id %></th>
+        <th><%= f.label :request_type_id, class: :required  %></th>
         <td>
           <%= select("labor_request", "request_type_id",
             RequestType.order("name").select { |a| LaborRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect {|e| [ e.name, e.id ] },
@@ -35,21 +35,21 @@
           <%= help_text_icon('help_text.contractor_name') %>
       </tr>
       <tr>
-        <th><%= f.label :number_of_positions %></th>
+        <th><%= f.label :number_of_positions, class: :required  %></th>
         <td>
           <%= f.number_field :number_of_positions, min: 1 %>
           <%= help_text_icon('help_text.number_of_positions') %>
         </td>
       </tr>
       <tr>
-        <th><%= f.label :hourly_rate %></th>
+        <th><%= f.label :hourly_rate, class: :required  %></th>
         <td>
           <%= f.text_field :hourly_rate, value: number_with_precision(f.object.hourly_rate, precision: 2, delimiter: ',') %>
           <%= help_text_icon('help_text.hourly_rate') %>
         </td>
       </tr>
       <tr>
-        <th><%= f.label :hours_per_week %></th>
+        <th><%= f.label :hours_per_week, class: :required  %></th>
         <td>
           <%= f.text_field :hours_per_week %>
           <%= help_text_icon('help_text.hours_per_week') %>
@@ -57,7 +57,7 @@
 
       </tr>
       <tr>
-        <th><%= f.label :number_of_weeks %></th>
+        <th><%= f.label :number_of_weeks, class: :required  %></th>
         <td>
           <%= f.number_field :number_of_weeks, min: 1 %>
           <%= help_text_icon('help_text.number_of_weeks') %>
@@ -79,7 +79,7 @@
         </td>
       </tr>
       <tr>
-        <th><%= f.label :department_id %></th>
+        <th><%= f.label :department_id, class: :required  %></th>
         <td>
           <%= 
             depts = @selectable_departments.collect { |d| [ d.name, d.id ] }

@@ -20,3 +20,6 @@
 a {
   color: black;
 }
+
+
+label.required:after { content:" *"; color: red; }

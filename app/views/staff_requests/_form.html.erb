@@ -4,14 +4,14 @@
   <table class="table table-striped">
     <tbody>
       <tr>
-        <th><%= f.label :position_title %></th>
+        <th><%= f.label :position_title , class: :required %></th>
         <td>
           <%= f.text_field :position_title %>
           <%= help_text_icon('help_text.position_title') %>
         </td>
       </tr>
       <tr>
-         <th><%= f.label :employee_type_id %></th>
+         <th><%= f.label :employee_type_id , class: :required %></th>
          <td>
            <%= select("staff_request", "employee_type_id", 
              EmployeeType.employee_types_with_category(StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE).order("name").collect { |e| [ e.name, e.id ] },
@@ -20,7 +20,7 @@
          </td>
       </tr>
       <tr>
-        <th><%= f.label :request_type_id %></th>
+        <th><%= f.label :request_type_id , class: :required %></th>
         <td>
           <%= select("staff_request", "request_type_id",
             RequestType.order("name").select { |a| StaffRequest::VALID_REQUEST_TYPE_CODES.include?(a.code) }.collect { |e| [ e.name, e.id ] },
@@ -36,7 +36,7 @@
         </td>
       </tr>
       <tr>
-        <th><%= f.label :annual_base_pay %></th>
+        <th><%= f.label :annual_base_pay , class: :required %></th>
         <td>
           <%= f.text_field :annual_base_pay, step: 0.01, value: number_with_precision(f.object.annual_base_pay, precision: 2, delimiter: ',') %>
           <%= help_text_icon('help_text.annual_base_pay') %>
@@ -57,7 +57,7 @@
         </td>
       </tr>
       <tr>
-        <th><%= f.label :department_id %></th>
+        <th><%= f.label :department_id , class: :required %></th>
         <td>
           <%=
             depts = @selectable_departments.collect { |d| [ d.name, d.id ] }

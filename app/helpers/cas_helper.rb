@@ -58,7 +58,6 @@ module CasHelper
 
     # Simply updates the current user
     def update_current_user(user)
-      return nil unless user.is_a?(User)
       @current_user = user
       @current_user
     end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: :logout
 
   # GET /users
   # GET /users.json
@@ -70,6 +70,12 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: "User #{@user.description} was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def logout
+    clear_current_user
+    reset_session
+    render 'logout'
   end
 
   private

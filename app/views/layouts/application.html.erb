@@ -2,6 +2,7 @@
 <% provide :container_class, "container-fluid" %>
 <% content_for :navbar do %>
   <ul class="nav navbar-nav">
+    <li><%= link_to 'Help', "http://libi.lib.umd.edu/sites/default/files/FY18%20L&A%20Budget%20Calculations-Number%20of%20Weeks_0.pdf" %></li>
     <li class="<%= 'active' if current_page?(labor_requests_path) %>"><%= link_to 'Labor and Assistance', labor_requests_path %></li>
     <li class="<%= 'active' if current_page?(staff_requests_path) %>"><%= link_to 'Staff', staff_requests_path %></li>
     <li class="<%= 'active' if current_page?(contractor_requests_path) %>"><%= link_to 'Salaried Contractor', contractor_requests_path %></li>

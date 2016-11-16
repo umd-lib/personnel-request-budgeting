@@ -7,10 +7,16 @@
 <div class="panel panel-default">
   <div class="panel-heading">Staffing Requests</div>
   <div class="panel-body">
-    <ul class="list-group">
-      <%= link_to 'Labor and Assistance Requests', labor_requests_path, class: "list-group-item" %>
-      <%= link_to 'Staff Requests', staff_requests_path, class: "list-group-item" %>
-      <%= link_to 'Salaried Contractor Requests', contractor_requests_path, class: "list-group-item" %>
+    <ul class="list-group requests-homepage">
+      <li><%= link_to 'Labor and Assistance Requests', labor_requests_path, class: "list-group-item" %>
+      <div class="well"><%= t('help_text.labor_request_description') %></div> 
+      </li>
+      <li><%= link_to 'Staff Requests', staff_requests_path, class: "list-group-item" %>
+        <div class="well"><%= t('help_text.staff_request_description') %></div> 
+      </li>   
+      <li><%= link_to 'Salaried Contractor Requests', contractor_requests_path, class: "list-group-item" %>
+        <div class="well"><%= t('help_text.contractor_request_description') %></div> 
+      </li>
     </ul>
   </div>
 </div>

@@ -56,7 +56,10 @@ en:
     number_of_weeks: Estimated number of weeks the person will work during the fiscal year.  Refer to the Number of Weeks document for assistance.
     position_title: Position name/title
     unit: Select Unit name within a department, if applicable.
-  
+    labor_request_description: Hourly Staff (Contingent 1's), Students and hourly faculty
+    staff_request_description: New Staff & Faculty State-lined positions (conversion of contract positions to regular state-lined positions, Backfill a current position, Administrative and Acting Stipend request, and any other adjustment to salary for current State-lined positions; Graduate Assistants (Backfill & New request)) 
+    contractor_request_description: Temporary salaried staff & faculty (Contingent 2's and Contract Faculty) 
+
   confirm_delete_prompt:
     default: Are you sure?
     with_description: "Are you sure you want to delete '%{description}'?" 

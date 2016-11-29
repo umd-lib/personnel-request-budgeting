@@ -1,4 +1,7 @@
 // enable popovers for descriptors
-$(document).ready(function() {
+var togglr = function() { 
     $('[data-toggle="popover"]').popover()
-});
+}
+
+$(document).ready(togglr);
+$(document).on("turbolinks:load", togglr);

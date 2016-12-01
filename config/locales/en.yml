@@ -53,7 +53,7 @@ en:
     nonop_source: Name of the gift account or name of the source of funds supporting the request
     number_of_months: Length of Contract period in months
     number_of_positions: You may combine students on the same line provided they are at the same rate of pay and the same number of hours per week.
-    number_of_weeks: Estimated number of weeks the person will work during the fiscal year.  Refer to the Number of Weeks document for assistance.
+    number_of_weeks_html: Estimated number of weeks the person will work during the fiscal year. Refer to the <a taget="_blank" href='http://libi.lib.umd.edu/sites/default/files/FY18%20L&A%20Budget%20Calculations-Number%20of%20Weeks_0.pdf'>Number of Weeks Guide</a> under "Help" for assistance. 
     position_title: Position name/title
     unit: Select Unit name within a department, if applicable.
     labor_request_description: Hourly Staff (Contingent 1's), Students and hourly faculty

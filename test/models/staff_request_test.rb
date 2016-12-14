@@ -26,15 +26,15 @@ class StaffRequestTest < ActiveSupport::TestCase
   end
 
   test 'should allow valid request types' do
-    # lets do all cept payadj which also requires a employee_name 
+    # lets do all cept payadj which also requires a employee_name
     StaffRequest::VALID_REQUEST_TYPE_CODES.each do |code|
-      next if code == "PayAdj" 
+      next if code == "PayAdj"
       @staff_request.request_type_id = RequestType.find_by_code(code).id
       assert @staff_request.valid?, "'#{code}' was not accepted as a valid request type!"
     end
-   
+
     # now lets test payadj
-    code = "PayAdj" 
+    code = "PayAdj"
 #    @staff_request.request_type_id = RequestType.find_by_code(code).id
 #    @staff_request.employee_name = "David Simon"
 #    assert @staff_request.valid?, "Problem with payadj #{@staff_request.errors.inspect }"
@@ -76,6 +76,11 @@ class StaffRequestTest < ActiveSupport::TestCase
 
     invalid_unit = units(:two)
     @staff_request.unit_id = invalid_unit.id
+    assert_not @staff_request.valid?
+  end
+
+  test 'justification should be present' do
+    @staff_request.justification = nil
     assert_not @staff_request.valid?
   end
 end

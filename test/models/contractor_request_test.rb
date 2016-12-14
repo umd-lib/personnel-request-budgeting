@@ -89,4 +89,9 @@ class ContractorRequestTest < ActiveSupport::TestCase
     @contractor_request.unit_id = invalid_unit.id
     assert_not @contractor_request.valid?
   end
+
+  test 'justification should be present' do
+    @contractor_request.justification = nil
+    assert_not @contractor_request.valid?
+  end
 end

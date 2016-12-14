@@ -129,4 +129,9 @@ class LaborRequestTest < ActiveSupport::TestCase
     expected_value = @labor_request.number_of_positions * @labor_request.hourly_rate * @labor_request.hours_per_week * @labor_request.number_of_weeks
     assert_equal expected_value, @labor_request.annual_cost
   end
+
+  test 'justification should be present' do
+    @labor_request.justification = nil
+    assert_not @labor_request.valid?
+  end
 end

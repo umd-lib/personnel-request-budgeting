@@ -30,6 +30,12 @@ textarea[id$='review_comment']
   width: 96%; // Leave space for "tooltip" icon
 }
 
+// Workaround until error styling is added to textarea in umd_lib_style
+// See LIBITD-659
+.field_with_errors textarea {
+  border: 2px solid #a94442;
+}
+
 // Help text icon - override icon colors and size
 .help-text-icon:after {
   background-color: transparent;

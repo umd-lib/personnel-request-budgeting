@@ -14,6 +14,7 @@ class ContractorRequest < ActiveRecord::Base
   validates :contractor_name, presence: true, if: :contractor_name_required?
   validates :number_of_months, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :annual_base_pay, presence: true
+  validates :justification, presence: true
   validates_with RequestDepartmentValidator
 
   # Provides a short human-readable description for this record, for GUI prompts

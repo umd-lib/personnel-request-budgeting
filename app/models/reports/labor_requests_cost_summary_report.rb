@@ -23,7 +23,7 @@ class LaborRequestsCostSummaryReport
 
   # @return [Object] the data used by the template
   def query # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    headers = {
+    summary_headers = {
       division: 'Div Name',
       c1: "C1's",
       hourly_faculty: 'Hourly Faculty',
@@ -49,7 +49,7 @@ class LaborRequestsCostSummaryReport
 
     # Stores in an array (to preserve the division ordering), a "value" Hash
     # representing that division's row in the table.
-    data = []
+    summary_data = []
     Division.order(:code).each do |div|
       division_code = div.code
       c1_key = [division_code, 'C1']
@@ -60,9 +60,9 @@ class LaborRequestsCostSummaryReport
                 hourly_faculty: annual_cost_totals[hourly_faculty_key],
                 students: annual_cost_totals[students_key],
                 other_support: other_support_totals[division_code] }
-      data << value
+      summary_data << value
     end
 
-    [headers, data]
+    { summary_headers: summary_headers, summary_data: summary_data }
   end
 end

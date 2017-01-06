@@ -32,17 +32,18 @@ end
 
 worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
 
-headers = record_set[0]
-data = record_set[1]
 current_fiscal_year = 'FY17'
-row_num = 1
 
 wb = xlsx_package.workbook
 
 style = define_styles(wb)
 
-# Worksheet Construction
+# Summary Worksheet Construction
 wb.add_worksheet(name: 'Summary L & A') do |sheet|
+  row_num = 1
+  headers = record_set[:summary_headers]
+  data = record_set[:summary_data]
+
   sheet.add_row [ 'Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}" ],
                 style: [style['title'], style['extra_title']],
                 widths: [:auto, :ignore]

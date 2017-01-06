@@ -63,6 +63,8 @@ class LaborRequestsCostSummaryReport
       summary_data << value
     end
 
-    { summary_headers: summary_headers, summary_data: summary_data }
+    current_fiscal_year = 'FY17'
+    { summary_headers: summary_headers, summary_data: summary_data,
+      current_fiscal_year: current_fiscal_year }
   end
 end

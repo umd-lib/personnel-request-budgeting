@@ -30,61 +30,64 @@ def define_styles(wb)
   return style
 end
 
-worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
+def construct_summary_worksheet(wb, style, record_set)
+  # Summary Worksheet Construction
+  wb.add_worksheet(name: 'Summary L & A') do |sheet|
+    row_num = 1
+    headers = record_set[:summary_headers]
+    data = record_set[:summary_data]
+    current_fiscal_year = record_set[:current_fiscal_year]
 
-current_fiscal_year = 'FY17'
+    sheet.add_row [ 'Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}" ],
+                  style: [style['title'], style['extra_title']],
+                  widths: [:auto, :ignore]
+    sheet.merge_cells "B#{row_num}:D#{row_num}"
+    row_num += 1
+
+    sheet.add_row ['', ''],
+                  style: [style['title'], nil],
+                  widths: [:auto, :ignore]
+    row_num += 1
+
+    sheet.add_row ['', '', '', '', 'Less:', ''],
+                  style: style['header'],
+                  widths: :auto
+    row_num += 1
+
+    sheet.add_row [ headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students], headers[:other_support], 'Net FY Request' ],
+                  style: style['header_bottom_border']
+    row_num += 1
+
+    data_start_row = row_num
+    data.each do |record|
+      sheet.add_row [ record[:division], record[:c1], record[:hourly_faculty], record[:students], record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}" ],
+                    style: [nil, style['currency'], style['currency'], style['currency'], style['currency'], style['currency']],
+                    widths: :auto
+      row_num += 1
+    end
+    data_end_row = row_num - 1
+
+    sheet.add_row [ "Total L & A Requested for #{current_fiscal_year}",
+                    "=SUM(B#{data_start_row}:B#{data_end_row})",
+                    "=SUM(C#{data_start_row}:C#{data_end_row})",
+                    "=SUM(D#{data_start_row}:D#{data_end_row})",
+                    "=SUM(E#{data_start_row}:E#{data_end_row})",
+                    "=SUM(F#{data_start_row}:F#{data_end_row})"],
+                  style: [style['summary_description'],
+                          style['summary_result_top_border'],
+                          style['summary_result_top_border'],
+                          style['summary_result_top_border'],
+                          style['summary_result_top_border'],
+                          style['summary_result']],
+                  widths: :auto
+    row_num += 1
+  end
+end
+
+worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
 
 wb = xlsx_package.workbook
 
 style = define_styles(wb)
 
-# Summary Worksheet Construction
-wb.add_worksheet(name: 'Summary L & A') do |sheet|
-  row_num = 1
-  headers = record_set[:summary_headers]
-  data = record_set[:summary_data]
-
-  sheet.add_row [ 'Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}" ],
-                style: [style['title'], style['extra_title']],
-                widths: [:auto, :ignore]
-  sheet.merge_cells "B#{row_num}:D#{row_num}"
-  row_num += 1
-
-  sheet.add_row ['', ''],
-                style: [style['title'], nil],
-                widths: [:auto, :ignore]
-  row_num += 1
-
-  sheet.add_row ['', '', '', '', 'Less:', ''],
-                style: style['header'],
-                widths: :auto
-  row_num += 1
-
-  sheet.add_row [ headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students], headers[:other_support], 'Net FY Request' ],
-                style: style['header_bottom_border']
-  row_num += 1
-
-  data_start_row = row_num
-  data.each do |record|
-    sheet.add_row [ record[:division], record[:c1], record[:hourly_faculty], record[:students], record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}" ],
-                  style: [nil, style['currency'], style['currency'], style['currency'], style['currency'], style['currency']],
-                  widths: :auto
-    row_num += 1
-  end
-  data_end_row = row_num - 1
-
-  sheet.add_row [ "Total L & A Requested for #{current_fiscal_year}",
-                  "=SUM(B#{data_start_row}:B#{data_end_row})",
-                  "=SUM(C#{data_start_row}:C#{data_end_row})",
-                  "=SUM(D#{data_start_row}:D#{data_end_row})",
-                  "=SUM(E#{data_start_row}:E#{data_end_row})",
-                  "=SUM(F#{data_start_row}:F#{data_end_row})"],
-                style: [style['summary_description'],
-                        style['summary_result_top_border'],
-                        style['summary_result_top_border'],
-                        style['summary_result_top_border'],
-                        style['summary_result_top_border'],
-                        style['summary_result']],
-                widths: :auto
-  row_num += 1
-end
+construct_summary_worksheet(wb, style, record_set)

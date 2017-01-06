@@ -1,24 +1,89 @@
+# Style definitions
+def define_styles(wb)
+  # Define style components
+  title_font_size = 16
+  header_font_size = 14
+  summary_description_font_size = 14
+  summary_result_font_size = 12
+
+  title_font = { sz: title_font_size, b: true }
+  header_font = { sz: header_font_size, b: true }
+  summary_description_font = { sz: summary_description_font_size, b: true, i: true }
+  summary_result_font = { sz: summary_result_font_size, b: true }
+
+  currency_format = { format_code: "$#,##0.00" }
+
+  top_border = { border: { style: :thick, color: '000000', name: :top, edges: [:top] } };
+  bottom_border = { border: { style: :thick, color: '000000', name: :bottom, edges: [:bottom] } };
+
+  # Style definitions
+  style = Hash.new
+  style['currency'] = wb.styles.add_style(currency_format)
+  style['extra_title'] = wb.styles.add_style(title_font)
+  style['title'] = wb.styles.add_style title_font.merge({ bg_color: "FFFF00" })
+  style['header'] = wb.styles.add_style header_font.merge(bg_color: "D9D9D9")
+  style['header_bottom_border'] = wb.styles.add_style header_font.merge(bg_color: "D9D9D9").merge(bottom_border)
+  style['summary_description'] = wb.styles.add_style summary_description_font
+  style['summary_result'] = wb.styles.add_style summary_result_font.merge(currency_format).merge(bg_color: "D9D9D9")
+  style['summary_result_top_border'] = wb.styles.add_style summary_result_font.merge(currency_format).merge(bg_color: "D9D9D9").merge(top_border)
+
+  return style
+end
+
+worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
+
 headers = record_set[0]
 data = record_set[1]
-
+current_fiscal_year = 'FY17'
 row_num = 1
 
 wb = xlsx_package.workbook
-currency = wb.styles.add_style format_code: '$#,##0.00'
 
+style = define_styles(wb)
+
+# Worksheet Construction
 wb.add_worksheet(name: 'Summary L & A') do |sheet|
-  header_row = [headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students],
-                headers[:other_support], 'Net FY Request']
-  sheet.add_row header_row
-
+  sheet.add_row [ 'Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}" ],
+                style: [style['title'], style['extra_title']],
+                widths: [:auto, :ignore]
+  sheet.merge_cells "B#{row_num}:D#{row_num}"
   row_num += 1
 
+  sheet.add_row ['', ''],
+                style: [style['title'], nil],
+                widths: [:auto, :ignore]
+  row_num += 1
+
+  sheet.add_row ['', '', '', '', 'Less:', ''],
+                style: style['header'],
+                widths: :auto
+  row_num += 1
+
+  sheet.add_row [ headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students], headers[:other_support], 'Net FY Request' ],
+                style: style['header_bottom_border']
+  row_num += 1
+
+  data_start_row = row_num
   data.each do |record|
-    recored_row = [record[:division], record[:c1], record[:hourly_faculty], record[:students],
-                   record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}"]
-    sheet.add_row recored_row,
-                  style: [nil, currency, currency, currency, currency, currency],
-                  widths: [:auto, :auto, :auto, :auto, :auto, :auto]
+    sheet.add_row [ record[:division], record[:c1], record[:hourly_faculty], record[:students], record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}" ],
+                  style: [nil, style['currency'], style['currency'], style['currency'], style['currency'], style['currency']],
+                  widths: :auto
     row_num += 1
   end
+  data_end_row = row_num - 1
+
+  sheet.add_row [ "Total L & A Requested for #{current_fiscal_year}",
+                  "=SUM(B#{data_start_row}:B#{data_end_row})",
+                  "=SUM(C#{data_start_row}:C#{data_end_row})",
+                  "=SUM(D#{data_start_row}:D#{data_end_row})",
+                  "=SUM(E#{data_start_row}:E#{data_end_row})",
+                  "=SUM(F#{data_start_row}:F#{data_end_row})"],
+                style: [style['summary_description'],
+                        style['summary_result_top_border'],
+                        style['summary_result_top_border'],
+                        style['summary_result_top_border'],
+                        style['summary_result_top_border'],
+                        style['summary_result']],
+                widths: :auto
+  row_num += 1
 end

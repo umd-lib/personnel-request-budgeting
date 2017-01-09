@@ -10,15 +10,15 @@ class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
     assert_not @report.class.description.empty?
   end
 
-  test 'should return an array containing a Hash and a Array of Hashes' do
+  test 'should return a Hash containing an Array and a String' do
     query_result = @report.query
-    headers = query_result[0]
-    data = query_result[1]
+    summary_data = query_result[:summary_data]
+    current_fiscal_year = query_result[:current_fiscal_year]
 
-    assert headers.is_a?(Hash)
-    assert data.is_a?(Array)
+    assert summary_data.is_a?(Array)
+    assert current_fiscal_year.is_a?(String)
 
-    # "data" should contain an entry for each division
-    assert data.count == Division.count
+    # "data" should contain an entry for each department
+    assert summary_data.count == Department.count
   end
 end

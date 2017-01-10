@@ -1,11 +1,18 @@
+# @return [String] a "safe" cell name for uses with the Axlsx gem by removing 
+#    spaces and underscores from the given name. 
+def axls_safe_cell_name(name)
+  name.delete(' ').delete('_')
+end
+
 # Sets the name of the given row/col to the given name
 # Note: The name must be unique in the workbook, not just the worksheet.
 # Also, Excel cannot seem to handle names should not contain underscores ("_"),
 # spaces (" "), or dashes ("-").
 def name_cell_in_row(row, col, cell_name)
   cell_location = "#{row.worksheet.name}!#{row.cells[col].r_abs}"
-  row.worksheet.workbook.add_defined_name cell_location, name: cell_name
+  row.worksheet.workbook.add_defined_name cell_location, name: axls_safe_cell_name(cell_name)
 end
+
 
 # Style definitions
 def define_styles(wb)
@@ -41,7 +48,7 @@ end
 
 def construct_division_worksheet(wb, styles, record_set, division)
   # Division Worksheet Construction
-  wb.add_worksheet(name: division) do |sheet|
+  wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet|
     row_num = 1
     data = record_set[:summary_data]
     current_fiscal_year = record_set[:current_fiscal_year]
@@ -87,20 +94,18 @@ def construct_division_worksheet(wb, styles, record_set, division)
                   widths: :auto
     # Cell names must be unique in workbook. Can't use "_" to separate
     # words, because it turns the next letter into uppercase.
-    name_cell_in_row(row, 1, division.downcase + 'c1totals')
-    name_cell_in_row(row, 2, division.downcase + 'hourlyfacultytotals')
-    name_cell_in_row(row, 3, division.downcase + 'studentstotals')
-    name_cell_in_row(row, 4, division.downcase + 'totaltotals')
-    name_cell_in_row(row, 5, division.downcase + 'othersupporttotals')
+    name_cell_in_row(row, 1, division + 'c1totals')
+    name_cell_in_row(row, 2, division + 'hourlyfacultytotals')
+    name_cell_in_row(row, 3, division + 'studentstotals')
+    name_cell_in_row(row, 4, division + 'totaltotals')
+    name_cell_in_row(row, 5, division + 'othersupporttotals')
     row_num += 1
   end
 end
 
-
-
 def construct_summary_worksheet(wb, styles, record_set)
   # Summary Worksheet Construction
-  wb.insert_worksheet(0, name:'Summary L & A') do |sheet|
+  wb.insert_worksheet(0, name:'Summary_L_and_A') do |sheet|
     row_num = 1
     data = record_set[:summary_data]
     current_fiscal_year = record_set[:current_fiscal_year]
@@ -130,10 +135,10 @@ def construct_summary_worksheet(wb, styles, record_set)
     divisions.each do |div|
       div_code = div.code.downcase
       sheet.add_row [ div.name, 
-                      "=#{div_code + 'c1totals'}",
-                      "=#{div_code + 'hourlyfacultytotals'}",
-                      "=#{div_code + 'studentstotals'}",
-                      "=#{div_code + 'othersupporttotals'}",
+                      "=#{axls_safe_cell_name(div_code + 'c1totals')}",
+                      "=#{axls_safe_cell_name(div_code + 'hourlyfacultytotals')}",
+                      "=#{axls_safe_cell_name(div_code + 'studentstotals')}",
+                      "=#{axls_safe_cell_name(div_code + 'othersupporttotals')}",
                       "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}"],
                       style: [nil, styles['currency'], styles['currency'], styles['currency'], styles['currency'], styles['currency']],
                       widths: :auto
@@ -141,7 +146,7 @@ def construct_summary_worksheet(wb, styles, record_set)
     end
     data_end_row = row_num - 1
 
-    sheet.add_row [ "Total L & A Requested for #{current_fiscal_year}",
+    row = sheet.add_row [ "Total L & A Requested for #{current_fiscal_year}",
                     "=SUM(B#{data_start_row}:B#{data_end_row})",
                     "=SUM(C#{data_start_row}:C#{data_end_row})",
                     "=SUM(D#{data_start_row}:D#{data_end_row})",
@@ -154,6 +159,7 @@ def construct_summary_worksheet(wb, styles, record_set)
                           styles['summary_result_top_border'],
                           styles['summary_result']],
                   widths: :auto
+    name_cell_in_row(row, 5, 'summarynetfyrequest')
     row_num += 1
   end
 end

@@ -36,7 +36,8 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
     divisions = Division.all
     assert (divisions.count > 0)
     divisions.each do |div|
-      div_code = div.code
+      # Sheet names should not have underscores or spaces
+      div_code = div.code.delete(' ').delete('_')
       assert spreadsheet.sheets.include?(div_code)
     end
   end

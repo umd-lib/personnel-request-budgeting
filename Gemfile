@@ -32,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 # UMD Bootstrap style
-gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', branch: 'develop'
+gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
 
 # Pagination
 gem 'will_paginate', '~> 3.1.0'

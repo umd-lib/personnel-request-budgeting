@@ -1,12 +1,12 @@
 require 'reportable'
-# A summary report for the costs of Labor and Assistance requests
+# A summary report for the requests count by review status
 class RequestCountsByReviewStatus
   include Reportable
   class << self
     # @return [String] human-readable description of the report, displayed in
     #   the GUI.
     def description
-      'A report for the total counts of records, by their review status'
+      'A report for the total count of requests, by their review status'
     end
 
     # @return [Array<String, Symbol>] the output formats this report is
@@ -17,18 +17,12 @@ class RequestCountsByReviewStatus
 
     # @return [String] the view template to use in formatting the report output
     def template
-      'shared/request_counts_review_status'
+      'shared/requests_count_review_status'
     end
   end
 
   # @return [Object] the data used by the template
   def query # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    headers = {
-      status: 'Review Status',
-      contractor_count: "Contractor Request Count",
-      labor_count: "Labor Request Count",
-      staff_count: "Staff Request Count"
-    }
 
     data = []
     ReviewStatus.all.to_a.each do |request|
@@ -41,6 +35,6 @@ class RequestCountsByReviewStatus
       data << value
     end
 
-    [headers, data]
+    data
   end
 end

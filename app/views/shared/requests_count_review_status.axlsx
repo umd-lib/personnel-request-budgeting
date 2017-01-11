@@ -44,7 +44,7 @@ def construct_summary_worksheet(wb, styles, record_set)
                   widths: [:auto, :ignore]
     row_num += 1
 
-    sheet.add_row [ 'Requests Count Category', 'Under Review', 'Approved', 'Not Appreoved', 'Contingent', 'Total' ],
+    sheet.add_row [ 'Requests Count Category', 'Under Review', 'Approved', 'Not Approved', 'Contingent', 'Total' ],
                   style: styles['header_bottom_border']
     row_num += 1
 

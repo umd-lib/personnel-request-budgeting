@@ -6,15 +6,15 @@ wb = xlsx_package.workbook
 record_set.each_with_index do |records, i|
   name = worksheets[i] ? worksheets[i] : worksheets.first 
   wb.add_worksheet( name: name.pluralize ) do |sheet|
-  
-    defined_styles = { default: 0,
-                       currency: sheet.styles.add_style( num_fmt: 8 )
-                      } 
+
+    defined_styles = define_styles(wb)
+    first_column_style = nil
+    first_column_width = nil
 
     sheet_klass = name.constantize 
-    fields, formats = fields_and_formats(sheet_klass, true) 
+    fields, formats, widths = fields_and_formats_and_widths(sheet_klass, true)
   
-    sheet.add_row [ "Request Type" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }
+    sheet.add_row [ "Request Category" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }, style: defined_styles[:header_bottom_border]
     records.each do |record| 
       data = [ record.class.to_s.underscore.humanize ] + fields.map do |field|
           # for currency fields we need to call the special xlsx view helper
@@ -28,9 +28,10 @@ record_set.each_with_index do |records, i|
       styles = [ defined_styles[:default]  ] + formats.map do |format|
         defined_styles[format]
       end
-    
+      column_widths = [first_column_width] + widths
       
       sheet.add_row data, style: styles
+      sheet.column_widths *column_widths
     end
   end
 end

@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   def index
     authorize Report
     @q = Report.ransack(params[:q])
-    @q.sorts = 'created_at' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @reports = @q.result.includes(:user).page(params[:page])
   end
 

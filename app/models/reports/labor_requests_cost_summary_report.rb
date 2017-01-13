@@ -50,7 +50,7 @@ class LaborRequestsCostSummaryReport
       hourly_faculty_key = [department_code, 'FHRLY']
       students_key = [department_code, 'STUD']
       other_support_key = [department_code, 'other_support']
-      value = { department: department_code,
+      value = { department: dept.name,
                 division: division_code,
                 c1: annual_cost_totals[c1_key],
                 hourly_faculty: annual_cost_totals[hourly_faculty_key],
@@ -59,7 +59,11 @@ class LaborRequestsCostSummaryReport
       summary_data << value
     end
 
+    divisions = Division.all
     current_fiscal_year = 'FY17'
-    { summary_data: summary_data, current_fiscal_year: current_fiscal_year }
+    previous_fiscal_year = 'FY16'
+    { summary_data: summary_data, divisions: divisions,
+      current_fiscal_year: current_fiscal_year,
+      previous_fiscal_year: previous_fiscal_year }
   end
 end

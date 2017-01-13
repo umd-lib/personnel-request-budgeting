@@ -7,7 +7,7 @@ record_set.each_with_index do |records, i|
   name = worksheets[i] ? worksheets[i] : worksheets.first 
   wb.add_worksheet( name: name.pluralize ) do |sheet|
 
-    defined_styles = define_styles(wb)
+    defined_styles = wb.define_styles
     first_column_style = nil
     first_column_width = nil
 

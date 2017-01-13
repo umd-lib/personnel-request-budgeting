@@ -125,7 +125,7 @@ module PersonnelRequestsHelper
   def staff_request_all_fields
     %i( position_title employee_type__code request_type__code annual_base_pay nonop_funds
         nonop_source division__code department__code unit__code justification review_status__name
-        review_comment created_at updated_at)
+        review_comment employee_name created_at updated_at)
   end
 
   # Returns an array of the fields used in contractor_requests

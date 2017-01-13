@@ -43,4 +43,11 @@ module ApplicationHelper
       t('confirm_delete_prompt.with_description', description: description)
     end
   end
+
+  # Checks session for impersonation mode and returns true if impersonating.
+  #
+  # @return [Boolean] representing the impersonation state
+  def impersonate_mode?
+    session[ImpersonateController::IMPERSONATE_USER_PARAM] != nil
+  end
 end

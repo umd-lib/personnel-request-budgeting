@@ -25,7 +25,8 @@ class ReportJob < ActiveJob::Base
 
     output = ApplicationController.new
                                   .render_to_string(template: report_template, formats: report.format,
-                                                    locals: { klass: klass, record_set: record_set })
+                                                    locals: { klass: klass, record_set: record_set,
+                                                              created_at: report.created_at })
 
     report.update! status: 'completed', output: output
   end

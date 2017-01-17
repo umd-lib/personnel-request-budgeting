@@ -13,11 +13,25 @@ def name_cell_in_row(row, col, cell_name)
   row.worksheet.workbook.add_defined_name cell_location, name: cell_name
 end
 
+# Adds a row describing the parameters used to create the report
+#
+# @param wb [Axlsx::Workbook] the workbook to add the worksheet to
+# @param record_set [Hash] the data to use
 def add_parameter_description_row(sheet, record_set)
   # Add Parameter Description Row
   allowed_review_statuses = record_set[:allowed_review_statuses]
   allowed_review_statuses_desc = allowed_review_statuses.map { |r| r.name }.join(', ')
   sheet.add_row ["Requests with #{allowed_review_statuses_desc} review status"],
+                 style: [],
+                 widths: [:ignore]
+end
+
+# Adds a row indicating the creation date of the report
+#
+# @param sheet [Axlsx::Worksheet] the workbook to add the worksheet to
+# @param created_at [ActiveSupport::TimeWithZone] the report creation time
+def add_report_creation_date_row(sheet, created_at)
+  sheet.add_row ["Report creation date: #{created_at}"],
                  style: [],
                  widths: [:ignore]
 end
@@ -28,7 +42,8 @@ end
 # @param styles [Hash] the pre-defined styles
 # @param record_set [Hash] the data to use
 # @param division [Division] the division to use
-def construct_division_worksheet(wb, styles, record_set, division)
+# @param created_at [ActiveSupport::TimeWithZone] the report creation time
+def construct_division_worksheet(wb, styles, record_set, division, created_at)
   # Division Worksheet Construction
   wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet|
     data = record_set[:summary_data]
@@ -143,6 +158,10 @@ def construct_division_worksheet(wb, styles, record_set, division)
     # Add Parameter Description Row
     add_parameter_description_row(sheet, record_set)
     row_num += 1
+
+    # Add Report creation time row
+    add_report_creation_date_row(sheet, created_at)
+    row_num += 1
   end
 end
 
@@ -152,7 +171,8 @@ end
 # @param styles [Hash] the pre-defined styles
 # @param record_set [Hash] the data to use
 # @param division [Division] the division to use
-def construct_summary_worksheet(wb, styles, record_set)
+# @param created_at [ActiveSupport::TimeWithZone] the report creation time
+def construct_summary_worksheet(wb, styles, record_set, created_at)
   # Summary Worksheet Construction
   wb.insert_worksheet(0, name: 'Summary_L_and_A') do |sheet|
     row_num = 1
@@ -278,6 +298,10 @@ def construct_summary_worksheet(wb, styles, record_set)
     # Add Parameter Description Row
     add_parameter_description_row(sheet, record_set)
     row_num += 1
+
+    # Add Report creation time row
+    add_report_creation_date_row(sheet, created_at)
+    row_num += 1
   end
 end
 
@@ -287,8 +311,8 @@ styles = wb.define_styles
 # Create worksheet for each division
 divisions = record_set[:divisions]
 divisions.each do |div|
-  construct_division_worksheet(wb, styles, record_set, div.code)
+  construct_division_worksheet(wb, styles, record_set, div.code, created_at)
 end
 
 # Create summary worksheet
-construct_summary_worksheet(wb, styles, record_set)
+construct_summary_worksheet(wb, styles, record_set, created_at)

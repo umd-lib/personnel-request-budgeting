@@ -4,6 +4,10 @@ require 'test_helper'
 class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
   def setup
     @report = LaborRequestsCostSummaryReport.new
+
+    # Set review status ids to include in the report
+    review_status_ids = ReviewStatus.all.map { |rs| rs.id }
+    @report.parameters = { review_status_ids: review_status_ids }
   end
 
   test 'should give a descriptions of itself' do

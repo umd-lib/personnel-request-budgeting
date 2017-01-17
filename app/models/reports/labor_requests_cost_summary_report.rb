@@ -29,7 +29,12 @@ class LaborRequestsCostSummaryReport
     # Stores nonop_fund totals, keyed by division_code
     other_support_totals = Hash.new(0)
 
-    LaborRequest.includes(:department, :division, :employee_type).each do |request|
+    allowed_review_status_ids = parameters[:review_status_ids]
+    allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
+
+    LaborRequest.includes(:department, :division, :employee_type, :review_status).each do |request|
+      review_status = request.review_status
+      next unless allowed_review_statuses.include?(review_status)
       emp_type_code = request.employee_type.code
       department_code = request.department.code
       key = [department_code, emp_type_code]
@@ -62,8 +67,10 @@ class LaborRequestsCostSummaryReport
     divisions = Division.all
     current_fiscal_year = 'FY17'
     previous_fiscal_year = 'FY16'
+
     { summary_data: summary_data, divisions: divisions,
       current_fiscal_year: current_fiscal_year,
-      previous_fiscal_year: previous_fiscal_year }
+      previous_fiscal_year: previous_fiscal_year,
+      allowed_review_statuses: allowed_review_statuses }
   end
 end

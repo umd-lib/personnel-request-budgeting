@@ -49,6 +49,15 @@ def define_styles(wb)
   styles
 end
 
+def add_parameter_description_row(sheet, record_set)
+  # Add Parameter Description Row
+  allowed_review_statuses = record_set[:allowed_review_statuses]
+  allowed_review_statuses_desc = allowed_review_statuses.map { |r| r.name }.join(', ')
+  sheet.add_row ["Requests with #{allowed_review_statuses_desc} review status"],
+                 style: [],
+                 widths: [:ignore]
+end
+
 # Constructs a worksheet for a single division.
 #
 # @param wb [Axlsx::Workbook] the workbook to add the worksheet to
@@ -161,6 +170,14 @@ def construct_division_worksheet(wb, styles, record_set, division)
                           styles['summary_result'],
                           styles['summary_result']],
                   widths: :auto
+    row_num += 1
+
+    # Blank Row
+    sheet.add_row
+    row_num += 1
+
+    # Add Parameter Description Row
+    add_parameter_description_row(sheet, record_set)
     row_num += 1
   end
 end
@@ -288,6 +305,14 @@ def construct_summary_worksheet(wb, styles, record_set)
                           styles['summary_result'],
                           styles['summary_result']],
                   widths: :auto
+    row_num += 1
+
+    # Blank Row
+    sheet.add_row
+    row_num += 1
+
+    # Add Parameter Description Row
+    add_parameter_description_row(sheet, record_set)
     row_num += 1
   end
 end

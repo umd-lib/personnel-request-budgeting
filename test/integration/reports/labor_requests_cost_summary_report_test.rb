@@ -16,8 +16,15 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
     # Rails test fixtures are not available at the time that method is called.
     return @@spreadsheet if @@spreadsheet
 
+    # Set review status ids to include in the report
+    review_status_ids = ReviewStatus.all.map { |rs| rs.id }
+    
     report_user = users(:test_user)
-    report_params = { name: 'LaborRequestsCostSummaryReport', format: 'xlsx', user_id: report_user.id}
+    report_params = { name: 'LaborRequestsCostSummaryReport',
+                      format: 'xlsx',
+                      user_id: report_user.id,
+                      parameters: { review_status_ids: review_status_ids }
+                    }
     report = Report.new(report_params)
     ReportJob.perform_now report
     report_id = report.id

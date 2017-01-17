@@ -65,8 +65,8 @@ class LaborRequestsCostSummaryReport
     end
 
     divisions = Division.all
-    current_fiscal_year = 'FY17'
-    previous_fiscal_year = 'FY16'
+    current_fiscal_year = I18n.t(:current_fiscal_year)
+    previous_fiscal_year = I18n.t(:previous_fiscal_year)
 
     { summary_data: summary_data, divisions: divisions,
       current_fiscal_year: current_fiscal_year,

@@ -28,4 +28,26 @@ class PersonnelRequestsHelperTest < ActionView::TestCase
       assert_equal number_to_currency(val), call_record_field(proxy, m)
     end
   end
+
+  def test_field_widths_lengthy_fields
+    fields = %i( justification review_comment )
+    widths = field_widths(fields)
+
+    assert_equal fields.length, widths.length
+
+    widths.each do |width|
+      assert width.is_a? Integer
+    end
+  end
+
+  def test_field_widths_not_lengthy_fields
+    fields = %i( position_title employee_type request_type annual_base_pay )
+    widths = field_widths(fields)
+
+    assert_equal fields.length, widths.length
+
+    widths.each do |width|
+      assert_nil width
+    end
+  end
 end

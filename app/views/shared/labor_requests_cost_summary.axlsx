@@ -13,42 +13,6 @@ def name_cell_in_row(row, col, cell_name)
   row.worksheet.workbook.add_defined_name cell_location, name: cell_name
 end
 
-# Style definitions
-#
-# @param wb [Axlsx::Workbook] the workbook to add the styles to
-# @return [Hash] containing the pre-defined styles division [Division] the division to use
-def define_styles(wb)
-  # Define style components
-  title_font_size = 16
-  header_font_size = 14
-  summary_description_font_size = 14
-  summary_result_font_size = 12
-
-  title_font = { sz: title_font_size, b: true }
-  header_font = { sz: header_font_size, b: true }
-  summary_description_font = { sz: summary_description_font_size, b: true, i: true }
-  summary_result_font = { sz: summary_result_font_size, b: true }
-
-  currency_format = { format_code: '$#,##0.00' }
-
-  top_border = { border: { style: :thick, color: '000000', name: :top, edges: [:top] } }
-  bottom_border = { border: { style: :thick, color: '000000', name: :bottom, edges: [:bottom] } }
-
-  # Style definitions
-  styles = {}
-  styles['currency'] = wb.styles.add_style(currency_format)
-  styles['extra_title'] = wb.styles.add_style(title_font)
-  styles['title'] = wb.styles.add_style title_font.merge(bg_color: 'FFFF00')
-  styles['header'] = wb.styles.add_style header_font.merge(bg_color: 'D9D9D9').merge(alignment: { wrap_text: true })
-  styles['header_bottom_border'] = wb.styles.add_style header_font.merge(bg_color: 'D9D9D9').merge(bottom_border).merge(alignment: { wrap_text: true })
-  styles['summary_description'] = wb.styles.add_style summary_description_font
-  styles['summary_result'] = wb.styles.add_style summary_result_font.merge(currency_format).merge(bg_color: 'D9D9D9')
-  styles['summary_result_top_border'] =
-    wb.styles.add_style summary_result_font.merge(currency_format).merge(bg_color: 'D9D9D9').merge(top_border)
-
-  styles
-end
-
 def add_parameter_description_row(sheet, record_set)
   # Add Parameter Description Row
   allowed_review_statuses = record_set[:allowed_review_statuses]
@@ -73,18 +37,18 @@ def construct_division_worksheet(wb, styles, record_set, division)
     previous_fiscal_year = record_set[:previous_fiscal_year]
 
     sheet.add_row [division, "Divisional Summary of L & A Requests - #{current_fiscal_year}"],
-                  style: [styles['title'], styles['extra_title']],
+                  style: [styles[:title], styles[:extra_title]],
                   widths: [:auto, :ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row ['', ''],
-                  style: [styles['title'], nil],
+                  style: [styles[:title], nil],
                   widths: [:auto, :ignore]
     row_num += 1
 
     sheet.add_row ['Dept Name', "C1's", 'Hourly Faculty', 'Students', 'Total', 'Grant, Gift, Other Support'],
-                  style: styles['header_bottom_border']
+                  style: styles[:header_bottom_border]
     row_num += 1
 
     data_start_row = row_num
@@ -97,11 +61,11 @@ def construct_division_worksheet(wb, styles, record_set, division)
                      "=SUM(B#{row_num}:D#{row_num})",
                      record[:other_support]],
                     style: [nil,
-                            styles['currency'],
-                            styles['currency'],
-                            styles['currency'],
-                            styles['summary_result'],
-                            styles['currency']],
+                            styles[:currency],
+                            styles[:currency],
+                            styles[:currency],
+                            styles[:summary_result],
+                            styles[:currency]],
                     widths: [:auto, :auto, :auto, :auto, 15, :auto]
       row_num += 1
     end
@@ -113,12 +77,12 @@ def construct_division_worksheet(wb, styles, record_set, division)
                          "=SUM(D#{data_start_row}:D#{data_end_row})",
                          "=SUM(E#{data_start_row}:E#{data_end_row})",
                          "=SUM(F#{data_start_row}:F#{data_end_row})"],
-                        style: [styles['summary_description'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result']],
+                        style: [styles[:summary_description],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result]],
                         widths: :auto
     # Cell names must be unique in workbook. Can't use "_" to separate
     # words, because it turns the next letter into uppercase.
@@ -136,12 +100,12 @@ def construct_division_worksheet(wb, styles, record_set, division)
     # Previous Fiscal Year Row
     row = sheet.add_row ["Less: Total L & A Approved for #{previous_fiscal_year}",
                          nil, nil, nil, "=SUM(B#{row_num}:D#{row_num})", nil],
-                        style: [styles['summary_description'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result']],
+                        style: [styles[:summary_description],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result]],
                         widths: :auto
     # Cell names must be unique in workbook. Can't use "_" to separate
     # words, because it turns the next letter into uppercase.
@@ -163,12 +127,12 @@ def construct_division_worksheet(wb, styles, record_set, division)
                    "=#{axls_safe_cell_name(division + 'StudentsTotals')} - #{axls_safe_cell_name(division + 'PrevFyStudentsTotals')}",
                    "=#{axls_safe_cell_name(division + 'TotalTotals')} - #{axls_safe_cell_name(division + 'PrevFyTotalTotals')}",
                    "=#{axls_safe_cell_name(division + 'OtherSupportTotals')} - #{axls_safe_cell_name(division + 'PrevFyOtherSupportTotals')}"],
-                  style: [styles['summary_description'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result']],
+                  style: [styles[:summary_description],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result]],
                   widths: :auto
     row_num += 1
 
@@ -196,25 +160,25 @@ def construct_summary_worksheet(wb, styles, record_set)
     previous_fiscal_year = record_set[:previous_fiscal_year]
 
     sheet.add_row ['Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}"],
-                  style: [styles['title'], styles['extra_title']],
+                  style: [styles[:title], styles[:extra_title]],
                   widths: [:auto, :ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row [nil, nil],
-                  style: [styles['title'], nil],
+                  style: [styles[:title], nil],
                   widths: [:auto, :ignore]
     row_num += 1
 
     sheet.add_row [nil, nil, nil, nil, 'Less:', nil, nil, nil],
-                  style: styles['header'],
+                  style: styles[:header],
                   widths: :auto
     row_num += 1
 
     sheet.add_row ['Div Name', "C1's", 'Hourly Faculty', 'Students',
                    'Other Support', "Net #{current_fiscal_year} Request",
                    "Net #{previous_fiscal_year} Request", 'Increase (Decrease)'],
-                  style: styles['header_bottom_border']
+                  style: styles[:header_bottom_border]
     row_num += 1
 
     data_start_row = row_num
@@ -230,13 +194,13 @@ def construct_summary_worksheet(wb, styles, record_set)
                      nil,
                      "=F#{row_num} - G#{row_num}"],
                     style: [nil,
-                            styles['currency'],
-                            styles['currency'],
-                            styles['currency'],
-                            styles['currency'],
-                            styles['summary_result'],
-                            styles['currency'],
-                            styles['currency']],
+                            styles[:currency],
+                            styles[:currency],
+                            styles[:currency],
+                            styles[:currency],
+                            styles[:summary_result],
+                            styles[:currency],
+                            styles[:currency]],
                     widths: :auto
       row_num += 1
     end
@@ -250,14 +214,14 @@ def construct_summary_worksheet(wb, styles, record_set)
                          "=SUM(F#{data_start_row}:F#{data_end_row})",
                          "=SUM(G#{data_start_row}:G#{data_end_row})",
                          "=SUM(H#{data_start_row}:H#{data_end_row})"],
-                        style: [styles['summary_description'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result_top_border'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result']],
+                        style: [styles[:summary_description],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result_top_border],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result]],
                         widths: :auto
     name_cell_in_row(row, 1, 'SummaryC1Totals')
     name_cell_in_row(row, 2, 'SummaryHourlyFacultyTotals')
@@ -273,12 +237,12 @@ def construct_summary_worksheet(wb, styles, record_set)
     # Previous Fiscal Year Row
     row = sheet.add_row ["Less: L & A Requested for #{previous_fiscal_year}",
                          nil, nil, nil, nil, nil],
-                        style: [styles['summary_description'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result'],
-                                styles['summary_result']],
+                        style: [styles[:summary_description],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result],
+                                styles[:summary_result]],
                         widths: :auto
     name_cell_in_row(row, 1, 'SummaryPrevFyC1Totals')
     name_cell_in_row(row, 2, 'SummaryPrevFyHourlyFacultyTotals')
@@ -298,12 +262,12 @@ def construct_summary_worksheet(wb, styles, record_set)
                    '=SummaryStudentsTotals - SummaryPrevFyStudentsTotals',
                    '=SummaryOtherSupportTotals - SummaryPrevFyOtherSupportTotals',
                    '=SummaryNetRequest - SummaryPrevFyNetRequest'],
-                  style: [styles['summary_description'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result'],
-                          styles['summary_result']],
+                  style: [styles[:summary_description],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result],
+                          styles[:summary_result]],
                   widths: :auto
     row_num += 1
 
@@ -318,7 +282,7 @@ def construct_summary_worksheet(wb, styles, record_set)
 end
 
 wb = xlsx_package.workbook
-styles = define_styles(wb)
+styles = wb.define_styles
 
 # Create worksheet for each division
 divisions = record_set[:divisions]

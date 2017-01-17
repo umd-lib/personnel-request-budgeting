@@ -16,7 +16,7 @@ module Axlsx
       header_font = { sz: header_font_size, b: true }
       summary_description_font = { sz: summary_description_font_size, b: true, i: true }
       summary_result_font = { sz: summary_result_font_size, b: true }
-      currency_format = { format_code: '$#,##0.00' }
+      currency_format = { format_code: '$#,##0.00;($#,##0.00)' }
       top_border = { border: { style: :thick, color: '000000', name: :top, edges: [:top] } }
       bottom_border = { border: { style: :thick, color: '000000', name: :bottom, edges: [:bottom] } }
 

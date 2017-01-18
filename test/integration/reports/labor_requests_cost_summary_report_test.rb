@@ -72,6 +72,26 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'generating report without parameters will display error message on report detail page' do
+    report_user = users(:test_user)
+    report_params = { name: 'LaborRequestsCostSummaryReport',
+                      format: 'xlsx',
+                      user_id: report_user.id,
+                      parameters: {}
+                    }
+    report = Report.new(report_params)
+    ReportJob.perform_now report
+    report_id = report.id
+
+    get report_download_url(id: report_id, format: 'xlsx')
+    assert_response :success
+    assert report.error?
+
+    # Retrieve the report detail page
+    get report_url(id: report_id)
+    assert_select 'span#status_message'
+  end
+
   # Runs after all tests, and ensures that the temp file is deleted.
   def after_all
     @@temp_file.delete if @@temp_file

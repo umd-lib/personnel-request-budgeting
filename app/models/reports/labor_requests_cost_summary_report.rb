@@ -2,6 +2,9 @@ require 'reportable'
 # A summary report for the costs of Labor and Assistance requests
 class LaborRequestsCostSummaryReport
   include Reportable
+
+  attr_reader :error_message
+
   class << self
     # @return [String] human-readable description of the report, displayed in
     #   the GUI.
@@ -19,6 +22,14 @@ class LaborRequestsCostSummaryReport
     def template
       'shared/labor_requests_cost_summary'
     end
+  end
+
+  def parameters_valid?
+    valid = parameters && parameters.key?(:review_status_ids)
+    return true if valid
+
+    @error_message = 'At least one review status must be specified!'
+    false
   end
 
   # @return [Object] the data used by the template

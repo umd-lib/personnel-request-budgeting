@@ -60,6 +60,7 @@ textarea[id$='review_comment']
 // Impersonate CSS settings
 $impersonate_background: darkorchid;
 $impersonate_color: white;
+$impersonate_height: 25px;
 
 .impersonate {
   background-color: $impersonate_background;
@@ -67,6 +68,7 @@ $impersonate_color: white;
   color: $impersonate_color;
   display:inline-block;
   width: 100%;
+  height: $impersonate_height;
 }
 
 .impersonate button {
@@ -83,4 +85,8 @@ $impersonate_color: white;
 .btn-impersonate:hover {
   background-color: darken($impersonate_background, 5%);
   color: $impersonate_color !important;
+}
+
+.impersonate-extra-padding-top {
+  padding-top: $impersonate_height;
 }

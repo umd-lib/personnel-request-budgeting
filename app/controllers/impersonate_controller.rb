@@ -15,7 +15,7 @@ class ImpersonateController < ApplicationController
 
   # GET /impersonate/user/123
   def create
-    impersonated_user = User.find_by(id: params[:user_id])
+    impersonated_user = User.includes(:role_types).find_by(id: params[:user_id])
     authorize ImpersonatedUser.new(impersonated_user)
     impersonate(impersonated_user)
     redirect_to root_path

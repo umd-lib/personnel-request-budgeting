@@ -21,17 +21,22 @@
     
     <tr>
       <th>Created At:</th>
-      <td id="name"><%= @report.created_at %></td>
+      <td id="created_at"><%= @report.created_at %></td>
     </tr>
     
     <tr>
       <th>Status:</th>
-      <td id="name"><%= @report.status %></td>
+      <td id="status">
+        <%= @report.status %>
+        <% if @report.status_message %>
+          <span id="status_message"> - <%= @report.status_message %></span>
+        <% end %>
+      </td>
     </tr>
     
     <tr>
       <th>Parameters:</th>
-      <td id="name"><%= @report.parameters %></td>
+      <td id="parameters"><%= @report.parameters %></td>
     </tr>
 
   </tbody>

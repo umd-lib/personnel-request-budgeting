@@ -43,7 +43,7 @@ class LaborRequestsCostSummaryReport
     allowed_review_status_ids = parameters[:review_status_ids]
     allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
 
-    LaborRequest.includes(:department, :division, :employee_type, :review_status).each do |request|
+    LaborRequest.includes(:department, :employee_type, :review_status).each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
       emp_type_code = request.employee_type.code
@@ -59,7 +59,7 @@ class LaborRequestsCostSummaryReport
     # Stores in an array (to preserve the department ordering), a "value" Hash
     # representing that department's row in the table.
     summary_data = []
-    Department.order(:code).each do |dept|
+    Department.includes(:division).order(:code).each do |dept|
       department_code = dept.code
       division_code = dept.division.code
       c1_key = [department_code, 'C1']

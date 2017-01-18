@@ -1,23 +1,24 @@
-worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
-
 headers = record_set[0]
 data = record_set[1]
 
 row_num = 1
 
 wb = xlsx_package.workbook
-currency = wb.styles.add_style :format_code=>"$#,##0.00"
+currency = wb.styles.add_style format_code: '$#,##0.00'
 
 wb.add_worksheet(name: 'Summary L & A') do |sheet|
-  sheet.add_row [ headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students], headers[:other_support], 'Net FY Request' ] 
+  header_row = [headers[:division], headers[:c1], headers[:hourly_faculty], headers[:students],
+                headers[:other_support], 'Net FY Request']
+  sheet.add_row header_row
 
   row_num += 1
 
   data.each do |record|
-    sheet.add_row [ record[:division], record[:c1], record[:hourly_faculty], record[:students], record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}" ],
-                  :style => [nil, currency, currency, currency, currency, currency],
-                  :widths => [:auto, :auto, :auto, :auto, :auto, :auto]
+    recored_row = [record[:division], record[:c1], record[:hourly_faculty], record[:students],
+                   record[:other_support], "=SUM(B#{row_num}:D#{row_num}) - E#{row_num}"]
+    sheet.add_row recored_row,
+                  style: [nil, currency, currency, currency, currency, currency],
+                  widths: [:auto, :auto, :auto, :auto, :auto, :auto]
     row_num += 1
   end
 end
-

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 def construct_summary_worksheet(wb, styles, record_set)
   # Requests Count Worksheet Construction
   wb.add_worksheet(name: 'Requests Count by Review Status') do |sheet|
@@ -21,19 +22,21 @@ def construct_summary_worksheet(wb, styles, record_set)
 
     data_start_row = row_num
     data.each do |record|
-      row = sheet.add_row [ record[:category], record[:under_review], record[:approved], record[:not_approved], record[:contingent], "=SUM(B#{row_num}:E#{row_num})", record[:other_support] ],
-                      style: [nil, nil, nil, nil, nil, nil],
-                      widths: :auto
+      record_row = [record[:category], record[:under_review], record[:approved], record[:not_approved],
+                    record[:contingent], "=SUM(B#{row_num}:E#{row_num})", record[:other_support]]
+      sheet.add_row record_row,
+                    style: [nil, nil, nil, nil, nil, nil],
+                    widths: :auto
       row_num += 1
     end
     data_end_row = row_num - 1
 
-    row = sheet.add_row [ "Total",
-                    "=SUM(B#{data_start_row}:B#{data_end_row})",
-                    "=SUM(C#{data_start_row}:C#{data_end_row})",
-                    "=SUM(D#{data_start_row}:D#{data_end_row})",
-                    "=SUM(E#{data_start_row}:E#{data_end_row})",
-                    "=SUM(F#{data_start_row}:F#{data_end_row})"],
+    sheet.add_row ['Total',
+                   "=SUM(B#{data_start_row}:B#{data_end_row})",
+                   "=SUM(C#{data_start_row}:C#{data_end_row})",
+                   "=SUM(D#{data_start_row}:D#{data_end_row})",
+                   "=SUM(E#{data_start_row}:E#{data_end_row})",
+                   "=SUM(F#{data_start_row}:F#{data_end_row})"],
                   style: [styles[:summary_description],
                           styles[:summary_result_top_border],
                           styles[:summary_result_top_border],
@@ -44,9 +47,7 @@ def construct_summary_worksheet(wb, styles, record_set)
     row_num += 1
   end
 end
-
-
-worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
+# rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
 wb = xlsx_package.workbook
 

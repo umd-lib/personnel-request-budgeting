@@ -21,7 +21,7 @@ def add_parameter_description_row(sheet, record_set)
   # Add Parameter Description Row
   allowed_review_statuses = record_set[:allowed_review_statuses]
   allowed_review_statuses_desc = allowed_review_statuses.map(&:name).join(', ')
-  sheet.add_row ["Requests with #{allowed_review_statuses_desc} review status"],
+  sheet.add_row ["Requests with Review Status: #{allowed_review_statuses_desc}"],
                 style: [],
                 widths: [:ignore]
 end

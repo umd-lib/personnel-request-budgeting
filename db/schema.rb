@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028185124) do
+ActiveRecord::Schema.define(version: 20170118160334) do
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -113,12 +113,13 @@ ActiveRecord::Schema.define(version: 20161028185124) do
   create_table "reports", force: :cascade do |t|
     t.binary   "output"
     t.text     "parameters"
-    t.integer  "format",     default: 0, null: false
-    t.integer  "status",     default: 0, null: false
-    t.string   "name",                   null: false
+    t.integer  "format",         default: 0, null: false
+    t.integer  "status",         default: 0, null: false
+    t.string   "name",                       null: false
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "status_message"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id"

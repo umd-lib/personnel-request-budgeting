@@ -4,6 +4,8 @@ Rails:
 
 # Exclude auto-generated files
 AllCops:
+  Include:
+    - '**/*.axlsx'
   Exclude:
     - 'bin/setup'
     - 'bin/spring'

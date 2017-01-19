@@ -62,4 +62,7 @@ en:
 
   confirm_delete_prompt:
     default: Are you sure?
-    with_description: "Are you sure you want to delete '%{description}'?" 
+    with_description: "Are you sure you want to delete '%{description}'?"
+    
+  current_fiscal_year: FY17
+  previous_fiscal_year: FY16

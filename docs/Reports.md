@@ -78,6 +78,20 @@ class MyReport
     # requests in that department.
     [StaffRequest.where(department_id: parameters[:department_id]).find_each]
   end
+  
+  # @return [Boolean] true if the provided parameters are valid, false
+  # otherwise. This default implementation always returns true.
+  def parameters_valid?
+    true
+  end
+
+  # @return [String,nil] a human-readable error message, or nil.
+  #   Typically used in conjunction with the "parameters_valid?" method to
+  #   describe why the parameters are invalid. This default implementation
+  #   returns nil.
+  def error_message
+    nil
+  end
 end
 ```
 
@@ -132,3 +146,5 @@ For example, the above sample report uses a user-provided "department" parameter
 
 This will add something like: report[:parameters] = { department_id: 19 }
 to your Report object when saving in the Report#new action. See app/views/reports/_requests_by_department_report_form.html.erb for a similar example.
+
+If necessary, the "parameters_valid?" and "error_message" methods in the "Reportable" interface can be used by the report to verify that the user-provided parameters are valid. If the parameters are invalid, the "parameters_valid?" should return false, and the "error_message" method should return a String with a human-readable error message.

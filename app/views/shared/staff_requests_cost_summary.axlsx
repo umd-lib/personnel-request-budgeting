@@ -86,7 +86,8 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
                             styles[:summary_result],
                             styles[:currency]],
                     widths: [:auto, default_col_width, default_col_width,
-                             default_col_width, default_col_width, 15, :auto]
+                             default_col_width, default_col_width, default_col_width,
+                             :auto]
       row_num += 1
     end
     data_end_row = row_num - 1
@@ -274,7 +275,7 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
     row_num += 1
 
     # Previous Fiscal Year Row
-    row = sheet.add_row ["Less: L & A Requested for #{previous_fiscal_year}",
+    row = sheet.add_row ["Less: Staff Requested for #{previous_fiscal_year}",
                          nil, nil, nil, nil, nil, nil],
                         style: [styles[:summary_description],
                                 styles[:summary_result],

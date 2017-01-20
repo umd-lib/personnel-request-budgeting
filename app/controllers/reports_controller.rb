@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   def index
     authorize Report
     @q = Report.ransack(params[:q])
-    @q.sorts = 'created_at' if @q.sorts.empty?
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @reports = @q.result.includes(:user).page(params[:page])
   end
 
@@ -92,8 +92,20 @@ class ReportsController < ApplicationController
       @report = Report.find(params[:id])
     end
 
-    def report_params
+    def report_params # rubocop:disable Metrics/MethodLength
       report_parameters_keys = params[:report][:parameters].try(:keys)
+      if report_parameters_keys
+        # The following modifies the report_parameters_keys map if any of the
+        # keys are actually an array of values (such as might come back from
+        # a bunch of checkboxes forming a group).
+        report_parameters_keys.map! do |key|
+          if params[:report][:parameters][key].is_a?(Array)
+            [key.to_sym => []]
+          else
+            key
+          end
+        end
+      end
       params.require(:report).permit(:name, :format, :user_id, :user_id,
                                      parameters: report_parameters_keys)
     end

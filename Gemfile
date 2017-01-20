@@ -32,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 # UMD Bootstrap style
-gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', branch: 'develop'
+gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
 
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
@@ -84,6 +84,7 @@ end
 group :test do
   gem 'minitest-reporters', '~> 1.1.8'
   gem 'minitest-ci', '~> 3.0.3'
+  gem 'minitest-hooks', '~> 1.4.0'
 
   # Code analysis tools
   gem 'rubocop', '~> 0.39.0', require: false

@@ -1,36 +1,37 @@
 record_set = Array.wrap(record_set)
-worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [ klass.to_s ]
+worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [klass.to_s]
 
 wb = xlsx_package.workbook
 
 record_set.each_with_index do |records, i|
-  name = worksheets[i] ? worksheets[i] : worksheets.first 
-  wb.add_worksheet( name: name.pluralize ) do |sheet|
-  
-    defined_styles = { default: 0,
-                       currency: sheet.styles.add_style( num_fmt: 8 )
-                      } 
+  name = worksheets[i] ? worksheets[i] : worksheets.first
+  wb.add_worksheet(name: name.pluralize) do |sheet|
+    defined_styles = wb.define_styles
+    first_column_style = nil
+    first_column_width = nil
 
-    sheet_klass = name.constantize 
-    fields, formats = fields_and_formats(sheet_klass, true) 
-  
-    sheet.add_row [ "Request Type" ] + fields.map { |field| sheet_klass.human_attribute_name( field.to_s.split("__").first.intern ) }
-    records.each do |record| 
-      data = [ record.class.to_s.underscore.humanize ] + fields.map do |field|
-          # for currency fields we need to call the special xlsx view helper
-          if currency_fields.include?(field.intern) 
-            call_record_field record, field, :xlsx
-          # otherwise we want all the view helpers called 
-          else 
-            call_record_field record,field
-          end
+    sheet_klass = name.constantize
+    fields, formats, widths = fields_and_formats_and_widths(sheet_klass, true)
+
+    header_row = fields.map { |field| sheet_klass.human_attribute_name(field.to_s.split('__').first.intern) }
+    sheet.add_row ['Request Category'] + header_row, style: defined_styles[:header_bottom_border]
+    records.each do |record|
+      data = [record.class.to_s.underscore.humanize] + fields.map do |field|
+        # for currency fields we need to call the special xlsx view helper
+        if currency_fields.include?(field.intern)
+          call_record_field record, field, :xlsx
+        # otherwise we want all the view helpers called
+        else
+          call_record_field record, field
+        end
       end
-      styles = [ defined_styles[:default]  ] + formats.map do |format|
+      styles = [first_column_style] + formats.map do |format|
         defined_styles[format]
       end
-    
-      
+      column_widths = [first_column_width] + widths
+
       sheet.add_row data, style: styles
+      sheet.column_widths(*column_widths)
     end
   end
 end

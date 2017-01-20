@@ -62,4 +62,18 @@ module Reportable
   def template
     self.class.template
   end
+
+  # @return [Boolean] true if the provided parameters are valid, false
+  # otherwise. This default implementation always returns true.
+  def parameters_valid?
+    true
+  end
+
+  # @return [String,nil] a human-readable error message, or nil.
+  #   Typically used in conjunction with the "parameters_valid?" method to
+  #   describe why the parameters are invalid. This default implementation
+  #   returns nil.
+  def error_message
+    nil
+  end
 end

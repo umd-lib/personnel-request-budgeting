@@ -1,17 +1,17 @@
 module PersonnelRequestsHelper
   CURRENCY_FIELDS = %i(nonop_funds annual_cost annual_base_pay hourly_rate).freeze
 
+  LENGTHY_FIELDS = %i(justification review_comment).freeze
+
   # Returns a list of fields for a record
   #
   # @param klass [Class] the active record klass being displayed
   # @param show_all [Boolean] option to include all fields in class
   # @return [Array] the list of fields being displayed
   def fields(klass, show_all = false)
-    fields = send(:"#{klass.to_s.underscore}_fields")
-    if show_all
-      fields += klass.attribute_names.select { |a| !a.match(/id$/) }.map(&:intern)
-    end
-    fields.uniq
+    fields = send(:"#{klass.to_s.underscore}_fields") unless show_all
+    fields = send(:"#{klass.to_s.underscore}_all_fields") if show_all
+    fields
   end
 
   # Returns a list of the formats used for styling export outputs
@@ -22,6 +22,14 @@ module PersonnelRequestsHelper
     fields.map { |field| currency_fields.include?(field) ? :currency : :default }
   end
 
+  # Returns a list of the widths used for styling export outputs
+  #
+  # @param fields [Array] the fields to generate a list of formats
+  # @return [Array] list of widths to the fields
+  def field_widths(fields)
+    fields.map { |field| lengthy_fields.include?(field) ? 30 : nil }
+  end
+
   # Returns a list of fields for a record and a list of formats for those
   # fields
   #
@@ -29,10 +37,11 @@ module PersonnelRequestsHelper
   # @param show_all [Boolean] option to include all fields in class
   # @return [Array] the list of fields being displayed
   # @return [Array] the list of formats to be displayed
-  def fields_and_formats(klass, show_all = false)
+  def fields_and_formats_and_widths(klass, show_all = false)
     fields = fields(klass, show_all)
     formats = field_formats(fields)
-    [fields, formats]
+    widths = field_widths(fields)
+    [fields, formats, widths]
   end
 
   # Calls the field on the record and attempts to display it.
@@ -55,6 +64,11 @@ module PersonnelRequestsHelper
   # Just return the currency fields
   def currency_fields
     CURRENCY_FIELDS
+  end
+
+  # Just return the lengthy fields
+  def lengthy_fields
+    LENGTHY_FIELDS
   end
 
   # these are the fields that we want to render into a currency
@@ -87,12 +101,31 @@ module PersonnelRequestsHelper
         nonop_funds division__code department__code unit__code review_status__name)
   end
 
-  # Returns an array of the fields used in staff_requests
+  # Returns an ordered array of all the fields used in labor_requests
+  #
+  # @return [Array] list of fields
+  def labor_request_all_fields
+    %i( position_title employee_type__code request_type__code contractor_name
+        number_of_positions hourly_rate hours_per_week number_of_weeks annual_cost
+        nonop_funds nonop_source division__code department__code unit__code justification
+        review_status__name review_comment created_at updated_at )
+  end
+
+  # Returns an  array of the fields used in staff_requests
   #
   # @return [Array] list of fields
   def staff_request_fields
     %i( position_title employee_type__code request_type__code annual_base_pay
         nonop_funds division__code department__code unit__code review_status__name)
+  end
+
+  # Returns an ordered array of all the fields used in contractor_requests
+  #
+  # @return [Array] list of fields
+  def staff_request_all_fields
+    %i( position_title employee_type__code request_type__code annual_base_pay nonop_funds
+        nonop_source division__code department__code unit__code justification review_status__name
+        review_comment employee_name created_at updated_at)
   end
 
   # Returns an array of the fields used in contractor_requests
@@ -102,5 +135,15 @@ module PersonnelRequestsHelper
     %i( position_title employee_type__code request_type__code contractor_name
         number_of_months annual_base_pay nonop_funds division__code department__code
         unit__code review_status__name )
+  end
+
+  # Returns an ordered array of all the fields used in contractor_requests
+  #
+  # @return [Array] list of fields
+  def contractor_request_all_fields
+    %i( position_title employee_type__code request_type__code contractor_name
+        number_of_months annual_base_pay nonop_funds nonop_source division__code
+        department__code unit__code justification review_status__name review_comment
+        created_at updated_at)
   end
 end

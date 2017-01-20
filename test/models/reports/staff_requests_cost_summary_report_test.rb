@@ -26,7 +26,8 @@ class StaffRequestsCostSummaryReportTest < ActiveSupport::TestCase
     assert_equal Division.count, divisions.count
     assert_equal I18n.t(:current_fiscal_year),  current_fiscal_year
     assert_equal I18n.t(:previous_fiscal_year),  previous_fiscal_year
-
+    assert_equal ReviewStatus.count, allowed_review_statuses.count
+    
     # "data" should contain an entry for each department
     assert summary_data.count == Department.count
   end

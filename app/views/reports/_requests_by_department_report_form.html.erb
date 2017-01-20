@@ -10,7 +10,7 @@
       <%= f.fields_for :parameters do |pf| %> 
         <tr>
           <th><%= pf.label :department %></th>
-          <td><%= pf.select :department_id,  Department.all.collect { |d| [ d.name, d.id ] } %></td>
+          <td><%= pf.select :department_id,  Department.order(:name).collect { |d| [ d.name, d.id ] } %></td>
         </tr>
       <% end %>   
     </tbody>

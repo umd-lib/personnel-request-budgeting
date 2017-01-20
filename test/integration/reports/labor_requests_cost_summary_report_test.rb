@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'minitest/hooks/test'
 
-# Integration test for various parts of the reports workflow
+# Integration test for the Labor Requests Cost Summary Report
 class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
   include Minitest::Hooks
 
@@ -49,7 +49,7 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
     divisions.each do |div|
       # Sheet names should not have underscores or spaces
       div_code = div.code.delete(' ').delete('_')
-      assert spreadsheet.sheets.include?(div_code)
+      assert spreadsheet.sheets.include?(div_code), "Could not find worksheet for Divsion '#{div_code}'"
     end
   end
 

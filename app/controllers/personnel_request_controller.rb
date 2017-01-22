@@ -63,7 +63,7 @@ module PersonnelRequestController
     def not_authorized(exception)
       # in edit and index situations just redirect to the root
       if exception.record.is_a?(Class) || !exception.record.new_record?
-        deny_and_redirect exception.message
+        deny_and_redirect generic_not_authorized_msg(exception)
       # if there's a specific record issue, let's handle that.
       else
         handle_record_not_authorized exception
@@ -83,8 +83,18 @@ module PersonnelRequestController
       when Pundit::NotAuthorizedUnitError
         add_errors_and_render(variable, :unit_id, "You are not allowed to make requests to unit: #{record.unit.name}")
       when Pundit::NotAuthorizedError
-        deny_and_redirect exception.message
+        deny_and_redirect generic_not_authorized_msg(exception)
       end
+    end
+
+    # Provides a generic "Not Authorized" message for the given exception
+    #
+    # @param exception [Exception] the exception that was raised
+    # @return [String] a generic "not authorized" message
+    def generic_not_authorized_msg(exception)
+      action = 'access'
+      action = exception.query.chomp('?') if exception.query
+      "You are not allowed to #{action} the requested record"
     end
 
     # This just flashes a message and redirects to the root url

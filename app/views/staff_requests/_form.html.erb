@@ -85,22 +85,11 @@
           <%= help_text_icon('help_text.justification') %>
         </td>
       </tr>
-      <tr>
-        <th><%= f.label :review_status %></th>
-        <td>
-          <%= select("staff_request", "review_status_id", ReviewStatus.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Review Status' }, disabled: !current_user.admin?) %>
-          <%= help_text_icon('help_text.review_status') %>
-        </td>
-      </tr>
-      <tr>
-        <th><%= f.label :review_comment %></th>
-        <td>
-          <%= f.text_area :review_comment, :disabled => !current_user.admin? %>
-          <%= help_text_icon('help_text.review_comment') %>
-        </td>
-      </tr>
     </tbody>
   </table>
+
+  <%= render partial: 'shared/form_admin_use_only', 
+             locals: { form: f, personnel_request_type: "staff_request" } %>
     
   <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @staff_request } %>
 <% end %>

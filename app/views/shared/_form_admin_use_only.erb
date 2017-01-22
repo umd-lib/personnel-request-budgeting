@@ -1,0 +1,28 @@
+<%#
+# Displays "Admin Use Only" section for personnel request "Edit" pages 
+%>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Admin Use Only</h3>
+  </div>
+  <div class="panel-body">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th><%= form.label :review_status %></th>
+        <td>
+          <%= select(personnel_request_type, "review_status_id", ReviewStatus.order("name").collect { |r| [ r.name, r.id ] }, { prompt: 'Select Review Status' }, disabled: !current_user.admin?) %>
+          <%= help_text_icon('help_text.review_status') %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= form.label :review_comment %></th>
+        <td>
+          <%= form.text_area :review_comment, :disabled => !current_user.admin? %>
+          <%= help_text_icon('help_text.review_comment') %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

@@ -59,16 +59,10 @@
         <th>Justification</th>
         <td id="justification"><%= @contractor_request.justification %></td>
       </tr>
-      <tr>
-        <th>Request Status:</th>
-        <td id="request_status"><%= @contractor_request.review_status.name if @contractor_request.review_status %></td>
-      </tr>
-      <tr>
-        <th>Review Comment:</th>
-        <td id="review_comment"><%= @contractor_request.review_comment %></td>
-      </tr>
     </tbody>
   </table>
+
+  <%= render 'shared/show_admin_use_only', object: @contractor_request %>
 
   <%= render 'shared/show_action_buttons', object: @contractor_request %>
 </div>

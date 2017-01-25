@@ -119,14 +119,20 @@ class PersonnelRequestPolicyTest < ActiveSupport::TestCase
     end
   end
 
-  test 'division user can "show" all personnel requests' do
+  test 'division user can only "show" requests in their division' do
     labor_requests_all = LaborRequest.all
 
     with_temp_user(divisions: [@division1.code]) do |temp_user|
       labor_requests_all.each do |r|
-        assert Pundit.policy!(temp_user, r).show?,
+        if r.division.code == @division1.code
+          assert Pundit.policy!(temp_user, r).show?,
                "Division user could not 'show' " \
                "Labor Request id: #{r.id}, department: #{r.department.code}"
+        else
+          refute Pundit.policy!(temp_user, r).show?,
+               "Division user could 'show' " \
+               "Labor Request id: #{r.id}, department: #{r.department.code}"
+        end
       end
     end
   end

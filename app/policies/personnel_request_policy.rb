@@ -143,12 +143,10 @@ class PersonnelRequestPolicy < ApplicationPolicy
     def resolve
       # Admin always sees everything
       # Users with Division role can see everything
-      return scope if user.admin? || user.division?
-
+      return scope if user.admin?
       return scope.none if user.roles.empty?
 
       scopes = allowed_departments(scope) + allowed_units(scope)
-
       # return the chained scopes
       scope.where(scopes.map { |s| s.arel.constraints.reduce(:and) }.reduce(:or))
     end

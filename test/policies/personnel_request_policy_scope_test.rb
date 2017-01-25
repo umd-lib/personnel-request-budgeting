@@ -36,10 +36,16 @@ class PersonnelRequestPolicyScopeTest < ActiveSupport::TestCase
   test 'division role can see all personnel requests' do
     expected_division_code = 'DSS'
     with_temp_user(divisions: [expected_division_code]) do |temp_user|
-      assert_equal LaborRequest.count, Pundit.policy_scope!(temp_user, LaborRequest).count
-      assert_equal StaffRequest.count, Pundit.policy_scope!(temp_user, StaffRequest).count
-      assert_equal ContractorRequest.all.count, Pundit.policy_scope!(temp_user, ContractorRequest).count
-    end
+      labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
+      staff_results =   Pundit.policy_scope!(temp_user, StaffRequest)
+      contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
+    
+      [labor_results, staff_results, contractor_results].each do |requests|
+        requests.each do |r|
+            assert_equal expected_division_code, r.division.code
+        end
+      end
+    end 
   end
 
   test 'department role can only see department personnel requests' do

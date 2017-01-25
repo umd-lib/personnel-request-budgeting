@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.are-you-sure.js
 //= require turbolinks
 //= require_tree .
 //= require umd_lib

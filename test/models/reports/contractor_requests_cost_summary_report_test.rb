@@ -1,9 +1,9 @@
 require 'test_helper'
 
-# Tests Labor Requests Cost Summary report
-class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
+# Tests Salaried Contractor Requests Cost Summary report
+class ContractorRequestsCostSummaryReportTest < ActiveSupport::TestCase
   def setup
-    @report = LaborRequestsCostSummaryReport.new
+    @report = ContractorRequestsCostSummaryReport.new
 
     # Set review status ids to include in the report
     review_status_ids = ReviewStatus.all.map { |rs| rs.id }
@@ -27,7 +27,7 @@ class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
     assert_equal I18n.t(:current_fiscal_year),  current_fiscal_year
     assert_equal I18n.t(:previous_fiscal_year),  previous_fiscal_year
     assert_equal ReviewStatus.count, allowed_review_statuses.count
-    
+
     # "data" should contain an entry for each department
     assert summary_data.count == Department.count
   end

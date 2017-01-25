@@ -1,8 +1,8 @@
 require 'test_helper'
 require 'minitest/hooks/test'
 
-# Integration test for the Labor Requests Cost Summary Report
-class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
+# Integration test for the Staff Requests Cost Summary Report
+class StaffRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
   include Minitest::Hooks
 
   def before_all
@@ -23,7 +23,7 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
     review_status_ids = ReviewStatus.all.map(&:id)
 
     report_user = users(:test_user)
-    @@report_params = { name: 'LaborRequestsCostSummaryReport',
+    @@report_params = { name: 'StaffRequestsCostSummaryReport',
                         format: 'xlsx',
                         user_id: report_user.id,
                         parameters: { review_status_ids: review_status_ids }
@@ -74,7 +74,7 @@ class LaborRequestCostSummaryReportTest < ActionDispatch::IntegrationTest
 
   test 'generating report without parameters will display error message on report detail page' do
     report_user = users(:test_user)
-    report_params = { name: 'LaborRequestsCostSummaryReport',
+    report_params = { name: 'StaffRequestsCostSummaryReport',
                       format: 'xlsx',
                       user_id: report_user.id,
                       parameters: {}

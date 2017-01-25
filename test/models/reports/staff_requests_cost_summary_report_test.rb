@@ -1,9 +1,9 @@
 require 'test_helper'
 
-# Tests Labor Requests Cost Summary report
-class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
+# Tests Staff Requests Cost Summary report
+class StaffRequestsCostSummaryReportTest < ActiveSupport::TestCase
   def setup
-    @report = LaborRequestsCostSummaryReport.new
+    @report = StaffRequestsCostSummaryReport.new
 
     # Set review status ids to include in the report
     review_status_ids = ReviewStatus.all.map { |rs| rs.id }

@@ -3,7 +3,7 @@
     <h1>New Report</h1>
   </div>
 
-  <% @report.manager.reports.each do |subreport| %>
+  <% @report.manager.reports.sort.each do |subreport| %>
     <div class="panel panel-default"> 
       <div class="panel-body"> 
           <%= render_report_form(subreport)  %>

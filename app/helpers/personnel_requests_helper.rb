@@ -115,7 +115,7 @@ module PersonnelRequestsHelper
   #
   # @return [Array] list of fields
   def staff_request_fields
-    %i( position_title employee_type__code request_type__code annual_base_pay
+    %i( position_title employee_name employee_type__code request_type__code annual_base_pay
         nonop_funds division__code department__code unit__code review_status__name)
   end
 

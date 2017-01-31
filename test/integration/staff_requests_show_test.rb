@@ -25,4 +25,10 @@ class StaffRequestsShowTest < ActionDispatch::IntegrationTest
     verify_i18n_label('th', 'activerecord.attributes.staff_request.nonop_funds')
     verify_i18n_label('th', 'activerecord.attributes.staff_request.nonop_source')
   end
+
+  test "should have employee_name in the view" do
+    get staff_request_path(@staff_request)
+    assert_select "td#employee_name", @staff_request.employee_name
+  end
+
 end

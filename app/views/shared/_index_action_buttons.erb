@@ -18,6 +18,19 @@
   <% if  params["controller"] =~ /_requests$/ %>
     <div class="btn-group" data-turbolink='false'><%= link_to 'Export', params.merge( format: :xlsx ),
       class: 'btn btn-info', :id => 'export' %></div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-warning">Update Status</button>
+      <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul id='change-review-status' class="dropdown-menu">
+        <% ReviewStatus.all.each do |rst| %> 
+          <li><a href="#"  data-review-status="<%= rst.id %>" data-record-type="<%= klass.name.underscore %>" ><%= rst.name %></a></li>
+        <% end %> 
+      </ul>
+    </div>
+
   <% end %>
 
 </div>

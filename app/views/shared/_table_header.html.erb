@@ -1,8 +1,11 @@
 <thead class='<%= "#{klass.to_s.underscore}_fields" %>'>
   <tr>
-  <%- fields(klass).each do |field | %>
-    <th id="<%= field.to_s %>"><%= multi_sort_link( @q, field, klass.human_attribute_name(field) ) %></th>
-  <% end %>
+    <th>
+      <input id="select-all" type="checkbox"></input> 
+    </th>
+    <%- fields(klass).each do |field | %>
+      <th id="<%= field.to_s %>"><%= multi_sort_link( @q, field, klass.human_attribute_name(field) ) %></th>
+    <% end %>
     <%= render 'shared/table_action_buttons_header',  model_type: klass  %>
   </tr>
 </thead>

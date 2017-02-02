@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.are-you-sure.js
+//= require spin.js
+//= require jquery.spin.js
 //= require turbolinks
 //= require_tree .
 //= require umd_lib

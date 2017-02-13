@@ -175,7 +175,7 @@ class PersonnelRequestPolicy < ApplicationPolicy
       return false if user.roles.empty?
 
       # Division role and admins can see all entries
-      return true if user.admin? || user.division?
+      return true if user.admin?
 
       # Department role can see record if in department
       allowed_departments = PersonnelRequestPolicy.allowed_departments(user)

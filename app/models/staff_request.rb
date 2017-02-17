@@ -15,6 +15,8 @@ class StaffRequest < ActiveRecord::Base
   validates :employee_name, presence: true, if: :employee_name_required?
   validates :justification, presence: true
 
+  monetize :annual_base_pay_cents, presence: false, numericality: { greater_than: 0.00 }
+
   # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :position_title
 

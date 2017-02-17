@@ -12,6 +12,7 @@ require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
+include MoneyRails::ActionViewExtension
 require 'roo'
 require 'axlsx_rails'
 require 'tempfile'

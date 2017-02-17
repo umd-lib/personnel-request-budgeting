@@ -78,7 +78,7 @@ module PersonnelRequestsHelper
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
     define_method("render_#{m}_xlsx".intern) do |r|
       field = r.call_field(m.intern) || BigDecimal(0)
-      format '%.2f', field.truncate(2)
+      humanized_money field
     end
   end
 

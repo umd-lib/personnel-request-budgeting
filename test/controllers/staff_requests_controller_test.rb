@@ -91,7 +91,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
       end
       assert_redirected_to staff_request_path(assigns(:staff_request))
       assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
-      assert_equal nil, assigns(:staff_request).review_comment
+      assert_nil assigns(:staff_request).review_comment
 
       patch :update, id: assigns(:staff_request).id,
                      staff_request: assigns(:staff_request).attributes.merge(
@@ -99,7 +99,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
 
       assert_redirected_to staff_request_path(assigns(:staff_request))
       assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
-      assert_equal nil, assigns(:staff_request).review_comment
+      assert_nil assigns(:staff_request).review_comment
       assert_equal @staff_request_with_status.annual_base_pay, assigns(:staff_request).annual_base_pay
     end
   end

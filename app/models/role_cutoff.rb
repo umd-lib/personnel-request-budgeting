@@ -20,8 +20,10 @@ class RoleCutoff < ActiveRecord::Base
 
     # Verifies that "admin" is not given a role cutoff
     def role_type_must_not_be_admin
-      errors.add(
-        :role_type, "of #{role_type.name} cannot be given a cutoff date"
-      ) if role_type == RoleType.find_by(code: 'admin')
+      if role_type == RoleType.find_by(code: 'admin')
+        errors.add(
+          :role_type, "of #{role_type.name} cannot be given a cutoff date"
+        )
+      end
     end
 end

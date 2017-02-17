@@ -82,7 +82,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       end
       assert_redirected_to contractor_request_path(assigns(:contractor_request))
       assert_equal review_statuses(:under_review).id, assigns(:contractor_request).review_status_id
-      assert_equal nil, assigns(:contractor_request).review_comment
+      assert_nil assigns(:contractor_request).review_comment
 
       patch :update, id: assigns(:contractor_request).id,
                      contractor_request: assigns(:contractor_request).attributes.merge(
@@ -90,7 +90,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
 
       assert_redirected_to contractor_request_path(assigns(:contractor_request))
       assert_equal review_statuses(:under_review).id, assigns(:contractor_request).review_status_id
-      assert_equal nil, assigns(:contractor_request).review_comment
+      assert_nil assigns(:contractor_request).review_comment
       assert_equal @contractor_request.contractor_name, assigns(:contractor_request).contractor_name
     end
   end

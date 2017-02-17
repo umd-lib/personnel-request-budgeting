@@ -98,7 +98,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the record type
         all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink
@@ -130,7 +130,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the record type
         all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('LaborRequests').last_column
       ensure
         file.close
         file.unlink

@@ -90,7 +90,7 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         # the record type
         all_columns = @columns + ContractorRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('ContractorRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink
@@ -118,8 +118,8 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         assert_equal ContractorRequest.all.count + 1,
                      wb.sheet('ContractorRequests').last_row
         # the spreadsheets coulumns should equal the number of fields + 1 for
-        # the record type
-        assert_equal ContractorRequest.column_names.length + 1, wb.sheet('ContractorRequests').last_column
+        # the record type and URL
+        assert_equal ContractorRequest.column_names.length + 2, wb.sheet('ContractorRequests').last_column
       ensure
         file.close
         file.unlink

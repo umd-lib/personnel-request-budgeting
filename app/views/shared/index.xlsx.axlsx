@@ -14,9 +14,9 @@ record_set.each_with_index do |records, i|
     fields, formats, widths = fields_and_formats_and_widths(sheet_klass, true)
 
     header_row = fields.map { |field| sheet_klass.human_attribute_name(field.to_s.split('__').first.intern) }
-    sheet.add_row ['Request Category'] + header_row, style: defined_styles[:header_bottom_border]
+    sheet.add_row ['URL', 'Request Category'] + header_row, style: defined_styles[:header_bottom_border]
     records.each do |record|
-      data = [record.class.to_s.underscore.humanize] + fields.map do |field|
+      data = [polymorphic_url(record), record.class.to_s.underscore.humanize] + fields.map do |field|
         # for currency fields we need to call the special xlsx view helper
         if currency_fields.include?(field.intern)
           call_record_field record, field, :xlsx

@@ -77,7 +77,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         # the record type
         all_columns = @columns + StaffRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('StaffRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink
@@ -108,7 +108,7 @@ class StaffRequestsIndexTest < ActionDispatch::IntegrationTest
         # the record type
         all_columns = @columns + StaffRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
-        assert_equal all_columns.length + 1, wb.sheet('StaffRequests').last_column
+        assert_equal all_columns.length + 2, wb.sheet('StaffRequests').last_column
       ensure
         file.close
         file.unlink

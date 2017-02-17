@@ -6,7 +6,7 @@ c2:
   request_type: new
   contractor_name: nil
   number_of_months: 6
-  annual_base_pay: 100_000.00
+  annual_base_pay_cents: 100_000.00
   nonop_funds: nil
   nonop_source: nil
   department: ssdr
@@ -22,7 +22,7 @@ cont_fac_renewal:
   request_type: renewal
   contractor_name: Clark Kent
   number_of_months: 12
-  annual_base_pay: 50_000.00
+  annual_base_pay_cents: 50_000.00
   nonop_funds: 40_000.00
   nonop_source: Daily Planet
   department: scua
@@ -37,7 +37,7 @@ c2_with_unit:
   request_type: new
   contractor_name: nil
   number_of_months: 3
-  annual_base_pay: 10_000.00
+  annual_base_pay_cents: 10_000.00
   nonop_funds: nil
   nonop_source: nil
   department: rl
@@ -52,7 +52,7 @@ libitd_528:
   request_type: new
   contractor_name: nil
   number_of_months: 6
-  annual_base_pay: 100_000.00
+  annual_base_pay_cents: 100_000.00
   nonop_funds: nil
   nonop_source: nil
   department: ssdr
@@ -67,7 +67,7 @@ contractor_request_1:
   position_title: Regional Functionality Orchestrator
   request_type: new
   number_of_months: 10
-  annual_base_pay: 72819.53
+  annual_base_pay_cents: 72819.53
   department: dcmr
   justification: nihil laboriosam id et suscipit reprehenderit aspernatur dolorem cum voluptatem omnis quam aut sunt voluptas sit officiis architecto placeat ad voluptatem quod est doloremque deserunt temporibus fugiat nesciunt eveniet nobis magni aut sequi
   review_status: under_review
@@ -79,7 +79,7 @@ contractor_request_2:
   request_type: renewal
   contractor_name: Marguerite VonRueden
   number_of_months: 3
-  annual_base_pay: 400254.04
+  annual_base_pay_cents: 400254.04
   department: ssdr
   justification: sint voluptates aliquid accusantium cumque rerum vel amet qui ut quas quae praesentium minima aut consequuntur non quam molestiae mollitia vel quis qui ut voluptatem adipisci natus pariatur aut reiciendis enim consequatur incidunt cupiditate totam itaque autem ex est sunt quia eos a ipsam nam est qui porro magni
   review_status: under_review
@@ -90,7 +90,7 @@ contractor_request_3:
   position_title: National Brand Producer
   request_type: new
   number_of_months: 2
-  annual_base_pay: 42346.09
+  annual_base_pay_cents: 42346.09
   department: rl
   unit: rc
   justification: molestiae reiciendis voluptatem aperiam quibusdam a doloremque voluptas quis voluptatibus est tenetur et sit sapiente excepturi quis et dolore quo dicta minus aut quam quas ullam illum consequuntur est cupiditate eius temporibus sint magnam sed ratione recusandae ut rerum praesentium adipisci commodi qui blanditiis velit
@@ -103,7 +103,7 @@ contractor_request_4:
   request_type: renewal
   contractor_name: Ethel Krajcik
   number_of_months: 10
-  annual_base_pay: 481051.71
+  annual_base_pay_cents: 481051.71
   department: scua
   justification: animi neque ex cum quo dolor nulla molestiae cupiditate natus quam voluptatibus possimus in explicabo impedit minus iure aspernatur mollitia similique enim aut accusantium quod saepe velit ut hic omnis
   review_status: under_review
@@ -114,7 +114,7 @@ contractor_request_5:
   position_title: Global Marketing Consultant
   request_type: new
   number_of_months: 11
-  annual_base_pay: 490369.04
+  annual_base_pay_cents: 490369.04
   nonop_funds: 54389.01
   nonop_source: Sipes, Mraz and Bogan
   department: dds
@@ -127,7 +127,7 @@ contractor_request_6:
   position_title: Investor Integration Assistant
   request_type: new
   number_of_months: 5
-  annual_base_pay: 337362.14
+  annual_base_pay_cents: 337362.14
   nonop_funds: 259988.71
   nonop_source: Treutel, Metz and Keebler
   department: lf
@@ -141,7 +141,7 @@ contractor_request_7:
   request_type: renewal
   contractor_name: Ms. Jovanny Corkery
   number_of_months: 5
-  annual_base_pay: 460675.60
+  annual_base_pay_cents: 460675.60
   nonop_funds: 324679.86
   nonop_source: Erdman and Sons
   department: as
@@ -155,7 +155,7 @@ contractor_request_8:
   request_type: renewal
   contractor_name: Emelie Deckow PhD
   number_of_months: 8
-  annual_base_pay: 456376.02
+  annual_base_pay_cents: 456376.02
   nonop_funds: 409701.17
   nonop_source: Hudson LLC
   department: rl
@@ -169,7 +169,7 @@ contractor_request_9:
   position_title: Future Security Representative
   request_type: new
   number_of_months: 1
-  annual_base_pay: 351433.63
+  annual_base_pay_cents: 351433.63
   department: lf
   justification: id dolore sed eos eum sit molestiae quasi inventore quam necessitatibus quia qui et
   review_status: under_review
@@ -180,7 +180,7 @@ contractor_request_10:
   position_title: Human Factors Coordinator
   request_type: new
   number_of_months: 8
-  annual_base_pay: 211775.01
+  annual_base_pay_cents: 211775.01
   department: rl
   justification: vel a consequatur omnis ab ipsam excepturi quo debitis ut earum voluptas sapiente veritatis totam magnam quia harum et consequatur voluptatem veniam exercitationem et molestias quas aut eos ut sit maxime facere molestiae rerum quis hic doloribus enim quis at nesciunt temporibus odio qui nihil
   review_status: under_review
@@ -192,7 +192,7 @@ contractor_request_11:
   request_type: renewal
   contractor_name: Jeffery Gerhold
   number_of_months: 6
-  annual_base_pay: 468905.15
+  annual_base_pay_cents: 468905.15
   department: rl
   unit: tl
   justification: rerum et quis aut
@@ -205,7 +205,7 @@ contractor_request_12:
   request_type: renewal
   contractor_name: Dennis Gaylord
   number_of_months: 1
-  annual_base_pay: 395572.32
+  annual_base_pay_cents: 395572.32
   department: prg
   justification: rerum fuga vel eum libero ea laboriosam qui corrupti eum aliquid illo quae voluptatibus omnis dolore vitae provident aut repellendus sunt pariatur delectus aut nisi temporibus est ut dolorum eligendi incidunt mollitia officia qui corporis facilis eos excepturi iusto est fugit nobis
   review_status: under_review
@@ -216,7 +216,7 @@ contractor_request_13:
   position_title: Human Factors Representative
   request_type: new
   number_of_months: 6
-  annual_base_pay: 62374.94
+  annual_base_pay_cents: 62374.94
   department: lhr
   justification: autem nihil odit nostrum similique error iure illum dignissimos vitae beatae maiores in delectus est consectetur et quis vel esse autem cupiditate ut et architecto ut et vero ad non ullam dolor deleniti a aperiam eos ut enim quia et incidunt quisquam quia
   review_status: under_review
@@ -227,7 +227,7 @@ contractor_request_14:
   position_title: Dynamic Directives Planner
   request_type: new
   number_of_months: 8
-  annual_base_pay: 479315.79
+  annual_base_pay_cents: 479315.79
   nonop_funds: 34854.32
   nonop_source: Zemlak, Ernser and Bergnaum
   department: as
@@ -241,7 +241,7 @@ contractor_request_15:
   position_title: Investor Creative Technician
   request_type: new
   number_of_months: 12
-  annual_base_pay: 494026.12
+  annual_base_pay_cents: 494026.12
   nonop_funds: 81849.14
   nonop_source: Veum, Turcotte and Klocko
   department: as
@@ -255,7 +255,7 @@ contractor_request_16:
   position_title: Human Web Administrator
   request_type: new
   number_of_months: 8
-  annual_base_pay: 81830.09
+  annual_base_pay_cents: 81830.09
   nonop_funds: 49436.95
   nonop_source: Padberg, Pfannerstill and Fay
   department: prg
@@ -269,7 +269,7 @@ contractor_request_17:
   request_type: renewal
   contractor_name: Mrs. Shanie Nader
   number_of_months: 2
-  annual_base_pay: 15070.12
+  annual_base_pay_cents: 15070.12
   nonop_funds: 5322.58
   nonop_source: Hills LLC
   department: rl
@@ -283,7 +283,7 @@ contractor_request_18:
   position_title: Customer Tactics Assistant
   request_type: new
   number_of_months: 4
-  annual_base_pay: 304237.75
+  annual_base_pay_cents: 304237.75
   nonop_funds: 188504.60
   nonop_source: Padberg Group
   department: cd
@@ -297,7 +297,7 @@ contractor_request_19:
   request_type: renewal
   contractor_name: Misty Conn
   number_of_months: 12
-  annual_base_pay: 338371.50
+  annual_base_pay_cents: 338371.50
   department: bbs
   justification: sed illum aperiam non doloribus quaerat voluptatum explicabo sit
   review_status: under_review
@@ -309,7 +309,7 @@ contractor_request_20:
   request_type: renewal
   contractor_name: Mr. Boris O'Conner
   number_of_months: 2
-  annual_base_pay: 75271.15
+  annual_base_pay_cents: 75271.15
   nonop_funds: 13537.34
   nonop_source: Schuppe-Ziemann
   department: rl
@@ -323,7 +323,7 @@ contractor_request_21:
   position_title: Senior Infrastructure Officer
   request_type: new
   number_of_months: 5
-  annual_base_pay: 348908.50
+  annual_base_pay_cents: 348908.50
   nonop_funds: 331825.68
   nonop_source: Kunze-Brown
   department: lms
@@ -336,7 +336,7 @@ contractor_request_22:
   position_title: Dynamic Quality Technician
   request_type: new
   number_of_months: 10
-  annual_base_pay: 93986.54
+  annual_base_pay_cents: 93986.54
   department: rl
   unit: tl
   justification: qui unde voluptatem sit assumenda non non sed consequuntur nemo officiis est et ut accusantium hic in est est commodi sint dolorem consectetur nam repudiandae porro tenetur
@@ -348,7 +348,7 @@ contractor_request_23:
   position_title: Forward Solutions Director
   request_type: new
   number_of_months: 3
-  annual_base_pay: 302395.27
+  annual_base_pay_cents: 302395.27
   department: bbs
   justification: aut eveniet saepe quas minima fugit et ab sit itaque consectetur ea optio autem illo
   review_status: under_review
@@ -360,7 +360,7 @@ contractor_request_24:
   request_type: renewal
   contractor_name: Maxime Lakin
   number_of_months: 9
-  annual_base_pay: 283845.88
+  annual_base_pay_cents: 283845.88
   department: as
   unit: stk
   justification: aut qui officiis ipsum tempore qui explicabo voluptatem aliquam maiores et velit ut eligendi dicta et facere et veniam dignissimos eaque voluptates vero doloribus quaerat occaecati id enim cumque reprehenderit voluptas optio et est voluptatem provident eum pariatur laboriosam
@@ -372,7 +372,7 @@ contractor_request_25:
   position_title: Chief Metrics Architect
   request_type: new
   number_of_months: 3
-  annual_base_pay: 495109.55
+  annual_base_pay_cents: 495109.55
   nonop_funds: 76506.02
   nonop_source: Feeney Inc
   department: uss
@@ -386,7 +386,7 @@ contractor_request_26:
   request_type: renewal
   contractor_name: Hettie Murphy
   number_of_months: 10
-  annual_base_pay: 336333.09
+  annual_base_pay_cents: 336333.09
   department: lhr
   justification: eius eos sit est autem repellendus sit recusandae ducimus et vero ab
   review_status: under_review
@@ -398,7 +398,7 @@ contractor_request_27:
   request_type: renewal
   contractor_name: Griffin Nicolas
   number_of_months: 11
-  annual_base_pay: 83442.27
+  annual_base_pay_cents: 83442.27
   nonop_funds: 26719.58
   nonop_source: Collins, Schowalter and Koss
   department: lf
@@ -411,7 +411,7 @@ contractor_request_28:
   position_title: Future Group Analyst
   request_type: new
   number_of_months: 11
-  annual_base_pay: 160427.56
+  annual_base_pay_cents: 160427.56
   nonop_funds: 92955.87
   nonop_source: Hoeger Inc
   department: com
@@ -424,7 +424,7 @@ contractor_request_29:
   position_title: National Response Director
   request_type: new
   number_of_months: 4
-  annual_base_pay: 65610.70
+  annual_base_pay_cents: 65610.70
   nonop_funds: 50642.52
   nonop_source: Dach, Green and Bruen
   department: scua
@@ -437,7 +437,7 @@ contractor_request_30:
   position_title: Legacy Marketing Designer
   request_type: new
   number_of_months: 9
-  annual_base_pay: 460419.33
+  annual_base_pay_cents: 460419.33
   department: rl
   unit: mspal
   justification: quasi
@@ -450,7 +450,7 @@ contractor_request_31:
   request_type: renewal
   contractor_name: Marta Langosh IV
   number_of_months: 9
-  annual_base_pay: 6481.45
+  annual_base_pay_cents: 6481.45
   nonop_funds: 3625.82
   nonop_source: Moen-Kutch
   department: bbs
@@ -463,7 +463,7 @@ contractor_request_32:
   position_title: Global Integration Associate
   request_type: new
   number_of_months: 8
-  annual_base_pay: 485121.60
+  annual_base_pay_cents: 485121.60
   department: rl
   unit: epsl
   justification: est nisi ad autem a et repudiandae facilis mollitia
@@ -476,7 +476,7 @@ contractor_request_33:
   request_type: renewal
   contractor_name: Remington Corkery
   number_of_months: 3
-  annual_base_pay: 465304.93
+  annual_base_pay_cents: 465304.93
   department: rl
   unit: epsl
   justification: voluptatem est unde veritatis quidem corporis et autem facere soluta maxime suscipit possimus quia fugiat eum molestiae ea ducimus beatae non dolorem natus et laudantium deleniti aliquam qui blanditiis quo consequatur consequatur tempore vero expedita quos magnam doloribus et non perferendis voluptatibus sed est optio est
@@ -489,7 +489,7 @@ contractor_request_34:
   request_type: renewal
   contractor_name: Dale Carroll I
   number_of_months: 3
-  annual_base_pay: 373481.51
+  annual_base_pay_cents: 373481.51
   nonop_funds: 352953.93
   nonop_source: Ryan LLC
   department: cd
@@ -503,7 +503,7 @@ contractor_request_35:
   request_type: renewal
   contractor_name: Eve Zemlak
   number_of_months: 11
-  annual_base_pay: 411326.07
+  annual_base_pay_cents: 411326.07
   department: lhr
   justification: nam harum facilis excepturi labore id veritatis dolores molestiae voluptatem quia aut nihil commodi voluptatem odio placeat quam sed a sint accusantium dolores aut aut voluptate sit praesentium dolore ut ullam est
   review_status: under_review
@@ -515,7 +515,7 @@ contractor_request_36:
   request_type: renewal
   contractor_name: Laron Konopelski
   number_of_months: 12
-  annual_base_pay: 45764.59
+  annual_base_pay_cents: 45764.59
   nonop_funds: 232.78
   nonop_source: Windler LLC
   department: rl
@@ -530,7 +530,7 @@ contractor_request_37:
   request_type: renewal
   contractor_name: Anderson Botsford
   number_of_months: 8
-  annual_base_pay: 181253.20
+  annual_base_pay_cents: 181253.20
   department: dpi
   justification: quasi eos culpa doloremque assumenda rerum ullam maxime dolorem dolores nihil nostrum tenetur laudantium
   review_status: under_review
@@ -541,7 +541,7 @@ contractor_request_38:
   position_title: Internal Accounts Liaison
   request_type: new
   number_of_months: 2
-  annual_base_pay: 281795.93
+  annual_base_pay_cents: 281795.93
   nonop_funds: 254630.00
   nonop_source: Green Group
   department: rl
@@ -556,7 +556,7 @@ contractor_request_39:
   request_type: renewal
   contractor_name: Wade Altenwerth
   number_of_months: 9
-  annual_base_pay: 98878.70
+  annual_base_pay_cents: 98878.70
   department: rl
   unit: mspal
   justification: voluptate culpa consequatur sapiente alias dolor sit adipisci quam voluptatem
@@ -569,7 +569,7 @@ contractor_request_40:
   request_type: renewal
   contractor_name: Mr. Ashly Krajcik
   number_of_months: 6
-  annual_base_pay: 284149.40
+  annual_base_pay_cents: 284149.40
   department: bbs
   justification: assumenda non ipsam quo sint aut aliquid sequi quam officiis molestiae eos fuga enim architecto omnis voluptatem harum id quas est ut deleniti recusandae repellendus est ipsa et eius animi magnam in alias at aut et minus
   review_status: under_review
@@ -580,7 +580,7 @@ contractor_request_41:
   position_title: Customer Accountability Engineer
   request_type: new
   number_of_months: 5
-  annual_base_pay: 294097.89
+  annual_base_pay_cents: 294097.89
   department: as
   unit: stk
   justification: facere quia ut illo soluta unde possimus sint et totam dolorem voluptatem mollitia amet vero magni velit id eos enim quo aut voluptatem dicta consequatur aut minima dolor officiis libero placeat aut doloremque
@@ -592,7 +592,7 @@ contractor_request_42:
   position_title: Senior Optimization Engineer
   request_type: new
   number_of_months: 4
-  annual_base_pay: 176820.14
+  annual_base_pay_cents: 176820.14
   department: as
   unit: tlc
   justification: cum quia provident voluptate fuga aspernatur et quod voluptatem non accusantium iure voluptatem ipsum quis nam expedita illum atque dolores officiis suscipit laudantium cupiditate quo sequi doloremque aut
@@ -604,7 +604,7 @@ contractor_request_43:
   position_title: Human Group Manager
   request_type: new
   number_of_months: 4
-  annual_base_pay: 193224.13
+  annual_base_pay_cents: 193224.13
   department: com
   justification: ut et quia ut iure commodi quia rerum nobis iste aut deserunt delectus nesciunt nulla qui quia dolores dolorem enim sequi culpa repudiandae sapiente quia occaecati distinctio voluptatem pariatur cum facere quibusdam nihil ut consequatur quo accusantium est labore asperiores voluptatem itaque et rerum similique
   review_status: under_review
@@ -616,7 +616,7 @@ contractor_request_44:
   request_type: renewal
   contractor_name: Tyrique Hills
   number_of_months: 6
-  annual_base_pay: 264729.86
+  annual_base_pay_cents: 264729.86
   department: acq
   justification: nostrum non ratione fugit sed inventore sed adipisci et quibusdam voluptas aut repellendus eos modi occaecati consequatur voluptatem quae quia eum magnam officia unde et ipsa a deserunt aut rem dolorum amet et sint accusantium
   review_status: under_review
@@ -628,7 +628,7 @@ contractor_request_45:
   request_type: renewal
   contractor_name: Mekhi Denesik
   number_of_months: 5
-  annual_base_pay: 56513.16
+  annual_base_pay_cents: 56513.16
   nonop_funds: 14146.70
   nonop_source: Kunze-Simonis
   department: as
@@ -642,7 +642,7 @@ contractor_request_46:
   position_title: International Data Officer
   request_type: new
   number_of_months: 3
-  annual_base_pay: 381075.25
+  annual_base_pay_cents: 381075.25
   department: as
   justification: ad corporis et quia omnis cum perferendis et et
   review_status: under_review
@@ -653,7 +653,7 @@ contractor_request_47:
   position_title: National Configuration Supervisor
   request_type: new
   number_of_months: 1
-  annual_base_pay: 163200.16
+  annual_base_pay_cents: 163200.16
   department: as
   unit: ln
   justification: consequatur voluptatem autem rerum quis dolorum nemo eius et ex neque et adipisci et consequuntur sit molestiae
@@ -665,7 +665,7 @@ contractor_request_48:
   position_title: National Configuration Designer
   request_type: new
   number_of_months: 11
-  annual_base_pay: 412163.82
+  annual_base_pay_cents: 412163.82
   department: lhr
   justification: modi dicta consequatur ab recusandae doloribus atque optio excepturi
   review_status: under_review
@@ -677,7 +677,7 @@ contractor_request_49:
   request_type: renewal
   contractor_name: Ms. Derrick Braun
   number_of_months: 11
-  annual_base_pay: 241285.07
+  annual_base_pay_cents: 241285.07
   department: do
   justification: deleniti modi esse nisi porro laboriosam voluptate odit et quia non aut libero autem est voluptas dolor eos possimus recusandae
   review_status: under_review
@@ -688,7 +688,7 @@ contractor_request_50:
   position_title: International Branding Technician
   request_type: new
   number_of_months: 8
-  annual_base_pay: 202289.91
+  annual_base_pay_cents: 202289.91
   department: lf
   justification: blanditiis nihil ipsum qui dolor sed voluptatem eos et qui rerum exercitationem minus soluta vero laudantium expedita accusantium et iusto excepturi accusamus tempora consectetur dolor sit alias aut modi consequatur natus et ut quod voluptas dignissimos id explicabo cum reprehenderit qui quia
   review_status: under_review

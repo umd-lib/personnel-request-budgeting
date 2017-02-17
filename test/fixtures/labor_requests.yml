@@ -6,7 +6,7 @@ c1:
   request_type: new
   contractor_name: nil
   number_of_positions: 1
-  hourly_rate: 100.00
+  hourly_rate_cents: 100.00
   hours_per_week: 40.00
   number_of_weeks: 6
   nonop_funds: nil
@@ -23,7 +23,7 @@ fac_hrly_renewal:
   request_type: renewal
   contractor_name: Luke O. Below
   number_of_positions: 1
-  hourly_rate: 200.00
+  hourly_rate_cents: 200.00
   hours_per_week: 40.00
   number_of_weeks: 12
   nonop_funds: nil
@@ -40,7 +40,7 @@ fac_hrly_with_unit:
   request_type: renewal
   contractor_name: Susan Calvin
   number_of_positions: 1
-  hourly_rate: 100.00
+  hourly_rate_cents: 100.00
   hours_per_week: 40.00
   number_of_weeks: 30
   nonop_funds: nil
@@ -57,7 +57,7 @@ libitd_528:
   request_type: new
   contractor_name: nil
   number_of_positions: 5
-  hourly_rate: 100.00
+  hourly_rate_cents: 100.00
   hours_per_week: 40.00
   number_of_weeks: 30
   nonop_funds: nil
@@ -74,7 +74,7 @@ labor_request_1:
   position_title: Customer Accounts Representative
   request_type: new
   number_of_positions: 13
-  hourly_rate: 40.56
+  hourly_rate_cents: 40.56
   hours_per_week: 8.00
   number_of_weeks: 12
   department: rl
@@ -88,7 +88,7 @@ labor_request_2:
   position_title: Direct Implementation Orchestrator
   request_type: new
   number_of_positions: 15
-  hourly_rate: 17.34
+  hourly_rate_cents: 17.34
   hours_per_week: 36.00
   number_of_weeks: 40
   department: ps
@@ -102,7 +102,7 @@ labor_request_3:
   request_type: renewal
   contractor_name: Miss Bud Moore
   number_of_positions: 1
-  hourly_rate: 50.67
+  hourly_rate_cents: 50.67
   hours_per_week: 40.00
   number_of_weeks: 28
   nonop_funds: 3300.82
@@ -117,7 +117,7 @@ labor_request_4:
   position_title: Internal Accounts Consultant
   request_type: new
   number_of_positions: 9
-  hourly_rate: 63.48
+  hourly_rate_cents: 63.48
   hours_per_week: 16.00
   number_of_weeks: 43
   nonop_funds: 11179.75
@@ -133,7 +133,7 @@ labor_request_5:
   request_type: renewal
   contractor_name: Myriam Bogisich
   number_of_positions: 1
-  hourly_rate: 85.81
+  hourly_rate_cents: 85.81
   hours_per_week: 30.00
   number_of_weeks: 49
   department: as
@@ -146,7 +146,7 @@ labor_request_6:
   position_title: Dynamic Web Specialist
   request_type: new
   number_of_positions: 1
-  hourly_rate: 58.51
+  hourly_rate_cents: 58.51
   hours_per_week: 39.00
   number_of_weeks: 14
   department: acq
@@ -160,7 +160,7 @@ labor_request_7:
   request_type: renewal
   contractor_name: Jennie Cruickshank
   number_of_positions: 1
-  hourly_rate: 34.61
+  hourly_rate_cents: 34.61
   hours_per_week: 17.00
   number_of_weeks: 51
   nonop_funds: 6223.87
@@ -176,7 +176,7 @@ labor_request_8:
   request_type: renewal
   contractor_name: Mr. Jermaine Bahringer
   number_of_positions: 1
-  hourly_rate: 2.15
+  hourly_rate_cents: 2.15
   hours_per_week: 37.00
   number_of_weeks: 43
   department: rl
@@ -190,7 +190,7 @@ labor_request_9:
   request_type: renewal
   contractor_name: Justina Zulauf
   number_of_positions: 1
-  hourly_rate: 88.63
+  hourly_rate_cents: 88.63
   hours_per_week: 1.00
   number_of_weeks: 41
   department: scua
@@ -204,7 +204,7 @@ labor_request_10:
   request_type: renewal
   contractor_name: Dr. Adele Bayer
   number_of_positions: 1
-  hourly_rate: 73.79
+  hourly_rate_cents: 73.79
   hours_per_week: 26.00
   number_of_weeks: 35
   nonop_funds: 39027.28
@@ -220,7 +220,7 @@ labor_request_11:
   request_type: renewal
   contractor_name: Nigel Braun DVM
   number_of_positions: 1
-  hourly_rate: 11.99
+  hourly_rate_cents: 11.99
   hours_per_week: 1.00
   number_of_weeks: 28
   nonop_funds: 54.29
@@ -236,7 +236,7 @@ labor_request_12:
   request_type: renewal
   contractor_name: Mrs. Jessica Bechtelar
   number_of_positions: 1
-  hourly_rate: 53.79
+  hourly_rate_cents: 53.79
   hours_per_week: 26.00
   number_of_weeks: 48
   department: ps
@@ -249,7 +249,7 @@ labor_request_13:
   position_title: Investor Accountability Architect
   request_type: new
   number_of_positions: 11
-  hourly_rate: 84.98
+  hourly_rate_cents: 84.98
   hours_per_week: 39.00
   number_of_weeks: 35
   nonop_funds: 106350.25
@@ -265,7 +265,7 @@ labor_request_14:
   request_type: renewal
   contractor_name: Daren Sauer
   number_of_positions: 1
-  hourly_rate: 28.95
+  hourly_rate_cents: 28.95
   hours_per_week: 15.00
   number_of_weeks: 29
   department: lms
@@ -278,7 +278,7 @@ labor_request_15:
   position_title: Principal Solutions Producer
   request_type: new
   number_of_positions: 10
-  hourly_rate: 40.11
+  hourly_rate_cents: 40.11
   hours_per_week: 14.00
   number_of_weeks: 8
   department: rl
@@ -293,7 +293,7 @@ labor_request_16:
   request_type: renewal
   contractor_name: Cordelia Douglas DVM
   number_of_positions: 1
-  hourly_rate: 66.51
+  hourly_rate_cents: 66.51
   hours_per_week: 35.00
   number_of_weeks: 3
   nonop_funds: 5305.65
@@ -308,7 +308,7 @@ labor_request_17:
   position_title: District Solutions Developer
   request_type: new
   number_of_positions: 9
-  hourly_rate: 62.72
+  hourly_rate_cents: 62.72
   hours_per_week: 39.00
   number_of_weeks: 3
   department: rl
@@ -322,7 +322,7 @@ labor_request_18:
   request_type: renewal
   contractor_name: Erna Roob
   number_of_positions: 1
-  hourly_rate: 74.29
+  hourly_rate_cents: 74.29
   hours_per_week: 29.00
   number_of_weeks: 26
   department: rl
@@ -336,7 +336,7 @@ labor_request_19:
   position_title: Global Communications Coordinator
   request_type: new
   number_of_positions: 1
-  hourly_rate: 62.68
+  hourly_rate_cents: 62.68
   hours_per_week: 14.00
   number_of_weeks: 34
   department: bbs
@@ -349,7 +349,7 @@ labor_request_20:
   position_title: Chief Accountability Officer
   request_type: new
   number_of_positions: 8
-  hourly_rate: 74.01
+  hourly_rate_cents: 74.01
   hours_per_week: 8.00
   number_of_weeks: 31
   department: rl
@@ -364,7 +364,7 @@ labor_request_21:
   request_type: renewal
   contractor_name: Chris Swift
   number_of_positions: 1
-  hourly_rate: 13.52
+  hourly_rate_cents: 13.52
   hours_per_week: 10.00
   number_of_weeks: 24
   nonop_funds: 2246.28
@@ -380,7 +380,7 @@ labor_request_22:
   position_title: Human Research Assistant
   request_type: new
   number_of_positions: 1
-  hourly_rate: 56.38
+  hourly_rate_cents: 56.38
   hours_per_week: 19.00
   number_of_weeks: 36
   department: rl
@@ -395,7 +395,7 @@ labor_request_23:
   request_type: renewal
   contractor_name: Antonio Wunsch
   number_of_positions: 1
-  hourly_rate: 68.85
+  hourly_rate_cents: 68.85
   hours_per_week: 10.00
   number_of_weeks: 25
   department: rl
@@ -409,7 +409,7 @@ labor_request_24:
   position_title: Corporate Paradigm Developer
   request_type: new
   number_of_positions: 9
-  hourly_rate: 7.41
+  hourly_rate_cents: 7.41
   hours_per_week: 32.00
   number_of_weeks: 36
   nonop_funds: 1544.20
@@ -424,7 +424,7 @@ labor_request_25:
   position_title: International Communications Architect
   request_type: new
   number_of_positions: 7
-  hourly_rate: 31.03
+  hourly_rate_cents: 31.03
   hours_per_week: 39.00
   number_of_weeks: 13
   nonop_funds: 10948.46
@@ -440,7 +440,7 @@ labor_request_26:
   request_type: renewal
   contractor_name: Terry Roob
   number_of_positions: 1
-  hourly_rate: 74.89
+  hourly_rate_cents: 74.89
   hours_per_week: 17.00
   number_of_weeks: 40
   department: com
@@ -453,7 +453,7 @@ labor_request_27:
   position_title: Regional Tactics Associate
   request_type: new
   number_of_positions: 10
-  hourly_rate: 37.15
+  hourly_rate_cents: 37.15
   hours_per_week: 19.00
   number_of_weeks: 16
   department: rl
@@ -468,7 +468,7 @@ labor_request_28:
   request_type: renewal
   contractor_name: Mr. Earlene Spencer
   number_of_positions: 1
-  hourly_rate: 87.31
+  hourly_rate_cents: 87.31
   hours_per_week: 11.00
   number_of_weeks: 17
   nonop_funds: 4934.85
@@ -484,7 +484,7 @@ labor_request_29:
   request_type: renewal
   contractor_name: Sister Hane
   number_of_positions: 1
-  hourly_rate: 60.47
+  hourly_rate_cents: 60.47
   hours_per_week: 25.00
   number_of_weeks: 30
   department: ssdr
@@ -498,7 +498,7 @@ labor_request_30:
   request_type: renewal
   contractor_name: Anastasia Schoen PhD
   number_of_positions: 1
-  hourly_rate: 47.65
+  hourly_rate_cents: 47.65
   hours_per_week: 17.00
   number_of_weeks: 17
   nonop_funds: 2322.51
@@ -514,7 +514,7 @@ labor_request_31:
   request_type: renewal
   contractor_name: Maximus Lebsack
   number_of_positions: 1
-  hourly_rate: 92.57
+  hourly_rate_cents: 92.57
   hours_per_week: 32.00
   number_of_weeks: 27
   department: prg
@@ -528,7 +528,7 @@ labor_request_32:
   request_type: renewal
   contractor_name: Kaleb Conroy
   number_of_positions: 1
-  hourly_rate: 48.11
+  hourly_rate_cents: 48.11
   hours_per_week: 35.00
   number_of_weeks: 45
   nonop_funds: 8485.64
@@ -544,7 +544,7 @@ labor_request_33:
   request_type: renewal
   contractor_name: Brianne Schulist
   number_of_positions: 1
-  hourly_rate: 37.31
+  hourly_rate_cents: 37.31
   hours_per_week: 1.00
   number_of_weeks: 46
   department: rl
@@ -559,7 +559,7 @@ labor_request_34:
   request_type: renewal
   contractor_name: Kaya Murphy
   number_of_positions: 1
-  hourly_rate: 86.84
+  hourly_rate_cents: 86.84
   hours_per_week: 5.00
   number_of_weeks: 3
   department: scua
@@ -573,7 +573,7 @@ labor_request_35:
   request_type: renewal
   contractor_name: Joyce Boyle
   number_of_positions: 1
-  hourly_rate: 78.88
+  hourly_rate_cents: 78.88
   hours_per_week: 20.00
   number_of_weeks: 47
   nonop_funds: 68608.00
@@ -588,7 +588,7 @@ labor_request_36:
   position_title: Principal Communications Agent
   request_type: new
   number_of_positions: 13
-  hourly_rate: 83.80
+  hourly_rate_cents: 83.80
   hours_per_week: 40.00
   number_of_weeks: 34
   department: as
@@ -602,7 +602,7 @@ labor_request_37:
   position_title: Human Directives Designer
   request_type: new
   number_of_positions: 7
-  hourly_rate: 23.34
+  hourly_rate_cents: 23.34
   hours_per_week: 28.00
   number_of_weeks: 41
   nonop_funds: 8733.66
@@ -618,7 +618,7 @@ labor_request_38:
   request_type: renewal
   contractor_name: Mr. Earl Dach
   number_of_positions: 1
-  hourly_rate: 91.28
+  hourly_rate_cents: 91.28
   hours_per_week: 8.00
   number_of_weeks: 15
   department: rl
@@ -633,7 +633,7 @@ labor_request_39:
   request_type: renewal
   contractor_name: Darwin Ryan
   number_of_positions: 1
-  hourly_rate: 18.07
+  hourly_rate_cents: 18.07
   hours_per_week: 29.00
   number_of_weeks: 49
   department: rl
@@ -647,7 +647,7 @@ labor_request_40:
   position_title: District Directives Agent
   request_type: new
   number_of_positions: 5
-  hourly_rate: 19.46
+  hourly_rate_cents: 19.46
   hours_per_week: 6.00
   number_of_weeks: 22
   department: rl
@@ -661,7 +661,7 @@ labor_request_41:
   position_title: Human Metrics Representative
   request_type: new
   number_of_positions: 5
-  hourly_rate: 72.94
+  hourly_rate_cents: 72.94
   hours_per_week: 1.00
   number_of_weeks: 7
   nonop_funds: 194.90
@@ -677,7 +677,7 @@ labor_request_42:
   position_title: Central Response Agent
   request_type: new
   number_of_positions: 17
-  hourly_rate: 6.60
+  hourly_rate_cents: 6.60
   hours_per_week: 10.00
   number_of_weeks: 45
   department: dpi
@@ -690,7 +690,7 @@ labor_request_43:
   position_title: Future Program Executive
   request_type: new
   number_of_positions: 13
-  hourly_rate: 19.23
+  hourly_rate_cents: 19.23
   hours_per_week: 24.00
   number_of_weeks: 17
   department: dpi
@@ -703,7 +703,7 @@ labor_request_44:
   position_title: Corporate Optimization Coordinator
   request_type: new
   number_of_positions: 19
-  hourly_rate: 30.38
+  hourly_rate_cents: 30.38
   hours_per_week: 14.00
   number_of_weeks: 52
   department: ps
@@ -717,7 +717,7 @@ labor_request_45:
   request_type: renewal
   contractor_name: Shawna Aufderhar
   number_of_positions: 1
-  hourly_rate: 7.11
+  hourly_rate_cents: 7.11
   hours_per_week: 11.00
   number_of_weeks: 15
   department: ssdr
@@ -731,7 +731,7 @@ labor_request_46:
   request_type: renewal
   contractor_name: Ulices Wisozk
   number_of_positions: 1
-  hourly_rate: 24.39
+  hourly_rate_cents: 24.39
   hours_per_week: 13.00
   number_of_weeks: 12
   nonop_funds: 2252.73
@@ -748,7 +748,7 @@ labor_request_47:
   request_type: renewal
   contractor_name: Elyse Toy
   number_of_positions: 1
-  hourly_rate: 32.42
+  hourly_rate_cents: 32.42
   hours_per_week: 30.00
   number_of_weeks: 45
   department: com
@@ -762,7 +762,7 @@ labor_request_48:
   request_type: renewal
   contractor_name: Dariana Windler PhD
   number_of_positions: 1
-  hourly_rate: 83.03
+  hourly_rate_cents: 83.03
   hours_per_week: 7.00
   number_of_weeks: 25
   department: rl
@@ -776,7 +776,7 @@ labor_request_49:
   position_title: Legacy Accounts Facilitator
   request_type: new
   number_of_positions: 14
-  hourly_rate: 10.80
+  hourly_rate_cents: 10.80
   hours_per_week: 8.00
   number_of_weeks: 19
   department: rl
@@ -791,7 +791,7 @@ labor_request_50:
   request_type: renewal
   contractor_name: Ephraim Abshire
   number_of_positions: 1
-  hourly_rate: 65.36
+  hourly_rate_cents: 65.36
   hours_per_week: 12.00
   number_of_weeks: 52
   department: rl

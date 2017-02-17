@@ -78,7 +78,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
       end
       assert_redirected_to labor_request_path(assigns(:labor_request))
       assert_equal review_statuses(:under_review).id, assigns(:labor_request).review_status_id
-      assert_equal nil, assigns(:labor_request).review_comment
+      assert_nil assigns(:labor_request).review_comment
 
       patch :update, id: assigns(:labor_request).id,
                      labor_request: assigns(:labor_request).attributes.merge(
@@ -86,7 +86,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
 
       assert_redirected_to labor_request_path(assigns(:labor_request))
       assert_equal review_statuses(:under_review).id, assigns(:labor_request).review_status_id
-      assert_equal nil, assigns(:labor_request).review_comment
+      assert_nil assigns(:labor_request).review_comment
       assert_equal @labor_request.contractor_name, assigns(:labor_request).contractor_name
     end
   end

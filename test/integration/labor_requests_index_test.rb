@@ -7,8 +7,8 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
 
   def setup
     @columns = %w(position_title employee_type_code request_type_code
-                  contractor_name number_of_positions hourly_rate hours_per_week
-                  number_of_weeks annual_cost nonop_funds division_code
+                  contractor_name number_of_positions hourly_rate_cents hours_per_week
+                  number_of_weeks annual_cost_cents nonop_funds division_code
                   department_code unit_code review_status_name)
   end
 
@@ -96,7 +96,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
         # the record type
-        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
         assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
       ensure
@@ -128,7 +128,7 @@ class LaborRequestsIndexTest < ActionDispatch::IntegrationTest
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
         # the record type
-        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns = @columns + LaborRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
         assert_equal all_columns.length + 1, wb.sheet('LaborRequests').last_column
       ensure

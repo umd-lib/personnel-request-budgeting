@@ -78,15 +78,17 @@ class ContractorRequestsIndexTest < ActionDispatch::IntegrationTest
         # get the index. be aware that Roo:Excelx starts with a position of 1
         annual_base_pay_col = headers.index(ContractorRequest.human_attribute_name(:annual_base_pay)) + 1
         annual_base_pays = wb.sheet('ContractorRequests').column(annual_base_pay_col)
+        annual_base_pays.shift # dont need header. 
+        annual_base_pays.map! { |a| humanized_money( a ) }
 
         Pundit.policy_scope!(users(:johnny_two_roles), ContractorRequest).all.each do |req|
-          assert_includes annual_base_pays, req.annual_base_pay
+          assert_includes annual_base_pays, humanized_money( req.annual_base_pay )
         end
 
         # the spreadsheets coulumns should equal the number of columns that are
         # not id's + 1 for
         # the record type
-        all_columns = @columns + ContractorRequest.attribute_names.select { |a| !a.match(/id$/) }
+        all_columns = @columns + ContractorRequest.attribute_names.select { |a| !a.match(/id|cents$/) }
         all_columns.map!(&:intern).uniq!
         assert_equal all_columns.length + 1, wb.sheet('ContractorRequests').last_column
       ensure

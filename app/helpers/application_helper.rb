@@ -19,15 +19,17 @@ module ApplicationHelper
   #   the given translation key, or nil if the translation key is not set.
   def help_text_icon(i18n_key)
     help_text = safe_join [t(i18n_key, default: '')]
-    content_tag(
-      :button,
-      content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false),
-      'type' => 'button',
-      'class' => 'btn btn-xs btn-default',
-      'data-toggle' => 'popover',
-      'data-content' => help_text,
-      'data-placement' => 'top'
-    ) unless help_text.empty?
+    unless help_text.empty?
+      content_tag(
+        :button,
+        content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false),
+        'type' => 'button',
+        'class' => 'btn btn-xs btn-default',
+        'data-toggle' => 'popover',
+        'data-content' => help_text,
+        'data-placement' => 'top'
+      )
+    end
   end
 
   # Returns confirmation prompt text for delete action on the given object.

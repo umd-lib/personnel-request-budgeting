@@ -46,8 +46,8 @@ ga:
   employee_category: reg_ga
 
 nex:
-  code: Nex
-  name: Nex
+  code: NEX
+  name: NEX
   employee_category: reg_ga
   
 student:

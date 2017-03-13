@@ -65,7 +65,7 @@ class StaffRequestsCostSummaryReport
       ex_key = [department_code, 'EX']
       fac_key = [department_code, 'FAC']
       ga_key = [department_code, 'GA']
-      nex_key = [department_code, 'Nex']
+      nex_key = [department_code, 'NEX']
       other_support_key = [department_code, 'other_support']
       value = { department: dept.name,
                 division: division_code,

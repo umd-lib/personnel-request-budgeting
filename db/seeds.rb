@@ -83,7 +83,7 @@ employee_types_by_category = {
   'Reg/GA' => [{ code: 'EX', name: 'Exempt' },
                { code: 'FAC', name: 'Faculty' },
                { code: 'GA', name: 'Graduate Assistant' },
-               { code: 'Nex', name: 'Non-exempt' }],
+               { code: 'NEX', name: 'Non-exempt' }],
   'SC' => [{ code: 'C2', name: 'Contractor Type 2' },
            { code: 'CFAC', name: 'ContFac' }] }
 

@@ -16,6 +16,7 @@ class StaffRequestsCostSummaryReportTest < ActiveSupport::TestCase
 
   test 'should return a Hash containing various pieces of data' do
     query_result = @report.query
+    
     summary_data = query_result[:summary_data]
     divisions = query_result[:divisions]
     current_fiscal_year = query_result[:current_fiscal_year]
@@ -27,7 +28,9 @@ class StaffRequestsCostSummaryReportTest < ActiveSupport::TestCase
     assert_equal I18n.t(:current_fiscal_year),  current_fiscal_year
     assert_equal I18n.t(:previous_fiscal_year),  previous_fiscal_year
     assert_equal ReviewStatus.count, allowed_review_statuses.count
-    
+   
+
+    # NEX 
     # "data" should contain an entry for each department
     assert summary_data.count == Department.count
   end

@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap-toggle.min.css
  *= require_tree .
  *= require_self
  */
@@ -23,3 +24,18 @@ a {
 
 
 label.required:after { content:" *"; color: red; }
+
+nav.archive-nav.navbar-inverse {
+  background-color: #4f4d4d;
+  border-color: #fff;
+  .navbar-nav {
+    background-color: #4f4d4d;
+    border-color: #fff;
+    .active {
+      > a, > a:hover, > a:focus { background-color: #C2C2C2;  }
+    }
+  }
+}
+
+
+span.archived { color: #9a0c0c; }

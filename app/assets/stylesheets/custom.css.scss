@@ -90,3 +90,12 @@ $impersonate_height: 25px;
 .impersonate-extra-padding-top {
   padding-top: $impersonate_height;
 }
+
+.archive-banner {
+  background-color: black;
+  text-align: center;
+  color: white;
+  display:inline-block;
+  width: 100%;
+  height: $impersonate_height;
+}

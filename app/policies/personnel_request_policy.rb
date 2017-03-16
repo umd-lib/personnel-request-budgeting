@@ -17,24 +17,28 @@ class PersonnelRequestPolicy < ApplicationPolicy
   # @return [Boolean] true if the user is allowed to create a particular
   #   personnel request, false otherwise.
   def create?
+    return false if is_archived?
     create_allowed_by_role?(user, record)
   end
 
   # @return [Boolean] true if the user is allowed to create a new
   #   personnel request, false otherwise.
   def new?
+    return false if is_archived?
     new_allowed_by_role?(user)
   end
 
   # @return [Boolean] true if the user is allowed to update a particular
   #   personnel request, false otherwise.
   def update?
+    return false if is_archived?
     update_allowed_by_role?(user, record)
   end
 
   # @return [Boolean] true if the user is allowed to delete a particular
   #   personnel request, false otherwise.
   def destroy?
+    return false if is_archived?
     destroy_allowed_by_role?(user, record)
   end
 
@@ -277,5 +281,15 @@ class PersonnelRequestPolicy < ApplicationPolicy
     # @return [Date] the current date
     def today
       Time.zone.today
+    end
+
+    # @return [Boolean] returns if there is an archived model
+    # works for both instances and classes
+    def is_archived?
+      if record.respond_to? :class_name
+        record.class_name =~ /^Archived/
+      else
+        record.class.class_name =~ /^Archived/
+      end
     end
 end

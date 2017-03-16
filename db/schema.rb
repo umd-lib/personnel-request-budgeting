@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217175630) do
+ActiveRecord::Schema.define(version: 20170227175630) do
+
+# Could not dump table "archived_contractor_requests" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+# Could not dump table "archived_labor_requests" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+# Could not dump table "archived_staff_requests" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -39,13 +48,16 @@ ActiveRecord::Schema.define(version: 20170217175630) do
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.integer  "division_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "code"
-    t.integer  "units_count",               default: 0
-    t.integer  "contractor_requests_count", default: 0
-    t.integer  "labor_requests_count",      default: 0
-    t.integer  "staff_requests_count",      default: 0
+    t.integer  "units_count",                        default: 0
+    t.integer  "contractor_requests_count",          default: 0
+    t.integer  "labor_requests_count",               default: 0
+    t.integer  "staff_requests_count",               default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   add_index "departments", ["code"], name: "index_departments_on_code", unique: true
@@ -53,10 +65,13 @@ ActiveRecord::Schema.define(version: 20170217175630) do
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "code"
-    t.integer  "departments_count", default: 0
+    t.integer  "departments_count",                  default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true
@@ -75,11 +90,14 @@ ActiveRecord::Schema.define(version: 20170217175630) do
     t.string   "code"
     t.string   "name"
     t.integer  "employee_category_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "contractor_requests_count", default: 0
-    t.integer  "labor_requests_count",      default: 0
-    t.integer  "staff_requests_count",      default: 0
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.integer  "contractor_requests_count",          default: 0
+    t.integer  "labor_requests_count",               default: 0
+    t.integer  "staff_requests_count",               default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true
@@ -127,24 +145,30 @@ ActiveRecord::Schema.define(version: 20170217175630) do
   create_table "request_types", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "contractor_requests_count", default: 0
-    t.integer  "labor_requests_count",      default: 0
-    t.integer  "staff_requests_count",      default: 0
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.integer  "contractor_requests_count",          default: 0
+    t.integer  "labor_requests_count",               default: 0
+    t.integer  "staff_requests_count",               default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"
-    t.string   "color",                     default: "#ffffff"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.string   "color",                              default: "#ffffff"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.string   "code"
-    t.integer  "contractor_requests_count", default: 0
-    t.integer  "labor_requests_count",      default: 0
-    t.integer  "staff_requests_count",      default: 0
+    t.integer  "contractor_requests_count",          default: 0
+    t.integer  "labor_requests_count",               default: 0
+    t.integer  "staff_requests_count",               default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   create_table "role_cutoffs", force: :cascade do |t|
@@ -206,11 +230,14 @@ ActiveRecord::Schema.define(version: 20170217175630) do
     t.string   "code"
     t.string   "name"
     t.integer  "department_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "contractor_requests_count", default: 0
-    t.integer  "labor_requests_count",      default: 0
-    t.integer  "staff_requests_count",      default: 0
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.integer  "contractor_requests_count",          default: 0
+    t.integer  "labor_requests_count",               default: 0
+    t.integer  "staff_requests_count",               default: 0
+    t.integer  "archived_contractor_requests_count"
+    t.integer  "archived_staff_requests_count"
+    t.integer  "archived_labor_requests_count"
   end
 
   add_index "units", ["code"], name: "index_units_on_code", unique: true

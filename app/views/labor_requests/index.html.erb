@@ -1,8 +1,9 @@
+<% klass = archive? ? ArchivedLaborRequest : LaborRequest %>
 <div class="page-header">
   <h1>Labor and Assistance Requests</h1>
 </div>
 
 <%= render partial: 'shared/index_action_buttons',
-  locals: { klass: LaborRequest, pagination_object: @labor_requests } %>
-<%= render partial: 'shared/table', locals: { klass: LaborRequest,  records: @labor_requests } %>
+  locals: { klass: klass, pagination_object: @labor_requests } %>
+<%= render partial: 'shared/table', locals: { klass: klass,  records: @labor_requests } %>
 <%= will_paginate renderer: BootstrapPagination::Rails %>

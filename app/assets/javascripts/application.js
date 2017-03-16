@@ -15,6 +15,7 @@
 //= require jquery.are-you-sure.js
 //= require spin.js
 //= require jquery.spin.js
+//= require bootstrap-toggle.min.js
 //= require turbolinks
 //= require_tree .
 //= require umd_lib

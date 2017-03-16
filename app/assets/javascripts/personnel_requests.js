@@ -33,4 +33,9 @@ $(document).on("turbolinks:load", function(){
 
   });
 
+
+  if ( $("table.archive, .container.archived_labor_request, .container.archived_contractor_request, .container.archived_staff_request").length ) {
+    $('nav.navbar-fixed-top').addClass('archive-nav');
+  }
+
 });

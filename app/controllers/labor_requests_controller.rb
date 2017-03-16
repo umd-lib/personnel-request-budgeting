@@ -10,7 +10,7 @@ class LaborRequestsController < ApplicationController
   # GET /labor_requests
   # GET /labor_requests.json
   def index
-    @q = LaborRequest.ransack(params[:q])
+    @q = archive? ? ArchivedLaborRequest.ransack(params[:q]) : LaborRequest.ransack(params[:q])
 
     default_sorts!
     @labor_requests = scope_records(params)
@@ -93,7 +93,7 @@ class LaborRequestsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_labor_request
-      @labor_request = LaborRequest.find(params[:id])
+      @labor_request = find_active_or_archived('LaborRequest')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

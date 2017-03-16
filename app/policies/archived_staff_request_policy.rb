@@ -1,0 +1,2 @@
+class ArchivedStaffRequestPolicy < PersonnelRequestPolicy
+end

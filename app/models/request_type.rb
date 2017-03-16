@@ -1,8 +1,10 @@
 # A type of staffing request (New, Renewal, Pay Adjustment, etc.)
 class RequestType < ActiveRecord::Base
-  has_many :contractor_requests, dependent: :restrict_with_exception
-  has_many :labor_requests, dependent: :restrict_with_exception
-  has_many :staff_requests, dependent: :restrict_with_exception
+  %w(contractor labor staff).each do |r|
+    has_many "#{r}_requests".intern, dependent: :restrict_with_exception
+    has_many "archived_#{r}_requests".intern, dependent: :restrict_with_exception
+  end
+
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 

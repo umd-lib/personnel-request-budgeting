@@ -9,7 +9,7 @@ class StaffRequestsController < ApplicationController
   # GET /staff_requests
   # GET /staff_requests.json
   def index
-    @q = StaffRequest.ransack(params[:q])
+    @q = archive? ? ArchivedStaffRequest.ransack(params[:q]) : StaffRequest.ransack(params[:q])
 
     default_sorts!
     @staff_requests = scope_records(params)
@@ -101,7 +101,7 @@ class StaffRequestsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_staff_request
-      @staff_request = StaffRequest.find(params[:id])
+      @staff_request = find_active_or_archived('StaffRequest')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

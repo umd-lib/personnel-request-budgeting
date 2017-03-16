@@ -45,4 +45,9 @@ module ApplicationHelper
       t('confirm_delete_prompt.with_description', description: description)
     end
   end
+
+  # Returns true/false if the user is looking at the archive
+  def archive?
+    ActiveRecord::Type::Boolean.new.type_cast_from_user(params[:archived])
+  end
 end

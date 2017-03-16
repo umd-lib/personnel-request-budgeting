@@ -15,10 +15,10 @@
   <% if policy(klass).new? %>
     <div class="btn-group"><%= link_to 'New', new_polymorphic_path(klass), class: 'btn btn-success', :id => 'toolbar_new' %></div>
   <% end %>    
-  <% if  params["controller"] =~ /_requests$/ %>
+  <% if  params["controller"] =~ /_requests$/ && !archive? %>
     <div class="btn-group" data-turbolink='false'><%= link_to 'Export', params.merge( format: :xlsx ),
       class: 'btn btn-info', :id => 'export' %></div>
-    <% if current_user.admin? %>
+    <% if current_user.admin? && policy(klass).update? %>
       <div class="btn-group">
         <button type="button" class="btn btn-warning">Update Status</button>
         <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,5 +34,12 @@
     <% end %> 
 
   <% end %>
+  
+  <% if archive? %>
+    <%= link_to 'View Active', polymorphic_path( klass, archived: false), class: "btn btn-link" %>
+  <% else %> 
+    <%= link_to 'View Archive', polymorphic_path(klass, archived: true ), class: "btn btn-link" %>
+  <% end %>
 
+  
 </div>

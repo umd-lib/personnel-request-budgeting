@@ -146,4 +146,24 @@ module PersonnelRequestsHelper
         department__code unit__code justification review_status__name review_comment
         created_at updated_at)
   end
+
+  # Returns the archived version of each of these fields
+  #
+  # @return [Array] list of fields
+  %w(contractor_request staff_request labor_request).each do |request|
+    %w(fields all_fields).each do |type|
+      define_method "archived_#{request}_#{type}".intern do
+        send("#{request}_#{type}".intern) << :fiscal_year
+      end
+    end
+
+    define_method "archived_#{request}_path".intern do |arg|
+      send("#{request}_path".intern, arg)
+    end
+
+    define_method "archived_#{request.pluralize}_path".intern do |arg = {}|
+      arg[:archived] = true if arg[:archived].nil? # this can be over ridden...
+      send("#{request.pluralize}_path".intern, arg)
+    end
+  end
 end

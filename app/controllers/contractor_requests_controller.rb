@@ -9,7 +9,7 @@ class ContractorRequestsController < ApplicationController
   # GET /contractor_requests
   # GET /contractor_requests.json
   def index
-    @q = ContractorRequest.ransack(params[:q])
+    @q = archive? ? ArchivedContractorRequest.ransack(params[:q]) : ContractorRequest.ransack(params[:q])
 
     default_sorts!
     @contractor_requests = scope_records(params)
@@ -98,7 +98,7 @@ class ContractorRequestsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_contractor_request
-      @contractor_request = ContractorRequest.find(params[:id])
+      @contractor_request = find_active_or_archived('ContractorRequest')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

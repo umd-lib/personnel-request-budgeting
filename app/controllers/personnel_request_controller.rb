@@ -14,6 +14,23 @@ module PersonnelRequestController
 
   private
 
+    # Returns true/false if the user is looking at the archive
+    def archive?
+      ActiveRecord::Type::Boolean.new.type_cast_from_user(params[:archived])
+    end
+
+    # takes a string of the model_name, checks if the record exist, then checks if it's archived before sending
+    # RecordNotFound
+    def find_active_or_archived(model_name)
+      klass = model_name.constantize
+      begin
+        return klass.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        klass = "Archived#{model_name}".constantize
+        return klass.find(params[:id])
+      end
+    end
+
     # Returns the per_page used in the pagniation. xlsx should have all
     # records, otherwise defaults to the WillPaginate global
     def per_page

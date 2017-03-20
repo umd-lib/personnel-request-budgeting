@@ -286,10 +286,12 @@ class PersonnelRequestPolicy < ApplicationPolicy
     # @return [Boolean] returns if there is an archived model
     # works for both instances and classes
     def is_archived?
-      if record.respond_to? :class_name
-        record.class_name =~ /^Archived/
+      # an AR Class
+      if record.respond_to? :name
+        record.name =~ /^Archived/
+      # an AR instance
       else
-        record.class.class_name =~ /^Archived/
+        record.class.name =~ /^Archived/
       end
     end
 end

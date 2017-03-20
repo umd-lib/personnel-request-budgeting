@@ -13,14 +13,62 @@
 
 ActiveRecord::Schema.define(version: 20170227175630) do
 
-# Could not dump table "archived_contractor_requests" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "archived_contractor_requests", force: :cascade do |t|
+    t.integer  "employee_type_id"
+    t.string   "position_title"
+    t.integer  "request_type_id"
+    t.string   "contractor_name"
+    t.integer  "number_of_months",      default: 1
+    t.decimal  "annual_base_pay_cents"
+    t.decimal  "nonop_funds"
+    t.string   "nonop_source"
+    t.integer  "department_id"
+    t.integer  "unit_id"
+    t.text     "justification"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
+    t.text     "fiscal_year"
+  end
 
-# Could not dump table "archived_labor_requests" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "archived_labor_requests", force: :cascade do |t|
+    t.integer  "employee_type_id"
+    t.string   "position_title"
+    t.integer  "request_type_id"
+    t.string   "contractor_name"
+    t.integer  "number_of_months",      default: 1
+    t.decimal  "annual_base_pay_cents"
+    t.decimal  "nonop_funds"
+    t.string   "nonop_source"
+    t.integer  "department_id"
+    t.integer  "unit_id"
+    t.text     "justification"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
+    t.text     "fiscal_year"
+  end
 
-# Could not dump table "archived_staff_requests" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "archived_staff_requests", force: :cascade do |t|
+    t.integer  "employee_type_id"
+    t.string   "position_title"
+    t.integer  "request_type_id"
+    t.string   "contractor_name"
+    t.integer  "number_of_months",      default: 1
+    t.decimal  "annual_base_pay_cents"
+    t.decimal  "nonop_funds"
+    t.string   "nonop_source"
+    t.integer  "department_id"
+    t.integer  "unit_id"
+    t.text     "justification"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "review_status_id"
+    t.text     "review_comment"
+    t.text     "fiscal_year"
+  end
 
   create_table "contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"

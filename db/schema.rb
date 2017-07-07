@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170227175630) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "archived_contractor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
     t.string   "position_title"
@@ -88,10 +91,10 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.text     "review_comment"
   end
 
-  add_index "contractor_requests", ["department_id"], name: "index_contractor_requests_on_department_id"
-  add_index "contractor_requests", ["employee_type_id"], name: "index_contractor_requests_on_employee_type_id"
-  add_index "contractor_requests", ["request_type_id"], name: "index_contractor_requests_on_request_type_id"
-  add_index "contractor_requests", ["unit_id"], name: "index_contractor_requests_on_unit_id"
+  add_index "contractor_requests", ["department_id"], name: "index_contractor_requests_on_department_id", using: :btree
+  add_index "contractor_requests", ["employee_type_id"], name: "index_contractor_requests_on_employee_type_id", using: :btree
+  add_index "contractor_requests", ["request_type_id"], name: "index_contractor_requests_on_request_type_id", using: :btree
+  add_index "contractor_requests", ["unit_id"], name: "index_contractor_requests_on_unit_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -108,8 +111,8 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "archived_labor_requests_count"
   end
 
-  add_index "departments", ["code"], name: "index_departments_on_code", unique: true
-  add_index "departments", ["division_id"], name: "index_departments_on_division_id"
+  add_index "departments", ["code"], name: "index_departments_on_code", unique: true, using: :btree
+  add_index "departments", ["division_id"], name: "index_departments_on_division_id", using: :btree
 
   create_table "divisions", force: :cascade do |t|
     t.string   "name"
@@ -122,7 +125,7 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "archived_labor_requests_count"
   end
 
-  add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true
+  add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true, using: :btree
 
   create_table "employee_categories", force: :cascade do |t|
     t.string   "code"
@@ -132,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "employee_types_count", default: 0
   end
 
-  add_index "employee_categories", ["code"], name: "index_employee_categories_on_code", unique: true
+  add_index "employee_categories", ["code"], name: "index_employee_categories_on_code", unique: true, using: :btree
 
   create_table "employee_types", force: :cascade do |t|
     t.string   "code"
@@ -148,8 +151,8 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "archived_labor_requests_count"
   end
 
-  add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true
-  add_index "employee_types", ["employee_category_id"], name: "index_employee_types_on_employee_category_id"
+  add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true, using: :btree
+  add_index "employee_types", ["employee_category_id"], name: "index_employee_types_on_employee_category_id", using: :btree
 
   create_table "labor_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -171,10 +174,10 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.text     "review_comment"
   end
 
-  add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id"
-  add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id"
-  add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id"
-  add_index "labor_requests", ["unit_id"], name: "index_labor_requests_on_unit_id"
+  add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id", using: :btree
+  add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id", using: :btree
+  add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id", using: :btree
+  add_index "labor_requests", ["unit_id"], name: "index_labor_requests_on_unit_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.binary   "output"
@@ -188,7 +191,7 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.string   "status_message"
   end
 
-  add_index "reports", ["user_id"], name: "index_reports_on_user_id"
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
   create_table "request_types", force: :cascade do |t|
     t.string   "code"
@@ -203,7 +206,7 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "archived_labor_requests_count"
   end
 
-  add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+  add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true, using: :btree
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"
@@ -226,7 +229,7 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id", unique: true
+  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id", unique: true, using: :btree
 
   create_table "role_types", force: :cascade do |t|
     t.string   "code"
@@ -246,11 +249,11 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "roles", ["department_id"], name: "index_roles_on_department_id"
-  add_index "roles", ["division_id"], name: "index_roles_on_division_id"
-  add_index "roles", ["role_type_id"], name: "index_roles_on_role_type_id"
-  add_index "roles", ["unit_id"], name: "index_roles_on_unit_id"
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
+  add_index "roles", ["department_id"], name: "index_roles_on_department_id", using: :btree
+  add_index "roles", ["division_id"], name: "index_roles_on_division_id", using: :btree
+  add_index "roles", ["role_type_id"], name: "index_roles_on_role_type_id", using: :btree
+  add_index "roles", ["unit_id"], name: "index_roles_on_unit_id", using: :btree
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "staff_requests", force: :cascade do |t|
     t.integer  "employee_type_id"
@@ -269,10 +272,10 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.string   "employee_name"
   end
 
-  add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"
-  add_index "staff_requests", ["employee_type_id"], name: "index_staff_requests_on_employee_type_id"
-  add_index "staff_requests", ["request_type_id"], name: "index_staff_requests_on_request_type_id"
-  add_index "staff_requests", ["unit_id"], name: "index_staff_requests_on_unit_id"
+  add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id", using: :btree
+  add_index "staff_requests", ["employee_type_id"], name: "index_staff_requests_on_employee_type_id", using: :btree
+  add_index "staff_requests", ["request_type_id"], name: "index_staff_requests_on_request_type_id", using: :btree
+  add_index "staff_requests", ["unit_id"], name: "index_staff_requests_on_unit_id", using: :btree
 
   create_table "units", force: :cascade do |t|
     t.string   "code"
@@ -288,8 +291,8 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.integer  "archived_labor_requests_count"
   end
 
-  add_index "units", ["code"], name: "index_units_on_code", unique: true
-  add_index "units", ["department_id"], name: "index_units_on_department_id"
+  add_index "units", ["code"], name: "index_units_on_code", unique: true, using: :btree
+  add_index "units", ["department_id"], name: "index_units_on_department_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "cas_directory_id"
@@ -298,6 +301,28 @@ ActiveRecord::Schema.define(version: 20170227175630) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
+  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true, using: :btree
 
+  add_foreign_key "contractor_requests", "departments"
+  add_foreign_key "contractor_requests", "employee_types"
+  add_foreign_key "contractor_requests", "request_types"
+  add_foreign_key "contractor_requests", "units"
+  add_foreign_key "departments", "divisions"
+  add_foreign_key "employee_types", "employee_categories"
+  add_foreign_key "labor_requests", "departments"
+  add_foreign_key "labor_requests", "employee_types"
+  add_foreign_key "labor_requests", "request_types"
+  add_foreign_key "labor_requests", "units"
+  add_foreign_key "reports", "users"
+  add_foreign_key "role_cutoffs", "role_types"
+  add_foreign_key "roles", "departments"
+  add_foreign_key "roles", "divisions"
+  add_foreign_key "roles", "role_types"
+  add_foreign_key "roles", "units"
+  add_foreign_key "roles", "users"
+  add_foreign_key "staff_requests", "departments"
+  add_foreign_key "staff_requests", "employee_types"
+  add_foreign_key "staff_requests", "request_types"
+  add_foreign_key "staff_requests", "units"
+  add_foreign_key "units", "departments"
 end

@@ -16,19 +16,20 @@ Requires:
 ```
 > git clone git@github.com:umd-lib/annual-staffing-request
 > cd annual-staffing-request
-> bundle install --without production
+> docker-compose build
+> docker-compose up -d
 ```
 
 2) Set up the database:
 
 ```
-> rake db:reset
+> docker-compose run web rake db:reset
 ```
 
 3) (Optional) Populate database with sample data:
 
 ```
-> rake db:reset_with_sample_data
+> docker-compose run web rake db:reset_with_sample_data
 ```
 
 ### Adding an Admin User and Roles
@@ -36,12 +37,12 @@ Requires:
 4) The application uses CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
 
 ```
-> rake 'db:add_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
+> docker-compose run web rake 'db:add_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
 ```
 and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user information. For example, to add "John Smith" with a CAS Directory ID of "jsmith":
 
 ```
-> rake 'db:add_cas_user[jsmith, John Smith]'
+> docker-compose run web rake 'db:add_cas_user[jsmith, John Smith]'
 ```
 
 5) Users also need a role. Since any user with an Admin role can add additional role permissions through the web application, you typically only need to add an "Admin" user to start.
@@ -49,12 +50,12 @@ and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user infor
 The format of the Rake task to add an "admin" user is:
 
 ```
-> rake 'db:add_role[<CAS DIRECTORY ID>,admin]'
+> docker-compose run web rake 'db:add_role[<CAS DIRECTORY ID>,admin]'
 ```
 where "\<CAS DIRECTORY ID>" is the CAS Directory ID of a known user. For example, to create an "Admin" role for the "jsmith" user:
 
 ```
-> rake 'db:add_role[jsmith, admin]'
+> docker-compose run web rake 'db:add_role[jsmith, admin]'
 ```
 
 Note: In a production environment, you will likely need to use "bundle exec" and specify the RAILS_ENV environment, i.e.:
@@ -67,12 +68,44 @@ See [docs/AuthNZ.md](docs/AuthNZ.md) for more information about authentication a
 
 See [docs/RakeTasks.md](docs/RakeTasks.md) for additional information about the "db:add_cas_user" and "db:add_role" Rake tasks, including how to add other types of roles to users.
 
-### Run the web application
+### Stop the web application and containers
 
-5) To run the web application:
+5) To stop the web application:
 
 ```
-> rails server
+> docker-compose stop
+```
+
+### Run the web application again
+
+6) To run the web application again:
+
+```
+> docker-compose up -d
+```
+
+### Get the logs
+
+7) To see logs:
+
+```
+> docker container logs asr
+```
+
+### Shell access to the container
+
+8) To get shell access to the container:
+
+```
+> docker container exec -it asr /bin/bash
+```
+
+### Stop and Destory the web application and containers
+
+9) To stop and destory the web application:
+
+```
+> docker-compose down
 ```
 
 ## Production Environment Configuration

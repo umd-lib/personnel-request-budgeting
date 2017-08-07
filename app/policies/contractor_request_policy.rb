@@ -1,2 +1,0 @@
-class ContractorRequestPolicy < PersonnelRequestPolicy
-end

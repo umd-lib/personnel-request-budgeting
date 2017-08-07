@@ -1,3 +1,8 @@
 class ArchivedStaffRequest < StaffRequest
-  self.table_name = 'archived_staff_requests'
+  self.table_name = 'archived_requests'
+  class << self
+    def policy_class
+      ArchivedRequestPolicy
+    end
+  end
 end

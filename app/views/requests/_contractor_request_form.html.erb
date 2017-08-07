@@ -1,0 +1,27 @@
+<%= simple_form_for @request do |f| %>
+  
+  <%= render partial: "edit_form_header", locals: { f: f } %> 
+	<%= render 'shared/form_errors', errors: @request.errors %>
+
+  <div class='panel panel-default'>
+    <div class="panel-body">
+      <%= f.input :position_title %>
+      <%= f.input :employee_type, as: :select,  collection:  @model_klass::VALID_EMPLOYEE_TYPES %>
+      <%= f.input :request_type, as: :select,  collection:  @model_klass::VALID_REQUEST_TYPES %>
+      <%= f.input :contractor_name %>
+      <%= f.input :number_of_months %> 
+      <%= f.input :annual_base_pay, value: number_with_precision( f.object.annual_base_pay, precision: 2, delmitier: ',' ) %>
+      <%= f.input :nonop_funds %>
+      <%= f.input :nonop_source %>
+
+      <%= f.association :organization, collection: current_user.active_organizations %>
+
+      <%= f.input :justification %>
+      
+    </div>
+  </div>
+  
+  <%= render partial: "request_admin_only", locals: { f: f } %> 
+
+
+<% end %>

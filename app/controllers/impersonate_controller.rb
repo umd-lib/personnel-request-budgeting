@@ -1,22 +1,13 @@
 class ImpersonateController < ApplicationController
-  after_action :verify_authorized
+  after_action :verify_authorized, only: :create
 
   # Session parameter name for impersonation id
   IMPERSONATE_USER_PARAM = 'impersonate_user_id'.freeze
 
-  # GET /impersonate
-  def index
-    authorize :impersonate
-    @q = User.ransack(params[:q])
-    @q.sorts = 'cas_directory_id' if @q.sorts.empty?
-    # Map users to ImpersonatedUser so view knows which policy to use
-    @users = @q.result.includes(:role_types, :roles).map { |u| ImpersonatedUser.new(u) }
-  end
-
   # GET /impersonate/user/123
   def create
-    impersonated_user = User.includes(:role_types).find_by(id: params[:user_id])
-    authorize ImpersonatedUser.new(impersonated_user)
+    impersonated_user = User.find_by(id: params[:user_id])
+    authorize impersonated_user, :impersonate?
     impersonate(impersonated_user)
     redirect_to root_path
   end
@@ -24,21 +15,11 @@ class ImpersonateController < ApplicationController
   # Revert the user impersonation
   # DELETE /impersonate/revert
   def destroy
-    authorize :impersonate
     revert_impersonate
     redirect_to root_path
   end
 
   private
-
-    # Delegate class for User, which specifies that the ImpersonatePolicy should
-    # be used
-    class ImpersonatedUser < DelegateClass(User)
-      delegate :id, to: :__getobj__
-      def policy_class
-        ImpersonatePolicy
-      end
-    end
 
     # Sets session parameter for performing impersonations
     #

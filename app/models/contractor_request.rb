@@ -1,34 +1,35 @@
-# A Salaried Contractor staffing request
-class ContractorRequest < ActiveRecord::Base
-  VALID_EMPLOYEE_CATEGORY_CODE = 'SC'.freeze
-  VALID_REQUEST_TYPE_CODES = %w(ConvertC1 New Renewal).freeze
+# A Contractor Request
+class ContractorRequest < Request
+  VALID_EMPLOYEE_TYPES = ['Contractor Type 2', 'ContFac'].freeze
+  VALID_REQUEST_TYPES = %w[Renewal New ConvertC1].freeze
 
-  include Requestable
+  class << self
+    def human_name
+      'Contractor Requests'
+    end
 
-  belongs_to :department, counter_cache: true
-  belongs_to :unit, counter_cache: true
-  belongs_to :employee_type, counter_cache: true
-  belongs_to :request_type, counter_cache: true
-  belongs_to :review_status, counter_cache: true
+    # all the fields associated to the model
+    def fields
+      %i[ position_title employee_type request_type
+          contractor_name number_of_months annual_base_pay
+          nonop_funds nonop_source justification organization__name
+          review_status__name review_comment created_at updated_at ]
+    end
 
+    # Returns an ordered array used in the index pages
+    def index_fields
+      fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+  end
+
+  monetize :annual_base_pay_cents
+  validates :annual_base_pay, presence: true
+  validates :number_of_months, presence: true
   validates :contractor_name, presence: true, if: :contractor_name_required?
-  validates :number_of_months, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :justification, presence: true
-  validates_with RequestDepartmentValidator
 
-  monetize :annual_base_pay_cents, presence: false, numericality: { greater_than: 0.00 }
-
-  # Provides a short human-readable description for this record, for GUI prompts
-  alias_attribute :description, :position_title
-
-  # Validates the request type
-  def allowed_request_type
-    return if VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-    errors.add(:request_type, 'Not an allowed request type for this request.')
-  end
-
-  # Returns true if the contractor name is required.
   def contractor_name_required?
-    request_type.try(:code) == 'Renewal'
+    request_type == 'Renewal'
   end
+
+    default_scope { includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['contractor']) }
 end

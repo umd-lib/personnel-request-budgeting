@@ -1,38 +1,41 @@
-# A user of the application
-class User < ActiveRecord::Base
-  has_many :roles, dependent: :destroy
-  has_many :role_types, through: :roles
-
+class User < ApplicationRecord
   validates :cas_directory_id, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
-  # Provide human-readable identifier of the record.
-  alias_attribute :description, :name
+  has_many :roles
+  validates_associated :roles
+  accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
+  default_scope(lambda do
+    includes(roles: { organization: { organization_cutoff: [], children: { children: [:children] } } })
+  end)
 
-  # Returns true if this user has an Admin role, false otherwise.
-  def admin?
-    role?('admin')
+  def description
+    "#{name} (#{cas_directory_id})"
   end
 
-  # Returns true if this user has a Division role, false otherwise.
-  def division?
-    role?('division')
+  # A mapper to get the organizational tree
+  def organization_mapper(only_active = false)
+    lambda do |role|
+      return [] if role.cutoff? && only_active
+      children = [role.organization]
+      child_mapper = lambda do |child|
+        children << child
+        child.children.each(&child_mapper) unless child.children.empty?
+      end
+      role.organization.children.each(&child_mapper)
+      return children
+    end
   end
 
-  # Returns true if this user has a Department role, false otherwise.
-  def department?
-    role?('department')
+  # Gets active organizations ( only those not cutoff ) 
+  def active_organizations
+    admin? ? Organization.all : all_organizations(true)
   end
 
-  # Returns true if this user has a Unit role, false otherwise.
-  def unit?
-    role?('unit')
+  # Gets all organizations ( regardless if they're cutoff
+  def all_organizations(only_active = false)
+    mapper = organization_mapper(only_active)
+    roles.map(&mapper).flatten
   end
 
-  # Returns true if this user as a role with the given code, false otherwise.
-  #
-  # - role_type_code - a String representing the role type code
-  def role?(role_type_code)
-    role_types.any? { |role_type| role_type.code == role_type_code }
-  end
 end

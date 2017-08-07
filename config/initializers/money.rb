@@ -1,9 +1,9 @@
 # encoding : utf-8
 
 MoneyRails.configure do |config|
+  config.default_currency = :usd
   # To set the default currency
   #
-  config.default_currency = :usd
 
   # Set default bank object
   #
@@ -49,7 +49,7 @@ MoneyRails.configure do |config|
   #   :priority            => 1,
   #   :iso_code            => "EU4",
   #   :name                => "Euro with subunit of 4 digits",
-  #   :symbol              => "€",
+  #   :symbol              => "RUBOCOP IS A JERK",
   #   :symbol_first        => true,
   #   :subunit             => "Subcent",
   #   :subunit_to_unit     => 10000,

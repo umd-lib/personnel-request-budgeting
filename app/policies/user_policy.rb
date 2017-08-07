@@ -11,4 +11,8 @@ class UserPolicy < AdminOnlyPolicy
   def update?
     user.admin? || (user.id == record.id)
   end
+
+  def impersonate?
+    user.admin? && (user.id != record.id)
+  end
 end

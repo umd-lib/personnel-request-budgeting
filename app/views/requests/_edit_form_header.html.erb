@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h2><%= @model_klass.name.underscore.humanize.titleize %>
+    <div class="pull-right">
+      <%= link_to 'Show All', polymorphic_path(@model_klass), class: 'btn btn-default' %>
+      <% if edit_or_new? %> 
+        <%= f.submit 'Save', class: 'btn btn-success' %>
+      <% elsif show? && policy(@request).edit? %>
+        <%= link_to 'Edit', edit_polymorphic_path(@request), class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </h2>
+  <% if @request.cutoff? %>
+    <div class='alert alert-warning' role='alert'>
+      <i class='glyphicon glyphicon-exclamation-sign'></i> 
+      The submission window for this request has ended.
+    </div>
+  <% end %>
+  <% if @request.archived_proxy? %>
+    <div class='alert alert-warning' role='alert'>
+      <i class='glyphicon glyphicon-exclamation-sign'></i> 
+      The submission is in the archive associated to FY: <%= @request.archived_fiscal_year.financial_year %>
+    </div>
+  <% end %>
+</div>

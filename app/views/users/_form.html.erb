@@ -1,19 +1,57 @@
-<%= form_for(@user) do |f| %>
-  <%= render 'shared/form_errors', errors: @user.errors %>
+<div class='container'>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+	    <%= simple_form_for @user do |f| %>
+	
 
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <th><%= f.label :cas_directory_id %></th>
-        <td><%= f.text_field :cas_directory_id, readonly: @user.id? %></td>
-      </tr>
+        <div class="page-header">
+          <h2><%= @user.cas_directory_id %> <small>User</small>
+            <div class="pull-right">
+              <% if edit_or_new? %> 
+                <%= link_to 'Back', users_path, class: 'btn btn-default' %>
+                <%= f.submit 'Save', class: 'btn btn-success' %>
+              <% elsif show? %>
+                <%= link_to 'Edit', edit_user_path(@user.id), class: 'btn btn-success' %>
+              <% end %>
+            </div>
+          </h2>
+        </div>
+  
+	
+		    <%= render 'shared/form_errors', errors: @user.errors %>
+  
+        <div class='panel panel-default'>
+          <div class="panel-body">
+              <%= f.input :cas_directory_id, disabled: ( @user.id? or !edit_or_new? ) %>
+              <%= f.input :name, disabled: !edit_or_new?  %>
+              <%= f.input :admin, as: :select, disabled: !edit_or_new?  %>
+          </div>
+        </div>
 
-      <tr>
-        <th><%= f.label :name %></th>
-        <td><%= f.text_field :name %></td>
-      </tr>
-    </tbody>
-  </table>
+        <div class='panel panel-default'>
+          <% if edit_or_new? %> 
+            <div class="panel-heading"><span>Roles</span>
+                <span class='pull-right'>
+                  <%= link_to_add_association(	f, :roles,
+                                              { class: "add-roles", 
+                                                "data-association-insertion-node": "#roles",
+                                                "data-association-insertion-method": 'append'}) do  %>
+                    <i class='glyphicon glyphicon-plus-sign'></i>Add Roles 
+                  <% end %> 
+              </span>
+            </div>
+          <% end %>
+          
+          <div class="panel-body" id="roles">
+            <%= f.fields_for :roles, f.object.roles do |role| %>
+              <%= render 'role_fields', f: role %>
+            <% end %>
+          </div>
+        
+        </div>
+  
+      <% end %>
 
-  <%= render partial: 'shared/form_action_buttons', locals: { form: f, object: @user } %>
-<% end %>
+    </div>
+  </div>
+</div>

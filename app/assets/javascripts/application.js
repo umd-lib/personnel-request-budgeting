@@ -12,10 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.are-you-sure.js
-//= require spin.js
-//= require jquery.spin.js
-//= require bootstrap-toggle.min.js
-//= require turbolinks
-//= require_tree .
+//= require jquery-ui
+//= require cocoon
+//= require jstree
 //= require umd_lib
+//= require app
+//= require organization_tree
+//= require read_only_form

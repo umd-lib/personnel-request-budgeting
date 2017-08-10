@@ -7,7 +7,7 @@ class ImpersonateController < ApplicationController
   # GET /impersonate/user/123
   def create
     impersonated_user = User.find_by(id: params[:user_id])
-    authorize impersonated_user, :impersonate?
+    authorize impersonated_user || User.new, :impersonate?
     impersonate(impersonated_user)
     redirect_to root_path
   end
@@ -25,7 +25,6 @@ class ImpersonateController < ApplicationController
     #
     # +impersonated_user+: the user to impersonate
     def impersonate(impersonated_user)
-      return if impersonated_user.nil?
       clear_current_user # just a sanity check
       session[IMPERSONATE_USER_PARAM] = impersonated_user.id
       logger.info "#{actual_user.cas_directory_id} now impersonating #{current_user.cas_directory_id}"

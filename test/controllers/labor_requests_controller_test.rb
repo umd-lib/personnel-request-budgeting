@@ -3,22 +3,25 @@ require 'test_helper'
 
 class LaborRequestsControllerTest < ActionController::TestCase
 
+  # by default these test run as admin. 
   setup do
-    session[:cas] = { user: "admin" } 
     @labor_request = LaborRequest.first 
     @archived_labor_request = ArchivedLaborRequest.first 
+    session[:cas] = { user: "admin" } 
   end
   
   test 'should not allow unauthed users' do
-    session[:cas] = nil 
-    get :index
-    assert_response(401)
+    run_as_user(nil) do  
+      get :index
+      assert_response(401)
+    end 
   end
   
   test 'should not allow users with bad/fake user accounts' do
-    session[:cas] = { user: "gary" } 
-    get :index
-    assert_response(403)
+    run_as_user("gary") do  
+      get :index
+      assert_response(403)
+    end 
   end
   
   test 'should allow authed users index' do

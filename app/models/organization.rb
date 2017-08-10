@@ -19,6 +19,9 @@ class Organization < ApplicationRecord
 
   has_one :organization_cutoff, foreign_key: :organization_type, primary_key: :organization_type
 
+  has_many :requests, dependent: :restrict_with_error, counter_cache: true
+  has_many :archived_requests, dependent: :restrict_with_exception, counter_cache: true
+
   has_many :roles
   validates_associated :roles
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true

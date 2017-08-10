@@ -25,6 +25,6 @@ module RequestHelper
 
   # Returns if we are in the arcihve mode
   def archive?
-    params[:archive] == 'true'
+    params[:archive] == 'true' || params[:archive] == true
   end
 end

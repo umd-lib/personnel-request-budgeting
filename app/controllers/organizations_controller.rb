@@ -17,6 +17,12 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(organization_id: Organization.root_org.id)
   end
 
+  def show
+    authorize Organization
+    @organizations = Organization.all
+    @organization = Organization.find(params[:id])
+  end
+
   def edit
     authorize Organization
     @organizations = Organization.all
@@ -45,6 +51,20 @@ class OrganizationsController < ApplicationController
       else
         format.html { render :new }
       end
+    end
+  end
+
+  # DELETE /review_status/1
+  def destroy
+    authorize Organization
+    @organization = Organization.find(params[:id])
+    if @organization.destroy
+      flash[:notice] = "Organization #{@organization.name} was successfully deleted."
+    else
+      flash[:error] = "ERROR Deleting #{@organization.name} #{@organization.errors}"
+    end
+    respond_to do |format|
+      format.html { redirect_to organizations_url }
     end
   end
 

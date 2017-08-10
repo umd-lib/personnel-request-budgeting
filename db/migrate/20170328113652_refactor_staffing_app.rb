@@ -6,6 +6,8 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.string :code
 			t.integer "organization_id", index: true
 		  t.integer "organization_type", index: true	
+			t.integer  "requests_count",          default: 0
+			t.integer  "archived_requests_count",          default: 0
       t.timestamps null: false
 		end
     
@@ -24,6 +26,7 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.datetime "updated_at",                                             null: false
 			t.string   "code"
 			t.integer  "requests_count",          default: 0
+			t.integer  "archived_requests_count",          default: 0
 		end
 	
 		create_table "requests", force: :cascade do |t|

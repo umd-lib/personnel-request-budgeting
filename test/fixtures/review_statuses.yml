@@ -31,3 +31,11 @@ contingent:
   updated_at: 2017-08-07 08:11:27.258871000 Z
   code: Contingent
   requests_count: 102
+never:
+  id: 5
+  name: Never
+  color: "#fff"
+  created_at: 2017-08-07 08:11:27.258871000 Z
+  updated_at: 2017-08-07 08:11:27.258871000 Z
+  code: Never
+  requests_count: 0 

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    authorize :user
+    authorize @user
   end
 
   # GET /users/new
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
   def logout
     clear_current_user
     reset_session
-    render 'logout'
+    redirect_to root_path
   end
 
   private

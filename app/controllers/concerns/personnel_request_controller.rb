@@ -59,12 +59,12 @@ module PersonnelRequestController
 
   def destroy
     authorize @request
+    if @request.destroy
+      flash[:notice] = "#{@model_klass.human_name}  for #{@request.description} was successfully deleted."
+    else
+      flash[:error] = "ERROR Deleting #{@model_klass.human_name}  #{@request.description} (#{@request.id})"
+    end
     respond_to do |format|
-      flash[:notice] = if @request.destroy
-                         "#{@model_klass.human_name}  for #{@request.description} was successfully deleted."
-                       else
-                         "ERROR Deleting #{@model_klass.human_name}  #{@request.description} (#{@request.id})"
-                       end
       format.html { redirect_to(polymorphic_url(@model_klass)) }
     end
   end

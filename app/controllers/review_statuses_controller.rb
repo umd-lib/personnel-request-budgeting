@@ -52,9 +52,13 @@ class ReviewStatusesController < ApplicationController
   # DELETE /review_status/1
   def destroy
     authorize ReviewStatus
-    @review_status.destroy
+    if @review_status.destroy
+      flash[:notice] = "Review status #{@review_status.name} was successfully deleted."
+    else
+      flash[:error] = "ERROR Deleting #{@review_status.name} #{@review_status.errors}"
+    end
     respond_to do |format|
-      format.html { redirect_to review_statuses_url, notice: "Review Status #{@review_status.name} was successfully destroyed." }
+      format.html { redirect_to review_statuses_url }
     end
   end
 

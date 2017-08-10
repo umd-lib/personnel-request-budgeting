@@ -41,6 +41,11 @@ class LaborRequestsControllerTest < ActionController::TestCase
     get :show, id: @labor_request
     assert_response :success
   end
+  
+  test 'should edit labor_request' do
+    get :edit, id: @labor_request
+    assert_response :success
+  end
 
   test 'should create labor_request' do
     assert_difference('Request.count') do

@@ -23,6 +23,10 @@ module RequestHelper
     end
   end
 
+  def render_review_status__name(record)
+    record.review_status.name == 'Under Review' ? '' : record.review_status.name
+  end
+
   # Returns if we are in the arcihve mode
   def archive?
     params[:archive] == 'true' || params[:archive] == true

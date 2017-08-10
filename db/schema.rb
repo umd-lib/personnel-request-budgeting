@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20170328113652) do
     t.string   "code"
     t.integer  "organization_id"
     t.integer  "organization_type"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "requests_count",          default: 0
+    t.integer  "archived_requests_count", default: 0
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "organizations", ["code"], name: "index_organizations_on_code", unique: true
@@ -87,11 +89,12 @@ ActiveRecord::Schema.define(version: 20170328113652) do
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"
-    t.string   "color",          default: "#ffffff"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "color",                   default: "#ffffff"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "code"
-    t.integer  "requests_count", default: 0
+    t.integer  "requests_count",          default: 0
+    t.integer  "archived_requests_count", default: 0
   end
 
   create_table "roles", force: :cascade do |t|

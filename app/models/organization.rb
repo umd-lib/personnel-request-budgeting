@@ -13,6 +13,8 @@ class Organization < ApplicationRecord
   end
 
   belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
+  validates :organization_id, presence: true, unless: :root?
+
   has_many :children, foreign_key: :organization_id, class_name: 'Organization'
   # a more basic AR way of getting children
   has_many :organizations
@@ -22,7 +24,7 @@ class Organization < ApplicationRecord
   has_many :requests, dependent: :restrict_with_error, counter_cache: true
   has_many :archived_requests, dependent: :restrict_with_exception, counter_cache: true
 
-  has_many :roles
+  has_many :roles, dependent: :delete_all
   validates_associated :roles
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
@@ -39,7 +41,7 @@ class Organization < ApplicationRecord
   end
 
   def cutoff?
-    return true unless organization_cutoff
+    return false unless organization_cutoff
     Time.zone.today > organization_cutoff.cutoff_date
   end
 

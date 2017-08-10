@@ -1,5 +1,10 @@
 ---
 role_1:
-  id: 1
-  user_id: 2
-  organization_id: 13
+  user: not_admin
+  organization: organization_13
+role_2:
+  user: two_roles
+  organization: organization_11
+role_3:
+  user: two_roles
+  organization: organization_37

@@ -1,4 +1,10 @@
 class Role < ApplicationRecord
+  class << self
+    def policy_class
+      AdminOnlyPolicy
+    end
+  end
+
   belongs_to :user
   belongs_to :organization
 

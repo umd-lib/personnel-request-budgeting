@@ -16,7 +16,7 @@ class ArchivedRequestPolicy < RequestPolicy
   end
 
   def destroy?
-    edit?
+    create?
   end
 
   class Scope

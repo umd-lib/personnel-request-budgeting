@@ -14,9 +14,12 @@ not_admin:
   updated_at: 2017-08-07 09:42:24.092893000 Z
   admin: false
 red_shirt:
-  id: 3 
   cas_directory_id: red_shirt
-  name: Red Shirt 
+  name: Red Shirt ( gets killed often ) 
   created_at: 2017-08-07 09:42:24.092893000 Z
   updated_at: 2017-08-07 09:42:24.092893000 Z
+  admin: false
+two_roles:
+  cas_directory_id: dos_roles 
+  name: I have two roles 
   admin: false

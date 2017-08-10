@@ -17,7 +17,7 @@ module RequestHelper
   end
 
   # helpers to display currency fields
-  %w[ hourly_rate annual_base_pay annual_cost nonop_funds].each do |field|
+  %w[hourly_rate annual_base_pay annual_cost nonop_funds].each do |field|
     define_method "render_#{field}".intern do |record|
       number_to_currency record.send(field.intern)
     end

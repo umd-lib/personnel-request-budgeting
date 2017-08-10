@@ -33,7 +33,7 @@
 					<input id="select-all" type="checkbox"></input> 
 				</th>
 				<%- @model_klass.index_fields.each do |field | %>
-          <th id="<%= field.to_s %>"><%= multi_sort_link( field ) %></th>
+          <th id="<%= field.to_s %>"><%= multi_sort_link( map_sort(field), field.to_s.titleize  ) %></th>
 				<% end %>
 				<%# render 'shared/table_action_buttons_header',  model_type: klass  %>
 			</tr>

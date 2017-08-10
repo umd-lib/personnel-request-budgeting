@@ -31,5 +31,7 @@ class ContractorRequest < Request
     request_type == 'Renewal'
   end
 
-    default_scope { includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['contractor']) }
+  default_scope(lambda do
+    includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['contractor'])
+  end)
 end

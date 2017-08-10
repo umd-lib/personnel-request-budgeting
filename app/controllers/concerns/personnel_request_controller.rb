@@ -8,9 +8,11 @@ module PersonnelRequestController
     before_action :set_request, only: %i[show edit update destroy]
 
     # this makes all our mixed-in controllers user "requests" for view path
-    def self.controller_path
-      'requests'
+    # And it works with Mini Test!!
+    def self.local_prefixes
+      [controller_path, 'requests']
     end
+    private_class_method :local_prefixes
   end
 
   def index
@@ -55,6 +57,18 @@ module PersonnelRequestController
     end
   end
 
+  def destroy
+    authorize @request
+    respond_to do |format|
+      flash[:notice] = if @request.destroy
+                         "#{@model_klass.human_name}  for #{@request.description} was successfully deleted."
+                       else
+                         "ERROR Deleting #{@model_klass.human_name}  #{@request.description} (#{@request.id})"
+                       end
+      format.html { redirect_to(polymorphic_url(@model_klass)) }
+    end
+  end
+
   private
 
     # sets which model class we're using in the controller context
@@ -93,9 +107,6 @@ module PersonnelRequestController
     # this is a baseline set of attibutes for requests. For a particular request
     # type, override this method in the related controller.
     def allowed
-      %i[employee_type position_title request_type organization_id
-         contractor_name number_of_positions hourly_rate hours_per_week
-         number_of_weeks nonop_funds nonop_source department_id
-         unit_id justification]
+      policy(@request || @model_klass.new).permitted_attributes
     end
 end

@@ -14,11 +14,4 @@ class ApplicationController < ActionController::Base
   def not_authorized
     render(file: Rails.root.join('public', '403.html'), status: :forbidden, layout: false)
   end
- 
-
-  private
-
-
-
-
 end

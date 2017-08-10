@@ -29,7 +29,8 @@ class StaffRequest < Request
   def employee_name_required?
     request_type == 'Pay Adjustment'
   end
-  
 
-  default_scope { includes(%i[ review_status organization ]).where(request_model_type: StaffRequest.request_model_types['staff']) }
+  default_scope(lambda do
+    includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['staff'])
+  end)
 end

@@ -1,42 +1,37 @@
 module ApplicationHelper
-  
-  # helper to toggle asc and desc ( for ordering ) 
+  # helper to toggle asc and desc ( for ordering )
   def switch_direction(direction)
-    direction =~ /asc$/ ? direction.gsub(/asc$/, 'desc') : direction.gsub(/desc$/, 'asc')
+    direction =~ /asc$/ ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down']
   end
-  
-  SORT_MAP =  { hourly_rate: :hourly_rate_cents, 
-                annual_cost: :unsortable, nonop_funds: :nonop_funds_cents, 
-                annual_base_pay: :annual_base_pay_cents,  
-                organization__name: "organizations.name",
-                review_status__name: "review_statuses.name"}.freeze
- 
+
+  SORT_MAP = { hourly_rate: :hourly_rate_cents,
+               annual_cost: 'number_of_positions * hourly_rate_cents * hours_per_week * number_of_weeks',
+               nonop_funds: :nonop_funds_cents,
+               annual_base_pay: :annual_base_pay_cents,
+               organization__name: 'organizations.name',
+               review_status__name: 'review_statuses.name' }.freeze
+
   # this is a helper to map certain view fields to what they should
-  # actually be for sorting. e.g. hourly_rate needs to be hourly_rate_cents. 
+  # actually be for sorting. e.g. hourly_rate needs to be hourly_rate_cents.
   # It :unsortable is returned, that means we can't sort on it.
   def map_sort(column)
     # the .fields method uses a __ which should be swapped out here
     SORT_MAP.with_indifferent_access[column] || column
   end
 
-  def multi_sort_link(column, title = nil)
-    title ||= column.to_s.titleize
-    column = map_sort(column) 
-    return title if column == :unsortable 
+  def multi_sort_link(column, title, direction = 'arrow-up')
     # first we extract any existing sorts in the params
     attrs = Array.wrap(params[:sort]).compact
-    
+
     # now scan and look to see if we're already sortin on this column
-    index = attrs.index { |a| a.match(/^#{column} /) }
+    index = attrs.index { |a| a.match(/^#{Regexp.escape(column)} /) }
     if index
-      attrs[index] = switch_direction(attrs[index])
-      direction = attrs[index] =~ /asc$/ ? 'arrow-up' : 'arrow-down'
+      attrs[index], direction = switch_direction(attrs[index])
     else
       # so we just stick it in the end
       attrs << "#{column} asc"
-      direction = 'arrow-up'
     end
-    link_to( title, params.merge( sort: attrs.compact ) , { class: direction })
+    link_to(title, params.merge(sort: attrs.compact), class: direction)
   end
 
   # Returns confirmation prompt text for delete action on the given object.
@@ -53,7 +48,7 @@ module ApplicationHelper
     end
   end
 
-  # here are some helpers to show what action we're using 
+  # here are some helpers to show what action we're using
   def edit?
     params[:action] == 'edit'
   end

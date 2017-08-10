@@ -15,7 +15,7 @@ class ArchivedRequestPolicy < RequestPolicy
     create?
   end
 
-  def deleted?
+  def destroy?
     edit?
   end
 

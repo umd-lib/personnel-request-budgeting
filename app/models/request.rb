@@ -36,7 +36,7 @@ class Request < ApplicationRecord
   validates :justification, presence: true
 
   alias_attribute :description, :position_title
-  
+
   monetize :nonop_funds_cents, allow_nil: true
 
   after_initialize(lambda do
@@ -50,7 +50,7 @@ class Request < ApplicationRecord
   end
 
   def cutoff?
-    persisted? ? organization.cutoff? : false
+    persisted? ? (organization && organization.cutoff?) : false
   end
 
   def source_class

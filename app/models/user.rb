@@ -27,7 +27,7 @@ class User < ApplicationRecord
     end
   end
 
-  # Gets active organizations ( only those not cutoff ) 
+  # Gets active organizations ( only those not cutoff )
   def active_organizations
     admin? ? Organization.all : all_organizations(true)
   end
@@ -37,5 +37,4 @@ class User < ApplicationRecord
     mapper = organization_mapper(only_active)
     roles.map(&mapper).flatten
   end
-
 end

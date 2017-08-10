@@ -1,0 +1,15 @@
+---
+admin:
+  id: 1
+  cas_directory_id: admin 
+  name: admin 
+  created_at: 2017-08-07 08:12:07.167333000 Z
+  updated_at: 2017-08-07 08:12:07.167333000 Z
+  admin: true
+not_admin:
+  id: 2
+  cas_directory_id: not_admin
+  name: Not Admin
+  created_at: 2017-08-07 09:42:24.092893000 Z
+  updated_at: 2017-08-07 09:42:24.092893000 Z
+  admin: false

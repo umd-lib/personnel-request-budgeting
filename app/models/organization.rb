@@ -36,6 +36,7 @@ class Organization < ApplicationRecord
   end
 
   def cutoff?
+    return true unless organization_cutoff
     Time.zone.today > organization_cutoff.cutoff_date
   end
 

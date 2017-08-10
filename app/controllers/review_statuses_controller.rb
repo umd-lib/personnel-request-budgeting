@@ -1,12 +1,11 @@
 class ReviewStatusesController < ApplicationController
-  
   before_action :set_review_status, only: %i[show edit update destroy]
   after_action :verify_authorized
 
   # GET /review_status
   def index
     authorize ReviewStatus
-    @review_statuses = ReviewStatus.all.paginate( page: params[:page] )
+    @review_statuses = ReviewStatus.all.paginate(page: params[:page])
   end
 
   # GET /review_status/1
@@ -63,7 +62,7 @@ class ReviewStatusesController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_review_status
-      @review_status= ReviewStatus.find(params[:id])
+      @review_status = ReviewStatus.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     authorize :user
-    @users = User.all.paginate( page: params[:page] )
+    @users = User.all.paginate(page: params[:page])
   end
 
   # GET /users/1

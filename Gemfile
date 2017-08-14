@@ -36,6 +36,7 @@ gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
 gem 'cocoon'
 gem 'simple_form'
 
+gem 'axlsx_rails'
 gem 'fiscali'
 gem 'money-rails', '~>1'
 gem 'will_paginate'
@@ -47,6 +48,7 @@ group :development, :test do
   gem 'byebug'
   gem 'faker'
   gem 'pry-rails'
+  gem 'roo'
 end
 
 group :development do

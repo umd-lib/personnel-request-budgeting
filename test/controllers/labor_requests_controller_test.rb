@@ -158,6 +158,27 @@ class LaborRequestsControllerTest < ActionController::TestCase
     assert_redirected_to labor_requests_path
 	end
 
+	test 'xlsx format should include all records, even from second page' do
+    get :index, page: '2', format: 'xlsx'
+
+    file = Tempfile.new(['test_temp', '.xlsx'])
+    begin
+      file.write response.body
+      file.close
+      spreadsheet = Roo::Excelx.new(file.path)
+      num_labor_requests = LaborRequest.count
+      expected_row_count = num_labor_requests + 1 # include header row in count
+      assert num_labor_requests > 1, 'There are no labor requests'
+      assert_equal expected_row_count, spreadsheet.last_row
+    ensure
+      file.delete
+    end
+    assert_response :success
+	end
+
+
+
+
 
   # ArchivedLaborRequests
   test 'should allow users to see archive' do
@@ -172,5 +193,10 @@ class LaborRequestsControllerTest < ActionController::TestCase
     get :show, id: @archived_labor_request
     assert_response :success
   end
+
+
+
+
+
 
 end

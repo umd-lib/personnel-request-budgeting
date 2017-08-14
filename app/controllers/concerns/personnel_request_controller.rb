@@ -1,6 +1,7 @@
 module PersonnelRequestController
   extend ActiveSupport::Concern
   include RequestHelper
+  include XlsxHelper
 
   included do
     # after_action :verify_policy_scoped, only: :index
@@ -16,7 +17,11 @@ module PersonnelRequestController
   end
 
   def index
-    @requests = policy_scope(@model_klass).order(params[:sort]).paginate(page: params[:page])
+    @requests = policy_scope(@model_klass).order(params[:sort])
+    respond_to do |format|
+      format.html { @requests = @requests.paginate(page: params[:page]) }
+      format.xlsx { send_xlsx(@requests, @model_klass) }
+    end
   end
 
   def show
@@ -110,5 +115,15 @@ module PersonnelRequestController
     # type, override this method in the related controller.
     def allowed
       policy(@request || @model_klass.new).permitted_attributes
+    end
+
+    # Returns a send_data of the XLSX of a record set ( used in the request
+    # controllers )
+    #
+    # record_set: the ransack results in the query
+    # filename: the filename sent in the response headers
+    def send_xlsx(record_set, klass)
+      stream = render_to_string(template: 'requests/index', locals: { klass: klass, record_set: [record_set] })
+      send_data(stream, filename: "#{klass.name.underscore}_#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.xlsx")
     end
 end

@@ -21,6 +21,10 @@ module RequestHelper
     define_method "render_#{field}".intern do |record|
       number_to_currency record.send(field.intern)
     end
+    define_method("render_#{field}_xlsx".intern) do |record|
+      money = record.call_field(field.intern) || BigDecimal(0)
+      humanized_money money
+    end
   end
 
   def render_review_status__name(record)

@@ -8,8 +8,7 @@ class RequestPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.admin? ||
-      @user.active_organizations.map(&:id).include?(@record.organization_id)
+    @user.admin? || @user.all_organizations.map(&:id).include?(@record.organization_id)
   end
 
   def edit?

@@ -35,7 +35,8 @@
 				<%- @model_klass.index_fields.each do |field | %>
           <th id="<%= field.to_s %>"><%= multi_sort_link( map_sort(field), field.to_s.titleize  ) %></th>
 				<% end %>
-				<%# render 'shared/table_action_buttons_header',  model_type: klass  %>
+        <th id="actions">
+          <%= link_to( t('reset_sorting'), polymorphic_path(@model_klass), class: "btn btn-link") if sorted? %>
 			</tr>
 		</thead>    
     <tbody>

@@ -41,9 +41,7 @@ module PersonnelRequestController
     authorize @request
     respond_to do |format|
       if @request.update(request_params)
-        format.html do
-          redirect_to(@request, notice: "#{@model_klass.human_name} for #{@request.description} successfully updated.")
-        end
+        format.html { redirect_to(@request, notice: "#{@request.description} successfully updated.") }
         format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }

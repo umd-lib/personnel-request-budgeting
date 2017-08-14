@@ -20,4 +20,12 @@ class UserPolicy < AdminOnlyPolicy
   def impersonate?
     user.admin? && !record.admin? && (user.id != record.id) && record.persisted?
   end
+
+  def admin_only_attributes
+    @user.admin? ? [:admin, :cas_directory_id, roles_attributes: %i[id organization_id _destroy]] : []
+  end
+
+  def permitted_attributes
+    %i[name] + admin_only_attributes
+  end
 end

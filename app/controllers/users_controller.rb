@@ -81,6 +81,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :cas_directory_id, :name, roles_attributes: %i[id organization_id])
+      params.require(:user).permit(allowed)
+    end
+
+    def allowed
+      policy(@user || User.new).permitted_attributes
     end
 end

@@ -30,20 +30,7 @@ en:
       department__code: Department
       unit__code: Unit
       review_status__name: Review Status
-  activerecord:
-    attributes:
-      user:
-        cas_directory_id: CAS Directory ID
-      contractor_request:
-        <<: *personnel_request 
-      labor_request:
-        <<: *personnel_request 
-      staff_request:
-        <<: *personnel_request 
-
-  # Help descriptions for fields
-  # Can use "&#13;" to denote a line break.
-  help_text:
+  hints: &hints
     annual_base_pay: Estimated annual salary for the position
     contractor_name: Name of person in the position being replaced or renewed.
     hourly_rate: Please note current minimum wage is $8.75/hr
@@ -60,6 +47,26 @@ en:
     staff_request_description: New Staff & Faculty State-lined positions (conversion of contract positions to regular state-lined positions, Backfill a current position, Administrative and Acting Stipend request, and any other adjustment to salary for current State-lined positions; Graduate Assistants (Backfill & New request)) 
     contractor_request_description: Temporary salaried staff & faculty (Contingent 2's and Contract Faculty) 
 
+  activerecord:
+    attributes:
+      user: &user
+        cas_directory_id: CAS Directory ID
+      request:
+        <<: *personnel_request 
+
+  simple_form:
+    labels:
+      user:
+        <<: *user
+      request:
+        <<: *personnel_request
+    hints:
+      labor_request:
+        <<: *hints
+      staff_request:
+        <<: *hints
+      contractor_request:
+        <<: *hints
   confirm_delete_prompt:
     default: Are you sure?
     with_description: "Are you sure you want to delete '%{description}'?"

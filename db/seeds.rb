@@ -25,7 +25,7 @@ departments_by_division = {
             { code: 'PRG', name: "Prange", organization_type: Organization.organization_types["department"]  },
             { code: 'SCUA', name: "Special Collections and University Archives",  organization_type: Organization.organization_types["department"] }],
   'DO' => [{ code: 'COM', name: "Communications", organization_type: Organization.organization_types["department"]  },
-           { code: 'DOO', name: "Dean's Office", organization_type: Organization.organization_types["department"]  }],
+           { code: 'DO', name: "Dean's Office", organization_type: Organization.organization_types["department"]  }],
   'DSS' => [{ code: 'DCMR', name: "Digitization", organization_type: Organization.organization_types["department"]  },
             { code: 'DDS', name: "Digital Data Services", organization_type: Organization.organization_types["department"]  },
             { code: 'DPI', name: "Digital Preservation Initiatives", organization_type: Organization.organization_types["department"]  },

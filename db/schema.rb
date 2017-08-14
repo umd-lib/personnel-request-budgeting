@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170328113652) do
     t.decimal  "hourly_rate_cents"
     t.decimal  "hours_per_week"
     t.integer  "number_of_weeks"
-    t.decimal  "nonop_funds"
+    t.decimal  "nonop_funds_cents"
     t.string   "nonop_source"
     t.integer  "organization_id"
     t.integer  "review_status_id"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20170328113652) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "organizations", ["code"], name: "index_organizations_on_code", unique: true
   add_index "organizations", ["organization_id"], name: "index_organizations_on_organization_id"
   add_index "organizations", ["organization_type"], name: "index_organizations_on_organization_type"
 

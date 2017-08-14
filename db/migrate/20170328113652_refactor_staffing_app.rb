@@ -10,8 +10,6 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.integer  "archived_requests_count",          default: 0
       t.timestamps null: false
 		end
-    
-    add_index :organizations, [:code], unique: true
 
 		create_table "organization_cutoffs", primary_key: :organization_type, force: :cascade do |t|
 			t.date     "cutoff_date"
@@ -70,7 +68,7 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.decimal  "hourly_rate_cents"
 			t.decimal  "hours_per_week"
 			t.integer  "number_of_weeks"
-			t.decimal  "nonop_funds"
+			t.decimal  "nonop_funds_cents"
 			t.string   "nonop_source"
 			
 			t.integer  "organization_id",  index: true

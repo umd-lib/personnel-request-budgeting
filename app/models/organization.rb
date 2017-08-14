@@ -29,7 +29,9 @@ class Organization < ApplicationRecord
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   validates :code, :organization_type, :name, presence: true
-  validates :code, uniqueness: true
+
+  # apparently code does not have to be unique?
+  # validates :code, uniqueness: true
 
   validate :only_one_root
 
@@ -55,6 +57,10 @@ class Organization < ApplicationRecord
 
   def great_grandchildren
     grandchildren.map(&:children).flatten || []
+  end
+
+  def description
+    "#{name} ( #{organization_type} )"
   end
 
   def as_json(options = {})

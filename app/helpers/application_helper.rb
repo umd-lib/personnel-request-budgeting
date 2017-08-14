@@ -73,14 +73,10 @@ module ApplicationHelper
     edit? || new? || create? || update?
   end
 
-
   def sorted?
-    params[:sort] && params[:sort].length > 0
-  end
+    params[:sort].present?
+  end # A view helper to make sure archived records point to the correct
 
-
-
-  # A view helper to make sure archived records point to the correct
   # route
   def show_polymorphic_url(object)
     method = if object.respond_to?(:source_class)

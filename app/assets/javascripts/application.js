@@ -15,7 +15,10 @@
 //= require jquery-ui
 //= require cocoon
 //= require jstree
+//= require spin
+//= require jquery.spin
 //= require umd_lib
 //= require app
 //= require organization_tree
 //= require read_only_form
+//= require status_update

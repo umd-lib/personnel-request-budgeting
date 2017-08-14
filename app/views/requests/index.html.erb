@@ -1,12 +1,29 @@
 <div class="page-header">
   <h1><%= @model_klass.human_name %>
   <% if policy(@model_klass).new? %> 
-      <span class='pull-right'><%= link_to( "New", new_polymorphic_url(@model_klass ), class: "btn btn-success" ) %></span>
+      <span class='pull-right'><%= link_to( t('actions.new'), new_polymorphic_url(@model_klass ), class: "btn btn-success" ) %></span>
   <% end %>
+  <% if current_user.admin? && policy(@model_klass).update? %>
+		<span class='pull-right'>	
+			<div class="btn-group">
+				<button type="button" class="btn btn-warning"><%= t('actions.update-status') %></button>
+				<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul id='change-review-status' class="dropdown-menu">
+					<% ReviewStatus.all.each do |rst| %> 
+						<li><a href="#" data-record-type="<%= @model_klass.name.underscore %>"  data-review-status="<%= rst.id %>"><%= rst.name %></a></li>
+					<% end %> 
+				</ul>
+     	</div>
+ 		</span> 
+	<% end %>
+  
   <% if archive? %> 
-    <span class='pull-right'><%= link_to "View Active", polymorphic_url( @model_klass.source_class, archive: false), class: 'btn btn-warning'  %></span> 
+    <span class='pull-right'><%= link_to t('actions.view_active'), polymorphic_url( @model_klass.source_class, archive: false), class: 'btn btn-info'  %></span> 
   <% else %>
-    <span class='pull-right'><%= link_to "View Archive", polymorphic_url( @model_klass, archive: true), class: 'btn btn-warning'  %></span> 
+    <span class='pull-right'><%= link_to t('actions.view_archive'), polymorphic_url( @model_klass, archive: true), class: 'btn btn-info'  %></span> 
   <% end %>
   </h1>
 </div>

@@ -39,8 +39,10 @@ module PersonnelRequestController
         format.html do
           redirect_to(@request, notice: "#{@model_klass.human_name} for #{@request.description} successfully updated.")
         end
+        format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }
+        format.json { render json: @request.errors, status: :unprossable_entity }
       end
     end
   end

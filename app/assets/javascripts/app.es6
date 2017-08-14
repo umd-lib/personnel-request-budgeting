@@ -7,7 +7,8 @@ class App {
       $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
       /* Turn our show pages into read-only forms */ 
       new ReadOnlyForm(); 
-    }) 
+      new StatusUpdate();
+  }) 
 
   }
 

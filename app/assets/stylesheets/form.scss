@@ -1,0 +1,28 @@
+.input { 
+  padding: 10px 0; 
+
+  label { margin: 0 10px; width: 15em; }
+}
+
+.arrow-up { 
+  &:after {
+    margin-left: 2px; 
+    font-family: 'Glyphicons Halflings';
+    content: "\e113";
+  }
+}
+
+.arrow-down { 
+  &:after {
+    margin-left: 2px; 
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+  }
+}
+
+.pagination { 
+  text-align: center;
+  width: 100%; 
+  > .btn-group { float: none;  }
+
+}

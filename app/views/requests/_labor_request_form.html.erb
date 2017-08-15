@@ -1,0 +1,29 @@
+<%= simple_form_for @request do |f| %>
+  
+  <%= render partial: "edit_form_header", locals: { f: f } %> 
+	<%= render 'shared/form_errors', errors: @request.errors %>
+
+  <div class='panel panel-default'>
+    <div class="panel-body">
+      <%= f.input :position_title %>
+      <%= f.input :employee_type, as: :select,  collection:  @model_klass::VALID_EMPLOYEE_TYPES %>
+      <%= f.input :request_type, as: :select,  collection:  @model_klass::VALID_REQUEST_TYPES %>
+      <%= f.input :contractor_name %>
+      <%= f.input :number_of_positions %>
+      <%= f.input :hourly_rate, value: number_with_precision( f.object.hourly_rate, precision: 2, delmitier: ',' ) %>
+      <%= f.input :hours_per_week %>
+      <%= f.input :number_of_weeks %>
+      <%= f.input :nonop_funds %>
+      <%= f.input :nonop_source %>
+
+      <%= f.association :organization, collection: current_user.active_organizations, label_method: :description %>
+
+      <%= f.input :justification %>
+      
+    </div>
+  </div>
+  
+  <%= render partial: "request_admin_only", locals: { f: f } %> 
+
+
+<% end %>

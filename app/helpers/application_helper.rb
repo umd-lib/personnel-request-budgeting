@@ -1,35 +1,37 @@
 module ApplicationHelper
-  def bootstrap_class_for(flash_type)
-    { success: 'alert-success', error: 'alert-danger', alert: 'alert-warning',
-      notice: 'alert-info' }[flash_type.intern] || flash_type.to_s
+  # helper to toggle asc and desc ( for ordering )
+  def switch_direction(direction)
+    direction =~ /asc$/ ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down']
   end
 
-  def flash_messages(_opts = {})
-    flash.each do |msg_type, message|
-      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
-               concat content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
-               concat message
-             end)
-    end
-    nil
+  SORT_MAP = { hourly_rate: :hourly_rate_cents,
+               annual_cost: 'number_of_positions * hourly_rate_cents * hours_per_week * number_of_weeks',
+               nonop_funds: :nonop_funds_cents,
+               annual_base_pay: :annual_base_pay_cents,
+               organization__name: 'organizations.name',
+               review_status__name: 'review_statuses.name' }.freeze
+
+  # this is a helper to map certain view fields to what they should
+  # actually be for sorting. e.g. hourly_rate needs to be hourly_rate_cents.
+  # It :unsortable is returned, that means we can't sort on it.
+  def map_sort(column)
+    # the .fields method uses a __ which should be swapped out here
+    SORT_MAP.with_indifferent_access[column] || column
   end
 
-  # @param [String, Symbol] i18n_key the key in the I18N translation file
-  # @return [String, nil] the HTML content for a popover displaying text from
-  #   the given translation key, or nil if the translation key is not set.
-  def help_text_icon(i18n_key)
-    help_text = safe_join [t(i18n_key, default: '')]
-    unless help_text.empty?
-      content_tag(
-        :button,
-        content_tag('i', '', { title: help_text, class: ['help-text-icon'] }, false),
-        'type' => 'button',
-        'class' => 'btn btn-xs btn-default',
-        'data-toggle' => 'popover',
-        'data-content' => help_text,
-        'data-placement' => 'top'
-      )
+  def multi_sort_link(column, title, direction = 'arrow-up')
+    # first we extract any existing sorts in the params
+    attrs = Array.wrap(params[:sort]).compact
+
+    # now scan and look to see if we're already sortin on this column
+    index = attrs.index { |a| a.match(/^#{Regexp.escape(column)} /) }
+    if index
+      attrs[index], direction = switch_direction(attrs[index])
+    else
+      # so we just stick it in the end
+      attrs << "#{column} asc"
     end
+    link_to(title, params.merge(sort: attrs.compact), class: direction)
   end
 
   # Returns confirmation prompt text for delete action on the given object.
@@ -46,8 +48,42 @@ module ApplicationHelper
     end
   end
 
-  # Returns true/false if the user is looking at the archive
-  def archive?
-    ActiveRecord::Type::Boolean.new.type_cast_from_user(params[:archived])
+  # here are some helpers to show what action we're using
+  def edit?
+    params[:action] == 'edit'
+  end
+
+  def show?
+    params[:action] == 'show'
+  end
+
+  def new?
+    params[:action] == 'new'
+  end
+
+  def create?
+    params[:action] == 'create'
+  end
+
+  def update?
+    params[:action] == 'update'
+  end
+
+  def edit_or_new?
+    edit? || new? || create? || update?
+  end
+
+  def sorted?
+    params[:sort].present?
+  end # A view helper to make sure archived records point to the correct
+
+  # route
+  def show_polymorphic_url(object)
+    method = if object.respond_to?(:source_class)
+               "#{object.source_class.name.underscore}_url".intern
+             else
+               "#{object.class.name.underscore}_url".intern
+             end
+    send(method, object.id)
   end
 end

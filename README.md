@@ -2,7 +2,6 @@
 
 A Rails application for submitting staffing requests as part of the library budgeting process.
 
-
 ## Quick Start
 
 Requires:
@@ -16,19 +15,19 @@ Requires:
 ```
 > git clone git@github.com:umd-lib/annual-staffing-request
 > cd annual-staffing-request
-> bundle install --without production
+> ./bin/bundle install --without production
 ```
 
 2) Set up the database:
 
 ```
-> rake db:reset
+> ./bin/rake db:reset
 ```
 
 3) (Optional) Populate database with sample data:
 
 ```
-> rake db:reset_with_sample_data
+> ./bin/rake db:reset_with_sample_data
 ```
 
 ### Adding an Admin User and Roles
@@ -36,7 +35,7 @@ Requires:
 4) The application uses CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
 
 ```
-> rake 'db:add_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
+> ./bin/rake 'db:add_admin_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
 ```
 and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user information. For example, to add "John Smith" with a CAS Directory ID of "jsmith":
 
@@ -44,35 +43,12 @@ and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user infor
 > rake 'db:add_cas_user[jsmith, John Smith]'
 ```
 
-5) Users also need a role. Since any user with an Admin role can add additional role permissions through the web application, you typically only need to add an "Admin" user to start.
-
-The format of the Rake task to add an "admin" user is:
-
-```
-> rake 'db:add_role[<CAS DIRECTORY ID>,admin]'
-```
-where "\<CAS DIRECTORY ID>" is the CAS Directory ID of a known user. For example, to create an "Admin" role for the "jsmith" user:
-
-```
-> rake 'db:add_role[jsmith, admin]'
-```
-
-Note: In a production environment, you will likely need to use "bundle exec" and specify the RAILS_ENV environment, i.e.:
-
-```
-bundle exec rake 'db:add_role[jsmith, admin]' RAILS_ENV=production
-```
-
-See [docs/AuthNZ.md](docs/AuthNZ.md) for more information about authentication and authorization.
-
-See [docs/RakeTasks.md](docs/RakeTasks.md) for additional information about the "db:add_cas_user" and "db:add_role" Rake tasks, including how to add other types of roles to users.
-
 ### Run the web application
 
 5) To run the web application:
 
 ```
-> rails server
+> ./bin/rails s
 ```
 
 ## Production Environment Configuration
@@ -90,3 +66,26 @@ provided to assist with this process. Simply copy the "env_example" file to
 
 The configured .env file should _not_ be checked into the Git repository, as it
 contains credential information.
+
+## Fiscal Year Rollover
+
+** DANGER: BACKUP YOUR DATABASE BEFORE ATTEMPTING THIS **
+
+The database is setup with an active table ("Requests") and table for archived
+requests ("ArchivedRequests"). The archived requests are moved over during the
+fiscal year rollover event. In regards to the application, this happens by
+running a rake task that copies all the records in the Requests table into the
+ArchivedRequests table, with a datestamp that indicates the fiscal year for the
+transfered records. 
+
+To do this, run the following command:
+```
+> ./bin/rake db:archive_current_records[2016]
+```
+
+Change the '2016' to match what fiscal year you are wanting to tag the records
+with. 
+
+This will empty all the records in the Requests table, so be sure to backup the
+database in case you need to revert the process. 
+

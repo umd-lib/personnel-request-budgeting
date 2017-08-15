@@ -1,38 +1,54 @@
-# A user of the application
-class User < ActiveRecord::Base
-  has_many :roles, dependent: :destroy
-  has_many :role_types, through: :roles
+require_relative 'organization'
 
+class User < ApplicationRecord
   validates :cas_directory_id, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
-  # Provide human-readable identifier of the record.
-  alias_attribute :description, :name
+  has_many :roles, dependent: :delete_all
+  validates_associated :roles
+  accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
-  # Returns true if this user has an Admin role, false otherwise.
-  def admin?
-    role?('admin')
+  has_many :organizations, through: :roles
+
+  default_scope(lambda do
+    includes(roles: { organization: { organization_cutoff: [], children: { children: [:children] } } })
+  end)
+
+  def description
+    "#{name} (#{cas_directory_id})"
   end
 
-  # Returns true if this user has a Division role, false otherwise.
-  def division?
-    role?('division')
+  # A mapper to get the organizational tree
+  def organization_mapper(only_active = true)
+    lambda do |org|
+      return [] if org.cutoff? && only_active
+      active_children = [org]
+      child_mapper = lambda do |child|
+        active_children << child
+        child.children.each(&child_mapper) unless child.children.empty?
+      end
+      org.children.each(&child_mapper)
+      return active_children
+    end
   end
 
-  # Returns true if this user has a Department role, false otherwise.
-  def department?
-    role?('department')
+  # Gets active organizations ( only those not cutoff )
+  def active_organizations
+    admin? ? Organization.all : organizations.map(&organization_mapper).flatten
   end
 
-  # Returns true if this user has a Unit role, false otherwise.
-  def unit?
-    role?('unit')
+  # Gets all organizations ( regardless if they're cutoff ) down the
+  # ancestorial tree..
+  def all_organizations
+    admin? ? Organization.all : organizations.map(&organization_mapper(false)).flatten
   end
 
-  # Returns true if this user as a role with the given code, false otherwise.
-  #
-  # - role_type_code - a String representing the role type code
-  def role?(role_type_code)
-    role_types.any? { |role_type| role_type.code == role_type_code }
+  # this returns if the user has a role related to a specific org type
+  # for example we define unit? to find any active roles with a org that
+  # has org type == 'unit'
+  Organization.organization_types.keys.each do |type|
+    define_method "#{type}?" do
+      organizations.any? { |org| org.organization_type == type }
+    end
   end
 end

@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  
   setup do
-    @user = users(:one)
+    session[:cas] = { user: "admin" } 
+    @user = users(:red_shirt)
   end
 
   test 'should get index' do
@@ -40,8 +42,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should destroy user' do
-    user = User.new(cas_directory_id: 'SAMPLE_USER', name: 'Sample User')
-    user.save!
+    user = User.create(cas_directory_id: 'SAMPLE_USER', name: 'Sample User')
     assert_difference('User.count', -1) do
       delete :destroy, id: user
     end
@@ -50,7 +51,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'allow access by non-admin user to see and edit own entry' do
-    not_admin_user = users(:test_not_admin)
+    not_admin_user = users(:not_admin)
     run_as_user(not_admin_user) do
       get :show, id: not_admin_user
       assert_response :success
@@ -66,7 +67,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'forbid access by non-admin user' do
-    run_as_user(users(:test_not_admin)) do
+    run_as_user(users(:not_admin)) do
       get :index
       assert_response :forbidden
 
@@ -89,4 +90,11 @@ class UsersControllerTest < ActionController::TestCase
       assert_response :forbidden
     end
   end
+
+  test 'can logout' do
+    get :logout
+    assert_nil session[:cas]
+  end
+
+
 end

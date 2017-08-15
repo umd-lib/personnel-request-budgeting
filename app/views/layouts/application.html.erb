@@ -5,7 +5,7 @@
     <li class="<%= 'active' if current_page?(labor_requests_path) %>"><%= link_to 'Labor and Assistance', labor_requests_path %></li>
     <li class="<%= 'active' if current_page?(staff_requests_path) %>"><%= link_to 'Staff', staff_requests_path %></li>
     <li class="<%= 'active' if current_page?(contractor_requests_path) %>"><%= link_to 'Salaried Contractor', contractor_requests_path %></li>
-    <% if current_user && current_user.admin? %>
+    <% if current_user && current_user.admin? && false %>
       <li id="admin_menu" class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           Admin
@@ -42,9 +42,14 @@
         <ul class="dropdown-menu">
           <li><%= link_to 'Profile', current_user %></li>
           <li><%= link_to 'Sign Out', logout_path %></li>
-          <% if policy(:impersonate).index? %>
+          <% if current_user.admin? %>
             <li role="separator" class="divider"></li>
-            <li id='impersonate_user'><%= link_to 'Impersonate User', impersonate_path %></li>
+            <li><%= link_to 'Manage Users', users_path %></li>
+            <li><%= link_to 'Manage Organizations', organizations_path %></li>
+            <li><%= link_to 'Manage Cutoff Dates', organization_cutoffs_path %></li>
+            <li><%= link_to 'Manage Review Statuses', review_statuses_path %></li>
+            <li role="separator" class="divider"></li>
+            <li id='impersonate_user'><%= link_to 'Impersonate User', users_path %></li>
           <% end %>
         </ul>
       </li>
@@ -63,6 +68,5 @@
 <% end %>
 <% content_for :navbar_banner do %>
   <%= render 'layouts/impersonate' %>
-  <%= render 'layouts/archive' %>
 <% end %>
 <%= render 'layouts/umd_lib' %>

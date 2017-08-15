@@ -1,143 +1,169 @@
 require 'test_helper'
 
+
 class StaffRequestsControllerTest < ActionController::TestCase
+
+  # by default these test run as admin. 
   setup do
-    @staff_request = staff_requests(:fac)
-    @staff_request_with_status = staff_requests(:staff_request_with_status)
+    @staff_request = StaffRequest.first 
+    @archived_staff_request = ArchivedStaffRequest.first 
+    session[:cas] = { user: "admin" } 
   end
-
-  test 'should get index' do
+  
+  test 'should not allow unauthed users' do
+    run_as_user(nil) do  
+      get :index
+      assert_response(401)
+    end 
+  end
+  
+  test 'should not allow users with bad/fake user accounts' do
+    run_as_user("gary") do  
+      get :index
+      assert_response(403)
+    end 
+  end
+  
+  test 'should allow authed users index' do
     get :index
-    assert_response :success
-    assert_not_nil assigns(:staff_requests)
+    assert_response(200)
+    assert assigns(:model_klass), StaffRequest
+    assert_not_nil assigns(:requests)
   end
-
-  test 'should get new' do
+  
+  test 'should allow authed users to new' do
     get :new
-    assert_response :success
+    assert_response(200)
   end
 
-  test 'employee type dropdown should only show valid types on new' do
-    get :new
-
-    valid_employee_category_code = StaffRequest::VALID_EMPLOYEE_CATEGORY_CODE
-    assert_select 'select#staff_request_employee_type_id option' do |options|
-      options.each do |option|
-        next if option.attribute('value').value.blank? # Skip drop-down prompt
-        emp_type = EmployeeType.find_by_name(option.inner_text)
-        assert_equal valid_employee_category_code, emp_type.employee_category.code,
-                     "'#{option.inner_text}' option is not of category '#{valid_employee_category_code}'"
-      end
-    end
-  end
-
-  test 'should create staff_request' do
-    assert_difference('StaffRequest.count') do
-      post :create, staff_request: {
-        annual_base_pay: @staff_request.annual_base_pay,
-        department_id: @staff_request.department_id,
-        employee_type_id: @staff_request.employee_type_id,
-        justification: @staff_request.justification,
-        nonop_funds: @staff_request.nonop_funds,
-        nonop_source: @staff_request.nonop_source,
-        position_title: @staff_request.position_title,
-        request_type_id: @staff_request.request_type_id,
-        unit_id: @staff_request.unit_id }
-    end
-
-    assert_redirected_to staff_request_path(assigns(:staff_request))
-  end
-
-  test 'should not create invalid staff_request' do
-    assert_no_difference('StaffRequest.count') do
-      post :create, staff_request: {
-        annual_base_pay: nil,
-        department_id: nil,
-        employee_type_id: nil,
-        justification: nil,
-        nonop_funds: nil,
-        nonop_source: nil,
-        position_title: nil,
-        request_type_id: nil,
-        unit_id: nil }
-    end
-  end
 
   test 'should show staff_request' do
     get :show, id: @staff_request
     assert_response :success
   end
 
-  test 'should get edit' do
-    get :edit, id: @staff_request
-    assert_response :success
-  end
-
-  test 'should create/update staff_request but without admin only values when not admin' do
-    run_as_user(users(:test_not_admin_with_dept)) do
-      assert_difference('StaffRequest.count') do
-        post :create, staff_request: {
-          annual_base_pay: @staff_request_with_status.annual_base_pay,
-          department_id: @staff_request_with_status.department_id,
-          employee_type_id: @staff_request_with_status.employee_type_id,
-          justification: @staff_request_with_status.justification,
-          nonop_funds: @staff_request_with_status.nonop_funds,
-          nonop_source: @staff_request_with_status.nonop_source,
-          position_title: @staff_request_with_status.position_title,
-          request_type_id: @staff_request_with_status.request_type_id,
-          review_status_id: review_statuses(:approved).id, # Should be ignored
-          review_comment: 'Lorem ipsum facto', # Should be ignored
-          unit_id: @staff_request_with_status.unit_id }
-      end
-      assert_redirected_to staff_request_path(assigns(:staff_request))
-      assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
-      assert_nil assigns(:staff_request).review_comment
-
-      patch :update, id: assigns(:staff_request).id,
-                     staff_request: assigns(:staff_request).attributes.merge(
-                       review_comment: 'come on mang', review_status_id: 100)
-
-      assert_redirected_to staff_request_path(assigns(:staff_request))
-      assert_equal review_statuses(:under_review).id, assigns(:staff_request).review_status_id
-      assert_nil assigns(:staff_request).review_comment
-      assert_equal @staff_request_with_status.annual_base_pay, assigns(:staff_request).annual_base_pay
+  test 'should create staff_request' do
+    assert_difference('Request.count') do
+      post :create, staff_request: {
+        contractor_name: @staff_request.contractor_name,
+        organization_id: @staff_request.organization_id,
+        employee_type: @staff_request.employee_type,
+        hours_per_week: @staff_request.hours_per_week,
+        justification: @staff_request.justification,
+        annual_base_pay: @staff_request.annual_base_pay, 
+        nonop_funds: @staff_request.nonop_funds,
+        nonop_source: @staff_request.nonop_source,
+        number_of_positions: @staff_request.number_of_positions,
+        number_of_weeks: @staff_request.number_of_weeks,
+        position_title: @staff_request.position_title,
+        request_type: @staff_request.request_type,
+       }
     end
-  end
 
-  test 'should update staff_request' do
+    assert_redirected_to staff_request_path(assigns(:request))
+    assert assigns(:model_klass), StaffRequest
+ 		assert_instance_of StaffRequest, assigns(:request)
+  
+	end
+
+	test 'should not create invalid staff_request' do
+    assert_no_difference('Request.count') do
+      post :create, staff_request: {
+        contractor_name: nil,
+        organization_id: nil,
+        employee_type: nil,
+        hours_per_week: nil,
+        justification: nil,
+        nonop_funds: nil,
+        nonop_source: nil,
+        number_of_positions: nil,
+        number_of_weeks: nil,
+        position_title: nil,
+        request_type: nil,
+        }
+    end
+	end
+
+  test 'should create/update contractor_request but without admin only values when not admin' do   
+    run_as_user( :not_admin ) do 
+      assert_difference('Request.count') do
+        post :create, staff_request: {
+          contractor_name: @staff_request.contractor_name,
+          organization_id: @staff_request.organization_id,
+          employee_type: @staff_request.employee_type,
+          hours_per_week: @staff_request.hours_per_week,
+          justification: @staff_request.justification,
+          annual_base_pay: @staff_request.annual_base_pay, 
+          nonop_funds: @staff_request.nonop_funds,
+          nonop_source: @staff_request.nonop_source,
+          number_of_positions: @staff_request.number_of_positions,
+          number_of_weeks: @staff_request.number_of_weeks,
+          position_title: @staff_request.position_title,
+          request_type: @staff_request.request_type,
+          review_status_id: review_statuses(:approved), 
+          review_comment: "Hey hey hey" 
+        }
+      end
+
+      assert_redirected_to staff_request_path(assigns(:request))
+      assert_equal review_statuses(:under_review).id, assigns(:request).review_status_id
+      assert_nil assigns(:request).review_comment
+    end
+	end
+
+	test 'should update staff_request' do
     patch :update, id: @staff_request, staff_request: {
-      annual_base_pay: @staff_request.annual_base_pay,
-      department_id: @staff_request.department_id,
-      employee_type_id: @staff_request.employee_type_id,
+      contractor_name: @staff_request.contractor_name,
+      organization_id: @staff_request.organization_id,
+      employee_type: @staff_request.employee_type,
+      hours_per_week: @staff_request.hours_per_week,
       justification: @staff_request.justification,
       nonop_funds: @staff_request.nonop_funds,
       nonop_source: @staff_request.nonop_source,
+      number_of_positions: @staff_request.number_of_positions,
+      number_of_weeks: @staff_request.number_of_weeks,
       position_title: @staff_request.position_title,
-      request_type_id: @staff_request.request_type_id,
-      unit_id: @staff_request.unit_id }
-    assert_redirected_to staff_request_path(assigns(:staff_request))
-  end
+      request_type: @staff_request.request_type,
+      review_status_id: @staff_request.review_status_id,
+      review_comment: @staff_request.review_comment,
+   		} 
+		assert_redirected_to staff_request_path(assigns(:request))
+	end
+	
+	test 'should not update an invalid staff_request' do
+   	original_attrs = @staff_request.attributes 
+		patch :update, id: @staff_request, staff_request: {
+      contractor_name: nil, organization_id: nil, employee_type: nil,
+      hours_per_week: nil, justification: nil,
+      nonop_funds: nil, nonop_source: nil, number_of_positions: nil,
+      number_of_weeks: nil, position_title: nil, request_type: nil,
+      review_status_id: nil, review_comment: nil
+   		} 
+		assert_equal original_attrs, StaffRequest.find(@staff_request.id).attributes	
+	end
 
-  test 'should not update invalid staff_request' do
-    original_attrs = @staff_request.attributes
-    patch :update, id: @staff_request, staff_request: {
-      annual_base_pay: nil,
-      department_id: nil,
-      employee_type_id: nil,
-      justification: nil,
-      nonop_funds: nil,
-      nonop_source: nil,
-      position_title: nil,
-      request_type_id: nil,
-      unit_id: nil }
-    assert_equal original_attrs, StaffRequest.find(@staff_request.id).attributes
-  end
 
-  test 'should destroy staff_request' do
-    assert_difference('StaffRequest.count', -1) do
+	test 'should destroy staff_request' do
+    assert_difference('Request.count', -1) do
       delete :destroy, id: @staff_request
     end
 
     assert_redirected_to staff_requests_path
+	end
+
+
+  # ArchivedstaffRequests
+  test 'should allow users to see archive' do
+    get :index, archive: true
+    assert_response(200)
+    assert assigns(:model_klass), StaffRequest
+    assert_not_nil assigns(:requests)
   end
+
+
+  test 'should show archived staff request' do
+    get :show, id: @archived_staff_request
+    assert_response :success
+  end
+
 end

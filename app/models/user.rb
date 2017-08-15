@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :roles, dependent: :delete_all
   validates_associated :roles
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
+
+  has_many :organizations, through: :roles
+
   default_scope(lambda do
     includes(roles: { organization: { organization_cutoff: [], children: { children: [:children] } } })
   end)
@@ -16,28 +19,28 @@ class User < ApplicationRecord
   end
 
   # A mapper to get the organizational tree
-  def organization_mapper(only_active = false)
-    lambda do |role|
-      return [] if role.cutoff? && only_active
-      children = [role.organization]
+  def organization_mapper(only_active = true)
+    lambda do |org|
+      return [] if org.cutoff? && only_active
+      active_children = [org]
       child_mapper = lambda do |child|
-        children << child
+        active_children << child
         child.children.each(&child_mapper) unless child.children.empty?
       end
-      role.organization.children.each(&child_mapper)
-      return children
+      org.children.each(&child_mapper)
+      return active_children
     end
   end
 
   # Gets active organizations ( only those not cutoff )
   def active_organizations
-    admin? ? Organization.all : all_organizations(true)
+    admin? ? Organization.all : organizations.map(&organization_mapper).flatten
   end
 
-  # Gets all organizations ( regardless if they're cutoff
-  def all_organizations(only_active = false)
-    mapper = organization_mapper(only_active)
-    roles.map(&mapper).flatten
+  # Gets all organizations ( regardless if they're cutoff ) down the
+  # ancestorial tree..
+  def all_organizations
+    admin? ? Organization.all : organizations.map(&organization_mapper(false)).flatten
   end
 
   # this returns if the user has a role related to a specific org type
@@ -45,7 +48,7 @@ class User < ApplicationRecord
   # has org type == 'unit'
   Organization.organization_types.keys.each do |type|
     define_method "#{type}?" do
-      active_organizations.any? { |org| org.organization_type == type }
+      organizations.any? { |org| org.organization_type == type }
     end
   end
 end

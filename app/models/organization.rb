@@ -27,6 +27,7 @@ class Organization < ApplicationRecord
   has_many :roles, dependent: :delete_all
   validates_associated :roles
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
+  has_many :users, through: :roles
 
   validates :code, :organization_type, :name, presence: true
 
@@ -57,6 +58,17 @@ class Organization < ApplicationRecord
 
   def great_grandchildren
     grandchildren.map(&:children).flatten || []
+  end
+
+  # returns an array of the organizations up the tree
+  def ancestors
+    mom = parent
+    ancestors = []
+    while mom
+      ancestors << mom
+      mom = mom.parent
+    end
+    ancestors
   end
 
   def description

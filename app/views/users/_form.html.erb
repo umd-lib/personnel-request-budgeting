@@ -52,6 +52,29 @@
   
       <% end %>
 
+      <% if @user.all_organizations.length > 0 %>
+        <div class='panel panel-default'>
+          <div class="panel-heading">
+            <span>Current roles provide access to the following organizations:</span>
+          </div>
+          <div class="panel-body" id="roles">
+            <ul>
+              <% @user.all_organizations.each do |org| %>
+                <li>
+                  <%= link_to org.description, org %> 
+                  Cutoff Date: <%= org.organization_cutoff.cutoff_date %>
+                  <% if org.cutoff? %> 
+                    <span class='label label-danger pull-right'>INACTIVE</span>   
+                  <% else %> 
+                    <span class='label label-info pull-right'>ACTIVE</span>   
+                  <% end %> 
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>

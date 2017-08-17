@@ -10,10 +10,12 @@ class Organization < ApplicationRecord
     def root_org
       root.first
     end
-  
   end
-    
-  TYPE_MAPPING = { "root" => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze 
+
+  # this is used to generate the organization's associated icon
+  TYPE_MAPPING = { 'root' => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze
+  # fields that cna't be changed if there are records in teh archive
+  UNEDITABLE_IF_ARCHIVED = %w[organization_id name code organization_type].freeze
 
   belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
   validates :organization_id, presence: true, unless: :root?
@@ -24,8 +26,8 @@ class Organization < ApplicationRecord
 
   has_one :organization_cutoff, foreign_key: :organization_type, primary_key: :organization_type
 
-  has_many :requests, dependent: :restrict_with_error, counter_cache: true
-  has_many :archived_requests, dependent: :restrict_with_exception, counter_cache: true
+  has_many :requests, dependent: :restrict_with_error
+  has_many :archived_requests, dependent: :restrict_with_error
 
   has_many :roles, dependent: :delete_all
   validates_associated :roles
@@ -37,8 +39,9 @@ class Organization < ApplicationRecord
   # apparently code does not have to be unique?
   # validates :code, uniqueness: true
 
-  validate :only_one_root
+  validate :only_one_root, :no_edits_if_archive
 
+  # this makes sure we only have one root record
   def only_one_root
     return if organization_type != 'root'
     org =  Organization.find_by(organization_type: Organization.organization_types[:root])
@@ -46,15 +49,40 @@ class Organization < ApplicationRecord
     errors.add(:organization_type, 'There can be only one root')
   end
 
+  # this makes an org immutable if in archive. We can only activate/deactivate
+  def no_edits_if_archive
+    uneditable = changes.keys & UNEDITABLE_IF_ARCHIVED
+    return unless archived_records?
+    return if uneditable.empty?
+    uneditable.each do |k|
+      msg = "#{description} has #{archived_requests.count} in the archive. Editing #{k} is not allowed."
+      errors.add(k.intern, msg)
+    end
+  end
+
+  def archived_records?
+    archived_requests_count > 0
+  end
+
   def cutoff?
     return false unless organization_cutoff
     Time.zone.today > organization_cutoff.cutoff_date
   end
 
- 
+  def active?
+    !cutoff? && !deactivated?
+  end
+
   # the name of the record used in the json expression
   def text
-    "#{name} (#{code}) <i class='glyphicon glyphicon-#{ cutoff? ? 'ban-circle' : 'ok-circle' }'></i>"
+    icon = if cutoff?
+             'ban-circle'
+           elsif deactivated?
+             'remove-circle'
+           else
+             'ok-circle'
+           end
+    "#{name} (#{code}) <i class='glyphicon glyphicon-#{icon}'></i>"
   end
 
   def grandchildren
@@ -83,7 +111,7 @@ class Organization < ApplicationRecord
   def type_icon
     "glyphicon glyphicon-#{TYPE_MAPPING[organization_type]}"
   end
-  
+
   def as_json(options = {})
     org = super
     org[:id] = org['id']

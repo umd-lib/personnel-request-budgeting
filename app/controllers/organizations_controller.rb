@@ -71,7 +71,7 @@ class OrganizationsController < ApplicationController
   private
 
     def organization_params
-      params.require(:organization).permit(:code, :name, :organization_type,
+      params.require(:organization).permit(:code, :name, :organization_type, :deactivated,
                                            :organization_id, roles_attributes: %i[id user_id _destroy])
     end
 end

@@ -22,3 +22,4 @@
 //= require organization_tree
 //= require read_only_form
 //= require status_update
+//= require toggle    

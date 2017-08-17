@@ -4,7 +4,7 @@ class OrganizationsControllerTest < ActionController::TestCase
   
   setup do
     session[:cas] = { user: "admin" } 
-    @organization = Organization.last
+    @organization = Organization.where('requests_count > ?', 1).last
   end
 
   test 'should get index' do
@@ -57,6 +57,7 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy unit with associated records' do
+     
     assert_no_difference('Organization.count') do
       delete :destroy, id: @organization
     end

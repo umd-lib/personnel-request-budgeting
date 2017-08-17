@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170328113652) do
+ActiveRecord::Schema.define(version: 20170817113652) do
 
   create_table "archived_requests", force: :cascade do |t|
     t.string   "position_title"
@@ -53,11 +53,13 @@ ActiveRecord::Schema.define(version: 20170328113652) do
     t.integer  "organization_type"
     t.integer  "requests_count",          default: 0
     t.integer  "archived_requests_count", default: 0
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "deactivated",             default: false
   end
 
   add_index "organizations", ["organization_id"], name: "index_organizations_on_organization_id"
+  add_index "organizations", ["organization_type", "code"], name: "index_organizations_on_organization_type_and_code", unique: true
   add_index "organizations", ["organization_type"], name: "index_organizations_on_organization_type"
 
   create_table "requests", force: :cascade do |t|

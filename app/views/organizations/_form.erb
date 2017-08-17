@@ -1,0 +1,108 @@
+<div class='container'>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= simple_form_for(@organization) do |f| %>
+        
+        <div class="page-header">
+          <h2><%= @organization.name || "New Organization" %> 
+              <div class='pull-right'> 
+                <%= link_to 'Back', users_path, class: 'btn btn-default' %>
+                <%= f.submit 'Save', class: 'btn btn-success' %>
+              </div>
+          </h2>
+        </div>
+        
+        <% if @organization.organization_cutoff %>
+          <div class='alert alert-info' role='alert'>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Request Cutoff is set to <%= @organization.organization_cutoff.cutoff_date %>
+          </div>
+        <% end %>
+        <%= render 'shared/form_errors', errors: @organization.errors %>
+          
+          
+          <div class='panel panel-default'>
+            <div class="panel-body">
+              <%= f.input :name %>
+              <%= f.input :code %>
+              <%= f.input :organization_type, as: :select, 
+                collection:  Organization.organization_types.keys.reject { |o| o == 'root' },
+                disabled: f.object.root? %>
+              <% unless @organization.organization_type == 'root' %> 
+                <div class="input"> 
+                  <%= f.label :parent %>
+                  <% if @organization.parent %>
+                    <%= link_to( @organization.parent.text, @organization.parent, { id: "parent_link" }) %>
+                  <% else %>
+                    <a href="#" id="parent_link" />
+                  <% end %>
+                    
+                  <%= f.hidden_field :organization_id %> 
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#orgModal">Select Parent</button> 
+                </div>
+              <% end %> 
+            </div>
+          </div>
+            
+          <div class='panel panel-default'>
+            <div class="panel-heading"><span>Members</span>
+              <span class='pull-right'>
+                <%= link_to_add_association(	f, :roles,
+                                              { class: "add-roles", 
+                                                "data-association-insertion-node": "#roles",
+                                                "data-association-insertion-method": 'append'}) do  %>
+                                                            <i class='glyphicon glyphicon-plus-sign'></i>Add Member 
+               <% end %>
+              </span>
+            </div>
+            <div class="panel-body" id="roles">
+              <%= f.fields_for :roles, f.object.roles do |role| %>
+                  <%= render 'role_fields', f: role %>
+              <% end %>
+            </div>
+          </div>
+          
+        <% end %>
+
+
+    <% @organization.ancestors.each do |ancestor| %>
+      <div class='panel panel-default'>
+        <div class="panel-heading"><span>Users with access from <%= link_to ancestor.description, ancestor %></span>
+        </div>
+          
+        <div class="panel-body" id="roles">
+          <ul>
+            <% ancestor.users.each do |u| %>
+              <li><%= link_to u.description, u %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+
+
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<%= render partial: 'organization_tree' %>
+<div id="orgModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Organizations</h4>
+      </div>
+      <div class="modal-body">
+        <div class='container' id="tree" ></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

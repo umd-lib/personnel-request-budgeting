@@ -1,17 +1,17 @@
 class ApplicationController < ActionController::Base
-  include CasHelper
-  include Pundit
-  before_action :authenticate
-  after_action :verify_authorized, except: :index
-
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # Display "forbidden" page for failed authorization checks.
-  def user_not_authorized
-    render(file: File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false)
+  include CasHelper
+  include Pundit
+
+  before_action :fix_cas_session
+  before_action :ensure_auth
+
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
+  def not_authorized
+    render(file: Rails.root.join('public', '403.html'), status: :forbidden, layout: false)
   end
 end

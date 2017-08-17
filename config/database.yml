@@ -21,12 +21,5 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: <%= ENV["PROD_DATABASE_ADAPTER"] %>
-  encoding: <%= ENV["PROD_DATABASE_ENCODING"] %>
-  database: <%= ENV["PROD_DATABASE_NAME"] %>
-  username: <%= ENV["PROD_DATABASE_USERNAME"] %>
-  password: <%= ENV["PROD_DATABASE_PASSWORD"] %>
-  host: <%= ENV["PROD_DATABASE_HOST"] %>
-  port: <%= ENV["PROD_DATABASE_PORT"] %>
-  pool: <%= ENV["PROD_DATABASE_POOL"] %>
-
+  <<: *default
+  database: db/production.sqlite3

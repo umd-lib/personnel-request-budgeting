@@ -1,33 +1,36 @@
-# A Regular Staff/GA staffing request
-class StaffRequest < ActiveRecord::Base
-  VALID_EMPLOYEE_CATEGORY_CODE = 'Reg/GA'.freeze
-  VALID_REQUEST_TYPE_CODES = %w(New ConvertCont PayAdj Backfill).freeze
+# A Labor and Assistance staffing request
+class StaffRequest < Request
+  VALID_EMPLOYEE_TYPES = ['Exempt', 'Faculty', 'Graduate Assistant', 'Non-exempt'].freeze
+  VALID_REQUEST_TYPES = ['Backfill', 'New', 'ConvertCont', 'Pay Adjustment'].freeze
 
-  include Requestable
+  class << self
+    def human_name
+      'Staff Requests'
+    end
 
-  belongs_to :department, counter_cache: true
-  belongs_to :unit, counter_cache: true
-  belongs_to :employee_type, counter_cache: true
-  belongs_to :request_type, counter_cache: true
-  belongs_to :review_status, counter_cache: true
+    # all the fields associated to the model
+    def fields
+      %i[ position_title employee_name employee_type request_type
+          annual_base_pay
+          nonop_funds nonop_source justification organization__name
+          review_status__name review_comment created_at updated_at ]
+    end
 
+    # Returns an ordered array used in the index pages
+    def index_fields
+      fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+  end
+
+  monetize :annual_base_pay_cents
   validates :annual_base_pay, presence: true
   validates :employee_name, presence: true, if: :employee_name_required?
-  validates :justification, presence: true
 
-  monetize :annual_base_pay_cents, presence: false, numericality: { greater_than: 0.00 }
-
-  # Provides a short human-readable description for this record, for GUI prompts
-  alias_attribute :description, :position_title
-
-  # Validates the request type
-  def allowed_request_type
-    return if VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-    errors.add(:request_type, 'provided is not allowed for this request.')
-  end
-
-  # Returns true if the employee name is required.
   def employee_name_required?
-    request_type.try(:code) == 'PayAdj'
+    request_type == 'Pay Adjustment'
   end
+
+  default_scope(lambda do
+    includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['staff'])
+  end)
 end

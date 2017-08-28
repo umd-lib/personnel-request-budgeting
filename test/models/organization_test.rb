@@ -39,14 +39,16 @@ class OrganizationTest < ActiveSupport::TestCase
 
   test 'unit with associated records cannot be deleted' do
     staff_request = StaffRequest.first
-    staff_request.organization = @unit
+    staff_request.organization = @unit.parent
+    staff_request.unit = @unit
     staff_request.save!
     assert_not  @unit.destroy
   end
   
   test 'nor can unit with associated records be have valiues edited' do
     staff_request = StaffRequest.first
-    staff_request.organization = @unit
+    staff_request.organization = @unit.parent
+    staff_request.unit = @unit
     staff_request.save!
     %i[ name= code=  ].each do |key|
       @unit.send(key, SecureRandom.hex ) 
@@ -54,8 +56,7 @@ class OrganizationTest < ActiveSupport::TestCase
       @unit.reload
     end
     @unit.reload   
-    @unit.parent = Organization.first
-    assert_not  @unit.valid?
+    assert  @unit.valid?
   end
 
   test 'there can only be one root' do

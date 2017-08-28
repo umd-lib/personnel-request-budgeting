@@ -28,10 +28,18 @@ class Request < ApplicationRecord
 
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
+  belongs_to :unit, class_name: "Organization"
 
   validates :position_title, presence: true
   validates :employee_type, presence: true
   validates :request_type, presence: true
+
+  validate :org_must_be_dept
+  def org_must_be_dept
+    unless organization && organization.organization_type === "department"
+      errors.add(:organization, "Must have a department specified.")
+    end
+  end
 
   validates :justification, presence: true
 

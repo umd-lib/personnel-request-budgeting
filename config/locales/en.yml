@@ -23,6 +23,7 @@ en:
   dictionary: 
     personnel_request: &personnel_request
       nonop_funds: Gift/Other Funds
+      organization: Department
       nonop_source: Gift/Other Funds source
       employee_type__code: Employee Type
       request_type__code: Request Type

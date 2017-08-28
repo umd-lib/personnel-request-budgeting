@@ -1,3 +1,6 @@
+<%= javascript_tag do %>
+  var depts_and_units = <%= current_user.available_departments.inject({}) { |m, dept| m[dept.id] = dept.children.collect &:id ; m }.to_json.html_safe %> 
+<% end %>
 <div class="page-header">
   <h2><%= @model_klass.name.underscore.humanize.titleize %>
     <div class="pull-right">

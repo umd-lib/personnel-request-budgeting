@@ -8,6 +8,8 @@ class App {
       /* Turn our show pages into read-only forms */ 
       new ReadOnlyForm(); 
       new StatusUpdate();
+      new Toggle();
+      new UnitSelector();
   }) 
 
   }

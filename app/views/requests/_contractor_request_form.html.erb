@@ -13,8 +13,9 @@
       <%= f.input :annual_base_pay, value: number_with_precision( f.object.annual_base_pay, precision: 2, delmitier: ',' ) %>
       <%= f.input :nonop_funds %>
       <%= f.input :nonop_source %>
+      
+      <%= f.association :organization, collection: current_user.active_departments, label_method: :name %>
 
-      <%= f.association :organization, collection: current_user.active_organizations, label_method: :description  %>
 
       <%= f.input :justification %>
       

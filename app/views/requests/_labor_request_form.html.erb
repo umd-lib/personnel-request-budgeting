@@ -16,7 +16,7 @@
       <%= f.input :nonop_funds %>
       <%= f.input :nonop_source %>
 
-      <%= f.association :organization, collection: current_user.active_organizations, label_method: :description %>
+      <%= f.association :organization, collection: current_user.active_departments, label_method: :name %>
 
       <%= f.input :justification %>
       

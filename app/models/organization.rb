@@ -52,6 +52,7 @@ class Organization < ApplicationRecord
   # this makes an org immutable if in archive. We can only activate/deactivate
   def no_edits_if_archive
     uneditable = changes.keys & UNEDITABLE_IF_ARCHIVED
+    return unless persisted? 
     return unless archived_records?
     return if uneditable.empty?
     uneditable.each do |k|
@@ -61,7 +62,11 @@ class Organization < ApplicationRecord
   end
 
   def archived_records?
-    archived_requests_count > 0
+    if organization_type == 'unit' 
+      ArchivedRequest.where( unit_id: id ).count > 0 
+    else
+      archived_requests_count > 0
+    end 
   end
 
   def cutoff?

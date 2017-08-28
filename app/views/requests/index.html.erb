@@ -56,7 +56,7 @@
           <th id="<%= field.to_s %>"><%= multi_sort_link( map_sort(field), field.to_s.titleize  ) %></th>
 				<% end %>
         <th id="actions">
-          <%= link_to( t('reset_sorting'), polymorphic_path(@model_klass), class: "btn btn-link") if sorted? %>
+          <%= link_to( t('reset_sorting'), polymorphic_path(@model_klass.source_class, { archive: params[:archive] }), class: "btn btn-link") if sorted? %>
 			</tr>
 		</thead>    
     <tbody>

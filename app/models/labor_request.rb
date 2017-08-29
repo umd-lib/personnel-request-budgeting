@@ -12,7 +12,7 @@ class LaborRequest < Request
     def fields
       %i[ position_title employee_type request_type contractor_name
           number_of_positions hourly_rate hours_per_week number_of_weeks annual_cost
-          nonop_funds nonop_source justification organization__name
+          nonop_funds nonop_source justification organization__name unit__name
           review_status__name review_comment created_at updated_at ]
     end
 

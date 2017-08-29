@@ -12,7 +12,7 @@ class StaffRequest < Request
     def fields
       %i[ position_title employee_name employee_type request_type
           annual_base_pay
-          nonop_funds nonop_source justification organization__name
+          nonop_funds nonop_source justification organization__name unit__name
           review_status__name review_comment created_at updated_at ]
     end
 

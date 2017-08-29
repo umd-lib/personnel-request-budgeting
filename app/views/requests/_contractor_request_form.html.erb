@@ -14,8 +14,8 @@
       <%= f.input :nonop_funds %>
       <%= f.input :nonop_source %>
       
-      <%= f.association :organization, collection: current_user.active_departments, label_method: :name %>
-
+      <%= f.association :organization, collection: current_user.available_departments, label_method: :name, input_html: { class: 'department-select' }, include_blank: false %>
+      <%= f.association :unit, collection: current_user.active_units, input_html: { class: 'unit-select' }  %>
 
       <%= f.input :justification %>
       

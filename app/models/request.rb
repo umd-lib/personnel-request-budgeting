@@ -24,10 +24,9 @@ class Request < ApplicationRecord
   enum employee_type: { "Contractor Type 1": 0, "Faculty Hourly": 1, "Student": 3,
                         "Exempt": 4, "Faculty": 5, "Graduate Assistant": 6,
                         "Non-exempt": 7, "Contractor Type 2": 8, "ContFac": 9 }
-  enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4, 
-                       "Renewal": 5, 'Pay Adjustment - Other': 6, 
-                       'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8
-                      }
+  enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4,
+                       "Renewal": 5, 'Pay Adjustment - Other': 6,
+                       'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
   belongs_to :unit, class_name: 'Organization'
@@ -43,6 +42,12 @@ class Request < ApplicationRecord
   end
 
   validates :justification, presence: true
+  validate :new_justifications_cant_be_long
+  def new_justifications_cant_be_long
+    return if review_status && review_status.code !=  'UnderReview'
+    return if justification && justification.split(/\s+/).length < 126
+    errors.add(:justification, 'Must be 125 words or less')
+  end
 
   alias_attribute :description, :position_title
 

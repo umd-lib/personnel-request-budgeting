@@ -10,6 +10,7 @@ class App {
       new StatusUpdate();
       new Toggle();
       new UnitSelector();
+      new WordLimit();
   }) 
 
   }

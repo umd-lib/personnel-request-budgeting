@@ -16,7 +16,7 @@
       <%= f.association :organization, collection: current_user.available_departments, label_method: :name, input_html: { class: 'department-select' }, include_blank: false %>
       <%= f.association :unit, collection: current_user.active_units, input_html: { class: 'unit-select' }  %>
 
-      <%= f.input :justification %>
+      <%= f.input :justification, input_html: { class: "word-limit", "data-word-limit": 125 } %>
       
     </div>
   </div>

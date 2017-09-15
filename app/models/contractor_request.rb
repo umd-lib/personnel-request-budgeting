@@ -28,7 +28,7 @@ class ContractorRequest < Request
   validates :contractor_name, presence: true, if: :contractor_name_required?
 
   def contractor_name_required?
-    request_type == 'Renewal'
+    %w[ Renewal ConvertC1 ].include? request_type
   end
 
   default_scope(lambda do

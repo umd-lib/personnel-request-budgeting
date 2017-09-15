@@ -9,6 +9,7 @@ class CounterCacheManager
 
       # get all reflections
       ActiveRecord::Base.descendants.each do |klass|
+        next if klass == Organization # too much trouble...we'll brute force it later. 
         klass.reflections.each do |_name, ref|
           # find those using counter cache
           next unless ref.options[:counter_cache]
@@ -28,6 +29,8 @@ class CounterCacheManager
           end
         end
       end
+      Organization.all.pluck(:id).each { |o| Organization.reset_counters o, :requests }
+
     end
   end
 end

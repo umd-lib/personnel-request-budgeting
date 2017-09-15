@@ -35,4 +35,13 @@ module RequestHelper
   def archive?
     params[:archive] == 'true' || params[:archive] == true
   end
+
+  def reset_sorts_link
+    if @model_klass.name == 'Request'
+      link_to(t('reset_sorting'), '/', class: 'btn btn-link')
+    elsif sorted?
+      link_to(t('reset_sorting'), polymorphic_path(@model_klass.source_class,
+                                                   archive: params[:archive]), class: 'btn btn-link')
+    end
+  end
 end

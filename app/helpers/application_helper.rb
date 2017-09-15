@@ -9,6 +9,8 @@ module ApplicationHelper
                nonop_funds: :nonop_funds_cents,
                annual_base_pay: :annual_base_pay_cents,
                organization__name: 'organizations.name',
+               unit__name: 'units.name',
+               user__name: 'users.name',
                review_status__name: 'review_statuses.name' }.freeze
 
   # this is a helper to map certain view fields to what they should
@@ -77,13 +79,45 @@ module ApplicationHelper
     params[:sort].present?
   end # A view helper to make sure archived records point to the correct
 
-  # route
+  def edit_path(object)
+    if object.class.name == 'Request'
+      method = "edit_#{object.request_model_type.underscore}_request_path".intern
+      send(method, object.id)
+    else
+      edit_polymorphic_path(object)
+    end
+  end
+
+  def delete_path(object)
+    if object.class.name == 'Request'
+      method = "delete_#{object.request_model_type.underscore}_request_path".intern
+      send(method, object.id)
+    else
+      edit_polymorphic_path(object)
+    end
+  end
+
+  # this handles show URLs if it's a Request or ArchivedRequest
+  def show_request_url_method(object)
+    if object.class.name == 'Request'
+      "#{object.request_model_type.underscore}_request_url".intern
+    else
+      "#{object.source_class.name.underscore}_url".intern
+    end
+  end
+
+  # check if its a request, otherwise just return class' URL helper method.
+  def show_url_method(object)
+    if object.respond_to?(:source_class)
+      show_request_url_method(object)
+    else
+      "#{object.class.name.underscore}_url".intern
+    end
+  end
+
+  # a helper to hack around with the inhertence tricks we are doing. Gets the
+  # Rails URL helper for the class.
   def show_polymorphic_url(object)
-    method = if object.respond_to?(:source_class)
-               "#{object.source_class.name.underscore}_url".intern
-             else
-               "#{object.class.name.underscore}_url".intern
-             end
-    send(method, object.id)
+    send(show_url_method(object), object.id)
   end
 end

@@ -10,6 +10,36 @@ class Request < ApplicationRecord
     def source_class
       name.remove(/^Archived/).constantize
     end
+
+    def human_name
+      'Requests'
+    end
+
+    # all the fields associated to the model
+    def fields
+      %i[ request_model_type position_title employee_type request_type
+          contractor_name employee_name
+          nonop_source justification organization__name unit__name
+          review_status__name review_comment user__name created_at updated_at ]
+    end
+
+    # Returns an ordered array used in the index pages
+    def index_fields
+      fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+
+    def current_table_name
+      current_table = current_scope.arel.source.left
+
+      case current_table
+      when Arel::Table
+        current_table.name
+      when Arel::Nodes::TableAlias
+        current_table.right
+      else
+        raise
+      end
+    end
   end
 
   attr_accessor :archived_fiscal_year
@@ -29,7 +59,9 @@ class Request < ApplicationRecord
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization'
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true
+
+  belongs_to :user
 
   validates :position_title, presence: true
   validates :employee_type, presence: true
@@ -68,7 +100,11 @@ class Request < ApplicationRecord
   end
 
   def source_class
-    self.class.source_class
+    if self.class.name == 'Request'
+      "#{request_model_type}_request".camelize.constantize
+    else
+      self.class.source_class
+    end
   end
 
   # this casts the record as its source type
@@ -78,4 +114,13 @@ class Request < ApplicationRecord
                                                                   archived_fiscal_year: fiscal_year)
     source_class.new(attrs)
   end
+
+  def current_table_name
+    self.class.current_table_name
+  end
+
+  default_scope(lambda do
+    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
+      .includes(%i[review_status organization user])
+  end)
 end

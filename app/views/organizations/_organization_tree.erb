@@ -1,11 +1,7 @@
 <%= javascript_tag do %>
   var treeData = <%=  @organizations.to_json.html_safe %>;
-  $(function() {
-      var tree = new OrganizationTree(treeData);
-      <% if params["action"] == "index" %> 
-        tree.index();
-      <% else %>
-        tree.show();
-    <% end %>
-  });
+  var action = '<%= params['action'] %>';
+  (function($){
+    new OrganizationTree(treeData, action);
+  })(jQuery); 
 <% end %>

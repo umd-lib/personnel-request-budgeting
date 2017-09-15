@@ -4,10 +4,10 @@ class ArchivedLaborRequest < LaborRequest
     def policy_class
       ArchivedRequestPolicy
     end
-    
+
     # all the fields associated to the model
     def fields
-      %i[ fiscal_year ] + LaborRequest.fields
+      %i[fiscal_year] + LaborRequest.fields
     end
 
     # Returns an ordered array used in the index pages

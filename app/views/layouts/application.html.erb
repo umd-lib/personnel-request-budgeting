@@ -60,8 +60,15 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to 'Number Of Weeks Guide', "http://libi.lib.umd.edu/sites/default/files/FY18%20L&A%20Budget%20Calculations-Number%20of%20Weeks_0.pdf", target: "_blank" %></li>
-          <li><%= link_to 'FY18 Budget Calendar', "http://libi.lib.umd.edu/sites/default/files/Budget%20Calendar%20FY18_1.pdf", target: "_blank" %></li>
+          <% @links.each do |link| %> 
+            <li class='help-link'>
+              <%=  link_to(link.text, link.url, target: "_blank", class: "") %> 
+            </li>
+          <% end %>
+          <% if current_user.admin? %>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to("Edit Links",links_url,class: "btn btn-success pull-right edit-links") %></li>
+          <% end %>
         </ul>
     </li> 
   </ul>

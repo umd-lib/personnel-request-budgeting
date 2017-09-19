@@ -7,3 +7,17 @@ ul.version li { display: inline; margin: 0 5px; font-size: 10px; }
 
 ul.requests-homepage { list-style: none; }
 ul.requests-homepage a.list-group-item { font-weight: bold; }
+
+
+.org-info { 
+  border-style: solid;
+  border-width: 1px;
+  border-color: $impersonate_background;
+  .label { display: block; }
+
+ }
+
+.org-tree { 
+  .glyphicon-ok-circle { color: #008000; }
+  .glyphicon-ban-circle { color: #c91010; }
+ }

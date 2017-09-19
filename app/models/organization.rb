@@ -10,7 +10,10 @@ class Organization < ApplicationRecord
     def root_org
       root.first
     end
+  
   end
+    
+  TYPE_MAPPING = { "root" => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze 
 
   belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
   validates :organization_id, presence: true, unless: :root?
@@ -48,8 +51,10 @@ class Organization < ApplicationRecord
     Time.zone.today > organization_cutoff.cutoff_date
   end
 
+ 
+  # the name of the record used in the json expression
   def text
-    "#{name} (#{code})"
+    "#{name} (#{code}) <i class='glyphicon glyphicon-#{ cutoff? ? 'ban-circle' : 'ok-circle' }'></i>"
   end
 
   def grandchildren
@@ -75,11 +80,15 @@ class Organization < ApplicationRecord
     "#{name} ( #{organization_type} )"
   end
 
+  def type_icon
+    "glyphicon glyphicon-#{TYPE_MAPPING[organization_type]}"
+  end
+  
   def as_json(options = {})
     org = super
     org[:id] = org['id']
     org[:parent] = org['organization_id'] || '#'
-    org[:icon] = 'glyphicon glyphicon-home'
+    org[:icon] = type_icon
     org[:text] ||= text
     org[:state] = { opened: true }
     org

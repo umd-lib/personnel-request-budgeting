@@ -1,7 +1,7 @@
 # A Labor and Assistance staffing request
 class StaffRequest < Request
   VALID_EMPLOYEE_TYPES = ['Exempt', 'Faculty', 'Graduate Assistant', 'Non-exempt'].freeze
-  VALID_REQUEST_TYPES = ['Backfill', 'New', 'ConvertCont', 'Pay Adjustment - Other', 
+  VALID_REQUEST_TYPES = ['Backfill', 'New', 'ConvertCont', 'Pay Adjustment - Other',
                          'Pay Adjustment - Reclass', 'Pay Adjustment - Stipend'].freeze
 
   class << self

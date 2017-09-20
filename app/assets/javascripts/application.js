@@ -24,3 +24,4 @@
 //= require status_update
 //= require toggle    
 //= require unit_selector 
+//= require word_limit 

@@ -72,7 +72,12 @@ namespace :db do
     request.position_title = Faker::Name.title
     request.employee_type = request.class::VALID_EMPLOYEE_TYPES.sample 
     request.request_type = request.class::VALID_REQUEST_TYPES.sample 
-    request.organization = Organization.offset(rand(Organization.count)).first
+    depts = Organization.where( organization_type: Organization.organization_types["department"]) 
+    request.organization = depts.offset(rand(depts.count)).first
+    if rand(2) == 0
+      units = Organization.where( organization_type: Organization.organization_types["unit"]) 
+      request.unit = units.offset(rand(units.count)).first
+    end
     request.justification = Faker::Lorem.words(rand(50) + 1).join(' ')
     request.review_status = ReviewStatus.offset(rand(ReviewStatus.count)).first 
   end

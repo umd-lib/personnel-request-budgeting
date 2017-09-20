@@ -23,6 +23,7 @@ en:
   dictionary: 
     personnel_request: &personnel_request
       nonop_funds: Gift/Other Funds
+      organization: Department
       nonop_source: Gift/Other Funds source
       employee_type__code: Employee Type
       request_type__code: Request Type
@@ -30,6 +31,17 @@ en:
       department__code: Department
       unit__code: Unit
       review_status__name: Review Status
+      index_labels:
+        organization__name: Department
+        unit__name: Unit
+        number_of_positions: "# of Positions"
+        number_of_months: "Months"
+        number_of_weeks: "Weeks"
+        hours_per_week: "Hours/wk"
+        nonop_funds: Other Funds
+        review_status__name: Status
+        contractor_name: Name
+        employee_name: Name
   hints: &hints
     annual_base_pay: Estimated annual salary for the position
     contractor_name: Name of person in the position being replaced or renewed.

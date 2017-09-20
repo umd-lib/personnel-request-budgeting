@@ -1,4 +1,4 @@
-class ReadOnlyForm {
+class Toggle {
 
   constructor(){ this.init(); }
 

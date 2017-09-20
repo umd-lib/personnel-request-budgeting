@@ -46,19 +46,18 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
   end
   
   test 'unit role can only see unit personnel requests' do
-    unit = Organization.find_by( organization_type: Organization.organization_types["unit"] ) 
+    unit = Organization.where( organization_type: Organization.organization_types["unit"] ).where( "requests_count > ?", 1).first
     with_temp_user(roles: [unit]) do |temp_user|
-      
       labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
 
       record_count = labor_results.count + staff_results.count + contractor_results.count
-      assert record_count > 0, "No records found for department '#{unit.code}'"
+      assert record_count > 0, "No records found for unit '#{unit.code}'"
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          assert_equal unit.code, r.organization.code
+          assert_equal unit.code, r.unit.code
         end
       end
     end
@@ -92,10 +91,10 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          if r.organization.organization_type == "department"
+          if r.organization == d # it's linked to it's department
             assert_equal d.code, r.organization.code
           else
-            assert_equal u.code, r.organization.code
+            assert_equal u.code, r.unit.code
           end
         end
       end

@@ -21,10 +21,10 @@ class User < ApplicationRecord
   # A mapper to get the organizational tree
   def organization_mapper(only_active = true)
     lambda do |org|
-      return [] if org.active? && only_active
+      return [] if !org.active? && only_active
       active_children = [org]
       child_mapper = lambda do |child|
-        active_children << child
+        active_children << child unless child.deactivated?
         child.children.each(&child_mapper) unless child.children.empty?
       end
       org.children.each(&child_mapper)
@@ -50,5 +50,16 @@ class User < ApplicationRecord
     define_method "#{type}?" do
       organizations.any? { |org| org.organization_type == type }
     end
+
+    define_method "active_#{type.pluralize}" do
+      active_organizations.select { |org| org.organization_type == type }
+    end
+  end
+
+  # this is for users who have only a unit role. They have departments that are
+  # available..that is, they can set an organization_id = a department that is
+  # the parent of one of their units.
+  def available_departments
+    (active_departments + active_units.collect(&:parent)).uniq
   end
 end

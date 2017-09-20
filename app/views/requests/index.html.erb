@@ -53,7 +53,7 @@
 					<input id="select-all" type="checkbox"></input> 
 				</th>
 				<%- @model_klass.index_fields.each do |field | %>
-          <th id="<%= field.to_s %>"><%= multi_sort_link( map_sort(field), field.to_s.titleize  ) %></th>
+          <th id="<%= field.to_s %>"><%= multi_sort_link( map_sort(field), t(field, scope: [ :activerecord, :attributes, :request, :index_labels ])  ) %></th>
 				<% end %>
         <th id="actions">
           <%= link_to( t('reset_sorting'), polymorphic_path(@model_klass.source_class, { archive: params[:archive] }), class: "btn btn-link") if sorted? %>

@@ -46,11 +46,15 @@ class RequestPolicy < ApplicationPolicy
     end
 
     def resolve
-      if @user.admin?
-        scope.all
-      else
-        scope.where(organization_id: @user.all_organizations)
-      end
+      @user.admin? ? @scope.all : scoped_query
     end
+
+    private
+
+      def scoped_query
+        @scope.where(@scope.arel_table[:organization_id].in(@user.all_organizations.map(&:id))
+            .or(@scope.arel_table[:unit_id].in(@user.all_organizations
+            .select { |o| o.organization_type == 'unit' }.map(&:id))))
+      end
   end
 end

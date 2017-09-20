@@ -45,6 +45,7 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.string   "nonop_source"
 			
 			t.integer  "organization_id",  index: true
+			t.integer  "unit_id",  index: true
 			t.integer  "review_status_id",  index: true
 
 			t.text     "justification"
@@ -72,6 +73,7 @@ class RefactorStaffingApp < ActiveRecord::Migration
 			t.string   "nonop_source"
 			
 			t.integer  "organization_id",  index: true
+			t.integer  "unit_id",  index: true
 			t.integer  "review_status_id",  index: true
 
 			t.text     "justification"

@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170817113652) do
     t.decimal  "nonop_funds_cents"
     t.string   "nonop_source"
     t.integer  "organization_id"
+    t.integer  "unit_id"
     t.integer  "review_status_id"
     t.text     "justification"
     t.datetime "created_at"
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170817113652) do
 
   add_index "archived_requests", ["organization_id"], name: "index_archived_requests_on_organization_id"
   add_index "archived_requests", ["review_status_id"], name: "index_archived_requests_on_review_status_id"
+  add_index "archived_requests", ["unit_id"], name: "index_archived_requests_on_unit_id"
 
   create_table "organization_cutoffs", primary_key: "organization_type", force: :cascade do |t|
     t.date     "cutoff_date"
@@ -77,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170817113652) do
     t.decimal  "nonop_funds_cents"
     t.string   "nonop_source"
     t.integer  "organization_id"
+    t.integer  "unit_id"
     t.integer  "review_status_id"
     t.text     "justification"
     t.datetime "created_at"
@@ -87,6 +90,7 @@ ActiveRecord::Schema.define(version: 20170817113652) do
 
   add_index "requests", ["organization_id"], name: "index_requests_on_organization_id"
   add_index "requests", ["review_status_id"], name: "index_requests_on_review_status_id"
+  add_index "requests", ["unit_id"], name: "index_requests_on_unit_id"
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"

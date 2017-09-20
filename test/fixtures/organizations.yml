@@ -5,309 +5,426 @@ organization_1:
   code: UMD
   organization_id: 
   organization_type: 1
-  created_at: 2017-08-07 08:11:26.573631000 Z
-  updated_at: 2017-08-07 08:11:26.573631000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.170315000 Z
+  updated_at: 2017-08-28 17:13:13.170315000 Z
+  deactivated: false
 organization_2:
   id: 2
   name: Administrative Services
   code: ASD
   organization_id: 1
   organization_type: 2
-  created_at: 2017-08-07 08:11:26.590610000 Z
-  updated_at: 2017-08-07 08:11:26.590610000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.186477000 Z
+  updated_at: 2017-08-28 17:13:13.186477000 Z
+  deactivated: false
 organization_3:
   id: 3
   name: Collections Strategies & Services
   code: CSS
   organization_id: 1
   organization_type: 2
-  created_at: 2017-08-07 08:11:26.605710000 Z
-  updated_at: 2017-08-07 08:11:26.605710000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.197877000 Z
+  updated_at: 2017-08-28 17:13:13.197877000 Z
+  deactivated: false
 organization_4:
   id: 4
   name: Dean's Office
   code: DO
   organization_id: 1
   organization_type: 2
-  created_at: 2017-08-07 08:11:26.622442000 Z
-  updated_at: 2017-08-07 08:11:26.622442000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.208210000 Z
+  updated_at: 2017-08-28 17:13:13.208210000 Z
+  deactivated: false
 organization_5:
   id: 5
   name: Digital Systems & Stewardship
   code: DSS
   organization_id: 1
   organization_type: 2
-  created_at: 2017-08-07 08:11:26.638727000 Z
-  updated_at: 2017-08-07 08:11:26.638727000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.218973000 Z
+  updated_at: 2017-08-28 17:13:13.218973000 Z
+  deactivated: false
 organization_6:
   id: 6
   name: Public Services
   code: PSD
   organization_id: 1
   organization_type: 2
-  created_at: 2017-08-07 08:11:26.654735000 Z
-  updated_at: 2017-08-07 08:11:26.654735000 Z
+  requests_count: 0
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.230345000 Z
+  updated_at: 2017-08-28 17:13:13.230345000 Z
+  deactivated: false
 organization_7:
   id: 7
   name: Budget & Business Services
   code: BBS
   organization_id: 2
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.670969000 Z
-  updated_at: 2017-08-07 08:11:26.670969000 Z
+  requests_count: 12
+  archived_requests_count: 9
+  created_at: 2017-08-28 17:13:13.244015000 Z
+  updated_at: 2017-08-28 17:13:13.244015000 Z
+  deactivated: false
 organization_8:
   id: 8
   name: Libraries Facilities
   code: LF
   organization_id: 2
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.687746000 Z
-  updated_at: 2017-08-07 08:11:26.687746000 Z
+  requests_count: 11
+  archived_requests_count: 10
+  created_at: 2017-08-28 17:13:13.259447000 Z
+  updated_at: 2017-08-28 17:13:13.259447000 Z
+  deactivated: false
 organization_9:
   id: 9
   name: Libraries Human Resources
   code: LHR
   organization_id: 2
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.703992000 Z
-  updated_at: 2017-08-07 08:11:26.703992000 Z
+  requests_count: 5
+  archived_requests_count: 3
+  created_at: 2017-08-28 17:13:13.274346000 Z
+  updated_at: 2017-08-28 17:13:13.274346000 Z
+  deactivated: false
 organization_10:
   id: 10
   name: Acquisitions
   code: ACQ
   organization_id: 3
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.720700000 Z
-  updated_at: 2017-08-07 08:11:26.720700000 Z
+  requests_count: 8
+  archived_requests_count: 8
+  created_at: 2017-08-28 17:13:13.289883000 Z
+  updated_at: 2017-08-28 17:13:13.289883000 Z
+  deactivated: false
 organization_11:
   id: 11
   name: Collection
   code: CD
   organization_id: 3
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.735905000 Z
-  updated_at: 2017-08-07 08:11:26.735905000 Z
+  requests_count: 11
+  archived_requests_count: 10
+  created_at: 2017-08-28 17:13:13.305259000 Z
+  updated_at: 2017-08-28 17:13:13.305259000 Z
+  deactivated: false
 organization_12:
   id: 12
   name: Metadata Services
   code: MDS
   organization_id: 3
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.752126000 Z
-  updated_at: 2017-08-07 08:11:26.752126000 Z
+  requests_count: 7
+  archived_requests_count: 8
+  created_at: 2017-08-28 17:13:13.321925000 Z
+  updated_at: 2017-08-28 17:13:13.321925000 Z
+  deactivated: false
 organization_13:
   id: 13
   name: Prange
   code: PRG
   organization_id: 3
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.767029000 Z
-  updated_at: 2017-08-07 08:11:26.767029000 Z
+  requests_count: 11
+  archived_requests_count: 6
+  created_at: 2017-08-28 17:13:13.337935000 Z
+  updated_at: 2017-08-28 17:13:13.337935000 Z
+  deactivated: false
 organization_14:
   id: 14
   name: Special Collections and University Archives
   code: SCUA
   organization_id: 3
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.783319000 Z
-  updated_at: 2017-08-07 08:11:26.783319000 Z
+  requests_count: 5
+  archived_requests_count: 12
+  created_at: 2017-08-28 17:13:13.353115000 Z
+  updated_at: 2017-08-28 17:13:13.353115000 Z
+  deactivated: false
 organization_15:
   id: 15
   name: Communications
   code: COM
   organization_id: 4
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.799847000 Z
-  updated_at: 2017-08-07 08:11:26.799847000 Z
+  requests_count: 4
+  archived_requests_count: 5
+  created_at: 2017-08-28 17:13:13.368346000 Z
+  updated_at: 2017-08-28 17:13:13.368346000 Z
+  deactivated: false
 organization_16:
   id: 16
   name: Dean's Office
-  code: DOO
+  code: DO
   organization_id: 4
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.815937000 Z
-  updated_at: 2017-08-07 08:11:26.815937000 Z
+  requests_count: 5
+  archived_requests_count: 3
+  created_at: 2017-08-28 17:13:13.383007000 Z
+  updated_at: 2017-08-28 17:13:13.383007000 Z
+  deactivated: false
 organization_17:
   id: 17
   name: Digitization
   code: DCMR
   organization_id: 5
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.832197000 Z
-  updated_at: 2017-08-07 08:11:26.832197000 Z
+  requests_count: 7
+  archived_requests_count: 6
+  created_at: 2017-08-28 17:13:13.398822000 Z
+  updated_at: 2017-08-28 17:13:13.398822000 Z
+  deactivated: false
 organization_18:
   id: 18
   name: Digital Data Services
   code: DDS
   organization_id: 5
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.848518000 Z
-  updated_at: 2017-08-07 08:11:26.848518000 Z
+  requests_count: 9
+  archived_requests_count: 11
+  created_at: 2017-08-28 17:13:13.415402000 Z
+  updated_at: 2017-08-28 17:13:13.415402000 Z
+  deactivated: false
 organization_19:
   id: 19
   name: Digital Preservation Initiatives
   code: DPI
   organization_id: 5
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.864609000 Z
-  updated_at: 2017-08-07 08:11:26.864609000 Z
+  requests_count: 8
+  archived_requests_count: 9
+  created_at: 2017-08-28 17:13:13.431588000 Z
+  updated_at: 2017-08-28 17:13:13.431588000 Z
+  deactivated: false
 organization_20:
   id: 20
   name: Software Systems Development and Research
   code: SSDR
   organization_id: 5
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.880735000 Z
-  updated_at: 2017-08-07 08:11:26.880735000 Z
+  requests_count: 5
+  archived_requests_count: 5
+  created_at: 2017-08-28 17:13:13.447621000 Z
+  updated_at: 2017-08-28 17:13:13.447621000 Z
+  deactivated: false
 organization_21:
   id: 21
   name: User Systems & Support
   code: USS
   organization_id: 5
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.896731000 Z
-  updated_at: 2017-08-07 08:11:26.896731000 Z
+  requests_count: 7
+  archived_requests_count: 14
+  created_at: 2017-08-28 17:13:13.463199000 Z
+  updated_at: 2017-08-28 17:13:13.463199000 Z
+  deactivated: false
 organization_22:
   id: 22
   name: Access Services
   code: AS
   organization_id: 6
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.912746000 Z
-  updated_at: 2017-08-07 08:11:26.912746000 Z
+  requests_count: 9
+  archived_requests_count: 10
+  created_at: 2017-08-28 17:13:13.478323000 Z
+  updated_at: 2017-08-28 17:13:13.478323000 Z
+  deactivated: false
 organization_23:
   id: 23
   name: Library Media Services
   code: LMS
   organization_id: 6
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.929371000 Z
-  updated_at: 2017-08-07 08:11:26.929371000 Z
+  requests_count: 9
+  archived_requests_count: 5
+  created_at: 2017-08-28 17:13:13.494003000 Z
+  updated_at: 2017-08-28 17:13:13.494003000 Z
+  deactivated: false
 organization_24:
   id: 24
   name: Public Services
   code: PS
   organization_id: 6
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.946215000 Z
-  updated_at: 2017-08-07 08:11:26.946215000 Z
+  requests_count: 6
+  archived_requests_count: 6
+  created_at: 2017-08-28 17:13:13.509227000 Z
+  updated_at: 2017-08-28 17:13:13.509227000 Z
+  deactivated: false
 organization_25:
   id: 25
   name: Research & Learning
   code: RL
   organization_id: 6
   organization_type: 3
-  created_at: 2017-08-07 08:11:26.962750000 Z
-  updated_at: 2017-08-07 08:11:26.962750000 Z
+  requests_count: 11
+  archived_requests_count: 10
+  created_at: 2017-08-28 17:13:13.524785000 Z
+  updated_at: 2017-08-28 17:13:13.524785000 Z
+  deactivated: false
 organization_26:
   id: 26
   name: Interlibrary Loan
   code: ILL
   organization_id: 22
   organization_type: 4
-  created_at: 2017-08-07 08:11:26.978637000 Z
-  updated_at: 2017-08-07 08:11:26.978637000 Z
+  requests_count: 27
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.540102000 Z
+  updated_at: 2017-08-28 17:13:13.540102000 Z
+  deactivated: false
 organization_27:
   id: 27
   name: Late Night
   code: LN
   organization_id: 22
   organization_type: 4
-  created_at: 2017-08-07 08:11:26.994381000 Z
-  updated_at: 2017-08-07 08:11:26.994381000 Z
+  requests_count: 17
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.556183000 Z
+  updated_at: 2017-08-28 17:13:13.556183000 Z
+  deactivated: false
 organization_28:
   id: 28
   name: Library Services Desk
   code: LSD
   organization_id: 22
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.010549000 Z
-  updated_at: 2017-08-07 08:11:27.010549000 Z
+  requests_count: 9
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.571723000 Z
+  updated_at: 2017-08-28 17:13:13.571723000 Z
+  deactivated: false
 organization_29:
   id: 29
   name: Stacks
   code: STK
   organization_id: 22
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.026425000 Z
-  updated_at: 2017-08-07 08:11:27.026425000 Z
+  requests_count: 19
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.588370000 Z
+  updated_at: 2017-08-28 17:13:13.588370000 Z
+  deactivated: false
 organization_30:
   id: 30
   name: Terapin Learning Commons
   code: TLC
   organization_id: 22
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.043028000 Z
-  updated_at: 2017-08-07 08:11:27.043028000 Z
+  requests_count: 15
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.604914000 Z
+  updated_at: 2017-08-28 17:13:13.604914000 Z
+  deactivated: false
 organization_31:
   id: 31
   name: Architecure Library
   code: ARCH
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.059515000 Z
-  updated_at: 2017-08-07 08:11:27.059515000 Z
+  requests_count: 21
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.618229000 Z
+  updated_at: 2017-08-28 17:13:13.618229000 Z
+  deactivated: false
 organization_32:
   id: 32
   name: Ary Library
   code: ART
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.076098000 Z
-  updated_at: 2017-08-07 08:11:27.076098000 Z
+  requests_count: 21
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.633632000 Z
+  updated_at: 2017-08-28 17:13:13.633632000 Z
+  deactivated: false
 organization_33:
   id: 33
   name: Engineering & PS Library
   code: EPSL
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.093363000 Z
-  updated_at: 2017-08-07 08:11:27.093363000 Z
+  requests_count: 28
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.649500000 Z
+  updated_at: 2017-08-28 17:13:13.649500000 Z
+  deactivated: false
 organization_34:
   id: 34
   name: Chemistry Library
   code: CHEM
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.110192000 Z
-  updated_at: 2017-08-07 08:11:27.110192000 Z
+  requests_count: 14
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.661773000 Z
+  updated_at: 2017-08-28 17:13:13.661773000 Z
+  deactivated: false
 organization_35:
   id: 35
   name: Humanities & Social Services
   code: HSSL
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.126607000 Z
-  updated_at: 2017-08-07 08:11:27.126607000 Z
+  requests_count: 17
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.672750000 Z
+  updated_at: 2017-08-28 17:13:13.672750000 Z
+  deactivated: false
 organization_36:
   id: 36
   name: Performing Arys Library
   code: MSPAL
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.142302000 Z
-  updated_at: 2017-08-07 08:11:27.142302000 Z
+  requests_count: 16
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.685618000 Z
+  updated_at: 2017-08-28 17:13:13.685618000 Z
+  deactivated: false
 organization_37:
   id: 37
   name: Research Commons
   code: RC
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.158752000 Z
-  updated_at: 2017-08-07 08:11:27.158752000 Z
+  requests_count: 11
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.697556000 Z
+  updated_at: 2017-08-28 17:13:13.697556000 Z
+  deactivated: false
 organization_38:
   id: 38
   name: Research & Learning
   code: RLL
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.176363000 Z
-  updated_at: 2017-08-07 08:11:27.176363000 Z
+  requests_count: 17
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.711652000 Z
+  updated_at: 2017-08-28 17:13:13.711652000 Z
+  deactivated: false
 organization_39:
   id: 39
   name: Teaching & Learning
   code: TL
   organization_id: 25
   organization_type: 4
-  created_at: 2017-08-07 08:11:27.193048000 Z
-  updated_at: 2017-08-07 08:11:27.193048000 Z
+  requests_count: 22
+  archived_requests_count: 0
+  created_at: 2017-08-28 17:13:13.728697000 Z
+  updated_at: 2017-08-28 17:13:13.728697000 Z
+  deactivated: false

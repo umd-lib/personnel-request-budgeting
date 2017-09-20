@@ -4,10 +4,10 @@ class ArchivedStaffRequest < StaffRequest
     def policy_class
       ArchivedRequestPolicy
     end
-    
+
     # all the fields associated to the model
     def fields
-      %i[ fiscal_year ] + StaffRequest.fields
+      %i[fiscal_year] + StaffRequest.fields
     end
   end
 end

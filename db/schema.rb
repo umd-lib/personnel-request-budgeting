@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911113652) do
+ActiveRecord::Schema.define(version: 20170913113652) do
 
   create_table "archived_requests", force: :cascade do |t|
     t.string   "position_title"
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 20170911113652) do
   add_index "archived_requests", ["review_status_id"], name: "index_archived_requests_on_review_status_id"
   add_index "archived_requests", ["unit_id"], name: "index_archived_requests_on_unit_id"
   add_index "archived_requests", ["user_id"], name: "index_archived_requests_on_user_id"
+
+  create_table "links", force: :cascade do |t|
+    t.string "url"
+    t.string "text"
+  end
 
   create_table "organization_cutoffs", primary_key: "organization_type", force: :cascade do |t|
     t.date     "cutoff_date"

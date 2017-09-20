@@ -71,3 +71,10 @@ review_statuses = [{ code: 'UnderReview', name: 'Under Review', color: '#ffffff'
                    { code: 'Contingent', name: 'Contingent', color: '#b3dffc' }]
 
 review_statuses.each { |rs| ReviewStatus.create!(rs) }
+
+[ [ 'Number Of Weeks Guide', "http://libi.lib.umd.edu/sites/default/files/FY18%20L&A%20Budget%20Calculations-Number%20of%20Weeks_0.pdf"] ,
+  [ 'FY18 Budget Calendar', "http://libi.lib.umd.edu/sites/default/files/Budget%20Calendar%20FY18_1.pdf" ] ].each do |link|
+  Link.create!( text: link.first, url: link.last )
+end
+
+

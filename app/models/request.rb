@@ -27,7 +27,7 @@ class Request < ApplicationRecord
   enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4, "Renewal": 5 }
 
   belongs_to :review_status, counter_cache: true
-  belongs_to :organization, required: true
+  belongs_to :organization, required: true, counter_cache: true
 
   validates :position_title, presence: true
   validates :employee_type, presence: true

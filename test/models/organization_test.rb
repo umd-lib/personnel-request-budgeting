@@ -43,6 +43,20 @@ class OrganizationTest < ActiveSupport::TestCase
     staff_request.save!
     assert_not  @unit.destroy
   end
+  
+  test 'nor can unit with associated records be have valiues edited' do
+    staff_request = StaffRequest.first
+    staff_request.organization = @unit
+    staff_request.save!
+    %i[ name= code=  ].each do |key|
+      @unit.send(key, SecureRandom.hex ) 
+      assert_not  @unit.valid?
+      @unit.reload
+    end
+    @unit.reload   
+    @unit.parent = Organization.first
+    assert_not  @unit.valid?
+  end
 
   test 'there can only be one root' do
     unit = Organization.create( organization_type: Organization.organization_types["root"], 

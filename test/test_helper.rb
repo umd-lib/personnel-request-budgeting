@@ -15,6 +15,11 @@ Minitest::Reporters.use!
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+ 
+  def before_setup
+    CounterCacheManager.run
+    super
+  end
 
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)

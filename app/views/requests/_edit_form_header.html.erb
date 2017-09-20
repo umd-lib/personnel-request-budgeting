@@ -1,5 +1,6 @@
 <%= javascript_tag do %>
-  var depts_and_units = <%= current_user.available_departments.inject({}) { |m, dept| m[dept.id] = dept.children.collect &:id ; m }.to_json.html_safe %> 
+  var depts_and_units = <%= current_user.available_departments.inject({}) { |m, dept| m[dept.id] = dept.children.collect &:id ; m }.to_json.html_safe %>;
+  $(function () { $('[data-toggle="tooltip"]').tooltip() })
 <% end %>
 <div class="page-header">
   <h2><%= @model_klass.name.underscore.humanize.titleize %>
@@ -10,7 +11,8 @@
       <% elsif show? && policy(@request).edit? %>
         <%= link_to 'Edit', edit_polymorphic_path(@request), class: 'btn btn-success' %>
       <% end %>
-      <%= link_to('Copy', new_polymorphic_url(@model_klass) , class: 'btn btn-warning spawner') if @request.archived_proxy  %>
+      <%= link_to('Copy', new_polymorphic_url(@model_klass) , class: 'btn btn-warning spawner', data:
+                  { toggle: "tooltip", title: "Copy Record to New Fiscal Year" }) if @request.archived_proxy  %>
     </div>
   </h2>
   <% if @request.cutoff? %>

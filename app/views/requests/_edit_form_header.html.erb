@@ -10,6 +10,7 @@
       <% elsif show? && policy(@request).edit? %>
         <%= link_to 'Edit', edit_polymorphic_path(@request), class: 'btn btn-success' %>
       <% end %>
+      <%= link_to('Copy', new_polymorphic_url(@model_klass) , class: 'btn btn-warning spawner') if @request.archived_proxy  %>
     </div>
   </h2>
   <% if @request.cutoff? %>
@@ -22,6 +23,12 @@
     <div class='alert alert-warning' role='alert'>
       <i class='glyphicon glyphicon-exclamation-sign'></i> 
       The submission is in the archive associated to FY: <%= @request.archived_fiscal_year.financial_year %>
+    </div>
+  <% end %>
+  <% if @request.spawned? %>
+    <div class='alert alert-info' role='alert'>
+      <i class='glyphicon glyphicon-exclamation-sign'></i> 
+      Copied from archive. Please review and save in order to create a new record in the <%= FISCAL_YEAR %>
     </div>
   <% end %>
 </div>

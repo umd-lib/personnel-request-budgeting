@@ -30,7 +30,7 @@ module PersonnelRequestController
 
   def new
     authorize @model_klass
-    @request = @model_klass.new
+    @request ||= @model_klass.new
   end
 
   def edit
@@ -51,11 +51,11 @@ module PersonnelRequestController
   end
 
   def create
-    authorize @model_klass
-    @request = @model_klass.new(request_params)
-    @request.user = current_user
+    authorize_and_new!
     respond_to do |format|
-      if @request.save
+      if @request.spawned?
+        format.html { render :new }
+      elsif @request.save
         format.html { redirect_to(@request, notice: "#{@model_klass.human_name} successfully created. ") }
       else
         format.html { render :new }
@@ -76,6 +76,13 @@ module PersonnelRequestController
   end
 
   private
+
+    # runs our policy and create a new obj from params
+    def authorize_and_new!
+      authorize @model_klass
+      @request = @model_klass.new(request_params)
+      @request.user = current_user
+    end
 
     # sets which model class we're using in the controller context
     # this is only used for index and new actions. Other actions get the klass

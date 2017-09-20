@@ -34,7 +34,7 @@ class RequestPolicy < ApplicationPolicy
     %i[employee_type position_title request_type organization_id
        contractor_name number_of_positions hourly_rate hours_per_week
        number_of_weeks nonop_funds nonop_source department_id
-       unit_id justification] + admin_only_attributes
+       unit_id justification spawned ] + admin_only_attributes
   end
 
   class Scope

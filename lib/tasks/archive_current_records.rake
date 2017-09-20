@@ -14,3 +14,7 @@ namespace :db do
     end
   end
 end
+
+Rake::Task["db:archive_current_records"].enhance do
+  Rake::Task["db:migrate"].invoke
+end

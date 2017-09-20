@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817113652) do
+ActiveRecord::Schema.define(version: 20170911113652) do
 
   create_table "archived_requests", force: :cascade do |t|
     t.string   "position_title"
@@ -36,11 +36,13 @@ ActiveRecord::Schema.define(version: 20170817113652) do
     t.text     "review_comment"
     t.string   "employee_name"
     t.datetime "fiscal_year"
+    t.integer  "user_id"
   end
 
   add_index "archived_requests", ["organization_id"], name: "index_archived_requests_on_organization_id"
   add_index "archived_requests", ["review_status_id"], name: "index_archived_requests_on_review_status_id"
   add_index "archived_requests", ["unit_id"], name: "index_archived_requests_on_unit_id"
+  add_index "archived_requests", ["user_id"], name: "index_archived_requests_on_user_id"
 
   create_table "organization_cutoffs", primary_key: "organization_type", force: :cascade do |t|
     t.date     "cutoff_date"
@@ -86,11 +88,13 @@ ActiveRecord::Schema.define(version: 20170817113652) do
     t.datetime "updated_at"
     t.text     "review_comment"
     t.string   "employee_name"
+    t.integer  "user_id"
   end
 
   add_index "requests", ["organization_id"], name: "index_requests_on_organization_id"
   add_index "requests", ["review_status_id"], name: "index_requests_on_review_status_id"
   add_index "requests", ["unit_id"], name: "index_requests_on_unit_id"
+  add_index "requests", ["user_id"], name: "index_requests_on_user_id"
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"

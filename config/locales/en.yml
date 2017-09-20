@@ -42,6 +42,8 @@ en:
         review_status__name: Status
         contractor_name: Name
         employee_name: Name
+        request_model_type: Type
+        user__name: Submitted By
   hints: &hints
     annual_base_pay: Estimated annual salary for the position.
     contractor_name: Name of person in the position being replaced or renewed.

@@ -14,7 +14,7 @@ class StaffRequest < Request
       %i[ position_title employee_name employee_type request_type
           annual_base_pay
           nonop_funds nonop_source justification organization__name unit__name
-          review_status__name review_comment created_at updated_at ]
+          review_status__name review_comment user__name created_at updated_at ]
     end
 
     # Returns an ordered array used in the index pages
@@ -32,6 +32,8 @@ class StaffRequest < Request
   end
 
   default_scope(lambda do
-    includes(%i[review_status organization]).where(request_model_type: StaffRequest.request_model_types['staff'])
+    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
+      .includes(%i[review_status organization user])
+      .where(request_model_type: StaffRequest.request_model_types['staff'])
   end)
 end

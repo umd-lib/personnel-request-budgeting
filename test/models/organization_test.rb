@@ -42,6 +42,7 @@ class OrganizationTest < ActiveSupport::TestCase
     staff_request.organization = @unit.parent
     staff_request.unit = @unit
     staff_request.save!
+    @unit.reload
     assert_not  @unit.destroy
   end
   

@@ -7,6 +7,11 @@ namespace :db do
 
   desc 'Populates the database with sample data'
   task populate_sample_data: :environment do
+   
+    num_users = 12
+    num_users.times do 
+      create_user.save!
+    end
     
     num_staff_requests = 50
     num_staff_requests.times do
@@ -24,6 +29,16 @@ namespace :db do
     end
   end
 
+  def create_user
+    user = User.new( name: Faker::Name.name, cas_directory_id: Faker::Internet.email.split("@").first, admin: false  )
+    user.roles.build organization:  Organization.offset( rand( Organization.count ) ).first
+    user
+  end
+
+  def random_user
+    User.offset( rand( User.count ) ).first
+  end
+  
   # Returns a valid StaffRequest object
   def create_staff_request
     staff_request = StaffRequest.new
@@ -69,6 +84,7 @@ namespace :db do
   # Randomly populates the fields common to all requests for the given
   # +request+
   def generate_common_fields(request)
+    request.user = random_user 
     request.position_title = Faker::Name.title
     request.employee_type = request.class::VALID_EMPLOYEE_TYPES.sample 
     request.request_type = request.class::VALID_REQUEST_TYPES.sample 

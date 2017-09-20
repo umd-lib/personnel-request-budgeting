@@ -53,6 +53,7 @@ module PersonnelRequestController
   def create
     authorize @model_klass
     @request = @model_klass.new(request_params)
+    @request.user = current_user
     respond_to do |format|
       if @request.save
         format.html { redirect_to(@request, notice: "#{@model_klass.human_name} successfully created. ") }

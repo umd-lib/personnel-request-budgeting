@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913113652) do
+ActiveRecord::Schema.define(version: 20170921153430) do
 
   create_table "archived_requests", force: :cascade do |t|
     t.string   "position_title"
@@ -70,6 +70,20 @@ ActiveRecord::Schema.define(version: 20170913113652) do
   add_index "organizations", ["organization_id"], name: "index_organizations_on_organization_id"
   add_index "organizations", ["organization_type", "code"], name: "index_organizations_on_organization_type_and_code", unique: true
   add_index "organizations", ["organization_type"], name: "index_organizations_on_organization_type"
+
+  create_table "reports", force: :cascade do |t|
+    t.binary   "output"
+    t.text     "parameters"
+    t.integer  "format",         default: 0, null: false
+    t.integer  "status",         default: 0, null: false
+    t.string   "name",                       null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "status_message"
+  end
+
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
   create_table "requests", force: :cascade do |t|
     t.string   "position_title"

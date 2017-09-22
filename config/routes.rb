@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   resources :organization_cutoffs
   resources :review_statuses
   resources :links
+
+  resources :reports
+  get '/reports/:id/download' => 'reports#download', as: :report_download
 end

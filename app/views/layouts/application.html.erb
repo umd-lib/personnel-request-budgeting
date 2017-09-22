@@ -33,10 +33,10 @@
         </ul>
       </li>
     <% end %>
-    <% if current_user %> 
+    <% if current_user %>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= current_user.name %> 
+          <%= current_user.name %>
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -49,20 +49,22 @@
             <li><%= link_to 'Manage Cutoff Dates', organization_cutoffs_path %></li>
             <li><%= link_to 'Manage Review Statuses', review_statuses_path %></li>
             <li role="separator" class="divider"></li>
+            <li><%= link_to 'Reports', reports_path %></li>
+            <li role="separator" class="divider"></li>
             <li id='impersonate_user'><%= link_to 'Impersonate User', users_path %></li>
           <% end %>
         </ul>
       </li>
-    <% end %>   
+    <% end %>
     <li class='dropdown'>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          Help 
+          Help
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <% @links.each do |link| %> 
+          <% @links.each do |link| %>
             <li class='help-link'>
-              <%=  link_to(link.text, link.url, target: "_blank", class: "") %> 
+              <%=  link_to(link.text, link.url, target: "_blank", class: "") %>
             </li>
           <% end %>
           <% if current_user.admin? %>
@@ -70,7 +72,7 @@
             <li><%= link_to("Edit Links",links_url,class: "btn btn-success pull-right edit-links") %></li>
           <% end %>
         </ul>
-    </li> 
+    </li>
   </ul>
 <% end %>
 <% content_for :navbar_banner do %>

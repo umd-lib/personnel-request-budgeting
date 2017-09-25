@@ -1,6 +1,6 @@
 # A Contractor Request
 class ContractorRequest < Request
-  VALID_EMPLOYEE_TYPES = ['Contractor Type 2', 'ContFac'].freeze
+  VALID_EMPLOYEE_TYPES = ['Contingent 2', 'Contract Faculty'].freeze
   VALID_REQUEST_TYPES = %w[Renewal New ConvertC1].freeze
 
   class << self

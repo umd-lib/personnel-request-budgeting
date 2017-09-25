@@ -2,17 +2,17 @@ require 'test_helper'
 
 class LinksControllerTest < ActionController::TestCase
   setup do
-    @link = link(:umd)
-    session[:cas] = { user: "admin" } 
+    @link = links(:umd)
+    session[:cas] = { user: "admin" }
   end
-  
+
   test 'should not allow unauthed users' do
-    run_as_user(nil) do 
+    run_as_user(nil) do
       get :index
       assert_response(401)
-    end 
+    end
   end
-  
+
   test 'should get index' do
     get :index
     assert_response :success
@@ -68,7 +68,7 @@ class LinksControllerTest < ActionController::TestCase
       get :edit, id: @link
       assert_response :forbidden
 
-      post :create, link: { text: "1", url: "http://meow.no" }  
+      post :create, link: { text: "1", url: "http://meow.no" }
       assert_response :forbidden
 
       patch :update, id: @link,

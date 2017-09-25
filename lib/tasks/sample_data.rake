@@ -7,12 +7,12 @@ namespace :db do
 
   desc 'Populates the database with sample data'
   task populate_sample_data: :environment do
-   
+
     num_users = 12
-    num_users.times do 
+    num_users.times do
       create_user.save!
     end
-    
+
     num_staff_requests = 50
     num_staff_requests.times do
       create_staff_request.save!
@@ -38,7 +38,7 @@ namespace :db do
   def random_user
     User.offset( rand( User.count ) ).first
   end
-  
+
   # Returns a valid StaffRequest object
   def create_staff_request
     staff_request = StaffRequest.new
@@ -84,18 +84,19 @@ namespace :db do
   # Randomly populates the fields common to all requests for the given
   # +request+
   def generate_common_fields(request)
-    request.user = random_user 
+    request.user = random_user
     request.position_title = Faker::Name.title
-    request.employee_type = request.class::VALID_EMPLOYEE_TYPES.sample 
-    request.request_type = request.class::VALID_REQUEST_TYPES.sample 
-    depts = Organization.where( organization_type: Organization.organization_types["department"]) 
-    request.organization = depts.offset(rand(depts.count)).first
-    if rand(2) == 0
-      units = Organization.where( organization_type: Organization.organization_types["unit"]) 
-      request.unit = units.offset(rand(units.count)).first
+    request.employee_type = request.class::VALID_EMPLOYEE_TYPES.sample
+    request.request_type = request.class::VALID_REQUEST_TYPES.sample
+    depts = Organization.where( organization_type: Organization.organization_types["department"])
+    dept = depts.offset(rand(depts.count)).first
+    request.organization = dept
+    if rand < 0.75 && dept.children.any?
+      random_unit_index = rand(dept.children.count)
+      request.unit = dept.children[random_unit_index]
     end
     request.justification = Faker::Lorem.words(rand(50) + 1).join(' ')
-    request.review_status = ReviewStatus.offset(rand(ReviewStatus.count)).first 
+    request.review_status = ReviewStatus.offset(rand(ReviewStatus.count)).first
   end
 
   # Randomly chooses to add nonop_funds and nonop_source entries to the given

@@ -1,6 +1,6 @@
 # A Labor and Assistance staffing request
 class LaborRequest < Request
-  VALID_EMPLOYEE_TYPES = ['Exempt', 'Faculty', 'Graduate Assistant', 'Non-exempt'].freeze
+  VALID_EMPLOYEE_TYPES = ['Contingent 1', 'Faculty Hourly', 'Student'].freeze
   VALID_REQUEST_TYPES = %w[New Renewal].freeze
 
   class << self

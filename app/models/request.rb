@@ -58,7 +58,7 @@ class Request < ApplicationRecord
   end
 
   enum request_model_type: { contractor: 0, labor: 1, staff: 2 }
-  enum employee_type: { "Contractor Type 1": 0, "Faculty Hourly": 1, "Student": 3,
+  enum employee_type: { "Contingent 1": 0, "Faculty Hourly": 1, "Student": 3,
                         "Exempt": 4, "Faculty": 5, "Graduate Assistant": 6,
                         "Non-exempt": 7, "Contractor Type 2": 8, "ContFac": 9 }
   enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4,

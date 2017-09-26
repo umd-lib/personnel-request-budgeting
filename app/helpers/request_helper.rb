@@ -48,9 +48,9 @@ module RequestHelper
   end
 
   # Report helper methods
-  CURRENCY_FIELDS = %i(nonop_funds_cents annual_cost annual_base_pay_cents hourly_rate_cents).freeze
+  CURRENCY_FIELDS = %i[nonop_funds_cents annual_cost annual_base_pay_cents hourly_rate_cents].freeze
 
-  LENGTHY_FIELDS = %i(justification review_comment).freeze
+  LENGTHY_FIELDS = %i[justification review_comment].freeze
 
   # Returns a list of fields for a record
   #
@@ -93,23 +93,6 @@ module RequestHelper
     [fields, formats, widths]
   end
 
-  # Calls the field on the record and attempts to display it.
-  # If there is special formatting on the field, define a "render_FIELD_NAME"
-  # method that takes the record and tweaks the field
-  #
-  # @param record [ActiveRecord] the record with the field
-  # @param field [Symbol] the field name ( use __ to indicate associations )
-  # @param format [Symbol] any special format to call a specific render method
-  # @return [String] value from record field
-  def call_record_field(record, field, format = nil)
-    method = "render_#{field}_#{format}".chomp('_').intern
-    if respond_to? method
-      send(method, record)
-    else
-      record.call_field(field)
-    end
-  end
-
   # Just return the currency fields
   def currency_fields
     CURRENCY_FIELDS
@@ -135,7 +118,7 @@ module RequestHelper
   #
   # @return [Array] list of fields
   def labor_request_fields
-    labor_request_all_fields - %i(nonop_source justification review_comment created_at updated_at)
+    labor_request_all_fields - %i[nonop_source justification review_comment created_at updated_at]
   end
 
   # Returns an ordered array of all the fields used in labor_requests
@@ -149,7 +132,7 @@ module RequestHelper
   #
   # @return [Array] list of fields
   def staff_request_fields
-    staff_request_all_fields - %i(nonop_source justification review_comment created_at updated_at)
+    staff_request_all_fields - %i[nonop_source justification review_comment created_at updated_at]
   end
 
   # Returns an ordered array of all the fields used in contractor_requests
@@ -163,7 +146,7 @@ module RequestHelper
   #
   # @return [Array] list of fields
   def contractor_request_fields
-    contractor_request_all_fields - %i(nonop_source justification review_comment created_at updated_at)
+    contractor_request_all_fields - %i[nonop_source justification review_comment created_at updated_at]
   end
 
   # Returns an ordered array of all the fields used in contractor_requests

@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :download]
-  after_action :verify_authorized, only: [:index, :show, :create, :destroy, :download]
+  before_action :set_report, only: %i[show edit update destroy download]
+  after_action :verify_authorized, only: %i[index show create destroy download]
 
   # GET /reports
   # GET /reports.json

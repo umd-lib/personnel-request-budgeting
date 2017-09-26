@@ -12,7 +12,7 @@ class RequestsCountByReviewStatusReport
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [String] the view template to use in formatting the report output
@@ -49,7 +49,7 @@ class RequestsCountByReviewStatusReport
     category_display_name[:staff_count] = 'Staff'
     category_display_name[:contractor_count] = 'Salaried Contractor'
 
-    category_order = [:labor_count, :staff_count, :contractor_count]
+    category_order = %i[labor_count staff_count contractor_count]
 
     data = []
     category_order.each do |key|

@@ -1,19 +1,19 @@
 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 def construct_summary_worksheet(wb, styles, record_set)
   # Requests Count Worksheet Construction
-  wb.add_worksheet(name: 'Requests Count by Review Status') do |sheet|
+  wb.add_worksheet(name: 'Requests Count by Review Status') do |sheet| # rubocop:disable Metrics/BlockLength
     row_num = 1
     data = record_set
 
     sheet.add_row ['Consolidated Libraries', 'Requests Count by Review Status'],
                   style: [styles[:title], styles[:extra_title]],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row ['', ''],
                   style: [styles[:title], nil],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     row_num += 1
 
     sheet.add_row ['Requests Count Category', 'Under Review', 'Approved', 'Not Approved', 'Contingent', 'Total'],

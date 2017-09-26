@@ -14,17 +14,17 @@ class RequestsByDepartmentReport
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [Array<Symbol>] the parameters allowed for user input
     def allowed_parameters
-      %i(department_id)
+      %i[department_id]
     end
 
     # @return [Array<String>] the worksheet names (for spreadsheet output)
     def worksheets
-      %w(StaffRequest ContractorRequest LaborRequest)
+      %w[StaffRequest ContractorRequest LaborRequest]
     end
 
     # @return [String] the view template to use in formatting the report output

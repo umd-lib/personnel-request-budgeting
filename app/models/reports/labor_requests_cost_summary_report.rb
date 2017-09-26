@@ -15,7 +15,7 @@ class LaborRequestsCostSummaryReport
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [String] the view template to use in formatting the report output

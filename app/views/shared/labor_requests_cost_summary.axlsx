@@ -46,7 +46,7 @@ end
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
 def construct_division_worksheet(wb, styles, record_set, division, created_at)
   # Division Worksheet Construction
-  wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet|
+  wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet| # rubocop:disable Metrics/BlockLength
     data = record_set[:summary_data]
     row_num = 1
     current_fiscal_year = record_set[:current_fiscal_year]
@@ -54,13 +54,13 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
 
     sheet.add_row [division, "Divisional Summary of L & A Requests - #{current_fiscal_year}"],
                   style: [styles[:title], styles[:extra_title]],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row ['', ''],
                   style: [styles[:title], nil],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     row_num += 1
 
     sheet.add_row ['Dept Name', "C1's", 'Hourly Faculty', 'Students', 'Total', 'Grant, Gift, Other Support'],
@@ -175,20 +175,20 @@ end
 # @param created_at [ActiveSupport::TimeWithZone] the report creation time
 def construct_summary_worksheet(wb, styles, record_set, created_at)
   # Summary Worksheet Construction
-  wb.insert_worksheet(0, name: 'Summary_L_and_A') do |sheet|
+  wb.insert_worksheet(0, name: 'Summary_L_and_A') do |sheet| # rubocop:disable Metrics/BlockLength
     row_num = 1
     current_fiscal_year = record_set[:current_fiscal_year]
     previous_fiscal_year = record_set[:previous_fiscal_year]
 
     sheet.add_row ['Consolidated Libraries', "Summary of L & A Requests - #{current_fiscal_year}"],
                   style: [styles[:title], styles[:extra_title]],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row [nil, nil],
                   style: [styles[:title], nil],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     row_num += 1
 
     sheet.add_row [nil, nil, nil, nil, 'Less:', nil, nil, nil],

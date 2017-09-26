@@ -18,6 +18,13 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_not @unit.valid?
   end
 
+  test 'code should be unique to organization_type' do
+    unit = Organization.new( code: @unit.code, organization_type: @unit.organization_type,
+                            name: SecureRandom.hex, organization_id: @unit.organization_id )
+    assert_not unit.valid?
+    unit.code = SecureRandom.hex
+    assert @unit.valid?
+  end
 
   test 'name should be present' do
     @unit.name = '  '
@@ -81,6 +88,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert_includes( root.great_grandchildren, @unit )
   end
+
 
 
 end

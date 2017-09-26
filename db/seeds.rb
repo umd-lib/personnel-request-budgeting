@@ -8,7 +8,7 @@ root =  Organization.create!(
         )
 divisions = [	
               { code: 'ASD', name: 'Administrative Services',  organization_type: Organization.organization_types["division"] },
-             	{ code: 'CSS',  name: 'Collections Strategies & Services' , organization_type: Organization.organization_types["division"] },
+             	{ code: 'CSS',  name: 'Collections Strategies and Services' , organization_type: Organization.organization_types["division"] },
              	{ code: 'DO', name: "Dean's Office",   organization_type: Organization.organization_types["division"] },
              	{ code: 'DSS',name: 'Digital Systems & Stewardship' ,  organization_type: Organization.organization_types["division"] },
 							{ code: 'PSD', name: 'Public Services', organization_type: Organization.organization_types["division"] }
@@ -23,7 +23,7 @@ departments_by_division = {
             { code: 'CD', name: "Collection", organization_type: Organization.organization_types["department"]  },
             { code: 'MDS', name: "Metadata Services", organization_type: Organization.organization_types["department"]  },
             { code: 'PRG', name: "Prange", organization_type: Organization.organization_types["department"]  },
-            { code: 'SCUA', name: "Special Collections and University Archives",  organization_type: Organization.organization_types["department"] }],
+            { code: 'SCUA', name: "Special Collections & University Archives",  organization_type: Organization.organization_types["department"] }],
   'DO' => [{ code: 'COM', name: "Communications", organization_type: Organization.organization_types["department"]  },
            { code: 'DO', name: "Dean's Office", organization_type: Organization.organization_types["department"]  }],
   'DSS' => [{ code: 'DCMR', name: "Digitization", organization_type: Organization.organization_types["department"]  },
@@ -51,13 +51,13 @@ units_by_department = {
            { code: 'TLC', name: "Terapin Learning Commons", organization_type: Organization.organization_types["unit"]  }],
   'RL' => [{ code: 'ARCH', name: "Architecure Library",  organization_type: Organization.organization_types["unit"]  },
            { code: 'ART', name: "Ary Library", organization_type: Organization.organization_types["unit"]  },
-           { code: 'EPSL', name: "Engineering & PS Library", organization_type: Organization.organization_types["unit"]  },
+           { code: 'EPSL', name: "Engineering and PS Library", organization_type: Organization.organization_types["unit"]  },
            { code: 'CHEM', name: "Chemistry Library", organization_type: Organization.organization_types["unit"]  },
-           { code: 'HSSL',  name: "Humanities & Social Services", organization_type: Organization.organization_types["unit"] },
+           { code: 'HSSL',  name: "Humanities and Social Services", organization_type: Organization.organization_types["unit"] },
            { code: 'MSPAL', name: "Performing Arys Library", organization_type: Organization.organization_types["unit"] },
            { code: 'RC', name: "Research Commons", organization_type: Organization.organization_types["unit"]   },
-           { code: 'RLL', name: "Research & Learning", organization_type: Organization.organization_types["unit"]  },
-					 { code: 'TL', name: "Teaching & Learning", organization_type: Organization.organization_types["unit"]  }] 
+           { code: 'RLL', name: "Research and Learning", organization_type: Organization.organization_types["unit"]  },
+					 { code: 'TL', name: "Teaching and Learning", organization_type: Organization.organization_types["unit"]  }] 
 }
 units = []
 units_by_department.each do |dept, us|

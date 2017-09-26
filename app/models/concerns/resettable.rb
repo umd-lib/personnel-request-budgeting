@@ -7,7 +7,6 @@ module Resettable
   extend ActiveSupport::Concern
 
   class_methods do
-    # activerecord/lib/active_record/counter_cache.rb:20
     def reset_counters(id, *counters)
       object = find(id)
       counters.each do |counter_association|

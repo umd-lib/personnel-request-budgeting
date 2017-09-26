@@ -39,9 +39,7 @@ class Organization < ApplicationRecord
   has_many :users, through: :roles
 
   validates :code, :organization_type, :name, presence: true
-
-  # apparently code does not have to be unique?
-  # validates :code, uniqueness: true
+  validates :code, uniqueness: { scope: :organization_type }
 
   validate :only_one_root, :no_edits_if_archive
 

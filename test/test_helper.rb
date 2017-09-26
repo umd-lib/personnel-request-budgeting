@@ -15,11 +15,6 @@ Minitest::Reporters.use!
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
- 
-  def before_setup
-    CounterCacheManager.run
-    super
-  end
 
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)
@@ -50,5 +45,39 @@ class ActiveSupport::TestCase
       user.destroy!
     end
   end
+
+end
+
+# test/test_helper.rb:
+require 'capybara/rails'
+require 'capybara/minitest'
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+class ActionDispatch::IntegrationTest
+ 
+  include Capybara::DSL
+  include Capybara::Minitest::Assertions
+ 
+
+  def use_chrome!
+    Capybara.current_driver = :chrome
+    Capybara.page.driver.browser.manage.window.resize_to 1500, 800
+  end
+
+  def teardown
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
+  end
+
+  def login_admin
+    visit "/"
+    fill_in 'username', with: 'admin'
+    fill_in 'password', with: 'any password'
+    click_button 'Login'
+  end
+
 
 end

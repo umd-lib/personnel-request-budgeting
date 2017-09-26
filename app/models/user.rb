@@ -47,7 +47,7 @@ class User < ApplicationRecord
   # this returns if the user has a role related to a specific org type
   # for example we define unit? to find any active roles with a org that
   # has org type == 'unit'
-  Organization.organization_types.keys.each do |type|
+  Organization.organization_types.each_key do |type|
     define_method "#{type}?" do
       organizations.any? { |org| org.organization_type == type }
     end

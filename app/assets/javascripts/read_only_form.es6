@@ -4,7 +4,7 @@ class ReadOnlyForm {
 
   init() { 
     $('.readonly').find('input, select,textarea').attr('disabled', 'disabled' );
-    $('.help-block').remove();
+    $('.readonly').find('.help-block').remove();
    }
 
 }

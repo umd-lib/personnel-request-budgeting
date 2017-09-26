@@ -1,12 +1,12 @@
-require 'active_support/concern'
-
-# rubocop:disable all
+# this just patchs rails reset_counters methods to work with the monkey
+# business we're doing with our associations
+# disabling rubocop...this is taken from Rails core.
+#
+#rubocop:disable all
 module Resettable
-
   extend ActiveSupport::Concern
 
   class_methods do
-
     def reset_counters(id, *counters)
       object = find(id)
       counters.each do |counter_association|
@@ -42,9 +42,5 @@ module Resettable
       end
       true
     end
-
-
-
   end
-
 end

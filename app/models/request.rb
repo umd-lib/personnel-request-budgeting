@@ -44,6 +44,13 @@ class Request < ApplicationRecord
 
   attr_accessor :archived_fiscal_year
   attr_accessor :archived_proxy
+  attr_accessor :spawned
+  def spawned?
+    return false unless spawned
+    truths = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
+    truths.include?(spawned)
+  end
+
   # sometimes in the app we take Archived class and cast it as a regular
   # non-archived record to display in a view.
   def archived_proxy?

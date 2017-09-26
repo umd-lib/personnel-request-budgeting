@@ -62,8 +62,8 @@ class ContractorRequestsCostSummaryReport
     Organization.department.order(:code).each do |dept|
       department_code = dept.code
       division_code = dept.parent.code
-      c2_key = [department_code, 'Contractor Type 2']
-      cfac_key = [department_code, 'ContFac']
+      c2_key = [department_code, 'Contingent 2']
+      cfac_key = [department_code, 'Contract Faculty']
       other_support_key = [department_code, 'other_support']
       value = { department: dept.name,
                 division: division_code,

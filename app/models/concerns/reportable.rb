@@ -33,7 +33,7 @@ module Reportable
 
     # @return [String] the view template to use in formatting the report output
     def template
-      'shared/index'
+      'requests/index'
     end
   end
 

@@ -19,5 +19,3 @@ module TwoPointOhMigrator
   end
 
 end
-
-[ ContractorRequest, StaffRequest, LaborRequest ].each { |klass| klass.include(TwoPointOhMigrator) }

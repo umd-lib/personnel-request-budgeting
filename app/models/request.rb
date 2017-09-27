@@ -44,6 +44,13 @@ class Request < ApplicationRecord
 
   attr_accessor :archived_fiscal_year
   attr_accessor :archived_proxy
+  attr_accessor :spawned
+  def spawned?
+    return false unless spawned
+    truths = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
+    truths.include?(spawned)
+  end
+
   # sometimes in the app we take Archived class and cast it as a regular
   # non-archived record to display in a view.
   def archived_proxy?
@@ -51,9 +58,9 @@ class Request < ApplicationRecord
   end
 
   enum request_model_type: { contractor: 0, labor: 1, staff: 2 }
-  enum employee_type: { "Contractor Type 1": 0, "Faculty Hourly": 1, "Student": 3,
+  enum employee_type: { "Contingent 1": 0, "Faculty Hourly": 1, "Student": 3,
                         "Exempt": 4, "Faculty": 5, "Graduate Assistant": 6,
-                        "Non-exempt": 7, "Contractor Type 2": 8, "ContFac": 9 }
+                        "Non-exempt": 7, "Contingent 2": 8, "Contract Faculty": 9 }
   enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4,
                        "Renewal": 5, 'Pay Adjustment - Other': 6,
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }

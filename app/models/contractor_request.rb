@@ -1,6 +1,6 @@
 # A Contractor Request
 class ContractorRequest < Request
-  VALID_EMPLOYEE_TYPES = ['Contractor Type 2', 'ContFac'].freeze
+  VALID_EMPLOYEE_TYPES = ['Contingent 2', 'Contract Faculty'].freeze
   VALID_REQUEST_TYPES = %w[Renewal New ConvertC1].freeze
 
   class << self
@@ -28,7 +28,7 @@ class ContractorRequest < Request
   validates :contractor_name, presence: true, if: :contractor_name_required?
 
   def contractor_name_required?
-    request_type == 'Renewal'
+    %w[Renewal ConvertC1].include? request_type
   end
 
   default_scope(lambda do

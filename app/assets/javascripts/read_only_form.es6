@@ -3,8 +3,9 @@ class ReadOnlyForm {
   constructor(){ this.init(); }
 
   init() { 
-    $('.readonly').find('input, select,textarea').attr('disabled', 'disabled' );
-    $('.readonly').find('.help-block').remove();
+    let $rdonly =  $('.readonly');
+    $rdonly.find('input, select,textarea').attr('disabled', 'disabled' );
+    $rdonly.find('.help-block').remove();
    }
 
 }

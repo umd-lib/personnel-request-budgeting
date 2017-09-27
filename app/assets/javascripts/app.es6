@@ -11,6 +11,7 @@ class App {
       new Toggle();
       new UnitSelector();
       new WordLimit();
+      new Spawner();
   }) 
 
   }

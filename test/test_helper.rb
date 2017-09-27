@@ -51,19 +51,38 @@ end
 # test/test_helper.rb:
 require 'capybara/rails'
 require 'capybara/minitest'
+require 'capybara-screenshot/minitest'
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
+Capybara.register_driver :headless_chrome do |app|
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu ] } 
+  ) 
+ 
+  Capybara::Selenium::Driver.new(app, browser: :chrome,
+                                desired_capabilities: caps )
+end
+
+# just the selenium screenshot driver.
+%i[ chrome headless_chrome ].each do |chrome_driver|
+  Capybara::Screenshot.register_driver(chrome_driver) do |driver, path|
+    driver.browser.save_screenshot(path) 
+  end
+end
+
+
+
 class ActionDispatch::IntegrationTest
  
   include Capybara::DSL
   include Capybara::Minitest::Assertions
- 
+  include Capybara::Screenshot::MiniTestPlugin 
 
   def use_chrome!
-    Capybara.current_driver = :chrome
+    Capybara.current_driver = ENV["SELENIUM_CHROME"] ? :chrome : :headless_chrome
     Capybara.page.driver.browser.manage.window.resize_to 1500, 800
   end
 

@@ -7,7 +7,7 @@ class CounterCacheManager
     def run
       Rails.application.eager_load!
       logger ||= Logger.new(STDOUT)
-      logger.info("Resetting counter cache fields..")
+      logger.info("Resetting counter cache fields..") unless Rails.env === 'test'
       # get all reflections
       ActiveRecord::Base.descendants.each do |klass|
         next if klass == Organization # too much trouble...we'll brute force it later. 

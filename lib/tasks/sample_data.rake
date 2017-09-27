@@ -117,3 +117,7 @@ namespace :db do
   end
 
 end
+
+Rake::Task["db:populate_sample_data"].enhance do
+  Rake::Task["db:migrate"].invoke
+end

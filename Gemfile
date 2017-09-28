@@ -30,6 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pundit'
 gem 'rack-cas'
 
+# dotenv - For storing production configuration parameters
+gem 'dotenv-rails', '~> 2.1.1'
+
 # UMD Bootstrap style
 gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
 

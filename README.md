@@ -89,3 +89,26 @@ with.
 This will empty all the records in the Requests table, so be sure to backup the
 database in case you need to revert the process. 
 
+### Running Tests
+
+To run the tests, you can use the standard rake command:
+```
+> ./bin/rake test
+```
+
+Or to use Guard:
+```
+> ./bin/bundle exec guard
+```
+
+Integration tests are run using Selenium and Chrome, which requires Chrome/Chromium browser
+and  [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+installed. By default, they are run in headless mode. You can run them in
+regular mode by setting an environment variable to SELENIUM_CHROME: 
+```
+> export SELENIUM_CHROME=true
+> ./bin/rake test:integration
+```
+
+On failures, screenshots are saved in the tmp/capybara directory, but YMMV
+depending on your version of Chrome.

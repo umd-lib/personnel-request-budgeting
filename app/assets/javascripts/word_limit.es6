@@ -13,9 +13,16 @@ class WordLimit {
     const $help = $el.siblings(".help-block"); 
     const filter = function() { this.length > 0 };
     
-    const countWords = function() { 
+    const countWords = () => { 
       return $.grep( $.trim($el.val()).split(/\s+/), function(word) { return word.length > 0 }).length;
     }
+    
+    const countMsg = (count) => {
+      if ( count > 0 )  { return "<span class='pull-right counter'>( " + count + " words remaining )</span>" }
+      if ( count  == 0 ) { return "<span class='pull-right counter'>125 word limit reached.</span>" }
+      if ( count < 0 ) { return "<span class='pull-right counter'>Limit exceeded (" + ( count * -1 ) + " words over )</span>" }
+    } 
+    
     let current = countWords();
 
     let countCheck = () => { 
@@ -24,9 +31,11 @@ class WordLimit {
       if ( check != current ) {
         current = check; 
         let left = limit - current;  
+        
         alert = left > 0 ? 'text-warning' : 'text-danger'; 
+        
         $help.find('.counter').remove(); 
-        $help.append("<span class='pull-right counter'>( " + left + " words remaining )</span>"); 
+        $help.append(countMsg(left)); 
         
         let toggleAlert = ()=> {
           $help.find(".counter").removeClass( (index, className) => { 

@@ -37,13 +37,13 @@ departments_by_division = {
   'PSD' => [{ code: 'LMS', name: 'Library Media Services', organization_type: Organization.organization_types['department'] },
             { code: 'PSDOFF', name: 'PSD Main Office', organization_type: Organization.organization_types['department'] },
             { code: 'RL', name: 'Research & Learning', organization_type: Organization.organization_types['department'] },
-            { code: 'USRS', name: 'User Services & Resource Sharing', organization_type: Organization.organization_types['department'] },]
+            { code: 'USRS', name: 'User Services & Resource Sharing', organization_type: Organization.organization_types['department'] }]
 }
 
 departments = []
 departments_by_division.each do |div, depts|
-	d = divisions.find { |di| di[:code] === div }
-	departments = depts.map { |dept| Organization.create!( dept.merge( parent: d ) ) }
+  d = divisions.find { |di| di[:code] === div }
+  departments += depts.map { |dept| Organization.create!( dept.merge( parent: d ) ) }
 end
 
 units_by_department = {
@@ -74,7 +74,7 @@ units_by_department = {
 }
 units = []
 units_by_department.each do |dept, us|
-	d = departments.find { |de| de[:code] === dept }
+  d = departments.find { |de| de[:code] === dept }
   units = us.map { |u|  Organization.create!( u.merge( parent: d ) ) }
 end
 

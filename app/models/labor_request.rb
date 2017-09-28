@@ -1,49 +1,47 @@
 # A Labor and Assistance staffing request
-class LaborRequest < ActiveRecord::Base
-  VALID_EMPLOYEE_CATEGORY_CODE = 'L&A'.freeze
-  VALID_REQUEST_TYPE_CODES = %w(New Renewal).freeze
+class LaborRequest < Request
+  VALID_EMPLOYEE_TYPES = ['Contingent 1', 'Faculty Hourly', 'Student'].freeze
+  VALID_REQUEST_TYPES = %w[New Renewal].freeze
 
-  include Requestable
+  class << self
+    def human_name
+      'Labor and Assistance Requests'
+    end
 
-  belongs_to :department, counter_cache: true
-  belongs_to :unit, counter_cache: true
-  belongs_to :employee_type, counter_cache: true
-  belongs_to :request_type, counter_cache: true
-  belongs_to :review_status, counter_cache: true
+    # all the fields associated to the model
+    def fields
+      %i[ position_title employee_type request_type contractor_name
+          number_of_positions hourly_rate hours_per_week number_of_weeks annual_cost
+          nonop_funds nonop_source justification organization__name unit__name
+          review_status__name review_comment user__name created_at updated_at ]
+    end
+
+    # Returns an ordered array used in the index pages
+    def index_fields
+      fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+  end
+
+  monetize :hourly_rate_cents
 
   validates :contractor_name, presence: true, if: :contractor_name_required?
-  validates :number_of_positions, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  validates :hours_per_week, presence: true, numericality: { greater_than: 0.00 }
-  validates :number_of_weeks, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :justification, presence: true
-
-  monetize :hourly_rate_cents, allow_nil: false, numericality: { greater_than: 0 }
-
-  # Provides a short human-readable description for this record, for GUI prompts
-  alias_attribute :description, :position_title
-
-  # Validates the request type
-  def allowed_request_type
-    return if VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-    errors.add(:request_type, 'Not an allowed request type for this request.')
-  end
-
-  # Returns true if the contractor name is required.
-  def contractor_name_required?
-    request_type.try(:code) == 'Renewal'
-  end
+  validates :number_of_positions, presence: true, numericality: true
+  validates :hours_per_week, presence: true, numericality: true
+  validates :number_of_weeks, presence: true, numericality: true
 
   # Returns the annual cost
   def annual_cost
     (number_of_positions * hourly_rate * hours_per_week * number_of_weeks)
   end
 
-  # Ransacker used to define "annual_cost" field. Needed for sorting.
-  ransacker :annual_cost do |parent|
-    parent.table[:number_of_positions] *
-      parent.table[:hourly_rate] *
-      parent.table[:hours_per_week] *
-      parent.table[:number_of_weeks]
+  def contractor_name_required?
+    request_type == 'Renewal'
   end
+
+  default_scope(lambda do
+    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
+      .includes(%i[review_status organization user])
+      .where(request_model_type: LaborRequest.request_model_types['labor'])
+  end)
 end

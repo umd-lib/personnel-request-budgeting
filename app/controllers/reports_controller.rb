@@ -1,14 +1,13 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :download]
-  after_action :verify_authorized, only: [:index, :show, :create, :destroy, :download]
+  before_action :set_report, only: %i[show edit update destroy download]
+  after_action :verify_authorized, only: %i[index show create destroy download]
 
   # GET /reports
   # GET /reports.json
   def index
     authorize Report
-    @q = Report.ransack(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @reports = @q.result.includes(:user).page(params[:page])
+    sort_order = params[:sort] || 'created_at desc'
+    @reports = Report.order(sort_order).paginate(page: params[:page])
   end
 
   # GET /reports/1

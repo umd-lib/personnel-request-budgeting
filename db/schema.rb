@@ -11,170 +11,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227175630) do
+ActiveRecord::Schema.define(version: 20170921153430) do
 
-  create_table "archived_contractor_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
+  create_table "archived_requests", force: :cascade do |t|
     t.string   "position_title"
-    t.integer  "request_type_id"
-    t.string   "contractor_name"
-    t.integer  "number_of_months",      default: 1
+    t.integer  "request_model_type"
+    t.integer  "request_type"
+    t.integer  "employee_type"
     t.decimal  "annual_base_pay_cents"
-    t.decimal  "nonop_funds"
-    t.string   "nonop_source"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "review_status_id"
-    t.text     "review_comment"
-    t.text     "fiscal_year"
-  end
-
-  create_table "archived_labor_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
-    t.string   "position_title"
-    t.integer  "request_type_id"
     t.string   "contractor_name"
-    t.integer  "number_of_months",      default: 1
-    t.decimal  "annual_base_pay_cents"
-    t.decimal  "nonop_funds"
-    t.string   "nonop_source"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "review_status_id"
-    t.text     "review_comment"
-    t.text     "fiscal_year"
-  end
-
-  create_table "archived_staff_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
-    t.string   "position_title"
-    t.integer  "request_type_id"
-    t.string   "contractor_name"
-    t.integer  "number_of_months",      default: 1
-    t.decimal  "annual_base_pay_cents"
-    t.decimal  "nonop_funds"
-    t.string   "nonop_source"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "review_status_id"
-    t.text     "review_comment"
-    t.text     "fiscal_year"
-  end
-
-  create_table "contractor_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
-    t.string   "position_title"
-    t.integer  "request_type_id"
-    t.string   "contractor_name"
-    t.integer  "number_of_months",      default: 1
-    t.decimal  "annual_base_pay_cents"
-    t.decimal  "nonop_funds"
-    t.string   "nonop_source"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "review_status_id"
-    t.text     "review_comment"
-  end
-
-  add_index "contractor_requests", ["department_id"], name: "index_contractor_requests_on_department_id"
-  add_index "contractor_requests", ["employee_type_id"], name: "index_contractor_requests_on_employee_type_id"
-  add_index "contractor_requests", ["request_type_id"], name: "index_contractor_requests_on_request_type_id"
-  add_index "contractor_requests", ["unit_id"], name: "index_contractor_requests_on_unit_id"
-
-  create_table "departments", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "division_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "code"
-    t.integer  "units_count",                        default: 0
-    t.integer  "contractor_requests_count",          default: 0
-    t.integer  "labor_requests_count",               default: 0
-    t.integer  "staff_requests_count",               default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
-  end
-
-  add_index "departments", ["code"], name: "index_departments_on_code", unique: true
-  add_index "departments", ["division_id"], name: "index_departments_on_division_id"
-
-  create_table "divisions", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "code"
-    t.integer  "departments_count",                  default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
-  end
-
-  add_index "divisions", ["code"], name: "index_divisions_on_code", unique: true
-
-  create_table "employee_categories", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "employee_types_count", default: 0
-  end
-
-  add_index "employee_categories", ["code"], name: "index_employee_categories_on_code", unique: true
-
-  create_table "employee_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.integer  "employee_category_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "contractor_requests_count",          default: 0
-    t.integer  "labor_requests_count",               default: 0
-    t.integer  "staff_requests_count",               default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
-  end
-
-  add_index "employee_types", ["code"], name: "index_employee_types_on_code", unique: true
-  add_index "employee_types", ["employee_category_id"], name: "index_employee_types_on_employee_category_id"
-
-  create_table "labor_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
-    t.string   "position_title"
-    t.integer  "request_type_id"
-    t.string   "contractor_name"
-    t.integer  "number_of_positions", default: 1
+    t.integer  "number_of_months"
+    t.integer  "number_of_positions"
     t.decimal  "hourly_rate_cents"
     t.decimal  "hours_per_week"
-    t.integer  "number_of_weeks",     default: 1
-    t.decimal  "nonop_funds"
+    t.integer  "number_of_weeks"
+    t.decimal  "nonop_funds_cents"
     t.string   "nonop_source"
-    t.integer  "department_id"
+    t.integer  "organization_id"
     t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
     t.integer  "review_status_id"
+    t.text     "justification"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "review_comment"
+    t.string   "employee_name"
+    t.datetime "fiscal_year"
+    t.integer  "user_id"
   end
 
-  add_index "labor_requests", ["department_id"], name: "index_labor_requests_on_department_id"
-  add_index "labor_requests", ["employee_type_id"], name: "index_labor_requests_on_employee_type_id"
-  add_index "labor_requests", ["request_type_id"], name: "index_labor_requests_on_request_type_id"
-  add_index "labor_requests", ["unit_id"], name: "index_labor_requests_on_unit_id"
+  add_index "archived_requests", ["organization_id"], name: "index_archived_requests_on_organization_id"
+  add_index "archived_requests", ["review_status_id"], name: "index_archived_requests_on_review_status_id"
+  add_index "archived_requests", ["unit_id"], name: "index_archived_requests_on_unit_id"
+  add_index "archived_requests", ["user_id"], name: "index_archived_requests_on_user_id"
+
+  create_table "links", force: :cascade do |t|
+    t.string "url"
+    t.string "text"
+  end
+
+  create_table "organization_cutoffs", primary_key: "organization_type", force: :cascade do |t|
+    t.date     "cutoff_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "organization_id"
+    t.integer  "organization_type"
+    t.integer  "requests_count",          default: 0
+    t.integer  "archived_requests_count", default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "deactivated",             default: false
+  end
+
+  add_index "organizations", ["organization_id"], name: "index_organizations_on_organization_id"
+  add_index "organizations", ["organization_type", "code"], name: "index_organizations_on_organization_type_and_code", unique: true
+  add_index "organizations", ["organization_type"], name: "index_organizations_on_organization_type"
 
   create_table "reports", force: :cascade do |t|
     t.binary   "output"
@@ -190,114 +85,60 @@ ActiveRecord::Schema.define(version: 20170227175630) do
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id"
 
-  create_table "request_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "contractor_requests_count",          default: 0
-    t.integer  "labor_requests_count",               default: 0
-    t.integer  "staff_requests_count",               default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
+  create_table "requests", force: :cascade do |t|
+    t.string   "position_title"
+    t.integer  "request_model_type"
+    t.integer  "request_type"
+    t.integer  "employee_type"
+    t.decimal  "annual_base_pay_cents"
+    t.string   "contractor_name"
+    t.integer  "number_of_months"
+    t.integer  "number_of_positions"
+    t.decimal  "hourly_rate_cents"
+    t.decimal  "hours_per_week"
+    t.integer  "number_of_weeks"
+    t.decimal  "nonop_funds_cents"
+    t.string   "nonop_source"
+    t.integer  "organization_id"
+    t.integer  "unit_id"
+    t.integer  "review_status_id"
+    t.text     "justification"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "review_comment"
+    t.string   "employee_name"
+    t.integer  "user_id"
   end
 
-  add_index "request_types", ["code"], name: "index_request_types_on_code", unique: true
+  add_index "requests", ["organization_id"], name: "index_requests_on_organization_id"
+  add_index "requests", ["review_status_id"], name: "index_requests_on_review_status_id"
+  add_index "requests", ["unit_id"], name: "index_requests_on_unit_id"
+  add_index "requests", ["user_id"], name: "index_requests_on_user_id"
 
   create_table "review_statuses", force: :cascade do |t|
     t.string   "name"
-    t.string   "color",                              default: "#ffffff"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.string   "color",                   default: "#ffffff"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "code"
-    t.integer  "contractor_requests_count",          default: 0
-    t.integer  "labor_requests_count",               default: 0
-    t.integer  "staff_requests_count",               default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
-  end
-
-  create_table "role_cutoffs", force: :cascade do |t|
-    t.integer  "role_type_id"
-    t.date     "cutoff_date"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "role_cutoffs", ["role_type_id"], name: "index_role_cutoffs_on_role_type_id", unique: true
-
-  create_table "role_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "roles_count", default: 0
+    t.integer  "requests_count",          default: 0
+    t.integer  "archived_requests_count", default: 0
   end
 
   create_table "roles", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "role_type_id"
-    t.integer  "division_id"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer "user_id"
+    t.integer "organization_id"
   end
 
-  add_index "roles", ["department_id"], name: "index_roles_on_department_id"
-  add_index "roles", ["division_id"], name: "index_roles_on_division_id"
-  add_index "roles", ["role_type_id"], name: "index_roles_on_role_type_id"
-  add_index "roles", ["unit_id"], name: "index_roles_on_unit_id"
+  add_index "roles", ["organization_id"], name: "index_roles_on_organization_id"
   add_index "roles", ["user_id"], name: "index_roles_on_user_id"
-
-  create_table "staff_requests", force: :cascade do |t|
-    t.integer  "employee_type_id"
-    t.string   "position_title"
-    t.integer  "request_type_id"
-    t.decimal  "annual_base_pay_cents"
-    t.decimal  "nonop_funds"
-    t.string   "nonop_source"
-    t.integer  "department_id"
-    t.integer  "unit_id"
-    t.text     "justification"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "review_status_id"
-    t.text     "review_comment"
-    t.string   "employee_name"
-  end
-
-  add_index "staff_requests", ["department_id"], name: "index_staff_requests_on_department_id"
-  add_index "staff_requests", ["employee_type_id"], name: "index_staff_requests_on_employee_type_id"
-  add_index "staff_requests", ["request_type_id"], name: "index_staff_requests_on_request_type_id"
-  add_index "staff_requests", ["unit_id"], name: "index_staff_requests_on_unit_id"
-
-  create_table "units", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.integer  "department_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "contractor_requests_count",          default: 0
-    t.integer  "labor_requests_count",               default: 0
-    t.integer  "staff_requests_count",               default: 0
-    t.integer  "archived_contractor_requests_count"
-    t.integer  "archived_staff_requests_count"
-    t.integer  "archived_labor_requests_count"
-  end
-
-  add_index "units", ["code"], name: "index_units_on_code", unique: true
-  add_index "units", ["department_id"], name: "index_units_on_department_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "cas_directory_id"
     t.string   "name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "admin",            default: false
   end
-
-  add_index "users", ["cas_directory_id"], name: "index_users_on_cas_directory_id", unique: true
 
 end

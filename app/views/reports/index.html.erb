@@ -1,35 +1,43 @@
-<div class="page-header">
-  <h1>Reports</h1>
-</div>
+<div class='container'>
+  <div class="page-header">
+    <h1>
+      Reports
+      <span class='pull-right'><%= link_to( "New", new_report_path, class: "btn btn-success" ) %></span>
+    </h1>
+  </div>
 
-<%= render 'shared/index_action_buttons', klass: Report %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th id="name"><%= sort_link(@q, :name, 'Name') %></th>
-      <th id="format"><%= sort_link(@q, :format, 'Format') %></th>
-      <!-- Ransack doesn't understand aliases when sorting, so need to use
-           "user_name" instead of "creator_name" -->
-      <th id="creator_name"><%= sort_link(@q, :user_name, 'Creator') %></th>
-      <th id="created_at"><%= sort_link(@q, :created_at, "Created At") %></th> 
-      <th id="status"><%= sort_link(@q, :status, 'Status') %></th>
-      <th id="download">Output</th>
-      <%= render 'shared/table_action_buttons_header' %>
-    </tr>
-  </thead>
+  <div class="btn-toolbar pagination">
+    <div class='btn-group'><%= will_paginate( @requests, renderer: BootstrapPagination::Rails) %></div>
+  </div>
 
-  <tbody>
-    <% @reports.each do |report| %>
-      <%= content_tag :tr, id: "report_#{report.id}" do %>
-        <td headers="name"><%= report.name.underscore.humanize %></td>
-        <td headers="format"><%= report.format %></td>
-        <td headers="creator_name"><%= report.creator.name  %></td>
-        <td headers="created_at"><%= report.created_at  %></td>
-        <td headers="status"><%= report.status %></td>
-        <td headers="download"><%= link_to "Download", report_download_path(report, format: report.format), class: 'download' unless report.output.nil? %></td> 
-        <%= render 'shared/table_action_buttons', object: report %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th id="name">Name</th>
+        <th id="format">Format</th>
+        <th id="creator_name">Creator</th>
+        <th id="created_at">Created At</th>
+        <th id="status">Status</th>
+        <th id="download">Output</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @reports.each do |report| %>
+        <%= content_tag :tr, id: "report_#{report.id}" do %>
+          <td headers="name"><%= report.name.underscore.humanize %></td>
+          <td headers="format"><%= report.format %></td>
+          <td headers="creator_name"><%= report.creator.name  %></td>
+          <td headers="created_at"><%= report.created_at  %></td>
+          <td headers="status"><%= report.status %></td>
+          <td headers="download"><%= link_to "Download", report_download_path(report, format: report.format), class: 'download' unless report.output.nil? %></td>
+          <%= render 'shared/index_action_buttons', object: report %>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate renderer: BootstrapPagination::Rails %>
+    </tbody>
+  </table>
+
+  <div class="btn-toolbar pagination">
+    <div class='btn-group'><%= will_paginate( @requests, renderer: BootstrapPagination::Rails) %></div>
+  </div>
+</div>

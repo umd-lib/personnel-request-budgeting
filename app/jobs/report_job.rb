@@ -1,5 +1,4 @@
 # A job to submit reports and run in background
-require 'report_generator'
 class ReportJob < ActiveJob::Base
   queue_as :default
 
@@ -25,11 +24,12 @@ class ReportJob < ActiveJob::Base
     r = klass.new(report.parameters)
     if r.parameters_valid?
       record_set = r.query
-      report_template = klass.template || 'shared/index'
+      report_template = klass.template
 
-      output = ReportGenerator.generate(template: report_template, formats: report.format,
-                                        locals: { klass: klass, record_set: record_set,
-                                                  created_at: report.created_at })
+      output = ApplicationController.new
+                                    .render_to_string(template: report_template, formats: report.format,
+                                                      locals: { klass: klass, record_set: record_set,
+                                                                created_at: report.created_at })
       report.update! status: 'completed', output: output
     else
       report.update_attributes status: 'error'

@@ -6,16 +6,21 @@ Rails:
 AllCops:
   Include:
     - '**/*.axlsx'
+    - '**/Gemfile'
+    - '**/Guardfile'
+    - '**/Rakefile'
   Exclude:
-    - 'bin/setup'
-    - 'bin/spring'
+    - 'bin/*'
+    - 'config/initializers/*'
     - 'config/application.rb'
     - 'db/schema.rb'
     - 'db/migrate/*'
     - 'test/**/*'
-    - 'lib/tasks/**/*'
+    - 'lib/**/*'
     - 'db/seeds.rb'
+
   TargetRubyVersion: 2.2
+  TargetRailsVersion: 4.2
 
 Metrics/AbcSize:
   Exclude:
@@ -37,6 +42,7 @@ Metrics/ClassLength:
 # things.
 Style/Documentation:
   Exclude:
+    - '/**/*'
     - 'app/controllers/*_controller.rb'
     - 'app/helpers/*_helper.rb'
     - 'test/**/*'
@@ -47,3 +53,19 @@ Style/ClassAndModuleChildren:
 
 Style/IndentationConsistency:
   EnforcedStyle: rails
+
+
+
+Rails/SkipsModelValidations:
+  Blacklist:
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - update_all
+    - update_attribute
+    - update_column
+    - update_counters
+

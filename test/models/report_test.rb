@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Tests for the "RoleType" model
+# Tests for the "Report" model
 class ReportTest < ActiveSupport::TestCase
   def setup
     @report = reports(:report_completed)

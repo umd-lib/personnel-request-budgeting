@@ -1,12 +1,14 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rack-cas/session_store/active_record'
+require 'sprockets/es6'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module AnnualStaffRequestApp
+module AnnualStaffingRequest
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -20,10 +22,13 @@ module AnnualStaffRequestApp
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.eager_load_paths += Dir[Rails.root.join('app', 'models', 'reports')]
-    config.eager_load_paths += Dir[Rails.root.join('app', 'lib')]
-    
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.rack_cas.server_url = 'https://login.umd.edu/cas'
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
+
+    # Autoload first subdirectory in "app/models/" directory
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '*/')]
   end
 end

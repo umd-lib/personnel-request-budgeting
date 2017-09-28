@@ -4,7 +4,7 @@ SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::RcovFormatter
 ]
-SimpleCov.start
+SimpleCov.start "rails"
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -12,136 +12,91 @@ require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
-include MoneyRails::ActionViewExtension
-require 'roo'
-require 'axlsx_rails'
-require 'tempfile'
-require_relative '../lib/counter_cache_manager'
-
-Dir[Rails.root.join('test/shared/**/*')].each { |f| require f }
-
-
-
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def after_setup
-    CounterCacheManager.run
-    super
-  end
   # Add more helper methods to be used by all tests here...
-
-  # Default user for testing has Admin privileges
-  DEFAULT_TEST_USER = 'test_admin'.freeze
-  CASClient::Frameworks::Rails::Filter.fake(DEFAULT_TEST_USER)
-
-  # Runs the contents of a block using the given user as the current_user.
-  # rubocop:disable Lint/RescueException
   def run_as_user(user)
-    CASClient::Frameworks::Rails::Filter.fake(user.cas_directory_id)
-
-    begin
-
+    user = user.cas_directory_id if user.is_a?(User) 
+    original_user = if ( session[:cas] && session[:cas][:user] )
+                      session[:cas][:user]
+                    else
+                      nil
+                    end
+    session[:cas] = { user: user }
+    begin 
       yield
-
-    rescue Exception => e
-      raise e
     ensure
-      # Restore fake user
-      CASClient::Frameworks::Rails::Filter.fake(ActiveSupport::TestCase::DEFAULT_TEST_USER)
+      session[:cas][:user] = original_user
     end
   end
 
-  # Returns an array of divisions that have at least one record
-  def divisions_with_records
-    LaborRequest.select(:department_id).distinct.collect { |r| r.department.division }.uniq
-  end
-
-  # Returns an array of departments that have at least one record
-  def departments_with_records
-    LaborRequest.select(:department_id).distinct.collect(&:department)
-  end
-
-  # Returns an array of units that have at least one record
-  def units_with_records
-    LaborRequest.select(:unit_id).distinct.collect { |r| r.unit unless r.unit.nil? }.compact
-  end
-
-  # Verifies that the given field text only display two digits after the
-  # decimal point.
-  #
-  # field: A description of the field to include in the error description
-  # text: The text to check for correct currency formatting
-  # optional_fields: Array of fields in currency_fields that are allowed to be
-  #
-  def verify_two_digit_currency_field(field, text)
-    assert_match(/\d\.\d\d$/, text, "#{field} should have two decimal places")
-  end
-
-  # Creates a temporary user using the given roles, and then yields to a
-  # provided block.
-  #
-  # admin: true if the user should be an admin, false otherwise.
-  # divisions: An array of division codes the user should have a role for.
-  # departments: An array of department codes the user should have a role for.
-  # units: An array of unit codes the user should have a role for.
-  #
-  # Sample usage:
-  #
-  # a) User with "Admin" role:
-  #
-  #     run_as_temp_user(admin: true) do |temp_user|
-  #       (block can access user as "temp_user")
-  #     end
-  #
-  # b) User with "SSDR" department role:
-  #
-  #     run_as_temp_user(departments: ['SSDR']) do |temp_user|
-  #       (block can access user as "temp_user")
-  #     end
-  #
-  # b) User with "SSDR" department role and "LN" unit role:
-  #
-  #     run_as_temp_user(departments: ['SSDR'], units: ['LN']) do |temp_user|
-  #       (block can access user as "temp_user")
-  #     end
-  def with_temp_user(admin: false, divisions: [], departments: [], units: [])
-    temp_user_id = "temp_#{SecureRandom.uuid}"
-
-    temp_user = create_user_with_roles(temp_user_id,
-                                       admin: admin,
-                                       divisions: divisions,
-                                       departments: departments, units: units)
-
-    yield temp_user
-
-    Role.destroy_all(user: temp_user)
-    temp_user.destroy!
-  end
-
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create_user_with_roles(cas_directory_id, admin: false, divisions: [], departments: [], units: [])
-    user = User.create(cas_directory_id: cas_directory_id, name: cas_directory_id)
-
-    Role.create!(user: user, role_type: RoleType.find_by_code('admin')) if admin
-
-    divisions.each do |division|
-      Role.create!(user: user, role_type: RoleType.find_by_code('division'),
-                   division: Division.find_by_code(division))
+  # this creates a temp user that is destroyed afterwards
+  # pass in if it's an admin
+  # and the roles by passing in an array of Organizations
+  # and the block to yield to run_as_user
+  def with_temp_user(admin: false, roles: [] )
+    user = User.create(cas_directory_id: SecureRandom.hex, name: SecureRandom.hex, admin: admin) 
+    roles.each { |role| user.roles.create( organization: role ) }
+    begin
+      yield user 
+    ensure
+      user.destroy!
     end
-
-    departments.each do |department|
-      Role.create!(user: user, role_type: RoleType.find_by_code('department'),
-                   department: Department.find_by_code(department))
-    end
-
-    units.each do |unit|
-      Role.create!(user: user, role_type: RoleType.find_by_code('unit'),
-                   unit: Unit.find_by_code(unit))
-    end
-
-    user
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+end
+
+# test/test_helper.rb:
+require 'capybara/rails'
+require 'capybara/minitest'
+require 'capybara-screenshot/minitest'
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu ] } 
+  ) 
+ 
+  Capybara::Selenium::Driver.new(app, browser: :chrome,
+                                desired_capabilities: caps )
+end
+
+# just the selenium screenshot driver.
+%i[ chrome headless_chrome ].each do |chrome_driver|
+  Capybara::Screenshot.register_driver(chrome_driver) do |driver, path|
+    driver.browser.save_screenshot(path) 
+  end
+end
+
+
+
+class ActionDispatch::IntegrationTest
+ 
+  include Capybara::DSL
+  include Capybara::Minitest::Assertions
+  include Capybara::Screenshot::MiniTestPlugin 
+
+  def use_chrome!
+    Capybara.current_driver = ENV["SELENIUM_CHROME"] ? :chrome : :headless_chrome
+    Capybara.page.driver.browser.manage.window.resize_to 1500, 800
+  end
+
+  def teardown
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
+  end
+
+  def login_admin
+    visit "/"
+    fill_in 'username', with: 'admin'
+    fill_in 'password', with: 'any password'
+    click_button 'Login'
+  end
+
+
 end

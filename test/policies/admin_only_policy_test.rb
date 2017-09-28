@@ -2,12 +2,10 @@ require 'test_helper'
 
 # Tests for AdminOnlyPolicy class
 class AdminOnlyPolicyTest < ActiveSupport::TestCase
+
   def setup
-    @admin_user = users(:test_admin)
-    @not_admin_user = User.create(cas_directory_id: 'foobarbaz', name: 'Foo BarBaz')
-    Role.create!(user: @not_admin_user,
-                 role_type: RoleType.find_by_code('department'),
-                 department: Department.find_by_code('SSDR'))
+    @admin_user = users(:admin)
+    @not_admin_user = users(:not_admin)
   end
 
   # In the following the "Role" object is used to get the AdminOnlyPolicy
@@ -46,11 +44,5 @@ class AdminOnlyPolicyTest < ActiveSupport::TestCase
     refute Pundit.policy!(@not_admin_user, Role).destroy?
   end
 
-  def test_scope
-  end
 
-  def teardown
-    Role.destroy_all(user: @not_admin_user)
-    @not_admin_user.destroy!
-  end
 end

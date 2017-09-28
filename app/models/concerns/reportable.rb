@@ -1,4 +1,4 @@
-# Generic for all request type objects.
+# Generic for all report type objects.
 #
 # Including this in your report adds common functionality and registers it in
 # the ReportManager
@@ -16,13 +16,13 @@ module Reportable
   module ClassMethods
     # @return [Array<Symbol>] the parameters allowed for user input
     def allowed_parameters
-      %i()
+      %i[]
     end
 
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [String] human-readable description of the report, displayed in
@@ -33,7 +33,7 @@ module Reportable
 
     # @return [String] the view template to use in formatting the report output
     def template
-      'shared/index'
+      'requests/index'
     end
   end
 

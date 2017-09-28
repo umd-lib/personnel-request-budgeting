@@ -2,16 +2,19 @@
 namespace :db do
   desc 'Move records to archive tables'
   task :archive_current_records, [:fiscal_year] => :environment do |_t, args|
-    fy  = args[:fiscal_year]
+    fy  = Time.new(args[:fiscal_year]).end_of_financial_year
     abort "No fiscal year indicated." unless fy 
-    
-    %w( ContractorRequest StaffRequest LaborRequest ).each do |klass|
-      puts " Moving #{klass.constantize.count} #{klass} records to the archive with FY #{ fy }." 
-      klass.constantize.all.each do |record|
-        archive_klass = "Archived#{klass}".constantize
-        archive_klass.create!( record.attributes.slice(*archive_klass.attribute_names).merge( fiscal_year: fy ))
+    %w( LaborRequest ContractorRequest StaffRequest ).each do |model|
+      source_klass = model.constantize
+      target_klass = "Archived#{model}".constantize
+      source_klass.all.each do |record|
+        target_klass.create!( record.attributes.slice(*target_klass.attribute_names).merge( fiscal_year: fy ) ) 
         record.delete 
       end
     end
   end
+end
+
+Rake::Task["db:archive_current_records"].enhance do
+  Rake::Task["db:migrate"].invoke
 end

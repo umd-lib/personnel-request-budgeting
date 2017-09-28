@@ -88,6 +88,10 @@ GEM
     database_cleaner (1.6.1)
     debug_inspector (0.0.3)
     docile (1.1.5)
+    dotenv (2.1.2)
+    dotenv-rails (2.1.2)
+      dotenv (= 2.1.2)
+      railties (>= 3.2, < 5.1)
     erubis (2.7.0)
     execjs (2.7.0)
     faker (1.8.4)
@@ -340,6 +344,7 @@ DEPENDENCIES
   cocoon
   connection_pool
   database_cleaner
+  dotenv-rails (~> 2.1.1)
   faker
   fiscali
   guard

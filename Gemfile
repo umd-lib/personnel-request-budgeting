@@ -36,11 +36,11 @@ gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
 gem 'cocoon'
 gem 'simple_form'
 
-gem 'axlsx', '2.1.0.pre'
+gem 'axlsx', '2.0.1'
 gem 'axlsx_rails'
 gem 'fiscali'
 gem 'money-rails', '~>1'
-gem 'rubyzip', '~> 1.1.0'
+gem 'rubyzip'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
@@ -50,7 +50,7 @@ group :development, :test do
   gem 'byebug'
   gem 'faker'
   gem 'pry-rails'
-  gem 'roo'
+  gem 'roo', '1.13.2'
 end
 
 group :development do

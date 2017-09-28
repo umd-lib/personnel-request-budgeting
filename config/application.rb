@@ -27,6 +27,8 @@ module AnnualStaffingRequest
 
     config.rack_cas.server_url = 'https://login.umd.edu/cas'
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
-  
+
+    # Autoload first subdirectory in "app/models/" directory
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '*/')]
   end
 end

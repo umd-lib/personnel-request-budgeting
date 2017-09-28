@@ -29,10 +29,13 @@ module Axlsx
       styles[:header_bottom_border] = self.styles.add_style header_font.merge(bg_color: 'D9D9D9')
                                       .merge(bottom_border)
       styles[:summary_description] = self.styles.add_style summary_description_font
-      styles[:summary_result] = self.styles.add_style summary_result_font.merge(currency_format)
-                                .merge(bg_color: 'D9D9D9')
-      styles[:summary_result_top_border] = self.styles.add_style summary_result_font.merge(currency_format)
+      styles[:summary_result] = self.styles.add_style summary_result_font.merge(bg_color: 'D9D9D9')
+      styles[:summary_result_currency] = self.styles.add_style summary_result_font.merge(currency_format)
+                                         .merge(bg_color: 'D9D9D9')
+      styles[:summary_result_top_border] = self.styles.add_style summary_result_font
                                            .merge(bg_color: 'D9D9D9').merge(top_border)
+      styles[:summary_result_top_border_currency] = self.styles.add_style summary_result_font.merge(currency_format)
+                                                    .merge(bg_color: 'D9D9D9').merge(top_border)
       styles
     end
     # rubocop:enable Metrics/AbcSize,Metrics/MethodLength

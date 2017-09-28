@@ -8,9 +8,9 @@ namespace :db do
     Request.include FromPre2
     JSON.parse(IO.read(Rails.root.join('tmp/requests.json'))).each do |json|
       model = "#{json["request_model_type"]}_request".camelcase.constantize
-      record = model.from_pre2(json) 
+      record = model.from_pre2(json)
       unless record.save
-        puts "Errors for #{record.title} : #{record.errors.messages.inspect}" 
+        puts "Errors for #{record.position_title} : #{record.errors.messages.inspect}"
       end
     end
   end

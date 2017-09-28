@@ -3,65 +3,78 @@
 #
 
 # Root
-root =  Organization.create!( 
-          { code: 'UMD', name: 'UMD Libraries',  organization_type: Organization.organization_types["root"] }
+root =  Organization.create!(
+          { code: 'UMD', name: 'UMD Libraries',  organization_type: Organization.organization_types['root'] }
         )
-divisions = [	
-              { code: 'ASD', name: 'Administrative Services',  organization_type: Organization.organization_types["division"] },
-             	{ code: 'CSS',  name: 'Collections Strategies and Services' , organization_type: Organization.organization_types["division"] },
-             	{ code: 'DO', name: "Dean's Office",   organization_type: Organization.organization_types["division"] },
-             	{ code: 'DSS',name: 'Digital Systems & Stewardship' ,  organization_type: Organization.organization_types["division"] },
-							{ code: 'PSD', name: 'Public Services', organization_type: Organization.organization_types["division"] }
+divisions = [{ code: 'ASD', name: 'Administrative Services', organization_type: Organization.organization_types['division'] },
+             { code: 'CSS', name: 'Collections Strategies & Services', organization_type: Organization.organization_types['division'] },
+             { code: 'DO', name: "Dean's Office", organization_type: Organization.organization_types['division'] },
+             { code: 'DSS', name: 'Digital Systems & Stewardship',  organization_type: Organization.organization_types['division'] },
+						 { code: 'PSD', name: 'Public Services', organization_type: Organization.organization_types['division'] }
 ].map { |div|  Organization.create!(div.merge(parent: root)) }
 
 # Departments
 departments_by_division = {
-  'ASD' => [{ code: 'BBS', name: 'Budget & Business Services', organization_type: Organization.organization_types["department"]  },
-            { code: 'LF',name: 'Libraries Facilities', organization_type: Organization.organization_types["department"]  },
-            { code: 'LHR', name: 'Libraries Human Resources' , organization_type: Organization.organization_types["department"]  }],
-  'CSS' => [{ code: 'ACQ', name: "Acquisitions",  organization_type: Organization.organization_types["department"]  },
-            { code: 'CD', name: "Collection", organization_type: Organization.organization_types["department"]  },
-            { code: 'MDS', name: "Metadata Services", organization_type: Organization.organization_types["department"]  },
-            { code: 'PRG', name: "Prange", organization_type: Organization.organization_types["department"]  },
-            { code: 'SCUA', name: "Special Collections & University Archives",  organization_type: Organization.organization_types["department"] }],
-  'DO' => [{ code: 'COM', name: "Communications", organization_type: Organization.organization_types["department"]  },
-           { code: 'DO', name: "Dean's Office", organization_type: Organization.organization_types["department"]  }],
-  'DSS' => [{ code: 'DCMR', name: "Digitization", organization_type: Organization.organization_types["department"]  },
-            { code: 'DDS', name: "Digital Data Services", organization_type: Organization.organization_types["department"]  },
-            { code: 'DPI', name: "Digital Preservation Initiatives", organization_type: Organization.organization_types["department"]  },
-            { code: 'SSDR', name: "Software Systems Development and Research", organization_type: Organization.organization_types["department"]  },
-            { code: 'USS', name: "User Systems & Support", organization_type: Organization.organization_types["department"]  }],
-  'PSD' => [{ code: 'AS', name: "Access Services", organization_type: Organization.organization_types["department"]  },
-            { code: 'LMS', name: "Library Media Services", organization_type: Organization.organization_types["department"]  },
-            { code: 'PS', name: "Public Services", organization_type: Organization.organization_types["department"]  },
-						{ code: 'RL', name: "Research & Learning", organization_type: Organization.organization_types["department"]  }]
+  'ASD' => [{ code: 'BBS', name: 'Budget & Business Services', organization_type: Organization.organization_types['department'] },
+            { code: 'LF',name: 'Libraries Facilities', organization_type: Organization.organization_types['department']  },
+            { code: 'LHR', name: 'Libraries Human Resources', organization_type: Organization.organization_types['department'] }],
+  'CSS' => [{ code: 'ACQ', name: 'Acquisitions',  organization_type: Organization.organization_types['department'] },
+            { code: 'CD', name: 'Collection Development', organization_type: Organization.organization_types['department'] },
+            { code: 'CSSOFF', name: 'CSS Main Office', organization_type: Organization.organization_types['department']  },
+            { code: 'MDS', name: 'Metadata Services', organization_type: Organization.organization_types['department'] },
+            { code: 'PRG', name: 'Prange', organization_type: Organization.organization_types['department'] },
+            { code: 'PRV', name: 'Preservation', organization_type: Organization.organization_types['department'] },
+            { code: 'SCUA', name: 'Special Collections & University Archives',  organization_type: Organization.organization_types['department'] }],
+  'DO' => [{ code: 'COM', name: 'Communications', organization_type: Organization.organization_types['department']  },
+           { code: 'DEV', name: 'Development', organization_type: Organization.organization_types['department'] },
+           { code: 'DO', name: "Dean's Office", organization_type: Organization.organization_types['department'] }],
+  'DSS' => [{ code: 'CLAS', name: 'Consortial Library Applications Support', organization_type: Organization.organization_types['department'] },
+            { code: 'DCMR', name: 'Digital Conversion & Media Reformatting', organization_type: Organization.organization_types['department'] },
+            { code: 'DPI', name: 'Digital Programs and Initiatives', organization_type: Organization.organization_types['department'] },
+            { code: 'DSSOFF', name: 'DSS Main Office', organization_type: Organization.organization_types['department'] },
+            { code: 'SSDR', name: 'Software Systems Development and Research', organization_type: Organization.organization_types['department'] },
+            { code: 'USS', name: 'User Systems & Support', organization_type: Organization.organization_types['department'] }],
+  'PSD' => [{ code: 'LMS', name: 'Library Media Services', organization_type: Organization.organization_types['department'] },
+            { code: 'PSDOFF', name: 'PSD Main Office', organization_type: Organization.organization_types['department'] },
+            { code: 'RL', name: 'Research & Learning', organization_type: Organization.organization_types['department'] },
+            { code: 'USRS', name: 'User Services & Resource Sharing', organization_type: Organization.organization_types['department'] }]
 }
 
 departments = []
 departments_by_division.each do |div, depts|
-	d = divisions.find { |di| di[:code] === div }
-	departments = depts.map { |dept| Organization.create!( dept.merge( parent: d ) ) }
+  d = divisions.find { |di| di[:code] === div }
+  departments += depts.map { |dept| Organization.create!( dept.merge( parent: d ) ) }
 end
 
 units_by_department = {
-  'AS' => [{ code: 'ILL', name: "Interlibrary Loan", organization_type: Organization.organization_types["unit"]   },
-           { code: 'LN', name: "Late Night", organization_type: Organization.organization_types["unit"]  },
-           { code: 'LSD', name: "Library Services Desk", organization_type: Organization.organization_types["unit"]  },
-           { code: 'STK', name: "Stacks", organization_type: Organization.organization_types["unit"]  },
-           { code: 'TLC', name: "Terapin Learning Commons", organization_type: Organization.organization_types["unit"]  }],
-  'RL' => [{ code: 'ARCH', name: "Architecure Library",  organization_type: Organization.organization_types["unit"]  },
-           { code: 'ART', name: "Ary Library", organization_type: Organization.organization_types["unit"]  },
-           { code: 'EPSL', name: "Engineering and PS Library", organization_type: Organization.organization_types["unit"]  },
-           { code: 'CHEM', name: "Chemistry Library", organization_type: Organization.organization_types["unit"]  },
-           { code: 'HSSL',  name: "Humanities and Social Services", organization_type: Organization.organization_types["unit"] },
-           { code: 'MSPAL', name: "Performing Arys Library", organization_type: Organization.organization_types["unit"] },
-           { code: 'RC', name: "Research Commons", organization_type: Organization.organization_types["unit"]   },
-           { code: 'RLL', name: "Research and Learning", organization_type: Organization.organization_types["unit"]  },
-					 { code: 'TL', name: "Teaching and Learning", organization_type: Organization.organization_types["unit"]  }] 
+  'ACQ' => [{ code: 'ACQ', name: 'Acquisitions', organization_type: Organization.organization_types['unit'] }],
+  'CD' => [{ code: 'CD', name: 'Collection Development', organization_type: Organization.organization_types['unit'] },],
+  'MDS' => [{ code: 'DMCR', name: 'Database Management & Continuing Recources', organization_type: Organization.organization_types['unit'] },
+            { code: 'MDD', name: 'Metadata & Discovery', organization_type: Organization.organization_types['unit'] },
+            { code: 'MM', name: 'Monographs & Music', organization_type: Organization.organization_types['unit'] },
+            { code: 'NRC', name: 'Non-Roman Cataloging', organization_type: Organization.organization_types['unit'] },
+            { code: 'SCC', name: 'Special Collections Cataloging', organization_type: Organization.organization_types['unit'] }],
+  'RL' => [{ code: 'ARCH', name: 'Architecture Library',  organization_type: Organization.organization_types['unit'] },
+           { code: 'ART', name: 'Art Library', organization_type: Organization.organization_types['unit'] },
+           { code: 'CHEM', name: 'Chemistry Library', organization_type: Organization.organization_types['unit'] },
+           { code: 'EPSL', name: 'Engineering & PS Library', organization_type: Organization.organization_types['unit'] },
+           { code: 'HSSL',  name: 'Humanities & Social Services Librarians', organization_type: Organization.organization_types['unit'] },
+           { code: 'MSPAL', name: 'Performing Arts Library', organization_type: Organization.organization_types['unit'] },
+           { code: 'RC', name: 'Research Commons', organization_type: Organization.organization_types['unit'] },
+           { code: 'RL', name: 'Research & Learning', organization_type: Organization.organization_types['unit'] },
+           { code: 'STEM', name: 'STEM Libraries', organization_type: Organization.organization_types['unit'] },
+           { code: 'TL', name: 'Teaching & Learning', organization_type: Organization.organization_types['unit'] }],
+  'SCUA' => [{ code: 'SCUA', name: 'Special Collections & University Archives', organization_type: Organization.organization_types['unit'] }],
+  'USRS' => [{ code: 'ILL', name: 'Interlibrary Loan',  organization_type: Organization.organization_types['unit'] },
+             { code: 'LN', name: 'Late Night', organization_type: Organization.organization_types['unit'] },
+             { code: 'LP', name: 'Logistics & Periodicals', organization_type: Organization.organization_types['unit'] },
+             { code: 'LSD', name: 'Library Services Desk', organization_type: Organization.organization_types['unit'] },
+             { code: 'STK', name: 'Stacks', organization_type: Organization.organization_types['unit'] },
+             { code: 'TLC', name: 'Terrapin Learning Commons', organization_type: Organization.organization_types['unit'] }]
 }
 units = []
 units_by_department.each do |dept, us|
-	d = departments.find { |de| de[:code] === dept }
+  d = departments.find { |de| de[:code] === dept }
   units = us.map { |u|  Organization.create!( u.merge( parent: d ) ) }
 end
 

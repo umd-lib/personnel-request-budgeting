@@ -6,7 +6,7 @@ class StaffRequestsCostSummaryReportTest < ActiveSupport::TestCase
     @report = StaffRequestsCostSummaryReport.new
 
     # Set review status ids to include in the report
-    review_status_ids = ReviewStatus.all.map { |rs| rs.id }
+    review_status_ids = ReviewStatus.all.map(&:id)
     @report.parameters = { review_status_ids: review_status_ids }
   end
 

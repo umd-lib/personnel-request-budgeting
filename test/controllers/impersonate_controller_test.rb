@@ -1,13 +1,11 @@
 require 'test_helper'
 
 class ImpersonateControllerTest < ActionController::TestCase
-
   def setup
-    session[:cas] = { user: "admin" } 
+    session[:cas] = { user: 'admin' }
     @admin_user = users(:admin)
     @impersonated_user = users(:not_admin)
   end
-
 
   test 'create should impersonate user' do
     run_as_user(@admin_user) do
@@ -57,5 +55,4 @@ class ImpersonateControllerTest < ActionController::TestCase
       end
     end
   end
-
 end

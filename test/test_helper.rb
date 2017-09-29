@@ -4,7 +4,7 @@ SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::RcovFormatter
 ]
-SimpleCov.start "rails"
+SimpleCov.start 'rails'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -18,14 +18,12 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)
-    user = user.cas_directory_id if user.is_a?(User) 
-    original_user = if ( session[:cas] && session[:cas][:user] )
+    user = user.cas_directory_id if user.is_a?(User)
+    original_user = if session[:cas] && session[:cas][:user]
                       session[:cas][:user]
-                    else
-                      nil
                     end
     session[:cas] = { user: user }
-    begin 
+    begin
       yield
     ensure
       session[:cas][:user] = original_user
@@ -36,16 +34,15 @@ class ActiveSupport::TestCase
   # pass in if it's an admin
   # and the roles by passing in an array of Organizations
   # and the block to yield to run_as_user
-  def with_temp_user(admin: false, roles: [] )
-    user = User.create(cas_directory_id: SecureRandom.hex, name: SecureRandom.hex, admin: admin) 
-    roles.each { |role| user.roles.create( organization: role ) }
+  def with_temp_user(admin: false, roles: [])
+    user = User.create(cas_directory_id: SecureRandom.hex, name: SecureRandom.hex, admin: admin)
+    roles.each { |role| user.roles.create(organization: role) }
     begin
-      yield user 
+      yield user
     ensure
       user.destroy!
     end
   end
-
 end
 
 # test/test_helper.rb:
@@ -59,30 +56,27 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu ] } 
-  ) 
- 
+    chromeOptions: { args: %w[headless disable-gpu] }
+  )
+
   Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                desired_capabilities: caps )
+                                      desired_capabilities: caps)
 end
 
 # just the selenium screenshot driver.
-%i[ chrome headless_chrome ].each do |chrome_driver|
+%i[chrome headless_chrome].each do |chrome_driver|
   Capybara::Screenshot.register_driver(chrome_driver) do |driver, path|
-    driver.browser.save_screenshot(path) 
+    driver.browser.save_screenshot(path)
   end
 end
 
-
-
 class ActionDispatch::IntegrationTest
- 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
-  include Capybara::Screenshot::MiniTestPlugin 
+  include Capybara::Screenshot::MiniTestPlugin
 
   def use_chrome!
-    Capybara.current_driver = ENV["SELENIUM_CHROME"] ? :chrome : :headless_chrome
+    Capybara.current_driver = ENV['SELENIUM_CHROME'] ? :chrome : :headless_chrome
     Capybara.page.driver.browser.manage.window.resize_to 1500, 800
   end
 
@@ -92,11 +86,9 @@ class ActionDispatch::IntegrationTest
   end
 
   def login_admin
-    visit "/"
+    visit '/'
     fill_in 'username', with: 'admin'
     fill_in 'password', with: 'any password'
     click_button 'Login'
   end
-
-
 end

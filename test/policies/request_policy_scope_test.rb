@@ -4,14 +4,13 @@ require 'test_helper'
 # These tests only cover visibility of the personnel requests, not the
 # actions that can be taken on them.
 class RequestPolicyScopeTest < ActiveSupport::TestCase
-
   test 'personnel requests have records' do
     # Without records, all the rest of the tests are probably meaningless
     assert Request.count > 0
   end
 
   test 'user without role cannot see any personnel requests' do
-    with_temp_user do |temp_user| 
+    with_temp_user do |temp_user|
       assert_equal 0, Pundit.policy_scope!(temp_user, LaborRequest).count
       assert_equal 0, Pundit.policy_scope!(temp_user, StaffRequest).count
       assert_equal 0, Pundit.policy_scope!(temp_user, ContractorRequest).count
@@ -27,9 +26,8 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'department role can only see department personnel requests' do
-    department = Organization.find_by( organization_type: Organization.organization_types["department"] ) 
+    department = Organization.find_by(organization_type: Organization.organization_types['department'])
     with_temp_user(roles: [department]) do |temp_user|
-      
       labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
@@ -44,9 +42,9 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
       end
     end
   end
-  
+
   test 'unit role can only see unit personnel requests' do
-    unit = Organization.where( organization_type: Organization.organization_types["unit"] ).where( "requests_count > ?", 1).first
+    unit = Organization.where(organization_type: Organization.organization_types['unit']).where('requests_count > ?', 1).first
     with_temp_user(roles: [unit]) do |temp_user|
       labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
@@ -64,9 +62,8 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'multi-department user can only see personnel requests from those departments' do
-   
-    d1, d2 = Organization.where( organization_type: Organization.organization_types["department"]).limit(2)
-    
+    d1, d2 = Organization.where(organization_type: Organization.organization_types['department']).limit(2)
+
     with_temp_user(roles: [d1, d2]) do |temp_user|
       labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
@@ -74,7 +71,7 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          assert_includes [ d1.code, d2.code ],
+          assert_includes [d1.code, d2.code],
                           r.organization.code
         end
       end
@@ -82,9 +79,9 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
   end
 
   test 'mixed department and unit user can only see personnel requests from that department or unit' do
-    d = Organization.find_by( organization_type: Organization.organization_types["department"])
-    u = Organization.find_by( organization_type: Organization.organization_types["unit"])
-    with_temp_user(roles: [ d, u ]) do |temp_user|
+    d = Organization.find_by(organization_type: Organization.organization_types['department'])
+    u = Organization.find_by(organization_type: Organization.organization_types['unit'])
+    with_temp_user(roles: [d, u]) do |temp_user|
       labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)

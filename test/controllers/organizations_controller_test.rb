@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class OrganizationsControllerTest < ActionController::TestCase
-  
   setup do
-    session[:cas] = { user: "admin" } 
+    session[:cas] = { user: 'admin' }
     @organization = Organization.where('requests_count > ?', 1).last
   end
 
@@ -22,7 +21,8 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_difference('Organization.count') do
       post :create, organization: {
         code: 'NEW_UNIT', organization_id: @organization.id, name: SecureRandom.hex,
-        organization_type: "unit"}
+        organization_type: 'unit'
+      }
     end
 
     assert_redirected_to organizations_path
@@ -40,14 +40,15 @@ class OrganizationsControllerTest < ActionController::TestCase
 
   test 'should update unit' do
     patch :update, id: @organization, organization: {
-      code: @organization.code,  organization_id: @organization.parent,  name: @organization.name }
+      code: @organization.code, organization_id: @organization.parent, name: @organization.name
+    }
     assert !flash.empty?
     assert_redirected_to organizations_path
   end
 
   test 'should destroy unit' do
     org = Organization.new(code: 'TEST_UNIT', name: 'Test Unit',
-                           organization_id: @organization.id, organization_type: "unit")
+                           organization_id: @organization.id, organization_type: 'unit')
     org.save!
     assert_difference('Organization.count', -1) do
       delete :destroy, id: org
@@ -57,7 +58,6 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy unit with associated records' do
-     
     assert_no_difference('Organization.count') do
       delete :destroy, id: @organization
     end
@@ -82,12 +82,14 @@ class OrganizationsControllerTest < ActionController::TestCase
 
       post :create, unit: {
         code: 'NEW_UNIT', organization_id: @organization.organization_id, name: @organization.name,
-        organization_type: "unit" }
+        organization_type: 'unit'
+      }
       assert_response :forbidden
 
       patch :update, id: @organization, unit: {
         code: @organization.code, organization_id: @organization.organization_id, name: @organization.name,
-        organization_type: "unit" }
+        organization_type: 'unit'
+      }
       assert_response :forbidden
 
       delete :destroy, id: @organization

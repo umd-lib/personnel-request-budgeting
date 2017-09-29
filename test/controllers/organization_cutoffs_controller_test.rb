@@ -1,25 +1,24 @@
 require 'test_helper'
 
 class OrganizationCutoffsControllerTest < ActionController::TestCase
-  
-  # by default these test run as admin. 
+  # by default these test run as admin.
   setup do
-    @cutoff = OrganizationCutoff.first 
-    session[:cas] = { user: "admin" } 
+    @cutoff = OrganizationCutoff.first
+    session[:cas] = { user: 'admin' }
   end
 
   test 'should not allow unauthed users' do
-    run_as_user(nil) do 
+    run_as_user(nil) do
       get :index
       assert_response(401)
-    end 
+    end
   end
-  
+
   test 'should not allow non-admin users' do
-    run_as_user("not_admin") do 
+    run_as_user('not_admin') do
       get :index
       assert_response(403)
-    end 
+    end
   end
 
   test 'should get index' do
@@ -30,8 +29,7 @@ class OrganizationCutoffsControllerTest < ActionController::TestCase
 
   test 'should update role_cutoff' do
     patch :update, id: @cutoff,
-      organization_cutoff: { cutoff_date: Time.now }
+                   organization_cutoff: { cutoff_date: Time.zone.now }
     assert_redirected_to organization_cutoffs_path
   end
-
 end

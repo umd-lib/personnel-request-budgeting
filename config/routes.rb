@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   resources :reports
   get '/reports/:id/download' => 'reports#download', as: :report_download
+
+  get '/ping' => 'ping#verify'
 end

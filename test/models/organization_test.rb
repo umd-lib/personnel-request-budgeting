@@ -2,11 +2,10 @@ require 'test_helper'
 
 # Tests for the "Organization" model
 class OrganizationTest < ActiveSupport::TestCase
-
   def setup
-    @division = Organization.find_by(organization_type: Organization.organization_types["division"])
-    @department = Organization.find_by(organization_type: Organization.organization_types["department"])
-    @unit = Organization.find_by(organization_type: Organization.organization_types["unit"])
+    @division = Organization.find_by(organization_type: Organization.organization_types['division'])
+    @department = Organization.find_by(organization_type: Organization.organization_types['department'])
+    @unit = Organization.find_by(organization_type: Organization.organization_types['unit'])
   end
 
   test 'should be valid' do
@@ -19,8 +18,8 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test 'code should be unique to organization_type' do
-    unit = Organization.new( code: @unit.code, organization_type: @unit.organization_type,
-                            name: SecureRandom.hex, organization_id: @unit.organization_id )
+    unit = Organization.new(code: @unit.code, organization_type: @unit.organization_type,
+                            name: SecureRandom.hex, organization_id: @unit.organization_id)
     assert_not unit.valid?
     unit.code = SecureRandom.hex
     assert @unit.valid?
@@ -37,8 +36,8 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test 'unit without associated archive records can be deleted' do
-    unit = Organization.create( organization_type: Organization.organization_types["unit"],
-                               code: 'Delete', name: 'DeleteMe', parent: @unit.parent )
+    unit = Organization.create(organization_type: Organization.organization_types['unit'],
+                               code: 'Delete', name: 'DeleteMe', parent: @unit.parent)
     assert_nothing_raised ActiveRecord::DeleteRestrictionError do
       unit.destroy
     end
@@ -50,7 +49,7 @@ class OrganizationTest < ActiveSupport::TestCase
     staff_request.unit = @unit
     staff_request.save!
     @unit.reload
-    assert_not  @unit.destroy
+    assert_not @unit.destroy
   end
 
   test 'unit with associated archive records cannot have values edited' do
@@ -58,8 +57,8 @@ class OrganizationTest < ActiveSupport::TestCase
     staff_request.organization = @unit.parent
     staff_request.unit = @unit
     staff_request.save!
-    %i(name= code=).each do |key|
-      @unit.send(key, SecureRandom.hex )
+    %i[name= code=].each do |key|
+      @unit.send(key, SecureRandom.hex)
       assert_not @unit.valid?
       @unit.reload
     end
@@ -68,27 +67,23 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test 'there can only be one root' do
-    unit = Organization.create( organization_type: Organization.organization_types["root"],
-                               code: 'Delete', name: 'DeleteMe', parent: @unit.parent )
+    unit = Organization.create(organization_type: Organization.organization_types['root'],
+                               code: 'Delete', name: 'DeleteMe', parent: @unit.parent)
 
     assert_not unit.valid?
-    unit.organization_type = "unit"
+    unit.organization_type = 'unit'
     assert unit.valid?
   end
 
-  test "it can provide grandchildren and greatgrandchildren" do
-    root = Organization.find_by( organization_type: Organization.organization_types["root"] )
-    assert_includes( root.children, @division )
-    assert_not_includes( root.children, @department )
-    assert_not_includes( root.children, @unit )
+  test 'it can provide grandchildren and greatgrandchildren' do
+    root = Organization.find_by(organization_type: Organization.organization_types['root'])
+    assert_includes(root.children, @division)
+    assert_not_includes(root.children, @department)
+    assert_not_includes(root.children, @unit)
 
-    assert_includes( root.grandchildren, @department )
-    assert_not_includes( root.grandchildren, @unit )
+    assert_includes(root.grandchildren, @department)
+    assert_not_includes(root.grandchildren, @unit)
 
-
-    assert_includes( root.great_grandchildren, @unit )
+    assert_includes(root.great_grandchildren, @unit)
   end
-
-
-
 end

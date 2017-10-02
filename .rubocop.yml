@@ -15,7 +15,6 @@ AllCops:
     - 'config/application.rb'
     - 'db/schema.rb'
     - 'db/migrate/*'
-    - 'test/**/*'
     - 'lib/**/*'
     - 'db/seeds.rb'
 
@@ -51,10 +50,8 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
 
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
   EnforcedStyle: rails
-
-
 
 Rails/SkipsModelValidations:
   Blacklist:

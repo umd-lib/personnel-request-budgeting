@@ -2,7 +2,6 @@ require 'test_helper'
 
 # Tests for AdminOnlyPolicy class
 class AdminOnlyPolicyTest < ActiveSupport::TestCase
-
   def setup
     @admin_user = users(:admin)
     @not_admin_user = users(:not_admin)
@@ -43,6 +42,4 @@ class AdminOnlyPolicyTest < ActiveSupport::TestCase
     assert Pundit.policy!(@admin_user, Role).destroy?
     refute Pundit.policy!(@not_admin_user, Role).destroy?
   end
-
-
 end

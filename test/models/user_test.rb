@@ -2,12 +2,11 @@ require 'test_helper'
 
 # Tests for the "User" model
 class UserTest < ActiveSupport::TestCase
-
   def setup
     @user = User.new(cas_directory_id: 'sample_user', name: 'Sample User')
-    @division = Organization.find_by(organization_type: Organization.organization_types["division"])
-    @department = Organization.find_by(organization_type: Organization.organization_types["department"])
-    @unit = Organization.find_by(organization_type: Organization.organization_types["unit"])
+    @division = Organization.find_by(organization_type: Organization.organization_types['division'])
+    @department = Organization.find_by(organization_type: Organization.organization_types['department'])
+    @unit = Organization.find_by(organization_type: Organization.organization_types['unit'])
   end
 
   test 'should be valid' do
@@ -39,22 +38,22 @@ class UserTest < ActiveSupport::TestCase
 
   test 'division? should show correct division status of user' do
     user = User.new(cas_directory_id: 'division_user', name: 'Division User')
-    assert_not user.division? 
-    Role.create( user: user, organization: @division )
+    assert_not user.division?
+    Role.create(user: user, organization: @division)
     assert user.reload.division?
   end
 
   test 'department? should show correct department status of user' do
-    user = User.new(cas_directory_id: 'department_user', name: 'Department User' )
+    user = User.new(cas_directory_id: 'department_user', name: 'Department User')
     assert_not user.department?
-    Role.create( user: user, organization: @department )
+    Role.create(user: user, organization: @department)
     assert user.reload.department?
   end
 
   test 'unit? should show correct unit status of user' do
     user = User.new(cas_directory_id: 'unit_user', name: 'Unit User')
     assert_not user.unit?
-    Role.create( user: user, organization: @unit )
+    Role.create(user: user, organization: @unit)
     assert user.reload.unit?
   end
 
@@ -65,8 +64,8 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should be able to delete a user and its roles' do
     user = User.create(cas_directory_id: 'delete_me', name: 'nobody')
-    role = Role.create(user: user, organization: @department)  
-    
+    role = Role.create(user: user, organization: @department)
+
     assert_equal 1, user.roles.count
     assert Role.exists? role.id
 

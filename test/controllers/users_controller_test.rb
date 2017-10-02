@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  
   setup do
-    session[:cas] = { user: "admin" } 
+    session[:cas] = { user: 'admin' }
     @user = users(:red_shirt)
   end
 
@@ -95,6 +94,4 @@ class UsersControllerTest < ActionController::TestCase
     get :logout
     assert_nil session[:cas]
   end
-
-
 end

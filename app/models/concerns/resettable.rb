@@ -5,6 +5,11 @@
 #rubocop:disable all
 module Resettable
   extend ActiveSupport::Concern
+  
+  # this is used to generate the organization's associated icon
+  TYPE_MAPPING = { 'root' => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze
+  # fields that cna't be changed if there are records in teh archive
+  UNEDITABLE_IF_ARCHIVED = %w[organization_id name code organization_type].freeze
 
   class_methods do
     def reset_counters(id, *counters)

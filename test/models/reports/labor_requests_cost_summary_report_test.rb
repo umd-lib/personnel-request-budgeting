@@ -24,8 +24,8 @@ class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
 
     assert summary_data.is_a?(Array)
     assert_equal Organization.division.count, divisions.count
-    assert_equal FISCAL_YEAR, current_fiscal_year
-    assert_equal PREVIOUS_FISCAL_YEAR, previous_fiscal_year
+    assert_equal FiscalYear.current, current_fiscal_year
+    assert_equal FiscalYear.previous, previous_fiscal_year
     assert_equal ReviewStatus.count, allowed_review_statuses.count
 
     # "data" should contain an entry for each department

@@ -30,7 +30,7 @@
   <% if @request.spawned? %>
     <div class='alert alert-info' role='alert'>
       <i class='glyphicon glyphicon-exclamation-sign'></i> 
-      Copied from archive. Please review and save in order to create a new record in the <%= FISCAL_YEAR %>
+      Copied from archive. Please review and save in order to create a new record in <%= FiscalYear.current %>
     </div>
   <% end %>
 </div>

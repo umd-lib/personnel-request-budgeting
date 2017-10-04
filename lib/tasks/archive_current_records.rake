@@ -2,7 +2,7 @@
 namespace :db do
   desc 'Move records to archive tables'
   task :archive_current_records, [:fiscal_year] => :environment do |_t, args|
-    fy  = Time.new(args[:fiscal_year]).end_of_financial_year
+    fy  = Time.new(args[:fiscal_year]).to_date.end_of_financial_year
     abort "No fiscal year indicated." unless fy 
     %w( LaborRequest ContractorRequest StaffRequest ).each do |model|
       source_klass = model.constantize

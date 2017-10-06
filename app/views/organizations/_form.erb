@@ -50,7 +50,7 @@
                   <% end %>
                     
                   <%= f.hidden_field :organization_id %> 
-                  <button type="button" class="btn btn-info" <%= 'disabled' if @organization.archived_records? %> 
+                  <button type="button" class="btn btn-info" <%= 'disabled' if @organization.archived_records? or !edit_or_new? %> 
                       data-toggle="modal" data-target="#orgModal">Select Parent</button> 
                 </div>
               <% end %> 
@@ -58,8 +58,8 @@
               <div class='input'> 
                 <label class='string optional' for='deactivated'>Deactivated</label>
                 <div class="btn-group btn-toggle"> 
-                  <button class="btn toggle-yes <%= @organization.deactivated? ? 'off' : 'on' %>">Active</button>
-                  <button class="btn toggle-no <%= @organization.deactivated? ? 'on' : 'off' %>">Deactive</button>
+                  <button class="btn toggle-yes <%= @organization.deactivated? ? 'off' : 'on' %>" <%= 'disabled' if !edit_or_new? %>>Active</button>
+                  <button class="btn toggle-no <%= @organization.deactivated? ? 'on' : 'off' %>" <%= 'disabled' if !edit_or_new? %>>Deactive</button>
                 </div>
               </div>
             </div>
@@ -67,14 +67,16 @@
             
           <div class='panel panel-default'>
             <div class="panel-heading"><span>Members</span>
-              <span class='pull-right'>
-                <%= link_to_add_association(	f, :roles,
+              <% if edit_or_new? %> 
+                <span class='pull-right'>
+                  <%= link_to_add_association(	f, :roles,
                                               { class: "add-roles", 
                                                 "data-association-insertion-node": "#roles",
                                                 "data-association-insertion-method": 'append'}) do  %>
                                                             <i class='glyphicon glyphicon-plus-sign'></i>Add Member 
-               <% end %>
-              </span>
+                  <% end %>
+                </span>
+              <% end %>
             </div>
             <div class="panel-body" id="roles">
               <%= f.fields_for :roles, f.object.roles do |role| %>

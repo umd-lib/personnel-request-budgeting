@@ -74,8 +74,8 @@ class ContractorRequestsCostSummaryReport
     end
 
     divisions = Organization.division
-    current_fiscal_year = FISCAL_YEAR
-    previous_fiscal_year = PREVIOUS_FISCAL_YEAR
+    current_fiscal_year = FiscalYear.current
+    previous_fiscal_year = FiscalYear.previous
 
     { summary_data: summary_data, divisions: divisions,
       current_fiscal_year: current_fiscal_year,

@@ -27,6 +27,10 @@ module RequestHelper
     end
   end
 
+  def render_fiscal_year(record)
+    FiscalYear.to_fy record.fiscal_year.year
+  end
+
   # Formats review status based on the code
   # @param record [ActiveRecord] the record to be called
   def render_review_status__name(record)

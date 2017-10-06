@@ -52,7 +52,7 @@ class Request < ApplicationRecord
   validates :justification, presence: true
   validate :new_justifications_cant_be_long
   def new_justifications_cant_be_long
-    return if review_status && review_status.code !=  'UnderReview'
+    return if self.class.name =~ /^Archive/
     return if justification && justification.split(/\s+/).length < 126
     errors.add(:justification, 'Must be 125 words or less')
   end

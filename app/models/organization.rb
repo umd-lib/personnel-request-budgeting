@@ -13,11 +13,6 @@ class Organization < ApplicationRecord
     end
   end
 
-  # this is used to generate the organization's associated icon
-  TYPE_MAPPING = { 'root' => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze
-  # fields that cna't be changed if there are records in teh archive
-  UNEDITABLE_IF_ARCHIVED = %w[organization_id name code organization_type].freeze
-
   belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
   validates :organization_id, presence: true, unless: :root?
 

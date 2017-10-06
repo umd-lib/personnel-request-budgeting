@@ -1,46 +1,8 @@
 # This is the base line model for Request that is used by all other
 # request types
 class Request < ApplicationRecord
-  class << self
-    def policy_class
-      RequestPolicy
-    end
-
-    # returns just the source_class for Archived records
-    def source_class
-      name.remove(/^Archived/).constantize
-    end
-
-    def human_name
-      'Requests'
-    end
-
-    # all the fields associated to the model
-    def fields
-      %i[ request_model_type position_title employee_type request_type
-          contractor_name employee_name
-          nonop_source justification organization__name unit__name
-          review_status__name review_comment user__name created_at updated_at ]
-    end
-
-    # Returns an ordered array used in the index pages
-    def index_fields
-      fields - %i[nonop_source justification review_comment created_at updated_at]
-    end
-
-    def current_table_name
-      current_table = current_scope.arel.source.left
-
-      case current_table
-      when Arel::Table
-        current_table.name
-      when Arel::Nodes::TableAlias
-        current_table.right
-      else
-        raise
-      end
-    end
-  end
+  # This adds a bunch of class methods..
+  include Requestable
 
   attr_accessor :archived_fiscal_year
   attr_accessor :archived_proxy
@@ -78,6 +40,13 @@ class Request < ApplicationRecord
   def org_must_be_dept
     return if organization && organization.organization_type == 'department'
     errors.add(:organization, 'Must have a department specified.')
+  end
+
+  validate :unit_must_be_in_dept
+  def unit_must_be_in_dept
+    return if unit.nil?
+    return if unit.parent == organization
+    errors.add(:unit, 'Unit must be in the department.')
   end
 
   validates :justification, presence: true

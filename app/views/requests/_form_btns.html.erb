@@ -1,5 +1,5 @@
 <div class="pull-right">
-  <%= link_to 'Show All', polymorphic_path(@model_klass), class: 'btn btn-default' %>
+  <%= link_to 'Return to List', polymorphic_path(@model_klass), class: 'btn btn-default' %>
   <% if edit_or_new? %> 
     <%= f.submit 'Save', class: 'btn btn-success' %>
   <% elsif show? && policy(@request).edit? %>

@@ -12,7 +12,7 @@ class LaborRequestTest < ActiveSupport::TestCase
                                 .where(organization_type: Organization.organization_types['unit']).first
     refute @request.valid?
   end
-  
+
   test 'justifcation length should be less than 125 words (unless its archived)' do
     assert @request.valid?
     @request.justification = ' word ' * 126

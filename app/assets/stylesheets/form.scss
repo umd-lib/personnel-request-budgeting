@@ -34,3 +34,8 @@
     margin: 40px 0 40px;
     border-top: 1px solid #eeeeee;
 }
+
+
+.required abbr { color: red;  }
+.alert > .required  { display: inline; }
+

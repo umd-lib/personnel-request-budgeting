@@ -24,4 +24,11 @@
       Copied from archive. Please review and save in order to create a new record in <%= FiscalYear.current %>
     </div>
   <% end %>
+
+  <% if edit_or_new? %> 
+    <div class='alert alert-info' role='alert'>
+      <i class='glyphicon glyphicon-exclamation-sign'></i> 
+      Fields marked with <div class='required'><abbr>*</abbr></div> are required. 
+    </div>
+  <% end %>
 </div>

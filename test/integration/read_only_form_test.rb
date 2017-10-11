@@ -7,7 +7,8 @@ class ReadOnlyFormTest < ActionDispatch::IntegrationTest
   end
 
   test 'should have help messages on edit form but not on show' do
-    click_link 'New Labor Request'
+    click_link 'Labor and Assistance'
+    click_link 'New'
     assert page.has_selector?('.help-block')
     assert page.has_content?('Position name/title.')
     select 'Faculty', from: 'Employee type'
@@ -20,7 +21,7 @@ class ReadOnlyFormTest < ActionDispatch::IntegrationTest
     select 'Prange', from: 'Department'
     fill_in 'Justification', with: 'This is a test'
     fill_in 'Position title', with: SecureRandom.hex
-    click_button 'Save'
+    find('.page-header .btn-success').click
     assert page.has_content?('Labor and Assistance Requests successfully created.')
     refute page.has_selector?('.help_block')
   end

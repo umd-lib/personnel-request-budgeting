@@ -65,17 +65,23 @@ module PersonnelRequestController
 
   def destroy
     authorize @request
-    if @request.destroy
-      flash[:notice] = "#{@model_klass.human_name}  for #{@request.description} was successfully deleted."
-    else
-      flash[:error] = "ERROR Deleting #{@model_klass.human_name}  #{@request.description} (#{@request.id})"
-    end
+    page_and_sort_params = params.select { |k| %w[page sort].include? k }
+    set_destroy_flash
     respond_to do |format|
-      format.html { redirect_to(polymorphic_url(@model_klass)) }
+      format.html { redirect_to(polymorphic_url(@model_klass, page_and_sort_params)) }
     end
   end
 
   private
+
+    # rubocop hates long methods so we just make more and more methods
+    def set_destroy_flash
+      if @request.destroy
+        flash[:notice] = "#{@model_klass.human_name}  for #{@request.description} was successfully deleted."
+      else
+        flash[:error] = "ERROR Deleting #{@model_klass.human_name}  #{@request.description} (#{@request.id})"
+      end
+    end
 
     # runs our policy and create a new obj from params
     def authorize_and_new!

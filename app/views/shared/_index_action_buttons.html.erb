@@ -15,7 +15,7 @@
       <% if object.respond_to?('allow_delete?') && !object.allow_delete? %>                                                                                                                                 
         <button class="btn btn-danger delete" disabled="disabled"><i class="glyphicon glyphicon-trash"></i></button>                                                                                        
       <% else %>                                                                                                                                                                                            
-        <%= link_to show_polymorphic_url(object) , method: :delete,                                                                                                                                                                
+        <%= link_to show_polymorphic_url(object, params.select { |k| %w[page sort].include?(k)  }) , method: :delete,                                                                                                                                                                
               data: { confirm: confirm_delete_text(object) }, class: "btn btn-danger delete", title: "Delete" do %>                                                                                         
           <i class="glyphicon glyphicon-trash"></i>                                                                                                                                                         
         <% end %>                                                                                                                                                                                           

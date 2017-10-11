@@ -7,7 +7,8 @@ class WordCountTest < ActionDispatch::IntegrationTest
   end
 
   test 'should count the words in the justification field' do
-    click_link 'New Labor Request'
+    click_link 'Labor and Assistance'
+    click_link 'New'
     words = ' word ' * 100
     fill_in 'Justification', with: words
     assert page.has_content?('25 words remaining')

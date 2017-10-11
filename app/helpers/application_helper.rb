@@ -117,7 +117,7 @@ module ApplicationHelper
 
   # a helper to hack around with the inhertence tricks we are doing. Gets the
   # Rails URL helper for the class.
-  def show_polymorphic_url(object)
-    send(show_url_method(object), object.id)
+  def show_polymorphic_url(object, params = {})
+    send(show_url_method(object), object.id, params)
   end
 end

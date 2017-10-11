@@ -2,6 +2,7 @@
 class Organization < ApplicationRecord
   include Cutoffable
   include Resettable
+  include Flattenable
 
   class << self
     def policy_class

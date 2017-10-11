@@ -22,6 +22,9 @@
   </div>
   
   <%= render partial: "request_admin_only", locals: { f: f } %> 
+  <div class="page-footer">
+    <h2><%= render partial: "form_btns", locals: { f: f } %></h2>
+  </div>
 
 
 <% end %>

@@ -27,3 +27,24 @@
 
 }
 
+.page-header .btn-wrapper { padding: 0 1px; }
+
+.page-footer {
+    padding-bottom: 9px;
+    margin: 40px 0 40px;
+    border-top: 1px solid #eeeeee;
+}
+
+
+.required abbr { color: red;  }
+.alert { 
+  margin-top: 10px; 
+  > .required  { display: inline; }
+}
+
+
+a.list-group-item {
+  color: #0088cc;
+  text-decoration: underline;
+  background-color: transparent;
+}  

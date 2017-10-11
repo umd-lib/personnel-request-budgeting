@@ -30,6 +30,8 @@ class Request < ApplicationRecord
   belongs_to :organization, required: true, counter_cache: true
   belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true
 
+  has_one :division, class_name: 'Organization', through: :organization, source: :parent
+
   belongs_to :user
 
   validates :position_title, presence: true

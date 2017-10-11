@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'home#show'
+  get '/my_requests' => 'home#index'
 
   resources :contractor_requests
   resources :labor_requests

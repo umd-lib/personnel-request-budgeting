@@ -40,5 +40,11 @@
 .alert { 
   margin-top: 10px; 
   > .required  { display: inline; }
-
 }
+
+
+a.list-group-item {
+  color: #0088cc;
+  text-decoration: underline;
+  background-color: transparent;
+}  

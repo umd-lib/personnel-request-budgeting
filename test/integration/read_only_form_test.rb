@@ -7,7 +7,8 @@ class ReadOnlyFormTest < ActionDispatch::IntegrationTest
   end
 
   test 'should have help messages on edit form but not on show' do
-    click_link 'New Labor Request'
+    click_link 'Labor and Assistance'
+    click_link 'New'
     assert page.has_selector?('.help-block')
     assert page.has_content?('Position name/title.')
     select 'Faculty', from: 'Employee type'

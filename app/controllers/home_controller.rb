@@ -9,9 +9,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def show; end
+
   private
 
     def model_klass
       Request
     end
+
+    # we just override this with nothing.
+    def set_request; end
 end

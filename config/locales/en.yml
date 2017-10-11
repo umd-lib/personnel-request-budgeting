@@ -61,7 +61,10 @@ en:
     labor_request_description: Hourly Staff (Contingent 1's), Students and hourly faculty.
     staff_request_description: New Staff & Faculty State-lined positions (conversion of contract positions to regular state-lined positions, Backfill a current position, Administrative and Acting Stipend request, and any other adjustment to salary for current State-lined positions; Graduate Assistants (Backfill & New request)).
     contractor_request_description: Temporary salaried staff & faculty (Contingent 2's and Contract Faculty).
-
+  help_text:
+    labor_request_description: Hourly Staff (Contingent 1's), Students and hourly faculty.
+    staff_request_description: New Staff & Faculty State-lined positions (conversion of contract positions to regular state-lined positions, Backfill a current position, Administrative and Acting Stipend request, and any other adjustment to salary for current State-lined positions; Graduate Assistants (Backfill & New request)).
+    contractor_request_description: Temporary salaried staff & faculty (Contingent 2's and Contract Faculty).
   activerecord:
     attributes:
       user: &user

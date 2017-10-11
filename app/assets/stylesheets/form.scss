@@ -37,5 +37,8 @@
 
 
 .required abbr { color: red;  }
-.alert > .required  { display: inline; }
+.alert { 
+  margin-top: 10px; 
+  > .required  { display: inline; }
 
+}

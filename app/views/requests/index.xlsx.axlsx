@@ -11,7 +11,8 @@ record_set.each_with_index do |records, i|
 
     sheet_klass = name.constantize
 
-    fields = sheet_klass.fields
+    fields = sheet_klass.fields.flat_map { |k| k == :organization__name ? [:division__name, k] : k }
+
     styles, widths = formats_and_widths(fields)
 
     header_row = fields.map { |field| sheet_klass.human_attribute_name(field.to_s.split('__').first.intern) }

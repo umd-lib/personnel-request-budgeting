@@ -14,8 +14,9 @@ class IndexViewTest < ActionDispatch::IntegrationTest
 
     row = all('tr').last
     name = row.find('td[headers="position_title"]').text
-    row.find('a.delete').click
-    page.accept_confirm
+    accept_alert do 
+      row.find('a.delete').click
+    end 
 
     assert current_url == url
     assert page.has_content? name

@@ -4,7 +4,7 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading"><h3>Current Fiscal Year: <%= FiscalYear.current %></h3></div>
+  <div class="panel-heading"><h3>Current Fiscal Year: <%= FiscalYear.next_year %></h3></div>
   <div class="panel-body">
     <ul class="list-group requests-homepage">
       <li class='alert alert-info'><%= link_to 'Labor and Assistance Requests', polymorphic_url( LaborRequest ), class: "list-group-item btn-link" %>

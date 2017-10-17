@@ -4,9 +4,6 @@
     <li><%= link_to( t('actions.new') + " Labor Request", new_polymorphic_url( LaborRequest ), class: "btn btn-success" ) %></li> 
     <li><%= link_to( t('actions.new') + " Staff Request", new_polymorphic_url( StaffRequest ), class: "btn btn-info" ) %></li> 
     <li><%= link_to( t('actions.new') + " Contractor Request", new_polymorphic_url( ContractorRequest ), class: "btn btn-warning" ) %></li> 
-    <li>Version: <%= APP_VERSION %></li>
-    <li>Tag: <%= GIT_TAG %></li>
-    <li>Current Fiscal Year: <%= FiscalYear.current %></li>
   </ul>
 </div>
 

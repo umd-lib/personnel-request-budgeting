@@ -9,11 +9,11 @@
   <% if current_user.admin? && policy(@model_klass).update? %>
 		<span class='pull-right btn-wrapper'>	
 			<div class="btn-group">
-				<button type="button" class="btn btn-warning"><%= t('actions.update-status') %></button>
 				<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= t('actions.update-status') %>
 					<span class="caret"></span>
 					<span class="sr-only">Toggle Dropdown</span>
-				</button>
+        </button> 
 				<ul id='change-review-status' class="dropdown-menu">
 					<% ReviewStatus.all.each do |rst| %> 
 						<li><a href="#" data-record-type="<%= @model_klass.name.underscore %>"  data-review-status="<%= rst.id %>"><%= rst.name %></a></li>

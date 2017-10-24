@@ -12,6 +12,7 @@ class App {
       new UnitSelector();
       new WordLimit();
       new Spawner();
+      new RequireTooltip();
   }) 
 
   }

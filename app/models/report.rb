@@ -19,7 +19,7 @@ class Report < ActiveRecord::Base
     pdf: 1
   }
 
-  %i(format status name).each { |f| validates f, presence: true }
+  %i[format status name].each { |f| validates f, presence: true }
 
   # sugary method to get the report manager
   def manager

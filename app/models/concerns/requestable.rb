@@ -1,44 +1,46 @@
-## Generic for all request type objects
+# A place for the class methods added to the request modle ( because the cop
+# doesn't like the length of the class :/ )
 module Requestable
   extend ActiveSupport::Concern
-
-  included do
-    belongs_to :employee_type
-    belongs_to :request_type
-    belongs_to :department
-    belongs_to :unit
-    belongs_to :review_status
-    has_one :division, through: :department, autosave: false
-
-    validates :employee_type, presence: true
-    validates :position_title, presence: true
-    validates :request_type, presence: true
-    validates :department_id, presence: true
-    validates_with RequestDepartmentValidator
-
-    validates_with RequestEmployeeTypeValidator, valid_employee_category_code: self::VALID_EMPLOYEE_CATEGORY_CODE
-    validate :allowed_request_type
-
-    after_initialize :init
-
-    # Sets the review status to default
-    def init
-      return if has_attribute?(:review_status_id) && review_status_id
-      self.review_status = ReviewStatus.find_by(code: 'UnderReview')
-    end
-  end
-
+  # rubocop:disable Metrics/BlockLength
   class_methods do
-  end
+    def policy_class
+      RequestPolicy
+    end
 
-  # Validates the request type
-  def allowed_request_type
-    return if self.class::VALID_REQUEST_TYPE_CODES.include?(request_type.try(:code))
-    errors.add(:request_type, 'Not an allowed request type for this request.')
-  end
+    # returns just the source_class for Archived records
+    def source_class
+      name.remove(/^Archived/).constantize
+    end
 
-  # method to call the fields expressed in .fields
-  def call_field(field)
-    field.to_s.split('__').inject(self) { |a, e| a.send(e) unless a.nil? }
+    def human_name
+      'Requests'
+    end
+
+    # all the fields associated to the model
+    def fields
+      %i[ request_model_type position_title employee_type request_type
+          contractor_name employee_name
+          nonop_source justification organization__name unit__name
+          review_status__name review_comment user__name created_at updated_at ]
+    end
+
+    # Returns an ordered array used in the index pages
+    def index_fields
+      fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+
+    def current_table_name
+      current_table = current_scope.arel.source.left
+
+      case current_table
+      when Arel::Table
+        current_table.name
+      when Arel::Nodes::TableAlias
+        current_table.right
+      else
+        raise
+      end
+    end
   end
 end

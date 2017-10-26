@@ -1,6 +1,6 @@
 require 'reportable'
 # A summary report for the requests count by review status
-class RequestsCountByReviewStatus
+class RequestsCountByReviewStatusReport
   include Reportable
   class << self
     # @return [String] human-readable description of the report, displayed in
@@ -12,7 +12,7 @@ class RequestsCountByReviewStatus
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [String] the view template to use in formatting the report output
@@ -28,18 +28,18 @@ class RequestsCountByReviewStatus
     not_approved = nil
     contingent = nil
 
-    ReviewStatus.all.to_a.each do |request|
+    ReviewStatus.all.to_a.each do |review_status|
       status_count = Hash.new(0)
-      status_count[:labor_count] = request.labor_requests_count
-      status_count[:staff_count] = request.staff_requests_count
-      status_count[:contractor_count] = request.contractor_requests_count
-      if request.name == 'Under Review'
+      status_count[:labor_count] = LaborRequest.where(review_status: review_status).count
+      status_count[:staff_count] = StaffRequest.where(review_status: review_status).count
+      status_count[:contractor_count] = ContractorRequest.where(review_status: review_status).count
+      if review_status.name == 'Under Review'
         under_review = status_count
-      elsif request.name == 'Approved'
+      elsif review_status.name == 'Approved'
         approved = status_count
-      elsif request.name == 'Not Approved'
+      elsif review_status.name == 'Not Approved'
         not_approved = status_count
-      elsif request.name == 'Contingent'
+      elsif review_status.name == 'Contingent'
         contingent = status_count
       end
     end
@@ -49,7 +49,7 @@ class RequestsCountByReviewStatus
     category_display_name[:staff_count] = 'Staff'
     category_display_name[:contractor_count] = 'Salaried Contractor'
 
-    category_order = [:labor_count, :staff_count, :contractor_count]
+    category_order = %i[labor_count staff_count contractor_count]
 
     data = []
     category_order.each do |key|

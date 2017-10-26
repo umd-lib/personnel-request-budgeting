@@ -4,10 +4,10 @@
   </div>
 
   <% @report.manager.reports.sort.each do |subreport| %>
-    <div class="panel panel-default"> 
-      <div class="panel-body"> 
+    <div class="panel panel-default">
+      <div class="panel-body">
           <%= render_report_form(subreport)  %>
-      </div>   
+      </div>
     </div>
   <% end %>
 </div>

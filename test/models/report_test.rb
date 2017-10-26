@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Tests for the "RoleType" model
+# Tests for the "Report" model
 class ReportTest < ActiveSupport::TestCase
   def setup
     @report = reports(:report_completed)
@@ -12,7 +12,7 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test 'name, format, status should be present' do
-    %i( name format status ).each do |attr|
+    %i[name format status].each do |attr|
       r = @report.dup
       r.attributes = Hash[attr, nil]
       assert_not r.valid?

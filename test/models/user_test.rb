@@ -4,6 +4,9 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(cas_directory_id: 'sample_user', name: 'Sample User')
+    @division = Organization.find_by(organization_type: Organization.organization_types['division'])
+    @department = Organization.find_by(organization_type: Organization.organization_types['department'])
+    @unit = Organization.find_by(organization_type: Organization.organization_types['unit'])
   end
 
   test 'should be valid' do
@@ -29,61 +32,45 @@ class UserTest < ActiveSupport::TestCase
 
   test 'admin? should show correct admin status of user' do
     assert_not @user.admin?
-    assert users(:test_admin).admin?
-    assert_not users(:test_not_admin).admin?
+    assert users(:admin).admin?
+    assert_not users(:not_admin).admin?
   end
 
   test 'division? should show correct division status of user' do
-    assert_not @user.division?
-    assert_not users(:test_admin).division?
-
-    division_user = User.new(cas_directory_id: 'division_user', name: 'Division User')
-    Role.create!(user: division_user,
-                 role_type: RoleType.find_by_code('division'),
-                 division: Division.first)
-    assert division_user.division?
+    user = User.new(cas_directory_id: 'division_user', name: 'Division User')
+    assert_not user.division?
+    Role.create(user: user, organization: @division)
+    assert user.reload.division?
   end
 
   test 'department? should show correct department status of user' do
-    assert_not @user.department?
-    assert_not users(:test_admin).department?
-
-    department_user = User.new(cas_directory_id: 'department_user', name: 'Department User')
-    Role.create!(user: department_user,
-                 role_type: RoleType.find_by_code('department'),
-                 department: Department.first)
-    assert department_user.department?
+    user = User.new(cas_directory_id: 'department_user', name: 'Department User')
+    assert_not user.department?
+    Role.create(user: user, organization: @department)
+    assert user.reload.department?
   end
 
   test 'unit? should show correct unit status of user' do
-    assert_not @user.unit?
-    assert_not users(:test_admin).unit?
-
-    unit_user = User.new(cas_directory_id: 'unit_user', name: 'Unit User')
-    Role.create!(user: unit_user,
-                 role_type: RoleType.find_by_code('unit'),
-                 unit: Unit.first)
-    assert unit_user.unit?
+    user = User.new(cas_directory_id: 'unit_user', name: 'Unit User')
+    assert_not user.unit?
+    Role.create(user: user, organization: @unit)
+    assert user.reload.unit?
   end
 
   test 'roles should return roles for the user' do
     assert @user.roles.empty?
-
-    assert_equal 1, users(:test_admin).roles.count
-    assert_equal role_types(:admin), users(:test_admin).roles[0].role_type
+    assert_equal 2, users(:two_roles).roles.count
   end
 
   test 'should be able to delete a user and its roles' do
-    user_to_delete = User.create!(cas_directory_id: 'delete_me', name: 'nobody')
-    role_to_delete = Role.create!(user: user_to_delete, role_type: role_types(:division),
-                                  division: divisions(:dss)
-                                 )
-    assert User.exists? user_to_delete.id
-    assert_equal 1, user_to_delete.roles.count
-    assert Role.exists? role_to_delete.id
+    user = User.create(cas_directory_id: 'delete_me', name: 'nobody')
+    role = Role.create(user: user, organization: @department)
 
-    user_to_delete.destroy
-    assert_not User.exists? user_to_delete.id
-    assert_not Role.exists? role_to_delete.id
+    assert_equal 1, user.roles.count
+    assert Role.exists? role.id
+
+    user.destroy
+    assert_not User.exists? user.id
+    assert_not Role.exists? role.id
   end
 end

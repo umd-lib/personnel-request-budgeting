@@ -2,8 +2,16 @@ require 'test_helper'
 
 class ReviewStatusesControllerTest < ActionController::TestCase
   setup do
-    @review_status = review_statuses(:started)
+    @review_status = review_statuses(:under_review)
     @unused_review_status = review_statuses(:never)
+    session[:cas] = { user: 'admin' }
+  end
+
+  test 'should not allow unauthed users' do
+    run_as_user(nil) do
+      get :index
+      assert_response(401)
+    end
   end
 
   test 'should get index' do
@@ -54,8 +62,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
   end
 
   test 'should show error when cannot destroy review status with associated records' do
-    @review_status.reload 
-    assert_equal false, @review_status.allow_delete?
+    @review_status.reload
     assert_no_difference('ReviewStatus.count') do
       delete :destroy, id: @review_status
     end
@@ -65,7 +72,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
   end
 
   test 'forbid access by non-admin user' do
-    run_as_user(users(:test_not_admin)) do
+    run_as_user(users(:not_admin)) do
       get :index
       assert_response :forbidden
 

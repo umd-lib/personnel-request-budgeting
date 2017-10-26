@@ -1,7 +1,9 @@
-
+# Controller for Icinga network monitoring to use to determine whether the
+# application is running.
 class PingController < ApplicationController
-  skip_before_action :authenticate
-  skip_after_action :verify_authorized
+  # Controller actions should be accessible without requiring authenication.
+  skip_before_action :ensure_auth
+
   def verify
     if ActiveRecord::Base.connected?
       render text: 'Application is OK'

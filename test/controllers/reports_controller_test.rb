@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
   setup do
+    session[:cas] = { user: 'admin' }
     @report = reports(:requests_by_type)
   end
 

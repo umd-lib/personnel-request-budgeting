@@ -5,4 +5,7 @@ namespace :db do
     CounterCacheManager.run 
   end
 
+  task :reset_counter_cache do
+      CounterCacheManager.run 
+  end
 end

@@ -2,19 +2,14 @@ require 'test_helper'
 
 class ImpersonateControllerTest < ActionController::TestCase
   def setup
-    @admin_user = users(:test_admin)
-    @impersonated_user = users(:test_not_admin)
-  end
-
-  test 'should get index' do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:users)
+    session[:cas] = { user: 'admin' }
+    @admin_user = users(:admin)
+    @impersonated_user = users(:not_admin)
   end
 
   test 'create should impersonate user' do
     run_as_user(@admin_user) do
-      get :create, user_id: @impersonated_user
+      get :create, user_id: @impersonated_user.id
       assert_not_nil session[ImpersonateController::IMPERSONATE_USER_PARAM]
       assert_equal session[ImpersonateController::IMPERSONATE_USER_PARAM], @impersonated_user.id
     end
@@ -38,18 +33,8 @@ class ImpersonateControllerTest < ActionController::TestCase
     end
   end
 
-  test 'forbid access by non-admin user' do
-    run_as_user(users(:test_not_admin)) do
-      get :index
-      assert_response :forbidden
-
-      get :create, user_id: @impersonated_user
-      assert_response :forbidden
-    end
-  end
-
   test 'access allowed to destroy by non-admin user' do
-    run_as_user(users(:test_not_admin)) do
+    run_as_user(users(:not_admin)) do
       delete :destroy
       assert_redirected_to root_path
     end

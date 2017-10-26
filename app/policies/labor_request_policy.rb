@@ -1,2 +1,0 @@
-class LaborRequestPolicy < PersonnelRequestPolicy
-end

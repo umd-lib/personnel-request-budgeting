@@ -1,17 +1,19 @@
 # Provides CAS Authentication and whitelist authorization
 module CasHelper
-  def eager_loads
-    types = [:role_type, { department: [:units, :division], unit: [:department], division: [:departments] }]
-    [:role_types, { roles: types }]
+  def fix_cas_session
+    session[:cas] ||= HashWithIndifferentAccess.new
+    return if session[:cas].is_a?(HashWithIndifferentAccess)
+    session[:cas] = session[:cas].with_indifferent_access
   end
 
-  # Uses CAS to authenticate users, and provide white-list authorization
-  def authenticate
-    CASClient::Frameworks::Rails::Filter.before(self)
-    update_current_user(User.eager_load(*eager_loads).find_by(cas_directory_id: session[:cas_user]))
-
-    return unless session[:cas_user] && !allow_access
-    render(file: File.join(Rails.root, 'public/403.html'), status: :forbidden, layout: false)
+  def ensure_auth
+    if session[:cas].nil? || session[:cas][:user].nil?
+      render status: 401, text: 'Redirecting to SSO...'
+    else
+      update_current_user(User.find_by(cas_directory_id: session[:cas][:user]))
+      render status: 403, text: 'Unrecognized user' unless @current_user
+    end
+    nil
   end
 
   # Returns true if a user is being impersonated, false otherwise
@@ -22,7 +24,7 @@ module CasHelper
   # Returns the impersonated user
   def impersonated_user
     if @current_user.nil? || session[ImpersonateController::IMPERSONATE_USER_PARAM] != @current_user.id
-      user = User.eager_load(*eager_loads).find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM])
+      user = User.find_by(id: session[ImpersonateController::IMPERSONATE_USER_PARAM])
       update_current_user(user)
     end
     @current_user
@@ -30,8 +32,8 @@ module CasHelper
 
   # Returns the actual logged in user, ignoring impersonation
   def actual_user
-    if @current_user.nil? || session[:cas_user] != @current_user.cas_directory_id
-      update_current_user(User.eager_load(*eager_loads).find_by(cas_directory_id: session[:cas_user]))
+    if @current_user.nil? || session[:cas][:user] != @current_user.cas_directory_id
+      update_current_user(User.find_by(cas_directory_id: session[:cas][:user]))
     end
     @current_user
   end
@@ -51,14 +53,8 @@ module CasHelper
 
     attr_writer :current_user
 
-    # Returns true if entry is authorized, false otherwise.
-    def allow_access
-      !@current_user.nil?
-    end
-
     # Simply updates the current user
     def update_current_user(user)
-      @current_user = user
-      @current_user
+      @current_user = user if user
     end
 end

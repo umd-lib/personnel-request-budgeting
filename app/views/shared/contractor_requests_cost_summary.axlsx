@@ -47,7 +47,7 @@ end
 def construct_division_worksheet(wb, styles, record_set, division, created_at)
   default_col_width = 16
   # Division Worksheet Construction
-  wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet|
+  wb.add_worksheet(name: axls_safe_cell_name(division)) do |sheet| # rubocop:disable Metrics/BlockLength
     data = record_set[:summary_data]
     row_num = 1
     current_fiscal_year = record_set[:current_fiscal_year]
@@ -55,13 +55,13 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
 
     sheet.add_row [division, "Divisional Summary of Salaried Contractor Requests - #{current_fiscal_year}"],
                   style: [styles[:title], styles[:extra_title]],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row ['', ''],
                   style: [styles[:title], nil],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     row_num += 1
 
     sheet.add_row ['Dept Name', "C2's", 'Contract Faculty', 'Total', 'Grant, Gift, Other Support'],
@@ -79,7 +79,7 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
                     style: [nil,
                             styles[:currency],
                             styles[:currency],
-                            styles[:summary_result],
+                            styles[:summary_result_currency],
                             styles[:currency]],
                     widths: [:auto, default_col_width, :auto,
                              default_col_width, :auto]
@@ -93,10 +93,10 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
                          "=SUM(D#{data_start_row}:D#{data_end_row})",
                          "=SUM(E#{data_start_row}:E#{data_end_row})"],
                         style: [styles[:summary_description],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result]],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_currency]],
                         widths: :auto
     # Cell names must be unique in workbook. Can't use "_" to separate
     # words, because it turns the next letter into uppercase.
@@ -114,10 +114,10 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
     row = sheet.add_row ["Less: Total Salaried Contractor Approved for #{previous_fiscal_year}",
                          nil, nil, "=SUM(B#{row_num}:C#{row_num})", nil],
                         style: [styles[:summary_description],
-                                styles[:summary_result],
-                                styles[:summary_result],
-                                styles[:summary_result],
-                                styles[:summary_result]],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency]],
                         widths: :auto
     # Cell names must be unique in workbook. Can't use "_" to separate
     # words, because it turns the next letter into uppercase.
@@ -138,10 +138,10 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
                    "=#{axls_safe_cell_name(division + 'TotalTotals')} - #{axls_safe_cell_name(division + 'PrevFyTotalTotals')}",
                    "=#{axls_safe_cell_name(division + 'OtherSupportTotals')} - #{axls_safe_cell_name(division + 'PrevFyOtherSupportTotals')}"],
                   style: [styles[:summary_description],
-                          styles[:summary_result],
-                          styles[:summary_result],
-                          styles[:summary_result],
-                          styles[:summary_result]],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency]],
                   widths: :auto
     row_num += 1
 
@@ -169,20 +169,20 @@ end
 def construct_summary_worksheet(wb, styles, record_set, created_at)
   # Summary Worksheet Construction
   default_col_width = 16
-  wb.insert_worksheet(0, name: 'Summary_Contractor') do |sheet|
+  wb.insert_worksheet(0, name: 'Summary_Contractor') do |sheet| # rubocop:disable Metrics/BlockLength
     row_num = 1
     current_fiscal_year = record_set[:current_fiscal_year]
     previous_fiscal_year = record_set[:previous_fiscal_year]
 
     sheet.add_row ['Consolidated Libraries', "Summary of Salaried Contractor Requests - #{current_fiscal_year}"],
                   style: [styles[:title], styles[:extra_title]],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     sheet.merge_cells "B#{row_num}:D#{row_num}"
     row_num += 1
 
     sheet.add_row [nil, nil],
                   style: [styles[:title], nil],
-                  widths: [:auto, :ignore]
+                  widths: %i[auto ignore]
     row_num += 1
 
     sheet.add_row [nil, nil, nil, 'Less:', nil, nil, nil],
@@ -211,7 +211,7 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
                             styles[:currency],
                             styles[:currency],
                             styles[:currency],
-                            styles[:summary_result],
+                            styles[:summary_result_currency],
                             styles[:currency],
                             styles[:currency]],
                     widths: [:auto, default_col_width, :auto, nil, nil, nil]
@@ -227,12 +227,12 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
                          "=SUM(F#{data_start_row}:F#{data_end_row})",
                          "=SUM(G#{data_start_row}:G#{data_end_row})"],
                         style: [styles[:summary_description],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result_top_border],
-                                styles[:summary_result],
-                                styles[:summary_result],
-                                styles[:summary_result]],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_top_border_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency]],
                         widths: :auto
     name_cell_in_row(row, 1, 'SummaryC2Totals')
     name_cell_in_row(row, 2, 'SummaryCFacTotals')
@@ -248,10 +248,10 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
     row = sheet.add_row ["Less: Salaried Contractor Requested for #{previous_fiscal_year}",
                          nil, nil, nil, nil],
                         style: [styles[:summary_description],
-                                styles[:summary_result],
-                                styles[:summary_result],
-                                styles[:summary_result],
-                                styles[:summary_result]],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency],
+                                styles[:summary_result_currency]],
                         widths: :auto
     name_cell_in_row(row, 1, 'SummaryPrevFyC2Totals')
     name_cell_in_row(row, 2, 'SummaryPrevFyCFacTotals')
@@ -270,10 +270,10 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
                    '=SummaryOtherSupportTotals - SummaryPrevFyOtherSupportTotals',
                    '=SummaryNetRequest - SummaryPrevFyNetRequest'],
                   style: [styles[:summary_description],
-                          styles[:summary_result],
-                          styles[:summary_result],
-                          styles[:summary_result],
-                          styles[:summary_result]],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency],
+                          styles[:summary_result_currency]],
                   widths: :auto
     row_num += 1
 

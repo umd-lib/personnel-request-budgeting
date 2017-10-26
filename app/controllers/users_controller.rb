@@ -1,15 +1,12 @@
 class UsersController < ApplicationController
-  # rubocop:disable Metrics/MethodLength
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: %i[show edit update destroy]
   after_action :verify_authorized, except: :logout
 
   # GET /users
   # GET /users.json
   def index
-    authorize User
-    @q = User.ransack(params[:q])
-    @q.sorts = 'cas_directory_id' if @q.sorts.empty?
-    @users = @q.result
+    authorize :user
+    @users = User.all.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -34,14 +31,11 @@ class UsersController < ApplicationController
   def create
     authorize User
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: "User #{@user.description} was successfully created." }
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -75,7 +69,7 @@ class UsersController < ApplicationController
   def logout
     clear_current_user
     reset_session
-    render 'logout'
+    redirect_to root_path
   end
 
   private
@@ -87,6 +81,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:cas_directory_id, :name)
+      params.require(:user).permit(allowed)
+    end
+
+    def allowed
+      policy(@user || User.new).permitted_attributes
     end
 end

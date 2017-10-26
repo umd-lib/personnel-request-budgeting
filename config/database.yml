@@ -29,4 +29,3 @@ production:
   host: <%= ENV["PROD_DATABASE_HOST"] %>
   port: <%= ENV["PROD_DATABASE_PORT"] %>
   pool: <%= ENV["PROD_DATABASE_POOL"] %>
-

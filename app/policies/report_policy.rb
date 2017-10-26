@@ -1,4 +1,4 @@
-# Policy for makeing and viewing reports
+# Policy for making and viewing reports
 class ReportPolicy < AdminOnlyPolicy
   def edit?
     false

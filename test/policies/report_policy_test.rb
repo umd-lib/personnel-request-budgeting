@@ -1,9 +1,9 @@
 require 'test_helper'
 
-# Tests for AdminOnlyPolicy class
+# Tests for ReportPolicy class
 class ReportPolicyTest < ActiveSupport::TestCase
   def setup
-    @admin_user = users(:test_admin)
+    @admin_user = users(:admin)
   end
 
   def test_edit

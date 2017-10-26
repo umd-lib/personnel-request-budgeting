@@ -15,7 +15,7 @@ class ContractorRequestsCostSummaryReport
     # @return [Array<String, Symbol>] the output formats this report is
     #   available in.
     def formats
-      %w(xlsx)
+      %w[xlsx]
     end
 
     # @return [String] the view template to use in formatting the report output
@@ -43,12 +43,12 @@ class ContractorRequestsCostSummaryReport
     allowed_review_status_ids = parameters[:review_status_ids]
     allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
 
-    ContractorRequest.includes(:department, :employee_type, :review_status).each do |request|
+    ContractorRequest.includes(:organization, :review_status).each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
-      emp_type_code = request.employee_type.code
-      department_code = request.department.code
-      key = [department_code, emp_type_code]
+      employee_type = request.employee_type
+      department_code = request.organization.code
+      key = [department_code, employee_type]
       annual_base_pay = request.annual_base_pay
       nonop_funds = request.nonop_funds
       annual_base_pay_totals[key] += annual_base_pay unless annual_base_pay.nil?
@@ -59,11 +59,11 @@ class ContractorRequestsCostSummaryReport
     # Stores in an array (to preserve the department ordering), a "value" Hash
     # representing that department's row in the table.
     summary_data = []
-    Department.includes(:division).order(:code).each do |dept|
+    Organization.department.order(:code).each do |dept|
       department_code = dept.code
-      division_code = dept.division.code
-      c2_key = [department_code, 'C2']
-      cfac_key = [department_code, 'CFAC']
+      division_code = dept.parent.code
+      c2_key = [department_code, 'Contingent 2']
+      cfac_key = [department_code, 'Contract Faculty']
       other_support_key = [department_code, 'other_support']
       value = { department: dept.name,
                 division: division_code,
@@ -73,9 +73,9 @@ class ContractorRequestsCostSummaryReport
       summary_data << value
     end
 
-    divisions = Division.all
-    current_fiscal_year = I18n.t(:current_fiscal_year)
-    previous_fiscal_year = I18n.t(:previous_fiscal_year)
+    divisions = Organization.division
+    current_fiscal_year = FiscalYear.current
+    previous_fiscal_year = FiscalYear.previous
 
     { summary_data: summary_data, divisions: divisions,
       current_fiscal_year: current_fiscal_year,

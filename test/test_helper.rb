@@ -52,7 +52,7 @@ require 'capybara-screenshot/minitest'
 
 Capybara.register_driver :chrome do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[ --window-size=1500,768] }
+    chromeOptions: { args: %w[--window-size=1500,768] }
   )
   Capybara::Selenium::Driver.new(app, browser: :chrome,
                                       desired_capabilities: caps)

@@ -51,12 +51,16 @@ require 'capybara/minitest'
 require 'capybara-screenshot/minitest'
 
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[--window-size=1500,768] }
+  )
+  Capybara::Selenium::Driver.new(app, browser: :chrome,
+                                      desired_capabilities: caps)
 end
 
 Capybara.register_driver :headless_chrome do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu] }
+    chromeOptions: { args: %w[headless disable-gpu window-size=1500,768] }
   )
 
   Capybara::Selenium::Driver.new(app, browser: :chrome,
@@ -77,7 +81,6 @@ class ActionDispatch::IntegrationTest
 
   def use_chrome!
     Capybara.current_driver = ENV['SELENIUM_CHROME'] ? :chrome : :headless_chrome
-    Capybara.page.driver.browser.manage.window.resize_to 1500, 800
   end
 
   def teardown

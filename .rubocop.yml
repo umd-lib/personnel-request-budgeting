@@ -35,6 +35,15 @@ Metrics/LineLength:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
+  
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'test/**/*'
+    - 'app/controllers/concerns/personnel_request_controller.rb'
 
 # The following configuration exclude checks that seem
 # silly, or conflict with the way Rails naturally does
@@ -46,9 +55,14 @@ Style/Documentation:
     - 'app/helpers/*_helper.rb'
     - 'test/**/*'
 
+Style/ClassVars:
+  Exclude:
+    - 'test/**/*'
+  
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
+
 
 Layout/IndentationConsistency:
   EnforcedStyle: rails

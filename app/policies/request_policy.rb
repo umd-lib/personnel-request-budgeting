@@ -1,10 +1,16 @@
+class NoUnitForUnitUser < StandardError; end
+
 class RequestPolicy < ApplicationPolicy
   def create?
-    true
+    return true if @user.admin? || @record.is_a?(Class)
+    if @record.unit_id.nil? && @user.org_types.none? { |o| o != 'unit' }
+      raise NoUnitForUnitUser, 'You must specific a unit'
+    end
+    (@user.active_organizations.map(&:id) && [@record.organization_id, @record.unit_id]).any?
   end
 
   def new?
-    create?
+    true
   end
 
   def show?

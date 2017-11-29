@@ -62,7 +62,9 @@
               <% @user.all_organizations.each do |org| %>
                 <li>
                   <%= link_to org.description, org %> 
-                  Cutoff Date: <%= org.organization_cutoff.cutoff_date %>
+                  <% if org.organization_cutoff %>
+                    Cutoff Date: <%= org.organization_cutoff.cutoff_date %>
+                  <% end %> 
                   <% if org.cutoff? %> 
                     <span class='label label-danger pull-right'>INACTIVE</span>   
                   <% else %> 

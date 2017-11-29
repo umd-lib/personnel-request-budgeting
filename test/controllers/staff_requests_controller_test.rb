@@ -82,11 +82,14 @@ class StaffRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should create/update contractor_request but without admin only values when not admin' do
-    run_as_user(:not_admin) do
+    run_as_user(:not_admin) do |user|
+      unit = users(user).organizations.find(&:unit?)
+      org = unit.parent
       assert_difference('Request.count') do
         post :create, staff_request: {
           contractor_name: @staff_request.contractor_name,
-          organization_id: @staff_request.organization_id,
+          organization_id: org,
+          unit_id: unit,
           employee_type: @staff_request.employee_type,
           employee_name: @staff_request.employee_name,
           hours_per_week: @staff_request.hours_per_week,

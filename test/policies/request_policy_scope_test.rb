@@ -55,6 +55,9 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
+          refute r.cutoff?
+          assert Pundit.policy!(temp_user, r).show?
+          assert Pundit.policy!(temp_user, r).edit?
           assert_equal unit.code, r.unit.code
         end
       end
@@ -71,8 +74,9 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          assert_includes [d1.code, d2.code],
-                          r.organization.code
+          assert_includes [d1.code, d2.code], r.organization.code
+          assert Pundit.policy!(temp_user, r).show?
+          assert Pundit.policy!(temp_user, r).edit?
         end
       end
     end
@@ -88,6 +92,8 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
+          assert Pundit.policy!(temp_user, r).show?
+          assert Pundit.policy!(temp_user, r).edit?
           if r.organization == d # it's linked to it's department
             assert_equal d.code, r.organization.code
           else

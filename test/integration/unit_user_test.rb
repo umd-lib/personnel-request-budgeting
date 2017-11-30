@@ -79,14 +79,13 @@ class UnitUserTest < ActionDispatch::IntegrationTest
 
     # Find a department, and a unit in a different department
     department = Organization.department.first
-    unit = Organization.unit.find{ |u| u.parent != department }
+    unit = Organization.unit.find { |u| u.parent != department }
     assert_not_equal department, unit.parent
 
     # Add departmental and unit roles
     Role.create(user: @user, organization: department)
     Role.create(user: @user, organization: unit)
     assert_equal 2, @user.reload.roles.count
-
 
     # Attempt to create a request using the unit's department, without the unit
     # being specified.

@@ -45,14 +45,13 @@ module PersonnelRequestController
   end
 
   def update
+    @request.assign_attributes(request_params)
     authorize @request
     respond_to do |format|
-      if @request.update(request_params)
+      if @request.save
         format.html { redirect_to(@request, notice: "#{@request.description} successfully updated.") }
-        format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }
-        format.json { render json: @request.errors, status: :unprossable_entity }
       end
     end
   end

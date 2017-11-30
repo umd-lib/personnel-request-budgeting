@@ -12,6 +12,17 @@ require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
+# A patch to keep Cap setup/teardowns from locking the DB
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -24,7 +35,7 @@ class ActiveSupport::TestCase
                     end
     session[:cas] = { user: user }
     begin
-      yield
+      yield user
     ensure
       session[:cas][:user] = original_user
     end
@@ -85,10 +96,18 @@ class ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
-  def login_admin
+  def login(user)
     visit '/'
-    fill_in 'username', with: 'admin'
+    fill_in 'username', with: user
     fill_in 'password', with: 'any password'
     click_button 'Login'
+  end
+
+  def login_admin
+    login('admin')
+  end
+
+  def login_not_admin
+    login('not_admin')
   end
 end

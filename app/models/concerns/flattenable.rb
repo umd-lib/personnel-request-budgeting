@@ -27,5 +27,15 @@ module Flattenable
       end
       "#{prefix} #{description}"
     end
+
+    def as_json(options = {})
+      org = super
+      org[:id] = org['id']
+      org[:parent] = org['organization_id'] || '#'
+      org[:icon] = type_icon
+      org[:text] ||= text
+      org[:state] = { opened: true }
+      org
+    end
   end
 end

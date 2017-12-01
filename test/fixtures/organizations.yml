@@ -120,6 +120,7 @@ organization_11:
   created_at: 2017-09-28 17:26:12.787310000 Z
   updated_at: 2017-09-28 17:26:12.787310000 Z
   deactivated: false
+  users: [ two_roles, middle_mgmt ]
 organization_12:
   id: 12
   name: CSS Main Office
@@ -406,6 +407,7 @@ organization_37:
   created_at: 2017-09-28 17:26:12.863065000 Z
   updated_at: 2017-09-28 17:26:12.863065000 Z
   deactivated: false
+  users: [two_roles]
 organization_38:
   id: 38
   name: Art Library
@@ -505,6 +507,7 @@ organization_46:
   created_at: 2017-09-28 17:26:12.888997000 Z
   updated_at: 2017-09-28 17:26:12.888997000 Z
   deactivated: false
+  users: [ not_admin ]  
 organization_47:
   id: 47
   name: Special Collections & University Archives

@@ -1,21 +1,24 @@
 class RequestPolicy < ApplicationPolicy
   def create?
-    true
+    return true if @user.admin? || @record.is_a?(Class)
+    check_unit!
+    (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 
   def new?
-    create?
+    true
   end
 
   def show?
-    @user.admin? || @user.all_organizations.map(&:id).include?(@record.organization_id)
+    @user.admin? ||
+      (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 
   def edit?
     return false if @record.archived_proxy?
     return true if @user.admin?
     return false if @record.cutoff?
-    @user.active_organizations.map(&:id).include?(@record.organization_id)
+    (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 
   def update?
@@ -35,6 +38,13 @@ class RequestPolicy < ApplicationPolicy
        contractor_name number_of_positions hourly_rate hours_per_week
        number_of_weeks nonop_funds nonop_source department_id
        unit_id justification spawned ] + admin_only_attributes
+  end
+
+  def check_unit!
+    if @record.unit_id.nil? && (@user.org_types.none? { |o| o != 'unit' } ||
+        @user.active_departments.none? { |d| d.id == @record.organization_id })
+      raise NoUnitForUnitUser, 'You must specific a unit'
+    end
   end
 
   class Scope

@@ -57,6 +57,11 @@ class User < ApplicationRecord
     end
   end
 
+  # this gets the org types of a user
+  def org_types
+    organizations.map(&:organization_type)
+  end
+
   # this is for users who have only a unit role. They have departments that are
   # available..that is, they can set an organization_id = a department that is
   # the parent of one of their units.

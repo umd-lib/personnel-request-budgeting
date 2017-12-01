@@ -21,6 +21,10 @@ two_roles:
   cas_directory_id: dos_roles
   name: I have two roles
   admin: false
+middle_mgmt:
+  cas_directory_id: middle_mgmt
+  name: I Am A Department Head
+  admin: false
 user_3:
   id: 3
   cas_directory_id: milford.windler

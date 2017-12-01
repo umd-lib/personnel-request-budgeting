@@ -14,7 +14,7 @@
       <%= f.input :nonop_source , input_html: { class: 'copy' } %>
 
       <%= f.association :organization, collection: current_user.available_departments, label_method: :name, input_html: { class: 'department-select copy' }, include_blank: false %>
-      <%= f.association :unit, collection: current_user.active_units, input_html: { class: 'unit-select copy' }  %>
+      <%= f.association :unit, collection: current_user.active_units, input_html: { class: 'unit-select copy' }, required: current_user.org_types.none? { |o| o != "unit" }  %>
 
       <%= f.input :justification, input_html: { class: "word-limit copy", "data-word-limit": 125 } %>
       

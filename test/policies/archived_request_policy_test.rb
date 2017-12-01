@@ -23,4 +23,14 @@ class ArchivedRequestPolicyScopeTest < ActiveSupport::TestCase
       assert Pundit.policy!(temp_user, ArchivedLaborRequest.new).show?
     end
   end
+
+  test 'unit users should see unit requests' do
+    org = ArchivedLaborRequest.where.not(unit_id: nil).first.unit
+    unit_requests = ArchivedLaborRequest.where(unit_id: org.id).pluck :id
+
+    with_temp_user(admin: false, roles: [org]) do |temp_user|
+      scoped = ArchivedRequestPolicy::Scope.new(temp_user, ArchivedLaborRequest).resolve.pluck :id
+      assert_equal unit_requests, scoped
+    end
+  end
 end

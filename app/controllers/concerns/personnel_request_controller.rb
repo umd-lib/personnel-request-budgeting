@@ -8,6 +8,13 @@ module PersonnelRequestController
     before_action :set_model_klass, only: %i[index new create]
     before_action :set_request, only: %i[show edit update destroy]
 
+    # Pundit policy checks to ensure that unit users are supplying a unit. if
+    # not it raises this error that allows the form to be redisplayed.
+    rescue_from NoUnitForUnitUser do |_e|
+      @request.errors[:unit] << 'Unit is required for users with only Unit permissions.'
+      render(:new)
+    end
+
     # this makes all our mixed-in controllers user "requests" for view path
     # And it works with Mini Test!!
     def self.local_prefixes
@@ -38,14 +45,13 @@ module PersonnelRequestController
   end
 
   def update
+    @request.assign_attributes(request_params)
     authorize @request
     respond_to do |format|
-      if @request.update(request_params)
+      if @request.save
         format.html { redirect_to(@request, notice: "#{@request.description} successfully updated.") }
-        format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }
-        format.json { render json: @request.errors, status: :unprossable_entity }
       end
     end
   end
@@ -85,9 +91,9 @@ module PersonnelRequestController
 
     # runs our policy and create a new obj from params
     def authorize_and_new!
-      authorize @model_klass
       @request = @model_klass.new(request_params)
       @request.user = current_user
+      authorize @request
     end
 
     # sets which model class we're using in the controller context

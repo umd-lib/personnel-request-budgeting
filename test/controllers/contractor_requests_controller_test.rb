@@ -78,9 +78,9 @@ class ContractorRequestsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should create/update contractor_request but without admin only values when not admin' do
+  test 'should require unit on if user is a unit only user' do
     run_as_user(:not_admin) do
-      assert_difference('Request.count') do
+      assert_no_difference('Request.count') do
         post :create, contractor_request: {
           contractor_name: @contractor_request.contractor_name,
           organization_id: @contractor_request.organization_id,
@@ -91,7 +91,60 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           nonop_funds: @contractor_request.nonop_funds,
           nonop_source: @contractor_request.nonop_source,
           number_of_months: @contractor_request.number_of_months,
+          position_title: 'zeebo',
+          request_type: @contractor_request.request_type,
+          review_status_id: review_statuses(:approved),
+          review_comment: 'Hey hey hey'
+        }
+      end
+    end
+  end
+
+  test 'should only allow unit that unit user is assigned to' do
+    run_as_user(:not_admin) do |user|
+      unit = users(user).organizations.find(&:unit?)
+      not_unit = Organization.where(
+        organization_type: Organization.organization_types['unit']
+      ).where.not(id: unit).first
+      refute_equal unit, not_unit
+      assert_no_difference('Request.count') do
+        post :create, contractor_request: {
+          contractor_name: @contractor_request.contractor_name,
+          organization_id: @contractor_request.organization_id,
+          unit_id: not_unit,
+          employee_type: @contractor_request.employee_type,
+          hours_per_week: @contractor_request.hours_per_week,
+          justification: @contractor_request.justification,
+          annual_base_pay: @contractor_request.annual_base_pay,
+          nonop_funds: @contractor_request.nonop_funds,
+          nonop_source: @contractor_request.nonop_source,
+          number_of_months: @contractor_request.number_of_months,
           position_title: @contractor_request.position_title,
+          request_type: @contractor_request.request_type,
+          review_status_id: review_statuses(:approved),
+          review_comment: 'xyzz'
+        }
+      end
+    end
+  end
+
+  test 'should create/update contractor_request but without admin only values when not admin' do
+    run_as_user(:not_admin) do |user|
+      unit = users(user).organizations.find(&:unit?)
+      org = unit.parent
+      assert_difference('Request.count') do
+        post :create, contractor_request: {
+          contractor_name: @contractor_request.contractor_name,
+          organization_id: org,
+          unit_id: unit,
+          employee_type: @contractor_request.employee_type,
+          hours_per_week: @contractor_request.hours_per_week,
+          justification: @contractor_request.justification,
+          annual_base_pay: @contractor_request.annual_base_pay,
+          nonop_funds: @contractor_request.nonop_funds,
+          nonop_source: @contractor_request.nonop_source,
+          number_of_months: @contractor_request.number_of_months,
+          position_title: 'sheed',
           request_type: @contractor_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'Hey hey hey'

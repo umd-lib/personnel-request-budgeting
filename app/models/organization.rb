@@ -27,7 +27,16 @@ class Organization < ApplicationRecord
   has_many :archived_requests, dependent: :restrict_with_error
 
   has_many :unit_requests, dependent: :restrict_with_error, class_name: 'Request', foreign_key: :unit_id
-  has_many :unit_archived_requests, dependent: :restrict_with_error, class_name: 'Request', foreign_key: :unit_id
+  has_many :archived_unit_requests, dependent: :restrict_with_error,
+                                    class_name: 'ArchivedRequest', foreign_key: :unit_id
+
+  def requests_count
+    unit? ? unit_requests.count : attributes['requests_count']
+  end
+
+  def archived_requests_count
+    unit? ? archived_unit_requests.count : attributes['archived_requests_count']
+  end
 
   has_many :roles, dependent: :delete_all
   validates_associated :roles
@@ -107,21 +116,11 @@ class Organization < ApplicationRecord
     ancestors
   end
 
-  def description
-    "#{name} ( #{organization_type} )"
-  end
-
   def type_icon
     "glyphicon glyphicon-#{TYPE_MAPPING[organization_type]}"
   end
 
-  def as_json(options = {})
-    org = super
-    org[:id] = org['id']
-    org[:parent] = org['organization_id'] || '#'
-    org[:icon] = type_icon
-    org[:text] ||= text
-    org[:state] = { opened: true }
-    org
+  def description
+    "#{name} ( #{organization_type} )"
   end
 end

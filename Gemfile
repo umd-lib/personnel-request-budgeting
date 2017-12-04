@@ -34,7 +34,7 @@ gem 'rack-cas'
 gem 'dotenv-rails', '~> 2.1.1'
 
 # UMD Bootstrap style
-gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '0.2.0'
+gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '1.0.1'
 
 gem 'cocoon'
 gem 'simple_form'

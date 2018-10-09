@@ -64,6 +64,51 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
     end
   end
 
+  test 'users can still see but not edit if cutoff day is passed' do
+    OrganizationCutoff.where(organization_type: 4).update_all("cutoff_date = #{(Time.zone.today - 1)}")
+    unit = Organization
+           .where(organization_type: Organization.organization_types['unit'])
+           .where('requests_count > ?', 1)
+           .first
+    with_temp_user(roles: [unit]) do |temp_user|
+      labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
+      staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
+      contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
+      record_count = labor_results.count + staff_results.count + contractor_results.count
+      assert record_count > 0, "No records found for unit '#{unit.code}'"
+      [labor_results, staff_results, contractor_results].each do |requests|
+        requests.each do |r|
+          assert r.unit.cutoff?
+          assert Pundit.policy!(temp_user, r).show?
+          refute Pundit.policy!(temp_user, r).edit?
+          assert_equal unit.code, r.unit.code
+        end
+      end
+    end
+  end
+
+  test 'divisional users can edit lower records even if their cutoff date has passed' do
+    OrganizationCutoff.where(organization_type: 2).update_all("cutoff_date = #{(Time.zone.today + 1)}")
+    unit = Organization
+           .where(organization_type: Organization.organization_types['unit'])
+           .where('requests_count > ?', 1)
+           .first
+    with_temp_user(roles: [unit]) do |temp_user|
+      labor_results = Pundit.policy_scope!(temp_user, LaborRequest)
+      staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
+      contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
+      record_count = labor_results.count + staff_results.count + contractor_results.count
+      assert record_count > 0, "No records found for unit '#{unit.code}'"
+      [labor_results, staff_results, contractor_results].each do |requests|
+        requests.each do |r|
+          assert Pundit.policy!(temp_user, r).show?
+          assert Pundit.policy!(temp_user, r).edit?
+          assert_equal unit.code, r.unit.code
+        end
+      end
+    end
+  end
+
   test 'multi-department user can only see personnel requests from those departments' do
     d1, d2 = Organization.where(organization_type: Organization.organization_types['department']).limit(2)
 

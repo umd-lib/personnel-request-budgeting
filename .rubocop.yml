@@ -68,6 +68,8 @@ Layout/IndentationConsistency:
   EnforcedStyle: rails
 
 Rails/SkipsModelValidations:
+  Exclude:
+    - 'test/**/*'
   Blacklist:
     - decrement!
     - decrement_counter

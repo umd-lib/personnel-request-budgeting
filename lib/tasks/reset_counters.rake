@@ -6,6 +6,6 @@ namespace :db do
   end
 
   task :reset_counter_cache do
-      CounterCacheManager.run 
+    CounterCacheManager.run
   end
 end

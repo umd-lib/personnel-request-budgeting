@@ -112,3 +112,41 @@ regular mode by setting an environment variable to SELENIUM_CHROME:
 
 On failures, screenshots are saved in the tmp/capybara directory, but YMMV
 depending on your version of Chrome.
+
+### Misc. Rake Tasks
+
+Get a overview and description using:
+
+```
+> ./bin/rake -T
+```
+
+Toggle the admin role for a user:
+```
+> ./bin/rake db:toggle_admin[<CAS DIRECTORY ID>]
+```
+
+
+Reset the Rails
+[counter_cache](https://guides.rubyonrails.org/association_basics.html#options-for-belongs-to-counter-cache):
+```
+# This is needed when data base been loaded without using the ORM. Such as
+# importing data directly into the DB or using fixtures.
+> ./bin/rake db:reset_counter_cache 
+```
+
+Populates the database with sample data
+```
+> ./bin/rake db:populate_sample_data
+```
+
+Drop, create, migrate, seed and populate sample data
+```
+> ./bin/rake db:reset_with_sample_data
+```
+
+Loads data from pre-2.0 json ( tmp/requests.json and tmp/users.json ) into current db
+```
+> ./bin/rake db:load_data
+```
+

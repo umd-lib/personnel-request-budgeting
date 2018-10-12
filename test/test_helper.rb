@@ -85,6 +85,8 @@ end
   end
 end
 
+class JavaScriptError < StandardError; end
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -94,7 +96,19 @@ class ActionDispatch::IntegrationTest
     Capybara.current_driver = ENV['SELENIUM_CHROME'] ? :chrome : :headless_chrome
   end
 
+  def javascript_errors
+    page.driver.browser.manage.logs.get(:browser)
+        .select { |e| e.level == 'SEVERE' && e.message.present? }
+        .collect(&:message)
+  end
+
+  def javascript_errors?
+    errors = javascript_errors # if you get the log, you clear the log...
+    raise JavaScriptError, errors.join("\n\n") if errors.present?
+  end
+
   def teardown
+    javascript_errors?
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end

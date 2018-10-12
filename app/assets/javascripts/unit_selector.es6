@@ -29,7 +29,8 @@ class UnitSelector {
     });
    
     /* initialize the unit selector. only show values for out dept */
-    show_dept_units($('.department-select').val()); 
-
+    if ($('.department-select').length) {
+      show_dept_units($('.department-select').val());
+    }
   }
 }

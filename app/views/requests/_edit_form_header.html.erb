@@ -6,7 +6,7 @@
   <h2><%= @model_klass.name.underscore.humanize.titleize %>
       <%= render partial: "form_btns", locals: { f: f } %> 
   </h2>
-  <% if @request.cutoff? %>
+  <% if !Pundit.policy!(current_user, @request).edit? %>
     <div class='alert alert-warning' role='alert'>
       <i class='glyphicon glyphicon-exclamation-sign'></i> 
       The submission window for this request has ended.

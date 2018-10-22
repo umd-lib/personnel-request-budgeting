@@ -1,7 +1,4 @@
 module XlsxHelper
-  CURRENCY_FIELDS = %i[nonop_funds annual_cost annual_base_pay hourly_rate].freeze
-  LENGTHY_FIELDS = %i[justification review_comment].freeze
-
   def field_widths(fields)
     fields.map { |field| LENGTHY_FIELDS.include?(field) ? 30 : nil }
   end

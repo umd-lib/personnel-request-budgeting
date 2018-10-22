@@ -16,17 +16,6 @@ module RequestHelper
     end
   end
 
-  # helpers to display currency fields
-  %w[hourly_rate annual_base_pay annual_cost nonop_funds].each do |field|
-    define_method "render_#{field}".intern do |record|
-      number_to_currency record.send(field.intern)
-    end
-    define_method("render_#{field}_xlsx".intern) do |record|
-      money = record.call_field(field.intern) || BigDecimal(0)
-      humanized_money money
-    end
-  end
-
   def render_fiscal_year(record)
     FiscalYear.to_fy record.fiscal_year.year
   end
@@ -50,11 +39,6 @@ module RequestHelper
                                                    archive: params[:archive]), class: 'btn btn-link')
     end
   end
-
-  # Report helper methods
-  CURRENCY_FIELDS = %i[nonop_funds_cents annual_cost annual_base_pay_cents hourly_rate_cents].freeze
-
-  LENGTHY_FIELDS = %i[justification review_comment].freeze
 
   # Returns a list of fields for a record
   #
@@ -114,7 +98,7 @@ module RequestHelper
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
     define_method("render_#{m}_xlsx".intern) do |r|
       field = r.call_field(m.intern) || BigDecimal(0)
-      humanized_money field
+      humanized_money_with_symbol field
     end
   end
 

@@ -11,13 +11,12 @@ class RequestPolicy < ApplicationPolicy
 
   def show?
     @user.admin? ||
-      (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
+      (@user.all_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 
   def edit?
     return false if @record.archived_proxy?
     return true if @user.admin?
-    return false if @record.cutoff?
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 

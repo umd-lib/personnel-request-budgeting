@@ -23,7 +23,7 @@ module ApplicationHelper
     SORT_MAP.with_indifferent_access[column] || column
   end
 
-  def multi_sort_link(column, title, direction = 'arrow-up')
+  def multi_sort_link(column, title, direction = 'arrow-up') # rubocop:disable Metrics/AbcSize
     # first we extract any existing sorts in the params
     attrs = Array.wrap(params[:sort]).compact
 

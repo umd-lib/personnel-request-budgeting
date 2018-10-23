@@ -4,7 +4,7 @@ class ImpersonateController < ApplicationController
   after_action :verify_authorized, only: :create
 
   # Session parameter name for impersonation id
-  IMPERSONATE_USER_PARAM = 'impersonate_user_id'.freeze
+  IMPERSONATE_USER_PARAM = 'impersonate_user_id'
 
   # GET /impersonate/user/123
   def create

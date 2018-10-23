@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A basic generic report to be run
-class Report < ActiveRecord::Base
+class Report < ApplicationRecord
   belongs_to :user, optional: true
   alias_attribute :creator, :user
   serialize :parameters

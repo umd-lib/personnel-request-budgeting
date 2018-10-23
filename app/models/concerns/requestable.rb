@@ -4,8 +4,8 @@
 # doesn't like the length of the class :/ )
 module Requestable
   extend ActiveSupport::Concern
-  # rubocop:disable Metrics/BlockLength
-  class_methods do
+
+  class_methods do # rubocop:disable Metrics/BlockLength
     def policy_class
       RequestPolicy
     end

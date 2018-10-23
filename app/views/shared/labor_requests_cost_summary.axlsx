@@ -168,6 +168,7 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
     row_num += 1
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
 
 # Constructs a summary worksheet, inserting it at the front of the workbook.
 #
@@ -176,6 +177,7 @@ end
 # @param record_set [Hash] the data to use
 # @param division [Division] the division to use
 # @param created_at [ActiveSupport::TimeWithZone] the report creation time
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
 def construct_summary_worksheet(wb, styles, record_set, created_at)
   # Summary Worksheet Construction
   wb.insert_worksheet(0, name: 'Summary_L_and_A') do |sheet| # rubocop:disable Metrics/BlockLength
@@ -308,6 +310,7 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
     row_num += 1
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
 
 wb = xlsx_package.workbook
 styles = wb.define_styles

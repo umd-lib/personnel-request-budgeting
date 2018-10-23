@@ -27,14 +27,14 @@ class UnitUserTest < ActionDispatch::IntegrationTest
     fill_in 'Position title', with: SecureRandom.hex
     find('.page-header .btn-success').click
 
-    refute page.has_content?('Labor and Assistance Requests successfully created.')
+    assert_not page.has_content?('Labor and Assistance Requests successfully created.')
     assert page.has_content?('Unit is required for users with only Unit permissions')
 
     select @unit.name, from: 'Unit'
     find('.page-footer .btn-success').click
 
     assert page.has_content?('Labor and Assistance Requests successfully created.')
-    refute page.has_content?('Unit is required for users with only Unit permissions')
+    assert_not page.has_content?('Unit is required for users with only Unit permissions')
   end
 
   test 'should require a unit if the user is a unit user when editing' do
@@ -64,7 +64,7 @@ class UnitUserTest < ActionDispatch::IntegrationTest
     select '', from: 'Unit'
     find('.page-footer .btn-success').click
 
-    refute page.has_content?("#{position_title} successfully updated.")
+    assert_not page.has_content?("#{position_title} successfully updated.")
     assert page.has_content?('Unit is required for users with only Unit permissions')
   end
 
@@ -109,7 +109,7 @@ class UnitUserTest < ActionDispatch::IntegrationTest
     fill_in 'Position title', with: position_title
     find('.page-footer .btn-success').click
 
-    refute page.has_content?('Labor and Assistance Requests successfully created.')
+    assert_not page.has_content?('Labor and Assistance Requests successfully created.')
     assert page.has_content?('Unit is required for users with only Unit permissions')
   end
 end

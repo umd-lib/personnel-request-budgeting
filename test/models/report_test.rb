@@ -43,7 +43,7 @@ class ReportTest < ActiveSupport::TestCase
     class ::CrazyReport; end
     @report = reports(:report_completed)
     @report.manager.register_report(CrazyReport)
-    refute_includes(@report.manager.reports, 'crazy_report')
+    assert_not_includes(@report.manager.reports, 'crazy_report')
   end
 
   test 'should return an instance of a report when manager is asked' do

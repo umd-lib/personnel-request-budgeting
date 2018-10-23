@@ -108,7 +108,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       not_unit = Organization.where(
         organization_type: Organization.organization_types['unit']
       ).where.not(id: unit).first
-      refute_equal unit, not_unit
+      assert_not_equal unit, not_unit
       assert_no_difference('Request.count') do
         post :create, contractor_request: {
           contractor_name: @contractor_request.contractor_name,

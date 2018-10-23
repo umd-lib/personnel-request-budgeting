@@ -28,7 +28,7 @@ class DepartmentUserTest < ActionDispatch::IntegrationTest
     find('.page-header .btn-success').click
 
     assert page.has_content?('Labor and Assistance Requests successfully created.')
-    refute page.has_content?('Unit is required for users with only Unit permissions')
+    assert_not page.has_content?('Unit is required for users with only Unit permissions')
   end
 
   test 'should allow department user to make a unit request even if past unit deadline' do
@@ -54,7 +54,7 @@ class DepartmentUserTest < ActionDispatch::IntegrationTest
     find('.page-header .btn-success').click
 
     assert page.has_content?('Labor and Assistance Requests successfully created.')
-    refute page.has_content?('Unit is required for users with only Unit permissions')
-    refute page.has_content?('The submission window for this request has ended.')
+    assert_not page.has_content?('Unit is required for users with only Unit permissions')
+    assert_not page.has_content?('The submission window for this request has ended.')
   end
 end

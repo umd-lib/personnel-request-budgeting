@@ -57,7 +57,7 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          refute r.cutoff?
+          assert_not r.cutoff?
           assert Pundit.policy!(temp_user, r).show?
           assert Pundit.policy!(temp_user, r).edit?
           assert_equal unit.code, r.unit.code
@@ -82,7 +82,7 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
         requests.each do |r|
           assert r.unit.cutoff?
           assert Pundit.policy!(temp_user, r).show?
-          refute Pundit.policy!(temp_user, r).edit?
+          assert_not Pundit.policy!(temp_user, r).edit?
           assert_equal unit.code, r.unit.code
         end
       end

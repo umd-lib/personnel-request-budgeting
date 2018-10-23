@@ -45,7 +45,7 @@ end
 # @param record_set [Hash] the data to use
 # @param division [Division] the division to use
 # @param created_at [ActiveSupport::TimeWithZone] the report creation time
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength, Naming/UncommunicativeMethodParamName
 def construct_division_worksheet(wb, styles, record_set, division, created_at)
   default_col_width = 16
   # Division Worksheet Construction
@@ -180,7 +180,7 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
     row_num += 1
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength, Naming/UncommunicativeMethodParamName
 
 # Constructs a summary worksheet, inserting it at the front of the workbook.
 #
@@ -189,7 +189,7 @@ end
 # @param record_set [Hash] the data to use
 # @param division [Division] the division to use
 # @param created_at [ActiveSupport::TimeWithZone] the report creation time
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Naming/UncommunicativeMethodParamName
 def construct_summary_worksheet(wb, styles, record_set, created_at)
   # Summary Worksheet Construction
   default_col_width = 16
@@ -333,7 +333,7 @@ def construct_summary_worksheet(wb, styles, record_set, created_at)
     row_num += 1
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/LineLength
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Naming/UncommunicativeMethodParamName
 
 wb = xlsx_package.workbook
 styles = wb.define_styles

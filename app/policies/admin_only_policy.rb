@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Policy that only allows users with Admin role to perform any function
 class AdminOnlyPolicy < ApplicationPolicy
   def index?

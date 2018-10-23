@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PersonnelRequestController
   extend ActiveSupport::Concern
   include RequestHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
 def construct_summary_worksheet(wb, styles, record_set)
   # Requests Count Worksheet Construction

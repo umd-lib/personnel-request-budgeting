@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Request that has been moved to the archived table
 # This is a generic classs used for certain functions. Most of the time,
 # archived records will be cast as ArchivedLaborRequest and whatnot, which

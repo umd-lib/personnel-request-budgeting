@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reportable'
 # A summary report for the costs of Staff requests
 class StaffRequestsCostSummaryReport

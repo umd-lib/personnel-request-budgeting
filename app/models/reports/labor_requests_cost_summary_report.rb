@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reportable'
 # A summary report for the costs of Labor and Assistance requests
 class LaborRequestsCostSummaryReport

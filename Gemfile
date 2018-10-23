@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # use HTTPS for github repos (see https://bundler.io/git.html#security)

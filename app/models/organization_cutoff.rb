@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Cutoff date tied to a organization type
 # A bit of AR trickery here. The primary_key for this model
 # is the organization_type, which we are reusing the enum from the

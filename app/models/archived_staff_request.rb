@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArchivedStaffRequest < StaffRequest
   self.table_name = 'archived_requests'
   class << self

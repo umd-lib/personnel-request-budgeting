@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Organization the the request is associated to
 class Organization < ApplicationRecord
   include Cutoffable

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @return [String] a "safe" cell name for uses with the Axlsx gem by removing
 #    spaces and underscores from the given name.
 def axls_safe_cell_name(name)

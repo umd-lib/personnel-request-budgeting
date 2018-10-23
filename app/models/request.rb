@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is the base line model for Request that is used by all other
 # request types
 class Request < ApplicationRecord

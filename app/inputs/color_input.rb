@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # defines a color picker input for simple form
 class ColorInput < SimpleForm::Inputs::Base
   def input(wrapper_options)

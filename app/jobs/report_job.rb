@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A job to submit reports and run in background
 class ReportJob < ActiveJob::Base
   queue_as :default

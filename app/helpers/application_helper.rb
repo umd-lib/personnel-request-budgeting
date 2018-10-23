@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # helper to toggle asc and desc ( for ordering )
   def switch_direction(direction)

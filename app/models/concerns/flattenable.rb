@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # a mixin to add ability for organization to express themselves as flat trees
 module Flattenable
   extend ActiveSupport::Concern

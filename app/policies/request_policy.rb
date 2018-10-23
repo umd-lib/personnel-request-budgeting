@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequestPolicy < ApplicationPolicy
   def create?
     return true if @user.admin? || @record.is_a?(Class)

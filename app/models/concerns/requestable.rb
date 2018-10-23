@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A place for the class methods added to the request modle ( because the cop
 # doesn't like the length of the class :/ )
 module Requestable

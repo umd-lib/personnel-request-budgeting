@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides CAS Authentication and whitelist authorization
 module CasHelper
   def fix_cas_session

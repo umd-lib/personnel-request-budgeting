@@ -16,21 +16,23 @@ class Organization < ApplicationRecord
     end
   end
 
-  belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
+  belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id', inverse_of: :children
   validates :organization_id, presence: true, unless: :root?
 
-  has_many :children, foreign_key: :organization_id, class_name: 'Organization'
+  has_many :children, foreign_key: :organization_id, class_name: 'Organization', inverse_of: :parent
   # a more basic AR way of getting children
   has_many :organizations
 
-  has_one :organization_cutoff, foreign_key: :organization_type, primary_key: :organization_type
+  has_one :organization_cutoff, foreign_key: :organization_type, primary_key: :organization_type,
+                                inverse_of: :organizations
 
   has_many :requests, dependent: :restrict_with_error
   has_many :archived_requests, dependent: :restrict_with_error
 
-  has_many :unit_requests, dependent: :restrict_with_error, class_name: 'Request', foreign_key: :unit_id
+  has_many :unit_requests, dependent: :restrict_with_error, class_name: 'Request', foreign_key: :unit_id,
+                           inverse_of: :unit
   has_many :archived_unit_requests, dependent: :restrict_with_error,
-                                    class_name: 'ArchivedRequest', foreign_key: :unit_id
+                                    class_name: 'ArchivedRequest', foreign_key: :unit_id, inverse_of: :unit
 
   def requests_count
     unit? ? unit_requests.count : attributes['requests_count']

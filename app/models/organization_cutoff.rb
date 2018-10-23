@@ -14,7 +14,8 @@ class OrganizationCutoff < ApplicationRecord
 
   self.primary_key = :organization_type
 
-  has_many :organizations, foreign_key: :organization_type, primary_key: :organization_type
+  has_many :organizations, foreign_key: :organization_type, primary_key: :organization_type,
+                           inverse_of: :organization_cutoff
 
   def humanize
     cutoff_date.strftime('%F')

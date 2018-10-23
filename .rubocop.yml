@@ -17,7 +17,7 @@ AllCops:
     - 'db/seeds.rb'
 
   TargetRubyVersion: 2.5
-  TargetRailsVersion: 4.2
+  TargetRailsVersion: 5.2
 
 Metrics/AbcSize:
   Exclude:

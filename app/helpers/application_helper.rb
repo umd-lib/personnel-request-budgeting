@@ -3,7 +3,7 @@
 module ApplicationHelper
   # helper to toggle asc and desc ( for ordering )
   def switch_direction(direction)
-    direction.match?(/asc$/) ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down']
+    direction.match?(/asc$/) ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down'] # rubocop:disable Metrics/LineLength
   end
 
   SORT_MAP = { hourly_rate: :hourly_rate_cents,

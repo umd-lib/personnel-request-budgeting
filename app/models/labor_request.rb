@@ -39,9 +39,7 @@ class LaborRequest < Request
     request_type == 'Renewal'
   end
 
-  default_scope(lambda do
-    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
-      .includes(%i[review_status organization user])
-      .where(request_model_type: LaborRequest.request_model_types['labor'])
-  end)
+  default_scope { joins("LEFT JOIN organizations as units ON units.id = #{table_name}.unit_id") }
+  default_scope { includes(%i[review_status organization user]) }
+  default_scope { where(request_model_type: LaborRequest.request_model_types['labor']) }
 end

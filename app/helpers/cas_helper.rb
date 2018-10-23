@@ -8,10 +8,10 @@ module CasHelper
 
   def ensure_auth
     if session[:cas].nil? || session[:cas][:user].nil?
-      render status: 401, text: 'Redirecting to SSO...'
+      render status: 401, plain: 'Redirecting to SSO...'
     else
       update_current_user(User.find_by(cas_directory_id: session[:cas][:user]))
-      render status: 403, text: 'Unrecognized user' unless @current_user
+      render status: 403, plain: 'Unrecognized user' unless @current_user
     end
     nil
   end

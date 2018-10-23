@@ -85,7 +85,7 @@ namespace :db do
   # +request+
   def generate_common_fields(request)
     request.user = random_user
-    request.position_title = Faker::Name.title
+    request.position_title = Faker::Job.title
     request.employee_type = request.class::VALID_EMPLOYEE_TYPES.sample
     request.request_type = request.class::VALID_REQUEST_TYPES.sample
     depts = Organization.where( organization_type: Organization.organization_types["department"])

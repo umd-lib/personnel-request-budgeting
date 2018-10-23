@@ -38,9 +38,7 @@ class OrganizationTest < ActiveSupport::TestCase
   test 'unit without associated archive records can be deleted' do
     unit = Organization.create(organization_type: Organization.organization_types['unit'],
                                code: 'Delete', name: 'DeleteMe', parent: @unit.parent)
-    assert_nothing_raised ActiveRecord::DeleteRestrictionError do
-      unit.destroy
-    end
+    assert unit.destroy
   end
 
   test 'unit with associated archive records cannot be deleted' do

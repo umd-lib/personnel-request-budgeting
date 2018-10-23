@@ -8,7 +8,7 @@ class ReportJob < ActiveJob::Base
   def perform(*reports)
     reports.each do |report|
       run_report(report)
-    rescue => e
+    rescue => e # rubocop:disable Style/RescueStandardError
       report.update_attributes status: 'error' # rubocop:disable Rails/ActiveRecordAliases
       raise e
     end

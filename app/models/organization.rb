@@ -19,12 +19,15 @@ class Organization < ApplicationRecord
   belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id', inverse_of: :children
   validates :organization_id, presence: true, unless: :root?
 
-  has_many :children, foreign_key: :organization_id, class_name: 'Organization', inverse_of: :parent
+  has_many :children, foreign_key: :organization_id, class_name: 'Organization', inverse_of: :parent,
+                      dependent: :restrict_with_error
   # a more basic AR way of getting children
-  has_many :organizations
+  has_many :organizations, dependent: :restrict_with_error
 
+  # rubocop:disable Rails/HasManyOrHasOneDependent - not sure what the right value is here
   has_one :organization_cutoff, foreign_key: :organization_type, primary_key: :organization_type,
                                 inverse_of: :organizations
+  # rubocop:enable Rails/HasManyOrHasOneDependent
 
   has_many :requests, dependent: :restrict_with_error
   has_many :archived_requests, dependent: :restrict_with_error

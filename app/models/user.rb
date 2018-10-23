@@ -11,7 +11,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   has_many :organizations, through: :roles
-  has_many :requests
+  has_many :requests, dependent: :restrict_with_exception
 
   default_scope(lambda do
     includes(roles: { organization: { organization_cutoff: [], children: { children: [:children] } } })

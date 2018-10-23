@@ -3,6 +3,7 @@
 class RequestPolicy < ApplicationPolicy
   def create?
     return true if @user.admin? || @record.is_a?(Class)
+
     check_unit!
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
@@ -19,6 +20,7 @@ class RequestPolicy < ApplicationPolicy
   def edit?
     return false if @record.archived_proxy?
     return true if @user.admin?
+
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 

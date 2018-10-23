@@ -5,6 +5,7 @@ module CasHelper
   def fix_cas_session
     session[:cas] ||= HashWithIndifferentAccess.new
     return if session[:cas].is_a?(HashWithIndifferentAccess)
+
     session[:cas] = session[:cas].with_indifferent_access
   end
 

@@ -73,6 +73,7 @@ def construct_division_worksheet(wb, styles, record_set, division, created_at)
     data_start_row = row_num
     data.each do |record|
       next unless record[:division] == division
+
       sheet.add_row [record[:department],
                      record[:fac],
                      record[:ga],

@@ -53,8 +53,10 @@ class Organization < ApplicationRecord
   # this makes sure we only have one root record
   def only_one_root
     return if organization_type != 'root'
+
     org =  Organization.find_by(organization_type: Organization.organization_types[:root])
     return if org.nil? || org.id == id
+
     errors.add(:organization_type, 'There can be only one root')
   end
 
@@ -64,6 +66,7 @@ class Organization < ApplicationRecord
     return unless persisted?
     return unless archived_records?
     return if uneditable.empty?
+
     uneditable.each do |k|
       msg = "#{description} has #{archived_requests.count} in the archive. Editing #{k} is not allowed."
       errors.add(k.intern, msg)
@@ -80,6 +83,7 @@ class Organization < ApplicationRecord
 
   def cutoff?
     return false unless organization_cutoff
+
     Time.zone.today > organization_cutoff.cutoff_date
   end
 

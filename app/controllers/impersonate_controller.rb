@@ -35,6 +35,7 @@ class ImpersonateController < ApplicationController
     # Stops impersonation
     def revert_impersonate
       return if session[IMPERSONATE_USER_PARAM].nil?
+
       clear_current_user
       impersonated_user = current_user
       session[IMPERSONATE_USER_PARAM] = nil

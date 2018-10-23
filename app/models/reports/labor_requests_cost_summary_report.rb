@@ -48,6 +48,7 @@ class LaborRequestsCostSummaryReport
     LaborRequest.includes(:organization, :review_status).each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
+
       employee_type = request.employee_type
       department_code = request.organization.code
       key = [department_code, employee_type]

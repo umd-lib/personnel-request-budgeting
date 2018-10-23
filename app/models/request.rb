@@ -11,6 +11,7 @@ class Request < ApplicationRecord
   attr_accessor :spawned
   def spawned?
     return false unless spawned
+
     truths = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
     truths.include?(spawned)
   end
@@ -43,6 +44,7 @@ class Request < ApplicationRecord
   validate :org_must_be_dept
   def org_must_be_dept
     return if organization && organization.organization_type == 'department'
+
     errors.add(:organization, 'Must have a department specified.')
   end
 
@@ -50,6 +52,7 @@ class Request < ApplicationRecord
   def unit_must_be_in_dept
     return if unit.nil?
     return if unit.parent == organization
+
     errors.add(:unit, 'Unit must be in the department.')
   end
 
@@ -58,6 +61,7 @@ class Request < ApplicationRecord
   def new_justifications_cant_be_long
     return if self.class.name =~ /^Archive/
     return if justification && justification.split(/\s+/).length < 126
+
     errors.add(:justification, 'Must be 125 words or less')
   end
 
@@ -67,6 +71,7 @@ class Request < ApplicationRecord
 
   after_initialize(lambda do
     return if has_attribute?(:review_status_id) && review_status_id
+
     self.review_status = ReviewStatus.find_by(code: 'UnderReview')
   end)
 
@@ -90,6 +95,7 @@ class Request < ApplicationRecord
   # this casts the record as its source type
   def to_source_proxy
     return self unless self.class.name =~ /^Archive/
+
     attrs = attributes.slice(*source_class.attribute_names).merge(archived_proxy: true,
                                                                   archived_fiscal_year: fiscal_year)
     source_class.new(attrs)

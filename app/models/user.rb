@@ -25,6 +25,7 @@ class User < ApplicationRecord
   def organization_mapper(only_active = true)
     lambda do |org|
       return [] if !org.active? && only_active
+
       active_children = [org]
       child_mapper = lambda do |child|
         active_children << child unless child.deactivated?

@@ -6,7 +6,7 @@ worksheets = klass.respond_to?(:worksheets) ? klass.worksheets : [klass.name]
 wb = xlsx_package.workbook
 
 record_set.each_with_index do |records, i|
-  name = worksheets[i] ? worksheets[i] : worksheets.first
+  name = worksheets[i] || worksheets.first
   wb.add_worksheet(name: name.pluralize) do |sheet|
     defined_styles = wb.define_styles
     first_column_style, first_column_width = nil

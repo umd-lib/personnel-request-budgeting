@@ -75,9 +75,9 @@ class Organization < ApplicationRecord
 
   def archived_records?
     if organization_type == 'unit'
-      ArchivedRequest.where(unit_id: id).count > 0
+      ArchivedRequest.where(unit_id: id).count.positive?
     else
-      archived_requests_count > 0
+      archived_requests_count.positive?
     end
   end
 

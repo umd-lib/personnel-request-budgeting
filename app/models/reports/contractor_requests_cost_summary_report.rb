@@ -45,7 +45,7 @@ class ContractorRequestsCostSummaryReport
     allowed_review_status_ids = parameters[:review_status_ids]
     allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
 
-    ContractorRequest.includes(:organization, :review_status).each do |request|
+    ContractorRequest.includes(:organization, :review_status).find_each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
 

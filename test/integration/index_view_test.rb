@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IndexViewTest < ActionDispatch::IntegrationTest
@@ -20,6 +22,6 @@ class IndexViewTest < ActionDispatch::IntegrationTest
 
     assert current_url == url
     assert page.has_content? name
-    refute find('table').text.include? name
+    assert_not find('table').text.include? name
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class OrganizationEditTest < ActionDispatch::IntegrationTest
@@ -18,9 +20,9 @@ class OrganizationEditTest < ActionDispatch::IntegrationTest
 
     # when we visit the nonedit page these links should not be there
     visit current_url.gsub('/edit', '')
-    refute page.has_link?('Add Member')
-    refute page.has_button?('Active')
-    refute page.has_button?('Deactive')
-    refute page.has_selector?('input[type=submit]:not([disabled])')
+    assert_not page.has_link?('Add Member')
+    assert_not page.has_button?('Active')
+    assert_not page.has_button?('Deactive')
+    assert_not page.has_selector?('input[type=submit]:not([disabled])')
   end
 end

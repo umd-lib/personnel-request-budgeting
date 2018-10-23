@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
 # Provides CAS Authentication and whitelist authorization
 module CasHelper
   def fix_cas_session
     session[:cas] ||= HashWithIndifferentAccess.new
     return if session[:cas].is_a?(HashWithIndifferentAccess)
+
     session[:cas] = session[:cas].with_indifferent_access
   end
 
   def ensure_auth
     if session[:cas].nil? || session[:cas][:user].nil?
-      render status: 401, text: 'Redirecting to SSO...'
+      render status: :unauthorized, text: 'Redirecting to SSO...'
     else
       update_current_user(User.find_by(cas_directory_id: session[:cas][:user]))
-      render status: 403, text: 'Unrecognized user' unless @current_user
+      render status: :forbidden, text: 'Unrecognized user' unless @current_user
     end
     nil
   end

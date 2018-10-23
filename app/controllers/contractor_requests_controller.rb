@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContractorRequestsController < ApplicationController
   include PersonnelRequestController
 

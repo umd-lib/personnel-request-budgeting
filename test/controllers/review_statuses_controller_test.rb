@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ReviewStatusesControllerTest < ActionController::TestCase
@@ -66,7 +68,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
     assert_no_difference('ReviewStatus.count') do
       delete :destroy, id: @review_status
     end
-    assert !flash.empty?
+    assert_not flash.empty?
 
     assert_redirected_to review_statuses_path
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Request that has been moved to the archived table
 # This is a generic classs used for certain functions. Most of the time,
 # archived records will be cast as ArchivedLaborRequest and whatnot, which
@@ -11,7 +13,7 @@ class ArchivedRequest < ApplicationRecord
 
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, inverse_of: :archived_unit_requests
   belongs_to :user
 
   def current_table_name

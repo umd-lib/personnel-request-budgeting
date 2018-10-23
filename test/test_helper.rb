@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatters = [
@@ -7,7 +9,7 @@ SimpleCov.formatters = [
 SimpleCov.start 'rails'
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
@@ -30,9 +32,8 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)
     user = user.cas_directory_id if user.is_a?(User)
-    original_user = if session[:cas] && session[:cas][:user]
-                      session[:cas][:user]
-                    end
+    original_user = session[:cas][:user] if session[:cas] && session[:cas][:user]
+
     session[:cas] = { user: user }
     begin
       yield user

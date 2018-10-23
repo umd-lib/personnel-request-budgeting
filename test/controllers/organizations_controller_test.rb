@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class OrganizationsControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     patch :update, id: @organization, organization: {
       code: @organization.code, organization_id: @organization.parent, name: @organization.name
     }
-    assert !flash.empty?
+    assert_not flash.empty?
     assert_redirected_to organizations_path
   end
 
@@ -61,7 +63,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_no_difference('Organization.count') do
       delete :destroy, id: @organization
     end
-    assert !flash.empty?
+    assert_not flash.empty?
 
     assert_redirected_to organizations_path
   end

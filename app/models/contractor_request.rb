@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Contractor Request
 class ContractorRequest < Request
   VALID_EMPLOYEE_TYPES = ['Contingent 2', 'Contract Faculty'].freeze

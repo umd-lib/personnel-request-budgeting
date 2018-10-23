@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reportable'
 # A summary report for the costs of Labor and Assistance requests
 class LaborRequestsCostSummaryReport
@@ -25,7 +27,7 @@ class LaborRequestsCostSummaryReport
   end
 
   def parameters_valid?
-    valid = parameters && parameters.key?(:review_status_ids)
+    valid = parameters&.key?(:review_status_ids)
     return true if valid
 
     @error_message = 'At least one review status must be specified!'
@@ -43,9 +45,10 @@ class LaborRequestsCostSummaryReport
     allowed_review_status_ids = parameters[:review_status_ids]
     allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
 
-    LaborRequest.includes(:organization, :review_status).each do |request|
+    LaborRequest.includes(:organization, :review_status).find_each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
+
       employee_type = request.employee_type
       department_code = request.organization.code
       key = [department_code, employee_type]

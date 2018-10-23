@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PersonnelRequestController
   extend ActiveSupport::Concern
   include RequestHelper
@@ -37,7 +39,7 @@ module PersonnelRequestController
 
   def new
     authorize @model_klass
-    @request ||= @model_klass.new
+    @request ||= @model_klass.new # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   def edit

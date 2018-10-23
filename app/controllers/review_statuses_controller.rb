@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewStatusesController < ApplicationController
   before_action :set_review_status, only: %i[show edit update destroy]
   after_action :verify_authorized

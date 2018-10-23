@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module XlsxHelper
   def field_widths(fields)
     fields.map { |field| LENGTHY_FIELDS.include?(field) ? 30 : nil }

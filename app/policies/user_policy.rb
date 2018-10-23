@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Policy that only allows users to see and edit their own User entry
 class UserPolicy < AdminOnlyPolicy
   def show?

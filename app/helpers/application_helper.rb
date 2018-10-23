@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # helper to toggle asc and desc ( for ordering )
   def switch_direction(direction)
-    direction =~ /asc$/ ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down']
+    direction.match?(/asc$/) ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down'] # rubocop:disable Metrics/LineLength
   end
 
   SORT_MAP = { hourly_rate: :hourly_rate_cents,
@@ -21,7 +23,7 @@ module ApplicationHelper
     SORT_MAP.with_indifferent_access[column] || column
   end
 
-  def multi_sort_link(column, title, direction = 'arrow-up')
+  def multi_sort_link(column, title, direction = 'arrow-up') # rubocop:disable Metrics/AbcSize
     # first we extract any existing sorts in the params
     attrs = Array.wrap(params[:sort]).compact
 
@@ -77,8 +79,9 @@ module ApplicationHelper
 
   def sorted?
     params[:sort].present?
-  end # A view helper to make sure archived records point to the correct
+  end
 
+  # A view helper to make sure archived records point to the correct route
   def edit_path(object)
     if object.class.name == 'Request'
       method = "edit_#{object.request_model_type.underscore}_request_path".intern

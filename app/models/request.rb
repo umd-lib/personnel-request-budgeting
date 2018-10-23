@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is the base line model for Request that is used by all other
 # request types
 class Request < ApplicationRecord
@@ -9,6 +11,7 @@ class Request < ApplicationRecord
   attr_accessor :spawned
   def spawned?
     return false unless spawned
+
     truths = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
     truths.include?(spawned)
   end
@@ -28,7 +31,7 @@ class Request < ApplicationRecord
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true, inverse_of: :unit_requests
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
 
@@ -41,6 +44,7 @@ class Request < ApplicationRecord
   validate :org_must_be_dept
   def org_must_be_dept
     return if organization && organization.organization_type == 'department'
+
     errors.add(:organization, 'Must have a department specified.')
   end
 
@@ -48,6 +52,7 @@ class Request < ApplicationRecord
   def unit_must_be_in_dept
     return if unit.nil?
     return if unit.parent == organization
+
     errors.add(:unit, 'Unit must be in the department.')
   end
 
@@ -56,6 +61,7 @@ class Request < ApplicationRecord
   def new_justifications_cant_be_long
     return if self.class.name =~ /^Archive/
     return if justification && justification.split(/\s+/).length < 126
+
     errors.add(:justification, 'Must be 125 words or less')
   end
 
@@ -65,16 +71,17 @@ class Request < ApplicationRecord
 
   after_initialize(lambda do
     return if has_attribute?(:review_status_id) && review_status_id
+
     self.review_status = ReviewStatus.find_by(code: 'UnderReview')
   end)
 
   # method to call the fields expressed in .fields
   def call_field(field)
-    field.to_s.split('__').inject(self) { |a, e| a.send(e) unless a.nil? }
+    field.to_s.split('__').inject(self) { |a, e| a&.send(e) }
   end
 
   def cutoff?
-    persisted? ? (organization && organization.cutoff?) : false
+    persisted? ? (organization&.cutoff?) : false
   end
 
   def source_class
@@ -88,6 +95,7 @@ class Request < ApplicationRecord
   # this casts the record as its source type
   def to_source_proxy
     return self unless self.class.name =~ /^Archive/
+
     attrs = attributes.slice(*source_class.attribute_names).merge(archived_proxy: true,
                                                                   archived_fiscal_year: fiscal_year)
     source_class.new(attrs)

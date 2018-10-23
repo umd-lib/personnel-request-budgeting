@@ -77,11 +77,11 @@ class Request < ApplicationRecord
 
   # method to call the fields expressed in .fields
   def call_field(field)
-    field.to_s.split('__').inject(self) { |a, e| a.send(e) unless a.nil? }
+    field.to_s.split('__').inject(self) { |a, e| a&.send(e) }
   end
 
   def cutoff?
-    persisted? ? (organization && organization.cutoff?) : false
+    persisted? ? (organization&.cutoff?) : false
   end
 
   def source_class

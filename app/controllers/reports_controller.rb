@@ -95,7 +95,7 @@ class ReportsController < ApplicationController
 
     def report_params # rubocop:disable Metrics/MethodLength
       report_parameters_keys = params[:report][:parameters].try(:keys)
-      if report_parameters_keys
+      if report_parameters_keys # rubocop:disable Style/SafeNavigation
         # The following modifies the report_parameters_keys map if any of the
         # keys are actually an array of values (such as might come back from
         # a bunch of checkboxes forming a group).

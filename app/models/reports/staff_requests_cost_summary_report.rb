@@ -27,7 +27,7 @@ class StaffRequestsCostSummaryReport
   end
 
   def parameters_valid?
-    valid = parameters && parameters.key?(:review_status_ids)
+    valid = parameters&.key?(:review_status_ids)
     return true if valid
 
     @error_message = 'At least one review status must be specified!'

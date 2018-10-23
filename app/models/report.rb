@@ -35,8 +35,6 @@ class Report < ActiveRecord::Base
   # registers the available reports
   class Manager
     class << self
-      attr_accessor :reports, :allowed_parameters
-
       # Add the report to our list of registered reports...
       def register_report(klass)
         @reports ||= []

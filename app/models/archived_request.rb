@@ -13,15 +13,15 @@ class ArchivedRequest < ApplicationRecord
 
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, inverse_of: :archived_unit_requests
-  belongs_to :user
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, optional: true
+  belongs_to :user, optional: true
 
   def current_table_name
     self.class.current_table_name
   end
 
   default_scope(lambda do
-    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
+    joins('LEFT JOIN organizations as units ON units.id = archived_requests.unit_id')
       .includes(%i[review_status organization user])
   end)
 end

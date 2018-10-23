@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A job to submit reports and run in background
-class ReportJob < ActiveJob::Base
+class ReportJob < ApplicationJob
   queue_as :default
 
   # The method used to run the report by rails.

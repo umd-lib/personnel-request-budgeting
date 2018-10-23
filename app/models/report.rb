@@ -2,7 +2,7 @@
 
 # A basic generic report to be run
 class Report < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, optional: true
   alias_attribute :creator, :user
   serialize :parameters
 

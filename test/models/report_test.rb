@@ -23,9 +23,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test 'role type without associated records can be deleted' do
     r = Report.create(name: 'AwesomeReport', format: 'xlsx', status: 'completed')
-    assert_nothing_raised ActiveRecord::DeleteRestrictionError do
-      r.destroy
-    end
+    assert r.destroy
   end
 
   test "should return it's manager when asked" do

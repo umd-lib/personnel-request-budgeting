@@ -30,8 +30,10 @@ class OrganizationCutoffsControllerTest < ActionController::TestCase
   end
 
   test 'should update role_cutoff' do
-    patch :update, id: @cutoff,
-                   organization_cutoff: { cutoff_date: Time.zone.now }
+    patch :update, params: {
+      id: @cutoff,
+      organization_cutoff: { cutoff_date: Time.zone.now }
+    }
     assert_redirected_to organization_cutoffs_path
   end
 end

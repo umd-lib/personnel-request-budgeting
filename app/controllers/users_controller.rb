@@ -74,6 +74,10 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def allowed
+    policy(@user || User.new).permitted_attributes
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -84,9 +88,5 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(allowed)
-    end
-
-    def allowed
-      policy(@user || User.new).permitted_attributes
     end
 end

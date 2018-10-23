@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   # PATCH/PUT /reports/1.json
   def update
-    render text: 'Not Found', status: '404'
+    render plain: 'Not Found', status: '404'
   end
 
   # DELETE /reports/1
@@ -107,7 +107,7 @@ class ReportsController < ApplicationController
           end
         end
       end
-      params.require(:report).permit(:name, :format, :user_id, :user_id,
+      params.require(:report).permit(:name, :format, :user_id,
                                      parameters: report_parameters_keys)
     end
 end

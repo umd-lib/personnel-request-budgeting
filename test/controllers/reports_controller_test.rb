@@ -21,48 +21,49 @@ class ReportsControllerTest < ActionController::TestCase
 
   test 'should create report' do
     assert_difference('Report.count') do
-      post :create, report: {
-        format: :xlsx,
-        name: 'RequestsByTypeReport'
+      post :create, params: {
+        report: {
+          format: :xlsx,
+          name: 'RequestsByTypeReport'
+        }
       }
     end
-
     assert_redirected_to report_path(assigns(:report))
   end
 
   test 'should not create invalid report' do
     assert_no_difference('Report.count') do
-      post :create, report: {
+      post :create, params: { report: {
         format: nil
-      }
+      } }
     end
   end
 
   test 'should show contractor_request' do
-    get :show, id: @report
+    get :show, params: { id: @report }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @report
+    get :edit, params: { id: @report }
     assert_redirected_to report_path(@report)
   end
 
   test 'should download the output' do
     ReportJob.perform_later @report
-    get :download, id: @report, format: :xlsx
+    get :download, params: { id: @report, format: :xlsx }
     assert_response :success
   end
 
   test 'should not allow updated' do
-    patch :update, id: @report
+    patch :update, params: { id: @report }
     assert_response :missing
   end
 
   test 'should destroy a report' do
     trash = reports(:report_with_error)
     assert_difference('Report.count', -1) do
-      delete :destroy, id: trash
+      delete :destroy, params: { id: trash }
     end
     assert_redirected_to reports_path
   end

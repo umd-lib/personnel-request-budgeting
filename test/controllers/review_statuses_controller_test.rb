@@ -29,35 +29,35 @@ class ReviewStatusesControllerTest < ActionController::TestCase
 
   test 'should create review_status' do
     assert_difference('ReviewStatus.count') do
-      post :create, review_status: { color: @review_status.color,
-                                     name: 'Test Status',
-                                     code: 'test' }
+      post :create, params: { review_status: { color: @review_status.color,
+                                               name: 'Test Status',
+                                               code: 'test' } }
     end
 
     assert_redirected_to review_status_path(assigns(:review_status))
   end
 
   test 'should show review_status' do
-    get :show, id: @review_status
+    get :show, params: { id: @review_status }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @review_status
+    get :edit, params: { id: @review_status }
     assert_response :success
   end
 
   test 'should update review_status' do
-    patch :update, id: @review_status,
-                   review_status: { color: @review_status.color,
-                                    name: @review_status.name,
-                                    code: @review_status.code }
+    patch :update, params: { id: @review_status,
+                             review_status: { color: @review_status.color,
+                                              name: @review_status.name,
+                                              code: @review_status.code } }
     assert_redirected_to review_status_path(assigns(:review_status))
   end
 
   test 'should destroy review_status' do
     assert_difference('ReviewStatus.count', -1) do
-      delete :destroy, id: @unused_review_status
+      delete :destroy, params: { id: @unused_review_status }
     end
 
     assert_redirected_to review_statuses_path
@@ -66,7 +66,7 @@ class ReviewStatusesControllerTest < ActionController::TestCase
   test 'should show error when cannot destroy review status with associated records' do
     @review_status.reload
     assert_no_difference('ReviewStatus.count') do
-      delete :destroy, id: @review_status
+      delete :destroy, params: { id: @review_status }
     end
     assert_not flash.empty?
 
@@ -81,24 +81,24 @@ class ReviewStatusesControllerTest < ActionController::TestCase
       get :new
       assert_response :forbidden
 
-      get :show, id: @review_status
+      get :show, params: { id: @review_status }
       assert_response :forbidden
 
-      get :edit, id: @review_status
+      get :edit, params: { id: @review_status }
       assert_response :forbidden
 
-      post :create, review_status: { color: 'black',
-                                     name: @review_status.name,
-                                     code: @review_status.code }
+      post :create, params: { review_status: { color: 'black',
+                                               name: @review_status.name,
+                                               code: @review_status.code } }
       assert_response :forbidden
 
-      patch :update, id: @review_status,
-                     review_status: { color: 'white',
-                                      name: @review_status.name,
-                                      code: @review_status.code }
+      patch :update, params: { id: @review_status,
+                               review_status: { color: 'white',
+                                                name: @review_status.name,
+                                                code: @review_status.code } }
       assert_response :forbidden
 
-      delete :destroy, id: @review_status
+      delete :destroy, params: { id: @review_status }
       assert_response :forbidden
     end
   end

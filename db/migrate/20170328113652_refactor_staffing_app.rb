@@ -1,4 +1,4 @@
-class RefactorStaffingApp < ActiveRecord::Migration
+class RefactorStaffingApp < ActiveRecord::Migration[4.2]
   def change
 
 		create_table "organizations", force: :cascade do |t|

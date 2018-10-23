@@ -37,13 +37,13 @@ class StaffRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should show staff_request' do
-    get :show, id: @staff_request
+    get :show, params: { id: @staff_request }
     assert_response :success
   end
 
   test 'should create staff_request' do
     assert_difference('Request.count') do
-      post :create, staff_request: {
+      post :create, params: { staff_request: {
         contractor_name: @staff_request.contractor_name,
         organization_id: @staff_request.organization_id,
         employee_type: @staff_request.employee_type,
@@ -57,7 +57,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
         number_of_weeks: @staff_request.number_of_weeks,
         position_title: @staff_request.position_title,
         request_type: @staff_request.request_type
-      }
+      } }
     end
 
     assert_redirected_to staff_request_path(assigns(:request))
@@ -67,7 +67,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
 
   test 'should not create invalid staff_request' do
     assert_no_difference('Request.count') do
-      post :create, staff_request: {
+      post :create, params: {  staff_request: {
         contractor_name: nil,
         organization_id: nil,
         employee_type: nil,
@@ -79,7 +79,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
         number_of_weeks: nil,
         position_title: nil,
         request_type: nil
-      }
+      } }
     end
   end
 
@@ -88,7 +88,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
       unit = users(user).organizations.find(&:unit?)
       org = unit.parent
       assert_difference('Request.count') do
-        post :create, staff_request: {
+        post :create, params: { staff_request: {
           contractor_name: @staff_request.contractor_name,
           organization_id: org,
           unit_id: unit,
@@ -105,7 +105,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
           request_type: @staff_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'Hey hey hey'
-        }
+        } }
       end
 
       assert_redirected_to staff_request_path(assigns(:request))
@@ -115,7 +115,7 @@ class StaffRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should update staff_request' do
-    patch :update, id: @staff_request, staff_request: {
+    patch :update, params: { id: @staff_request, staff_request: {
       contractor_name: @staff_request.contractor_name,
       organization_id: @staff_request.organization_id,
       employee_type: @staff_request.employee_type,
@@ -129,25 +129,25 @@ class StaffRequestsControllerTest < ActionController::TestCase
       request_type: @staff_request.request_type,
       review_status_id: @staff_request.review_status_id,
       review_comment: @staff_request.review_comment
-    }
+    } }
     assert_redirected_to staff_request_path(assigns(:request))
   end
 
   test 'should not update an invalid staff_request' do
     original_attrs = @staff_request.attributes
-    patch :update, id: @staff_request, staff_request: {
+    patch :update, params: { id: @staff_request, staff_request: {
       contractor_name: nil, organization_id: nil, employee_type: nil,
       hours_per_week: nil, justification: nil,
       nonop_funds: nil, nonop_source: nil, number_of_positions: nil,
       number_of_weeks: nil, position_title: nil, request_type: nil,
       review_status_id: nil, review_comment: nil
-    }
+    } }
     assert_equal original_attrs, StaffRequest.find(@staff_request.id).attributes
   end
 
   test 'should destroy staff_request' do
     assert_difference('Request.count', -1) do
-      delete :destroy, id: @staff_request
+      delete :destroy, params: { id: @staff_request }
     end
 
     assert_redirected_to staff_requests_path
@@ -155,14 +155,14 @@ class StaffRequestsControllerTest < ActionController::TestCase
 
   # ArchivedstaffRequests
   test 'should allow users to see archive' do
-    get :index, archive: true
+    get :index, params: { archive: true }
     assert_response(200)
     assert assigns(:model_klass), StaffRequest
     assert_not_nil assigns(:requests)
   end
 
   test 'should show archived staff request' do
-    get :show, id: @archived_staff_request
+    get :show, params: { id: @archived_staff_request }
     assert_response :success
   end
 end

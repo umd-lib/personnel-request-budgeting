@@ -23,9 +23,13 @@ module ApplicationHelper
     SORT_MAP.with_indifferent_access[column] || column
   end
 
-  def multi_sort_link(column, title, direction = 'arrow-up') # rubocop:disable Metrics/AbcSize
+  def permitted_params
+    params.permit(:page, sort: [])
+  end
+
+  def multi_sort_link(column, title, direction = 'arrow-up')
     # first we extract any existing sorts in the params
-    attrs = Array.wrap(params[:sort]).compact
+    attrs = Array.wrap(permitted_params[:sort]).compact
 
     # now scan and look to see if we're already sortin on this column
     index = attrs.index { |a| a.match(/^#{Regexp.escape(column)} /) }
@@ -35,7 +39,7 @@ module ApplicationHelper
       # so we just stick it in the end
       attrs << "#{column} asc"
     end
-    link_to(title, params.merge(sort: attrs.compact), class: direction)
+    link_to(title, permitted_params.merge(sort: attrs.compact), class: direction)
   end
 
   # Returns confirmation prompt text for delete action on the given object.

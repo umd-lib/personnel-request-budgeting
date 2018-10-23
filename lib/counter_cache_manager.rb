@@ -30,7 +30,6 @@ class CounterCacheManager
         end
       end
       Organization.all.pluck(:id).each { |o| Organization.reset_counters o, :requests }
-
     end
   end
 end

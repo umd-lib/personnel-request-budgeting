@@ -14,7 +14,7 @@ class Organization < ApplicationRecord
     end
   end
 
-  belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id'
+  belongs_to :parent, class_name: 'Organization', foreign_key: 'organization_id', optional: true
   validates :organization_id, presence: true, unless: :root?
 
   has_many :children, foreign_key: :organization_id, class_name: 'Organization'

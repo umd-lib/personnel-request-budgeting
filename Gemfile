@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '5.2.1'
 gem 'sprockets-es6'
 
 # Use sqlite3 as the database for Active Record
@@ -31,19 +31,20 @@ gem 'pundit'
 gem 'rack-cas'
 
 # dotenv - For storing production configuration parameters
-gem 'dotenv-rails', '~> 2.1.1'
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'dotenv-rails', '~> 2.5.0'
 
 # UMD Bootstrap style
-gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '1.0.1'
+gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '1.2.0'
 
 gem 'cocoon'
 gem 'simple_form'
 
-gem 'axlsx', '2.0.1'
+gem 'axlsx', '2.1.0.pre'
 gem 'axlsx_rails'
 gem 'fiscali'
 gem 'money-rails', '~>1'
-gem 'rubyzip'
+gem 'rubyzip', '~> 1.1.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
@@ -53,12 +54,12 @@ group :development, :test do
   gem 'byebug'
   gem 'faker'
   gem 'pry-rails'
-  gem 'roo', '1.13.2'
+  gem 'roo', '2.7.1'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 3.3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -83,11 +84,10 @@ group :test do
   gem 'mocha'
   gem 'poltergeist'
   gem 'rack_session_access'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-context'
   gem 'shoulda-matchers', '>= 3.0.1'
-  gem 'test_after_commit'
-
   # Code analysis tools
   gem 'rubocop', '= 0.49.1', require: false
   gem 'rubocop-checkstyle_formatter', require: false

@@ -1,4 +1,4 @@
-class AddOrgToggle < ActiveRecord::Migration
+class AddOrgToggle < ActiveRecord::Migration[4.2]
 
   def change
     add_column :organizations, :deactivated, :boolean, default: false

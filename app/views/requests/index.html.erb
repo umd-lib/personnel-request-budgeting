@@ -4,7 +4,7 @@
       <span class='pull-right btn-wrapper'><%= link_to( t('actions.new'), new_polymorphic_url(@model_klass ), class: "btn btn-success" ) %></span>
   <% end %>
   <span class="pull-right btn-wrapper">
-		<%= link_to t('Export'), params.merge( format: :xlsx ), class: 'btn btn-info', :id => 'export' %>
+    <%= link_to t('Export'), params.permit(:controller, :action, :page ).merge( format: :xlsx ), class: 'btn btn-info', :id => 'export' %>
 	</span>  
   <% if current_user.admin? && policy(@model_klass).update? %>
 		<span class='pull-right btn-wrapper'>	

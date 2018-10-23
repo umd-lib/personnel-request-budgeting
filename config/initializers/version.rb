@@ -1,2 +1,2 @@
-APP_VERSION = '1.2.0-115-g7beaced'
-GIT_TAG = '7beaced7e885cf2a656f13e818ad29253fdf10e5'
+APP_VERSION = '2.0.1-10-g590bdcd'
+GIT_TAG = '590bdcd54b8a9ca0800af046e35f4c5fd9149f32'

@@ -35,18 +35,18 @@ class LaborRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should show labor_request' do
-    get :show, id: @labor_request
+    get :show, params: { id: @labor_request }
     assert_response :success
   end
 
   test 'should edit labor_request' do
-    get :edit, id: @labor_request
+    get :edit, params: { id: @labor_request }
     assert_response :success
   end
 
   test 'should create labor_request' do
     assert_difference('Request.count') do
-      post :create, labor_request: {
+      post :create, params: { labor_request: {
         contractor_name: @labor_request.contractor_name,
         organization_id: @labor_request.organization_id,
         employee_type: @labor_request.employee_type,
@@ -59,7 +59,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
         number_of_weeks: @labor_request.number_of_weeks,
         position_title: @labor_request.position_title,
         request_type: @labor_request.request_type
-      }
+      } }
     end
 
     assert_redirected_to labor_request_path(assigns(:request))
@@ -69,7 +69,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
 
   test 'should not create invalid labor_request' do
     assert_no_difference('LaborRequest.count') do
-      post :create, labor_request: {
+      post :create, params: { labor_request: {
         contractor_name: nil,
         organization_id: nil,
         employee_type: nil,
@@ -82,7 +82,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
         number_of_weeks: nil,
         position_title: nil,
         request_type: nil
-      }
+      } }
     end
   end
 
@@ -91,7 +91,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
       unit = users(user).organizations.find(&:unit?)
       org = unit.parent
       assert_difference('Request.count') do
-        post :create, labor_request: {
+        post :create, params: { labor_request: {
           contractor_name: @labor_request.contractor_name,
           organization_id: org,
           unit_id: unit,
@@ -107,7 +107,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
           request_type: @labor_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'Hey hey hey'
-        }
+        } }
       end
 
       assert_redirected_to labor_request_path(assigns(:request))
@@ -117,7 +117,7 @@ class LaborRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should update labor_request' do
-    patch :update, id: @labor_request, labor_request: {
+    patch :update, params: { id: @labor_request, labor_request: {
       contractor_name: @labor_request.contractor_name,
       organization_id: @labor_request.organization_id,
       employee_type: @labor_request.employee_type,
@@ -132,32 +132,32 @@ class LaborRequestsControllerTest < ActionController::TestCase
       request_type: @labor_request.request_type,
       review_status_id: @labor_request.review_status_id,
       review_comment: @labor_request.review_comment
-    }
+    } }
     assert_redirected_to labor_request_path(assigns(:request))
   end
 
   test 'should not update an invalid labor_request' do
     original_attrs = @labor_request.attributes
-    patch :update, id: @labor_request, labor_request: {
+    patch :update, params: { id: @labor_request, labor_request: {
       contractor_name: nil, organization_id: nil, employee_type: nil,
       hourly_rate: nil, hours_per_week: nil, justification: nil,
       nonop_funds: nil, nonop_source: nil, number_of_positions: nil,
       number_of_weeks: nil, position_title: nil, request_type: nil,
       review_status_id: nil, review_comment: nil
-    }
+    } }
     assert_equal original_attrs, LaborRequest.find(@labor_request.id).attributes
   end
 
   test 'should destroy labor_request' do
     assert_difference('Request.count', -1) do
-      delete :destroy, id: @labor_request
+      delete :destroy, params: { id: @labor_request }
     end
 
     assert_redirected_to labor_requests_path
   end
 
   test 'xlsx format should include all records, even from second page' do
-    get :index, page: '2', format: 'xlsx'
+    get :index, params: { page: '2', format: 'xlsx' }
 
     file = Tempfile.new(['test_temp', '.xlsx'])
     begin
@@ -197,14 +197,14 @@ class LaborRequestsControllerTest < ActionController::TestCase
 
   # ArchivedLaborRequests
   test 'should allow users to see archive' do
-    get :index, archive: true
+    get :index, params: { archive: true }
     assert_response(200)
     assert assigns(:model_klass), LaborRequest
     assert_not_nil assigns(:requests)
   end
 
   test 'should show archived labor request' do
-    get :show, id: @archived_labor_request
+    get :show, params: { id: @archived_labor_request }
     assert_response :success
   end
 end

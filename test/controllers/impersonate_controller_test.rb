@@ -9,7 +9,7 @@ class ImpersonateControllerTest < ActionController::TestCase
 
   test 'create should impersonate user' do
     run_as_user(@admin_user) do
-      get :create, user_id: @impersonated_user.id
+      get :create, params: { user_id: @impersonated_user.id }
       assert_not_nil session[ImpersonateController::IMPERSONATE_USER_PARAM]
       assert_equal session[ImpersonateController::IMPERSONATE_USER_PARAM], @impersonated_user.id
     end
@@ -17,14 +17,14 @@ class ImpersonateControllerTest < ActionController::TestCase
 
   test 'create should do nothing when given invalid user id' do
     run_as_user(@admin_user) do
-      get :create, user_id: 'invalid_user_id'
+      get :create, params: { user_id: 'invalid_user_id' }
       assert_nil session[ImpersonateController::IMPERSONATE_USER_PARAM]
     end
   end
 
   test 'destroy should stop impersonate user' do
     run_as_user(@admin_user) do
-      get :create, user_id: @impersonated_user
+      get :create, params: { user_id: @impersonated_user }
       assert_not_nil session[ImpersonateController::IMPERSONATE_USER_PARAM]
       assert_equal session[ImpersonateController::IMPERSONATE_USER_PARAM], @impersonated_user.id
 
@@ -42,7 +42,7 @@ class ImpersonateControllerTest < ActionController::TestCase
 
   test 'should not be allowed to impersonate yourself' do
     run_as_user(@admin_user) do
-      get :create, user_id: @admin_user
+      get :create, params: { user_id: @admin_user }
       assert_response :forbidden
     end
   end
@@ -50,7 +50,7 @@ class ImpersonateControllerTest < ActionController::TestCase
   test 'should not be allowed to impersonate another admin' do
     with_temp_user(admin: true) do |other_admin|
       run_as_user(@admin_user) do
-        get :create, user_id: other_admin
+        get :create, params: { user_id: other_admin }
         assert_response :forbidden
       end
     end

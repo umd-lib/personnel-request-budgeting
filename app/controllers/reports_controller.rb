@@ -82,10 +82,10 @@ class ReportsController < ApplicationController
     # @error_msg and returns false.
     def delete
       @report.destroy
-      return true
+      true
     rescue ActiveRecord::DeleteRestrictionError
       @error_msg = 'Request type cannot be removed as it is used by other records.'
-      return false
+      false
     end
 
     # Use callbacks to share common setup or constraints between actions.

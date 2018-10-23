@@ -7,12 +7,10 @@ class ReportJob < ActiveJob::Base
   # The method used to run the report by rails.
   def perform(*reports)
     reports.each do |report|
-      begin
-        run_report(report)
-      rescue => e
-        report.update_attributes status: 'error'
-        raise e
-      end
+      run_report(report)
+    rescue => e
+      report.update_attributes status: 'error'
+      raise e
     end
   end
 

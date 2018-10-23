@@ -9,7 +9,7 @@ class ReportJob < ActiveJob::Base
     reports.each do |report|
       run_report(report)
     rescue => e
-      report.update_attributes status: 'error'
+      report.update_attributes status: 'error' # rubocop:disable Rails/ActiveRecordAliases
       raise e
     end
   end
@@ -32,8 +32,8 @@ class ReportJob < ActiveJob::Base
                                                                 created_at: report.created_at })
       report.update! status: 'completed', output: output
     else
-      report.update_attributes status: 'error'
-      report.update_attributes status_message: r.error_message
+      report.update_attributes status: 'error' # rubocop:disable Rails/ActiveRecordAliases
+      report.update_attributes status_message: r.error_message # rubocop:disable Rails/ActiveRecordAliases
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

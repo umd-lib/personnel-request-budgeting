@@ -9,9 +9,7 @@ module Flattenable
     def flat_tree
       child_mapper = lambda do |tree, node|
         tree << node
-        unless node.children.empty?
-          tree += node.children.reduce([], &child_mapper)
-        end
+        tree += node.children.reduce([], &child_mapper) unless node.children.empty?
         return tree.flatten
       end
       includes(children: { children: [:children] })

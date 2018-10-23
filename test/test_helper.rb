@@ -32,9 +32,8 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)
     user = user.cas_directory_id if user.is_a?(User)
-    original_user = if session[:cas] && session[:cas][:user]
-                      session[:cas][:user]
-                    end
+    original_user = session[:cas][:user] if session[:cas] && session[:cas][:user]
+
     session[:cas] = { user: user }
     begin
       yield user

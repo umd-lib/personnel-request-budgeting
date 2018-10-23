@@ -21,7 +21,7 @@ module Flattenable
 
   included do
     def flat_tree_description
-      prefix = ''
+      prefix = ''.dup
       org_parent = parent
       while org_parent
         prefix << '--'

@@ -31,7 +31,8 @@ class Request < ApplicationRecord
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true, optional: true
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true,
+                    optional: true, inverse_of: :unit_requests
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
 

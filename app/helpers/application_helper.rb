@@ -27,7 +27,7 @@ module ApplicationHelper
     params.permit(:page, sort: [])
   end
 
-  def multi_sort_link(column, title, direction = 'arrow-up')
+  def multi_sort_link(column, title, direction = 'arrow-up') # rubocop:disable Metrics/AbcSize
     # first we extract any existing sorts in the params
     attrs = Array.wrap(permitted_params[:sort]).compact
 

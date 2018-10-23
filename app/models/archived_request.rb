@@ -13,7 +13,8 @@ class ArchivedRequest < ApplicationRecord
 
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, optional: true
+  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id,
+                    optional: true, inverse_of: :archived_unit_requests
   belongs_to :user, optional: true
 
   def current_table_name

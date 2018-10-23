@@ -44,7 +44,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     patch :update, params: { id: @organization, organization: {
       code: @organization.code, organization_id: @organization.parent, name: @organization.name
     } }
-    assert !flash.empty?
+    assert_not flash.empty?
     assert_redirected_to organizations_path
   end
 

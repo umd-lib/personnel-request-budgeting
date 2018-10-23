@@ -79,8 +79,9 @@ module ApplicationHelper
 
   def sorted?
     params[:sort].present?
-  end # A view helper to make sure archived records point to the correct
+  end
 
+  # A view helper to make sure archived records point to the correct route
   def edit_path(object)
     if object.class.name == 'Request'
       method = "edit_#{object.request_model_type.underscore}_request_path".intern

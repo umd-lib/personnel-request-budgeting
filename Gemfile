@@ -61,11 +61,11 @@ gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '1.2.0'
 gem 'cocoon'
 gem 'simple_form'
 
-gem 'axlsx', '2.1.0.pre'
+gem 'axlsx', '3.0.0.pre'
 gem 'axlsx_rails'
 gem 'fiscali'
 gem 'money-rails', '~>1'
-gem 'rubyzip', '~> 1.1.0'
+gem 'rubyzip'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 

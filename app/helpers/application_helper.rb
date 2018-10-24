@@ -3,7 +3,11 @@
 module ApplicationHelper
   # helper to toggle asc and desc ( for ordering )
   def switch_direction(direction)
-    direction.match?(/asc$/) ? [direction.gsub(/asc$/, 'desc'), 'arrow-up'] : [direction.gsub(/desc$/, 'asc'), 'arrow-down'] # rubocop:disable Metrics/LineLength
+    if direction.match?(/asc$/)
+      [direction.gsub(/asc$/, 'desc'), 'arrow-up']
+    else
+      [direction.gsub(/desc$/, 'asc'), 'arrow-down']
+    end
   end
 
   SORT_MAP = { hourly_rate: :hourly_rate_cents,
@@ -27,18 +31,22 @@ module ApplicationHelper
     params.permit(:page, sort: [])
   end
 
-  def multi_sort_link(column, title, direction = 'arrow-up') # rubocop:disable Metrics/AbcSize
-    # first we extract any existing sorts in the params
+  def sort_params(column, direction)
     attrs = Array.wrap(permitted_params[:sort]).compact
-
     # now scan and look to see if we're already sortin on this column
     index = attrs.index { |a| a.match(/^#{Regexp.escape(column)} /) }
     if index
       attrs[index], direction = switch_direction(attrs[index])
     else
       # so we just stick it in the end
-      attrs << "#{column} asc"
+      attrs << "#{column} desc"
     end
+    [attrs, direction]
+  end
+
+  def multi_sort_link(column, title, direction = 'arrow-up')
+    # first we extract any existing sorts in the params
+    attrs, direction = sort_params(column, direction)
     link_to(title, permitted_params.merge(sort: attrs.compact), class: direction)
   end
 

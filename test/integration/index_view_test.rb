@@ -10,7 +10,7 @@ class IndexViewTest < ActionDispatch::IntegrationTest
 
   test 'should keep page and sort when deleting' do
     click_link 'Labor and Assistance'
-    click_link '3'
+    click_link '2'
     click_link 'Submitted By'
     url = current_url
 

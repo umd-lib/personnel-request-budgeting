@@ -6,6 +6,7 @@ Rails:
 AllCops:
   Exclude:
     - 'config.ru'
+    - 'Gemfile'
     - 'Rakefile'
     - 'bin/**/*'
     - 'config/**/*'
@@ -17,7 +18,7 @@ AllCops:
     - 'db/seeds.rb'
 
   TargetRubyVersion: 2.5
-  TargetRailsVersion: 4.2
+  TargetRailsVersion: 5.2
 
 Metrics/AbcSize:
   Exclude:
@@ -60,7 +61,6 @@ Style/ClassVars:
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
-
 
 Layout/IndentationConsistency:
   EnforcedStyle: rails

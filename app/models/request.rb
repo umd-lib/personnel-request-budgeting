@@ -31,11 +31,13 @@ class Request < ApplicationRecord
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
   belongs_to :review_status, counter_cache: true
   belongs_to :organization, required: true, counter_cache: true
-  belongs_to :unit, class_name: 'Organization', foreign_key: :unit_id, counter_cache: true, inverse_of: :unit_requests
+  belongs_to :unit, class_name: 'Organization',
+                    foreign_key: :unit_id, counter_cache: true,
+                    inverse_of: :unit_requests, optional: true
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :position_title, presence: true
   validates :employee_type, presence: true
@@ -104,9 +106,4 @@ class Request < ApplicationRecord
   def current_table_name
     self.class.current_table_name
   end
-
-  default_scope(lambda do
-    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
-      .includes(%i[review_status organization user])
-  end)
 end

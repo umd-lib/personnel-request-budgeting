@@ -28,29 +28,29 @@ class LinksControllerTest < ActionController::TestCase
 
   test 'should create link' do
     assert_difference('Link.count') do
-      post :create, link: { text: 'Test Status', url: 'http://moo.ru' }
+      post :create, params: { link: { text: 'Test Status', url: 'http://moo.ru' } }
     end
     assert_redirected_to link_path(assigns(:link))
   end
 
   test 'should show link' do
-    get :show, id: @link
+    get :show, params: { id: @link }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @link
+    get :edit, params: { id: @link }
     assert_response :success
   end
 
   test 'should update link' do
-    patch :update, id: @link, link: { text: 'Take 2', url: 'http://bark.nu' }
+    patch :update, params: { id: @link, link: { text: 'Take 2', url: 'http://bark.nu' } }
     assert_redirected_to link_path(assigns(:link))
   end
 
   test 'should destroy link' do
     assert_difference('Link.count', -1) do
-      delete :destroy, id: @link
+      delete :destroy, params: { id: @link }
     end
 
     assert_redirected_to links_path
@@ -64,20 +64,20 @@ class LinksControllerTest < ActionController::TestCase
       get :new
       assert_response :forbidden
 
-      get :show, id: @link
+      get :show, params: { id: @link }
       assert_response :forbidden
 
-      get :edit, id: @link
+      get :edit, params: { id: @link }
       assert_response :forbidden
 
-      post :create, link: { text: '1', url: 'http://meow.no' }
+      post :create, params: { link: { text: '1', url: 'http://meow.no' } }
       assert_response :forbidden
 
-      patch :update, id: @link,
-                     link: { text: '3', url: 'http://tweet.ca' }
+      patch :update, params: { id: @link,
+                               link: { text: '3', url: 'http://tweet.ca' } }
       assert_response :forbidden
 
-      delete :destroy, id: @link
+      delete :destroy, params: { id: @link }
       assert_response :forbidden
     end
   end

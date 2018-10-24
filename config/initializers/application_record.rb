@@ -1,1 +1,0 @@
-ApplicationRecord = ActiveRecord::Base

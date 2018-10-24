@@ -39,7 +39,7 @@ module PersonnelRequestController
 
   def new
     authorize @model_klass
-    @request ||= @model_klass.new # rubocop:disable Naming/MemoizedInstanceVariableName
+    build_request unless @request
   end
 
   def edit
@@ -73,14 +73,24 @@ module PersonnelRequestController
 
   def destroy
     authorize @request
-    page_and_sort_params = params.select { |k| %w[page sort].include? k }
+    page_and_sort_params = params.permit(:page, sort: [])
     set_destroy_flash
     respond_to do |format|
       format.html { redirect_to(polymorphic_url(@model_klass, page_and_sort_params)) }
     end
   end
 
+  # this is a baseline set of attibutes for requests. For a particular request
+  # type, override this method in the related controller.
+  def allowed
+    policy(@request || @model_klass.new).permitted_attributes
+  end
+
   private
+
+    def build_request
+      @request = @model_klass.new
+    end
 
     # rubocop hates long methods so we just make more and more methods
     def set_destroy_flash
@@ -129,12 +139,6 @@ module PersonnelRequestController
 
     def request_params
       params.require(model_klass.name.underscore.intern).permit(allowed)
-    end
-
-    # this is a baseline set of attibutes for requests. For a particular request
-    # type, override this method in the related controller.
-    def allowed
-      policy(@request || @model_klass.new).permitted_attributes
     end
 
     # Returns a send_data of the XLSX of a record set ( used in the request

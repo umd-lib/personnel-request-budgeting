@@ -6,7 +6,7 @@ A Rails application for submitting staffing requests as part of the library budg
 
 Requires:
 
-* Ruby 2.5.1
+* Ruby 2.5.3
 * Bundler
 
 ### Setup

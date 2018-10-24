@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PersonnelRequestController
   extend ActiveSupport::Concern
   include RequestHelper
@@ -37,7 +39,7 @@ module PersonnelRequestController
 
   def new
     authorize @model_klass
-    @request ||= @model_klass.new
+    build_request unless @request
   end
 
   def edit
@@ -85,6 +87,10 @@ module PersonnelRequestController
   end
 
   private
+
+    def build_request
+      @request = @model_klass.new
+    end
 
     # rubocop hates long methods so we just make more and more methods
     def set_destroy_flash

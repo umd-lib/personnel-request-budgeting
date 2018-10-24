@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Labor and Assistance staffing request
 class StaffRequest < Request
   VALID_EMPLOYEE_TYPES = ['Exempt', 'Faculty', 'Graduate Assistant', 'Non-exempt'].freeze

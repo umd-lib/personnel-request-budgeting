@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReportsHelper
   def report_formats(report)
     (report.class.formats & Report.formats.keys)

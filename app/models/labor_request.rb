@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Labor and Assistance staffing request
 class LaborRequest < Request
   VALID_EMPLOYEE_TYPES = ['Contingent 1', 'Faculty Hourly', 'Student'].freeze

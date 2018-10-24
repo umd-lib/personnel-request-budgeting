@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Admins can record review status of a request
 class Link < ApplicationRecord
   class << self

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests Labor Requests Cost Summary report
@@ -52,8 +54,8 @@ class LaborRequestsCostSummaryReportTest < ActiveSupport::TestCase
       actual_other_support_total += datum[:other_support]
     end
 
-    assert actual_annual_cost_total.cents > 0
-    assert actual_other_support_total.cents > 0
+    assert actual_annual_cost_total.cents.positive?
+    assert actual_other_support_total.cents.positive?
     assert_equal expected_annual_cost_total, actual_annual_cost_total
     assert_equal expected_other_support_total, actual_other_support_total
   end

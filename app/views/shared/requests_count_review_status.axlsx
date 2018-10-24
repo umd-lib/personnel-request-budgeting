@@ -1,4 +1,6 @@
-# rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Naming/UncommunicativeMethodParamName
 def construct_summary_worksheet(wb, styles, record_set)
   # Requests Count Worksheet Construction
   wb.add_worksheet(name: 'Requests Count by Review Status') do |sheet| # rubocop:disable Metrics/BlockLength
@@ -47,7 +49,7 @@ def construct_summary_worksheet(wb, styles, record_set)
     row_num += 1
   end
 end
-# rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Naming/UncommunicativeMethodParamName
 
 wb = xlsx_package.workbook
 

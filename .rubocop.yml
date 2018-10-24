@@ -4,13 +4,11 @@ Rails:
 
 # Exclude auto-generated files
 AllCops:
-  Include:
-    - '**/*.axlsx'
-    - '**/Gemfile'
-    - '**/Guardfile'
-    - '**/Rakefile'
   Exclude:
-    - 'bin/*'
+    - 'config.ru'
+    - 'Rakefile'
+    - 'bin/**/*'
+    - 'config/**/*'
     - 'config/initializers/*'
     - 'config/application.rb'
     - 'db/schema.rb'
@@ -18,7 +16,7 @@ AllCops:
     - 'lib/**/*'
     - 'db/seeds.rb'
 
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.5
   TargetRailsVersion: 4.2
 
 Metrics/AbcSize:
@@ -35,7 +33,7 @@ Metrics/LineLength:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
-  
+
 Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
@@ -58,7 +56,7 @@ Style/Documentation:
 Style/ClassVars:
   Exclude:
     - 'test/**/*'
-  
+
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'

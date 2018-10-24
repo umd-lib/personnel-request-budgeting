@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A job to submit reports and run in background
 class ReportJob < ApplicationJob
   queue_as :default
@@ -5,12 +7,10 @@ class ReportJob < ApplicationJob
   # The method used to run the report by rails.
   def perform(*reports)
     reports.each do |report|
-      begin
-        run_report(report)
-      rescue => e
-        report.update_attributes status: 'error'
-        raise e
-      end
+      run_report(report)
+    rescue StandardError => e
+      report.update status: 'error'
+      raise e
     end
   end
 
@@ -32,8 +32,8 @@ class ReportJob < ApplicationJob
                                                                 created_at: report.created_at })
       report.update! status: 'completed', output: output
     else
-      report.update_attributes status: 'error'
-      report.update_attributes status_message: r.error_message
+      report.update status: 'error'
+      report.update status_message: r.error_message
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

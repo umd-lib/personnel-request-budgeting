@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # this just patchs rails reset_counters methods to work with the monkey
 # business we're doing with our associations
 # disabling rubocop...this is taken from Rails core.
@@ -5,7 +7,7 @@
 #rubocop:disable all
 module Resettable
   extend ActiveSupport::Concern
-  
+
   # this is used to generate the organization's associated icon
   TYPE_MAPPING = { 'root' => 'queen', 'division' => 'bishop', 'department' => 'knight', 'unit' => 'pawn' }.freeze
   # fields that cna't be changed if there are records in teh archive

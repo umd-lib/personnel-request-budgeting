@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Controller for Icinga network monitoring to use to determine whether the
 # application is running.
 class PingController < ApplicationController

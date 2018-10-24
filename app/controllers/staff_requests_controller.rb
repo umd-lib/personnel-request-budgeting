@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StaffRequestsController < ApplicationController
   include PersonnelRequestController
   alias allowed_defaults allowed

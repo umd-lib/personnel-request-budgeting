@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generic for all report type objects.
 #
 # Including this in your report adds common functionality and registers it in

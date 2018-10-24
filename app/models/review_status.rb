@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Admins can record review status of a request
 class ReviewStatus < ApplicationRecord
   validates :name, presence: true

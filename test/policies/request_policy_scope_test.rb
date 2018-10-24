@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests for PersonnelRequestPolicy's Scope class
@@ -6,7 +8,7 @@ require 'test_helper'
 class RequestPolicyScopeTest < ActiveSupport::TestCase
   test 'personnel requests have records' do
     # Without records, all the rest of the tests are probably meaningless
-    assert Request.count > 0
+    assert Request.count.positive?
   end
 
   test 'user without role cannot see any personnel requests' do
@@ -33,7 +35,7 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
 
       record_count = labor_results.count + staff_results.count + contractor_results.count
-      assert record_count > 0, "No records found for department '#{department.code}'"
+      assert record_count.positive?, "No records found for department '#{department.code}'"
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
@@ -51,11 +53,11 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
 
       record_count = labor_results.count + staff_results.count + contractor_results.count
-      assert record_count > 0, "No records found for unit '#{unit.code}'"
+      assert record_count.positive?, "No records found for unit '#{unit.code}'"
 
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
-          refute r.cutoff?
+          assert_not r.cutoff?
           assert Pundit.policy!(temp_user, r).show?
           assert Pundit.policy!(temp_user, r).edit?
           assert_equal unit.code, r.unit.code
@@ -75,12 +77,12 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
       record_count = labor_results.count + staff_results.count + contractor_results.count
-      assert record_count > 0, "No records found for unit '#{unit.code}'"
+      assert record_count.positive?, "No records found for unit '#{unit.code}'"
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
           assert r.unit.cutoff?
           assert Pundit.policy!(temp_user, r).show?
-          refute Pundit.policy!(temp_user, r).edit?
+          assert_not Pundit.policy!(temp_user, r).edit?
           assert_equal unit.code, r.unit.code
         end
       end
@@ -98,7 +100,7 @@ class RequestPolicyScopeTest < ActiveSupport::TestCase
       staff_results = Pundit.policy_scope!(temp_user, StaffRequest)
       contractor_results = Pundit.policy_scope!(temp_user, ContractorRequest)
       record_count = labor_results.count + staff_results.count + contractor_results.count
-      assert record_count > 0, "No records found for unit '#{unit.code}'"
+      assert record_count.positive?, "No records found for unit '#{unit.code}'"
       [labor_results, staff_results, contractor_results].each do |requests|
         requests.each do |r|
           assert Pundit.policy!(temp_user, r).show?

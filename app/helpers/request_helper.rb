@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequestHelper
   # Calls the field on the record and attempts to display it.
   # If there is special formatting on the field, define a "render_FIELD_NAME"

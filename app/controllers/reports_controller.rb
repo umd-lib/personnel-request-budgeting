@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy download]
   after_action :verify_authorized, only: %i[index show create destroy download]
@@ -80,10 +82,10 @@ class ReportsController < ApplicationController
     # @error_msg and returns false.
     def delete
       @report.destroy
-      return true
+      true
     rescue ActiveRecord::DeleteRestrictionError
       @error_msg = 'Request type cannot be removed as it is used by other records.'
-      return false
+      false
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -93,7 +95,7 @@ class ReportsController < ApplicationController
 
     def report_params # rubocop:disable Metrics/MethodLength
       report_parameters_keys = params[:report][:parameters].try(:keys)
-      if report_parameters_keys
+      if report_parameters_keys # rubocop:disable Style/SafeNavigation
         # The following modifies the report_parameters_keys map if any of the
         # keys are actually an array of values (such as might come back from
         # a bunch of checkboxes forming a group).

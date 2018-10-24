@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # use HTTPS for github repos (see https://bundler.io/git.html#security)
@@ -89,7 +91,7 @@ group :test do
   gem 'shoulda-context'
   gem 'shoulda-matchers', '>= 3.0.1'
   # Code analysis tools
-  gem 'rubocop', '= 0.49.1', require: false
+  gem 'rubocop', '= 0.59.2', require: false
   gem 'rubocop-checkstyle_formatter', require: false
   gem 'simplecov', require: false
   gem 'simplecov-rcov', require: false

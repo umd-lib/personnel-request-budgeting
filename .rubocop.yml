@@ -16,7 +16,6 @@ AllCops:
     - 'db/migrate/*'
     - 'lib/**/*'
     - 'db/seeds.rb'
-    - 'test/**/*'
 
   TargetRubyVersion: 2.5
   TargetRailsVersion: 5.2

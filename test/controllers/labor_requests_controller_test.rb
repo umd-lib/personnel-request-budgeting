@@ -179,26 +179,6 @@ class LaborRequestsControllerTest < ActionController::TestCase
       expected_row_count = num_labor_requests + 1 # include header row in count
       assert num_labor_requests > 1, 'There are no labor requests'
       assert_equal expected_row_count, spreadsheet.last_row
-
-      # make sure all the currency columns have $
-      c_header = [
-        'Gift/Other Funds',
-        'Annual cost',
-        'Hourly rate'
-      ]
-      spreadsheet.parse(headers: true)
-      # get the column numbers
-      columns = spreadsheet.headers.to_h
-                           .select { |k, v| c_header.include?(k) ? v : nil }
-                           .values
-      columns.each do |col|
-        # get the values from the column
-        vals = spreadsheet.column(col)
-        vals.shift
-        vals.each do |val|
-          assert_match(/^\$/, val)
-        end
-      end
     ensure
       file.delete
     end

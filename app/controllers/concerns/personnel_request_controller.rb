@@ -9,6 +9,7 @@ module PersonnelRequestController
     # after_action :verify_policy_scoped, only: :index
     before_action :set_model_klass, only: %i[index new create]
     before_action :set_request, only: %i[show edit update destroy]
+    before_action :assign_and_authorize, only: %i[update]
 
     # Pundit policy checks to ensure that unit users are supplying a unit. if
     # not it raises this error that allows the form to be redisplayed.
@@ -46,14 +47,18 @@ module PersonnelRequestController
     authorize @request
   end
 
-  def update
-    @request.assign_attributes(request_params)
-    authorize @request
+  def update # rubocop:disable Metrics/MethodLength
     respond_to do |format|
       if @request.save
-        format.html { redirect_to(@request, notice: "#{@request.description} successfully updated.") }
+        format.html do
+          redirect_to(@request, notice: "#{@request.description} successfully updated.")
+        end
+        format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }
+        format.json do
+          render json: @request.errors, status: :unprossable_entity
+        end
       end
     end
   end
@@ -87,6 +92,11 @@ module PersonnelRequestController
   end
 
   private
+
+    def assign_and_authorize
+      @request.assign_attributes(request_params)
+      authorize @request
+    end
 
     def build_request
       @request = @model_klass.new

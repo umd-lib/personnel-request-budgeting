@@ -138,6 +138,14 @@ class LaborRequestsControllerTest < ActionController::TestCase
     assert_redirected_to labor_request_path(assigns(:request))
   end
 
+  test 'should update labor_request with json' do
+    a_different_status = ReviewStatus.where.not(id: @labor_request.review_status_id).sample
+    patch :update, format: :json, params: { id: @labor_request,
+                                            labor_request: { review_status_id: a_different_status.id } }
+    assert_response :success
+    assert_equal assigns(:request).review_status_id, a_different_status.id
+  end
+
   test 'should not update an invalid labor_request' do
     original_attrs = @labor_request.attributes
     patch :update, params: { id: @labor_request, labor_request: {

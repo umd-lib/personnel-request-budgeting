@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require 'application_system_test_case'
 
-class UnitUserTest < ActionDispatch::IntegrationTest
+class UnitUserTest < ApplicationSystemTestCase
   def setup
-    use_chrome!
     login_not_admin
 
     @user = users(:not_admin)

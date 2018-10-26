@@ -53,55 +53,9 @@ module RequestHelper
     fields
   end
 
-  # Returns a list of the formats used for styling export outputs
-  #
-  # @param fields [Array] the fields to generate a list of formats
-  # @return [Array] list of associated formats to the fields
-  def field_formats(fields)
-    fields.map { |field| currency_fields.include?(field) ? :currency : :default }
-  end
-
-  # Returns a list of the widths used for styling export outputs
-  #
-  # @param fields [Array] the fields to generate a list of formats
-  # @return [Array] list of widths to the fields
-  def field_widths(fields)
-    fields.map { |field| lengthy_fields.include?(field) ? 30 : nil }
-  end
-
-  # Returns a list of fields for a record and a list of formats for those
-  # fields
-  #
-  # @param klass [Class] the active record klass being displayed
-  # @param show_all [Boolean] option to include all fields in class
-  # @return [Array] the list of fields being displayed
-  # @return [Array] the list of formats to be displayed
-  def fields_and_formats_and_widths(klass, show_all = false)
-    fields = fields(klass, show_all)
-    formats = field_formats(fields)
-    widths = field_widths(fields)
-    [fields, formats, widths]
-  end
-
-  # Just return the currency fields
-  def currency_fields
-    CURRENCY_FIELDS
-  end
-
-  # Just return the lengthy fields
-  def lengthy_fields
-    LENGTHY_FIELDS
-  end
-
-  # these are the fields that we want to render into a currency
-  # since we've added special xlsx formatting, we need to call a special helper
-  # for the excel exports that is _xslx.
+  # Generate methods that renders fields as currency
   CURRENCY_FIELDS.each do |m|
     define_method("render_#{m}".intern) { |r| number_to_currency r.call_field(m.intern) }
-    define_method("render_#{m}_xlsx".intern) do |r|
-      field = r.call_field(m.intern) || BigDecimal(0)
-      humanized_money_with_symbol field
-    end
   end
 
   # Returns an array of the fields used in labor_requests

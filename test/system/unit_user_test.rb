@@ -41,6 +41,8 @@ class UnitUserTest < ApplicationSystemTestCase
     click_link 'Labor and Assistance'
     click_link 'New'
 
+    assert_not page.has_content?('The submission window for this request has ended')
+
     position_title = SecureRandom.hex
 
     select 'Faculty', from: 'Employee type'
@@ -63,6 +65,7 @@ class UnitUserTest < ApplicationSystemTestCase
     select '', from: 'Unit'
     find('.page-footer .btn-success').click
 
+    assert_not page.has_content?('The submission window for this request has ended')
     assert_not page.has_content?("#{position_title} successfully updated.")
     assert page.has_content?('Unit is required for users with only Unit permissions')
   end

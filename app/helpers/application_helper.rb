@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def permitted_params
-    params.permit(:page, sort: [])
+    params.permit(:page, :archive, sort: [])
   end
 
   def sort_params(column, direction)

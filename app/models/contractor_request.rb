@@ -2,8 +2,13 @@
 
 # A Contractor Request
 class ContractorRequest < Request
-  VALID_EMPLOYEE_TYPES = ['Contingent 2', 'Contract Faculty'].freeze
+  VALID_EMPLOYEE_TYPES = ['Contingent 2', 'PTK Faculty'].freeze
   VALID_REQUEST_TYPES = %w[Renewal New ConvertC1].freeze
+
+  # These values are used to map spawned archive records to new record.
+  MAPPED_ATTRIBUTES = {
+    employee_type: {  'Contract Faculty' => 'PTK Faculty' }
+  }.freeze
 
   class << self
     def human_name
@@ -21,6 +26,12 @@ class ContractorRequest < Request
     # Returns an ordered array used in the index pages
     def index_fields
       fields - %i[nonop_source justification review_comment created_at updated_at]
+    end
+
+    def from_archived(params)
+      map = self::MAPPED_ATTRIBUTES.with_indifferent_access
+      mapper = ->(k, v) { map.dig(k, v) ? [k, map[k][v]] : [k, v] }
+      new(params.to_h.map(&mapper).to_h)
     end
   end
 

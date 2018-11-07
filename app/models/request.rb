@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'money'
+require 'active_support/core_ext/numeric'
 # This is the base line model for Request that is used by all other
 # request types
 class Request < ApplicationRecord
@@ -36,6 +38,28 @@ class Request < ApplicationRecord
                     inverse_of: :unit_requests, optional: true
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
+
+  # Returns the base_pay ( if Staff or Contractor ) or annual_cost Labor
+  def annual_cost_or_base_pay
+    case request_model_type
+    when 'staff', 'contractor'
+      format_money(Money.new(annual_base_pay_cents))
+    when 'labor'
+      format_money(calculate_annual_cost)
+    else
+      '0'
+    end
+  end
+
+  # Formats the value to curreny.
+  def format_money(number)
+    number.to_f.to_s(:currency, delimiter: ',', separator: '.')
+  end
+
+  # this is the annual_cost method, but without the rails monitize magick
+  def calculate_annual_cost
+    number_of_positions * Money.new(hourly_rate_cents).to_f * hours_per_week.to_f * number_of_weeks
+  end
 
   belongs_to :user, optional: true
 
@@ -80,6 +104,8 @@ class Request < ApplicationRecord
   # method to call the fields expressed in .fields
   def call_field(field)
     field.to_s.split('__').inject(self) { |a, e| a&.send(e) }
+  rescue NoMethodError
+    ''
   end
 
   def cutoff?

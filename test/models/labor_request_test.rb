@@ -15,6 +15,26 @@ class LaborRequestTest < ActiveSupport::TestCase
     assert_not @request.valid?
   end
 
+  test 'should give annual_cost the same even when cast as request' do
+    plain_request = Request.find(@request.id)
+    assert_equal plain_request.annual_cost_or_base_pay, @request.annual_cost.to_f.to_s(:currency)
+  end
+
+  test 'should give the real source class even when cast as request' do
+    plain_request = Request.find(@request.id)
+    assert_equal plain_request.source_class, @request.class
+  end
+
+  test 'should give a blank string when a weird field is called' do
+    assert_equal @request.call_field(:cluckcluck), ''
+  end
+
+  test 'should tell if its spawned' do
+    assert_not @request.spawned?
+    @request.spawned = 1
+    assert @request.spawned?
+  end
+
   test 'justifcation length should be less than 125 words (unless its archived)' do
     assert @request.valid?
     @request.justification = ' word ' * 126

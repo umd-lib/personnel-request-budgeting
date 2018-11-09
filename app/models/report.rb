@@ -8,6 +8,7 @@ class Report < ApplicationRecord
 
   # Provides a short human-readable description for this record, for GUI prompts
   alias_attribute :description, :name
+  default_scope { includes(%i[user]) }
 
   enum status: {
     pending: 0,

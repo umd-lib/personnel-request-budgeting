@@ -6,7 +6,7 @@ require 'fileutils'
 class IndexViewTest < ApplicationSystemTestCase
   def setup
     login_admin
-    File.mkdir(ApplicationSystemTestCase::DOWNLOAD_DIR) unless File.exist?(ApplicationSystemTestCase::DOWNLOAD_DIR)
+    FileUtils.mkdir(ApplicationSystemTestCase::DOWNLOAD_DIR) unless File.exist?(ApplicationSystemTestCase::DOWNLOAD_DIR)
     Dir.glob(File.join(ApplicationSystemTestCase::DOWNLOAD_DIR, '*')).each { |f| FileUtils.rm(f) }
   end
 

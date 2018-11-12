@@ -23,4 +23,12 @@ class IndexViewTest < ApplicationSystemTestCase
     assert page.has_content? name
     assert_not find('table').text.include? name
   end
+
+  test 'should keep to in archive when sorting' do
+    click_link 'Labor and Assistance'
+    click_link 'View Archive'
+    click_link 'Submitted By'
+    assert page.has_content? 'View Active'
+    assert page.has_content? 'You are currently in the archive'
+  end
 end

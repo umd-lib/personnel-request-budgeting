@@ -17,7 +17,11 @@ class LaborRequestTest < ActiveSupport::TestCase
 
   test 'should give annual_cost the same even when cast as request' do
     plain_request = Request.find(@request.id)
-    assert_equal plain_request.annual_cost_or_base_pay, @request.annual_cost.to_f.to_s(:currency)
+
+    annual_cost_or_base_pay_in_cents = plain_request.annual_cost_or_base_pay * 100
+
+    annual_cost_or_base_pay_as_money = Money.new(annual_cost_or_base_pay_in_cents, 'USD')
+    assert_equal annual_cost_or_base_pay_as_money, @request.annual_cost
   end
 
   test 'should give the real source class even when cast as request' do

@@ -22,7 +22,7 @@ module Requestable
     # all the fields associated to the model
     def fields
       %i[ request_model_type position_title employee_type request_type
-          contractor_name employee_name
+          contractor_name employee_name annual_cost_or_base_pay
           nonop_source justification organization__name unit__name
           review_status__name review_comment user__name created_at updated_at ]
     end

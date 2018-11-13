@@ -2,7 +2,7 @@
 
 # This is the base line model for Request that is used by all other
 # request types
-class Request < ApplicationRecord
+class Request < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # This adds a bunch of class methods..
   include Requestable
 
@@ -37,6 +37,26 @@ class Request < ApplicationRecord
                     inverse_of: :unit_requests, optional: true
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
+
+  # Returns the base_pay (if Staff or Contractor) or annual_cost Labor, in
+  # dollars
+  def annual_cost_or_base_pay
+    case request_model_type
+    when 'staff', 'contractor'
+      (annual_base_pay_cents / 100.0)
+    when 'labor'
+      (calculate_annual_cost_in_cents / 100.0)
+    else
+      logger.error("Unknown request model type: #{request_model_type}")
+      0.00
+    end
+  end
+
+  # Calculates the annual cost for Labor Requests, returning the results in
+  # cents
+  def calculate_annual_cost_in_cents
+    (number_of_positions * hourly_rate_cents * hours_per_week.to_f * number_of_weeks)
+  end
 
   belongs_to :user, optional: true
 
@@ -96,6 +116,8 @@ class Request < ApplicationRecord
   # method to call the fields expressed in .fields
   def call_field(field)
     field.to_s.split('__').inject(self) { |a, e| a&.send(e) }
+  rescue NoMethodError
+    ''
   end
 
   def cutoff?

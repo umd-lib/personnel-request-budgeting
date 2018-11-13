@@ -25,7 +25,8 @@ class Request < ApplicationRecord
   enum request_model_type: { contractor: 0, labor: 1, staff: 2 }
   enum employee_type: { "Contingent 1": 0, "Faculty Hourly": 1, "Student": 3,
                         "Exempt": 4, "Faculty": 5, "Graduate Assistant": 6,
-                        "Non-exempt": 7, "Contingent 2": 8, "Contract Faculty": 9 }
+                        "Non-exempt": 7, "Contingent 2": 8, "Contract Faculty": 9,
+                        "PTK Faculty": 10 }
   enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4,
                        "Renewal": 5, 'Pay Adjustment - Other': 6,
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
@@ -76,6 +77,21 @@ class Request < ApplicationRecord
 
     self.review_status = ReviewStatus.find_by(code: 'UnderReview')
   end)
+
+  # when spawning from archive, sometimes values need to be mapped. this is a
+  # hook you can override.
+  def self.from_archived(params)
+    new(params)
+  end
+
+  # returns a list of valid values for employee types
+  def valid_employee_types
+    if archived_proxy?
+      "Archived#{self.class}".constantize::VALID_EMPLOYEE_TYPES
+    else
+      self.class::VALID_EMPLOYEE_TYPES
+    end
+  end
 
   # method to call the fields expressed in .fields
   def call_field(field)

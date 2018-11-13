@@ -113,9 +113,13 @@ module PersonnelRequestController
 
     # runs our policy and create a new obj from params
     def authorize_and_new!
-      @request = @model_klass.new(request_params)
+      @request = spawning? ? @model_klass.from_archived(request_params) : @model_klass.new(request_params)
       @request.user = current_user
       authorize @request
+    end
+
+    def spawning?
+      [true, 1, '1', 't', 'T', 'true', 'TRUE'].include? request_params[:spawned]
     end
 
     # sets which model class we're using in the controller context

@@ -10,10 +10,10 @@ class ReportIndexViewTest < ApplicationSystemTestCase
   test 'should keep page and sort when deleting' do
     click_link 'admin'
     click_link 'Reports'
-
-    headers = all('th')
-    headers.each do |header|
-      header.find('a').click
-    end
+    click_link 'Name'
+    click_link 'Format'
+    click_link 'Creator'
+    click_link 'Created At'
+    assert :success
   end
 end

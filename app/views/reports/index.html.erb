@@ -16,9 +16,12 @@
         <th id="name"><%= multi_sort_link( 'reports.name', 'Name', :desc) %></th>
         <th id="format"><%= multi_sort_link( :format, 'Format', :desc) %></th>
         <th id="creator_name"><%= multi_sort_link( 'users.name', 'Creator', :desc) %></th>
-        <th id="created_at"><%= multi_sort_link( :created_at, 'Created At', :desc) %></th>
+        <th id="created_at"><%= multi_sort_link( 'reports.created_at', 'Created At', :desc) %></th>
         <th id="status"><%= multi_sort_link( :status, 'Status', :desc) %></th>
         <th id="download">Output</th>
+        <th id="actions">
+          <%= link_to(t('reset_sorting'), { controller: 'reports' }, class: 'btn btn-link') if sorted? %>
+        </th>
       </tr>
     </thead>
 

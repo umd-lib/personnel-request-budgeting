@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'money'
-require 'active_support/core_ext/numeric'
 # This is the base line model for Request that is used by all other
 # request types
 class Request < ApplicationRecord
@@ -39,26 +37,24 @@ class Request < ApplicationRecord
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
 
-  # Returns the base_pay ( if Staff or Contractor ) or annual_cost Labor
+  # Returns the base_pay (if Staff or Contractor) or annual_cost Labor, in
+  # dollars
   def annual_cost_or_base_pay
     case request_model_type
     when 'staff', 'contractor'
-      format_money(Money.new(annual_base_pay_cents))
+      (annual_base_pay_cents / 100.0)
     when 'labor'
-      format_money(calculate_annual_cost)
+      (calculate_annual_cost_in_cents / 100.0)
     else
-      '0'
+      logger.error("Unknown request model type: #{request_model_type}")
+      0.00
     end
   end
 
-  # Formats the value to curreny.
-  def format_money(number)
-    number.to_f.to_s(:currency, delimiter: ',', separator: '.')
-  end
-
-  # this is the annual_cost method, but without the rails monitize magick
-  def calculate_annual_cost
-    number_of_positions * Money.new(hourly_rate_cents).to_f * hours_per_week.to_f * number_of_weeks
+  # Calculates the annual cost for Labor Requests, returning the results in
+  # cents
+  def calculate_annual_cost_in_cents
+    (number_of_positions * hourly_rate_cents * hours_per_week.to_f * number_of_weeks)
   end
 
   belongs_to :user, optional: true

@@ -35,7 +35,7 @@ module RequestHelper
 
   def reset_sorts_link
     if @model_klass.name == 'Request'
-      link_to(t('reset_sorting'), '/', class: 'btn btn-link')
+      link_to(t('reset_sorting'), my_requests_path, class: 'btn btn-link')
     elsif sorted?
       link_to(t('reset_sorting'), polymorphic_path(@model_klass.source_class,
                                                    archive: params[:archive]), class: 'btn btn-link')

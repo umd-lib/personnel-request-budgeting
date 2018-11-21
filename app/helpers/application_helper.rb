@@ -17,7 +17,8 @@ module ApplicationHelper
                organization__name: 'organizations.name',
                unit__name: 'units.name',
                user__name: 'users.name',
-               review_status__name: 'review_statuses.name' }.freeze
+               review_status__name: 'review_statuses.name',
+               annual_cost_or_base_pay: 'annual_cost_or_base_pay' }.freeze
 
   # this is a helper to map certain view fields to what they should
   # actually be for sorting. e.g. hourly_rate needs to be hourly_rate_cents.
@@ -45,6 +46,8 @@ module ApplicationHelper
   end
 
   def multi_sort_link(column, title, direction = 'arrow-up')
+    return title if column == :unsortable
+
     # first we extract any existing sorts in the params
     attrs, direction = sort_params(column, direction)
     link_to(title, permitted_params.merge(sort: attrs.compact), class: direction)

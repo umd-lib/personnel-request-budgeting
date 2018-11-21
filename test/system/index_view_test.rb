@@ -53,4 +53,22 @@ class IndexViewTest < ApplicationSystemTestCase
     assert page.has_content? 'View Active'
     assert page.has_content? 'You are currently in the archive'
   end
+
+  test 'should show My Requests page' do
+    [LaborRequest, ContractorRequest, StaffRequest].each do |klass|
+      record = klass.first
+      record.user = users(:admin)
+      record.save
+    end
+    click_link 'admin'
+    click_link 'My Requests'
+    assert :success
+    ['Type', 'Position Title', 'Employee Type', 'Request Type', 'Employee Name', 'Contractor Name',
+     'Annual Cost Or Base Pay', 'Department', 'Unit', 'Status', 'Submitted By']
+      .shuffle.each_slice(3) do |links|
+      links.each { |link| within('table') { click_link link } }
+      assert :success
+      click_link 'Reset Sorting'
+    end
+  end
 end

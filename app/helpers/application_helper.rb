@@ -18,7 +18,7 @@ module ApplicationHelper
                unit__name: 'units.name',
                user__name: 'users.name',
                review_status__name: 'review_statuses.name',
-               annual_cost_or_base_pay: :unsortable }.freeze
+               annual_cost_or_base_pay: 'annual_cost_or_base_pay' }.freeze
 
   # this is a helper to map certain view fields to what they should
   # actually be for sorting. e.g. hourly_rate needs to be hourly_rate_cents.

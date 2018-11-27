@@ -7,7 +7,9 @@ class PingController < ApplicationController
   skip_before_action :ensure_auth
 
   def verify
-    if ActiveRecord::Base.connected?
+    connected = ActiveRecord::Base.connection_pool.with_connection(&:active?)
+
+    if connected
       render plain: 'Application is OK'
     else
       render plain: 'Cannot connect to database!', status: :service_unavailable

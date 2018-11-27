@@ -50,8 +50,8 @@ en:
         hours_per_week: "Hours/wk"
         nonop_funds: Other Funds
         review_status__name: Status
-        contractor_name: Name
-        employee_name: Name
+        contractor_name: Contractor Name
+        employee_name: Employee Name
         request_model_type: Type
         user__name: Submitted By
   hints: &hints

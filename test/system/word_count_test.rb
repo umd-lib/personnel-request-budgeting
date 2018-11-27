@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require 'application_system_test_case'
 
-class WordCountTest < ActionDispatch::IntegrationTest
+class WordCountTest < ApplicationSystemTestCase
   def setup
-    use_chrome!
     login_admin
   end
 

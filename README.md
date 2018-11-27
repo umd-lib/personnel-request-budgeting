@@ -94,10 +94,10 @@ database in case you need to revert the process.
 
 ### Running Tests
 
-To run the tests, you can use the standard rake command:
+To run the both system and regular tests, you can use the standard Rails command:
 
 ```
-> ./bin/rails test
+> ./bin/rails test:system test
 ```
 
 Or to use Guard:
@@ -106,17 +106,11 @@ Or to use Guard:
 > ./bin/bundle exec guard
 ```
 
-Integration tests are run using Selenium and Chrome, which requires Chrome/Chromium browser
-and  [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-installed. By default, they are run in headless mode. You can run them in
-regular mode by setting an environment variable to SELENIUM_CHROME:
+System tests are run using Selenium and Chrome, which requires Chrome/Chromium browser
+and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+installed.
 
-```
-> export SELENIUM_CHROME=true
-> ./bin/rails test:integration
-```
-
-On failures, screenshots are saved in the tmp/capybara directory, but YMMV
+On failures, screenshots are saved in the tmp/screenshots directory, but YMMV
 depending on your version of Chrome.
 
 ### Misc. Rake Tasks

@@ -138,6 +138,14 @@ class LaborRequestsControllerTest < ActionController::TestCase
     assert_redirected_to labor_request_path(assigns(:request))
   end
 
+  test 'should update labor_request with json' do
+    a_different_status = ReviewStatus.where.not(id: @labor_request.review_status_id).sample
+    patch :update, format: :json, params: { id: @labor_request,
+                                            labor_request: { review_status_id: a_different_status.id } }
+    assert_response :success
+    assert_equal assigns(:request).review_status_id, a_different_status.id
+  end
+
   test 'should not update an invalid labor_request' do
     original_attrs = @labor_request.attributes
     patch :update, params: { id: @labor_request, labor_request: {
@@ -171,26 +179,6 @@ class LaborRequestsControllerTest < ActionController::TestCase
       expected_row_count = num_labor_requests + 1 # include header row in count
       assert num_labor_requests > 1, 'There are no labor requests'
       assert_equal expected_row_count, spreadsheet.last_row
-
-      # make sure all the currency columns have $
-      c_header = [
-        'Gift/Other Funds',
-        'Annual cost',
-        'Hourly rate'
-      ]
-      spreadsheet.parse(headers: true)
-      # get the column numbers
-      columns = spreadsheet.headers.to_h
-                           .select { |k, v| c_header.include?(k) ? v : nil }
-                           .values
-      columns.each do |col|
-        # get the values from the column
-        vals = spreadsheet.column(col)
-        vals.shift
-        vals.each do |val|
-          assert_match(/^\$/, val)
-        end
-      end
     ensure
       file.delete
     end

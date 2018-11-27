@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require 'application_system_test_case'
 
-class UnitUserTest < ActionDispatch::IntegrationTest
+class UnitUserTest < ApplicationSystemTestCase
   def setup
-    use_chrome!
     login_not_admin
 
     @user = users(:not_admin)
@@ -42,6 +41,8 @@ class UnitUserTest < ActionDispatch::IntegrationTest
     click_link 'Labor and Assistance'
     click_link 'New'
 
+    assert_not page.has_content?('The submission window for this request has ended')
+
     position_title = SecureRandom.hex
 
     select 'Faculty', from: 'Employee type'
@@ -64,6 +65,7 @@ class UnitUserTest < ActionDispatch::IntegrationTest
     select '', from: 'Unit'
     find('.page-footer .btn-success').click
 
+    assert_not page.has_content?('The submission window for this request has ended')
     assert_not page.has_content?("#{position_title} successfully updated.")
     assert page.has_content?('Unit is required for users with only Unit permissions')
   end

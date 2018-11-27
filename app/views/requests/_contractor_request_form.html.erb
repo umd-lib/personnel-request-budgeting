@@ -6,7 +6,7 @@
   <div class='panel panel-default'>
     <div class="panel-body">
       <%= f.input :position_title , input_html: { class: 'copy' } %>
-      <%= f.input :employee_type, as: :select,  collection:  @model_klass::VALID_EMPLOYEE_TYPES , input_html: { class: 'copy' } %>
+      <%= f.input :employee_type, as: :select,  collection:  @request.valid_employee_types , input_html: { class: 'copy' } %>
       <%= f.input :request_type, as: :select,  collection:  @model_klass::VALID_REQUEST_TYPES , input_html: { class: 'copy' } %>
       <%= f.input :contractor_name , input_html: { class: 'copy' } %>
       <%= f.input :number_of_months , input_html: { class: 'copy' } %> 

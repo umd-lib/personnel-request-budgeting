@@ -2,7 +2,7 @@
 
 # This is the base line model for Request that is used by all other
 # request types
-class Request < ApplicationRecord
+class Request < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # This adds a bunch of class methods..
   include Requestable
 
@@ -25,7 +25,8 @@ class Request < ApplicationRecord
   enum request_model_type: { contractor: 0, labor: 1, staff: 2 }
   enum employee_type: { "Contingent 1": 0, "Faculty Hourly": 1, "Student": 3,
                         "Exempt": 4, "Faculty": 5, "Graduate Assistant": 6,
-                        "Non-exempt": 7, "Contingent 2": 8, "Contract Faculty": 9 }
+                        "Non-exempt": 7, "Contingent 2": 8, "Contract Faculty": 9,
+                        "PTK Faculty": 10 }
   enum request_type: { ConvertC1: 0, ConvertCont: 1, New: 2, "Pay Adjustment": 3, "Backfill": 4,
                        "Renewal": 5, 'Pay Adjustment - Other': 6,
                        'Pay Adjustment - Reclass': 7, 'Pay Adjustment - Stipend': 8 }
@@ -36,6 +37,26 @@ class Request < ApplicationRecord
                     inverse_of: :unit_requests, optional: true
 
   has_one :division, class_name: 'Organization', through: :organization, source: :parent
+
+  # Returns the base_pay (if Staff or Contractor) or annual_cost Labor, in
+  # dollars
+  def annual_cost_or_base_pay
+    case request_model_type
+    when 'staff', 'contractor'
+      (annual_base_pay_cents / 100.0)
+    when 'labor'
+      (calculate_annual_cost_in_cents / 100.0)
+    else
+      logger.error("Unknown request model type: #{request_model_type}")
+      0.00
+    end
+  end
+
+  # Calculates the annual cost for Labor Requests, returning the results in
+  # cents
+  def calculate_annual_cost_in_cents
+    (number_of_positions * hourly_rate_cents * hours_per_week.to_f * number_of_weeks)
+  end
 
   belongs_to :user, optional: true
 
@@ -77,9 +98,26 @@ class Request < ApplicationRecord
     self.review_status = ReviewStatus.find_by(code: 'UnderReview')
   end)
 
+  # when spawning from archive, sometimes values need to be mapped. this is a
+  # hook you can override.
+  def self.from_archived(params)
+    new(params)
+  end
+
+  # returns a list of valid values for employee types
+  def valid_employee_types
+    if archived_proxy?
+      "Archived#{self.class}".constantize::VALID_EMPLOYEE_TYPES
+    else
+      self.class::VALID_EMPLOYEE_TYPES
+    end
+  end
+
   # method to call the fields expressed in .fields
   def call_field(field)
     field.to_s.split('__').inject(self) { |a, e| a&.send(e) }
+  rescue NoMethodError
+    ''
   end
 
   def cutoff?

@@ -18,7 +18,11 @@ class RequestPolicy < ApplicationPolicy
   end
 
   def edit?
+    # archives are never edited
     return false if @record.archived_proxy?
+    # if its a new record, we allow edits..unless the user is out of orgs
+    return true if @record.changed? && !@user.active_organizations.empty?
+    # admin always edits
     return true if @user.admin?
 
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?

@@ -6,7 +6,7 @@ SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::RcovFormatter
 ]
-SimpleCov.start 'rails'
+SimpleCov.start
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -57,63 +57,7 @@ class ActiveSupport::TestCase
   end
 end
 
-# test/test_helper.rb:
-require 'capybara/rails'
-require 'capybara/minitest'
-require 'capybara-screenshot/minitest'
-
-Capybara.register_driver :chrome do |app|
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[--window-size=1500,768] }
-  )
-  Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                      desired_capabilities: caps)
-end
-
-Capybara.register_driver :headless_chrome do |app|
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu window-size=1500,768] }
-  )
-
-  Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                      desired_capabilities: caps)
-end
-
-# just the selenium screenshot driver.
-%i[chrome headless_chrome].each do |chrome_driver|
-  Capybara::Screenshot.register_driver(chrome_driver) do |driver, path|
-    driver.browser.save_screenshot(path)
-  end
-end
-
-class JavaScriptError < StandardError; end
-
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Minitest::Assertions
-  include Capybara::Screenshot::MiniTestPlugin
-
-  def use_chrome!
-    Capybara.current_driver = ENV['SELENIUM_CHROME'] ? :chrome : :headless_chrome
-  end
-
-  def javascript_errors
-    page.driver.browser.manage.logs.get(:browser)
-        .select { |e| e.level == 'SEVERE' && e.message.present? }
-        .collect(&:message)
-  end
-
-  def javascript_errors?
-    errors = javascript_errors # if you get the log, you clear the log...
-    raise JavaScriptError, errors.join("\n\n") if errors.present?
-  end
-
-  def teardown
-    javascript_errors?
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
-  end
-
   def login(user)
     visit '/'
     fill_in 'username', with: user

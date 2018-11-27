@@ -102,15 +102,9 @@ group :test do
   gem 'chromedriver-helper'
 
   gem 'connection_pool'
-  gem 'launchy'
-  gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
-  # use the head to get the callback functionality
-  gem 'capybara-screenshot'
-  gem 'database_cleaner'
   gem 'minitest-stub_any_instance'
   gem 'mocha'
-  gem 'poltergeist'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'shoulda-context'

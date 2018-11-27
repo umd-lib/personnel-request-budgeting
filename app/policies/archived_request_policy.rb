@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArchivedRequestPolicy < RequestPolicy
   def create?
     false

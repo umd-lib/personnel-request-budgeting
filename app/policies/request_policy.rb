@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class RequestPolicy < ApplicationPolicy
   def create?
     return true if @user.admin? || @record.is_a?(Class)
+
     check_unit!
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
@@ -11,13 +14,17 @@ class RequestPolicy < ApplicationPolicy
 
   def show?
     @user.admin? ||
-      (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
+      (@user.all_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 
   def edit?
+    # archives are never edited
     return false if @record.archived_proxy?
+    # if its a new record, we allow edits..unless the user is out of orgs
+    return true if @record.changed? && !@user.active_organizations.empty?
+    # admin always edits
     return true if @user.admin?
-    return false if @record.cutoff?
+
     (@user.active_organizations.map(&:id) & [@record.organization_id, @record.unit_id]).any?
   end
 

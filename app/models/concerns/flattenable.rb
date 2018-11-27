@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # a mixin to add ability for organization to express themselves as flat trees
 module Flattenable
   extend ActiveSupport::Concern
@@ -7,9 +9,7 @@ module Flattenable
     def flat_tree
       child_mapper = lambda do |tree, node|
         tree << node
-        unless node.children.empty?
-          tree += node.children.reduce([], &child_mapper)
-        end
+        tree += node.children.reduce([], &child_mapper) unless node.children.empty?
         return tree.flatten
       end
       includes(children: { children: [:children] })
@@ -19,7 +19,7 @@ module Flattenable
 
   included do
     def flat_tree_description
-      prefix = ''
+      prefix = +''
       org_parent = parent
       while org_parent
         prefix << '--'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PersonnelRequestController
   extend ActiveSupport::Concern
   include RequestHelper
@@ -7,6 +9,7 @@ module PersonnelRequestController
     # after_action :verify_policy_scoped, only: :index
     before_action :set_model_klass, only: %i[index new create]
     before_action :set_request, only: %i[show edit update destroy]
+    before_action :assign_and_authorize, only: %i[update]
 
     # Pundit policy checks to ensure that unit users are supplying a unit. if
     # not it raises this error that allows the form to be redisplayed.
@@ -37,21 +40,25 @@ module PersonnelRequestController
 
   def new
     authorize @model_klass
-    @request ||= @model_klass.new
+    build_request unless @request
   end
 
   def edit
     authorize @request
   end
 
-  def update
-    @request.assign_attributes(request_params)
-    authorize @request
+  def update # rubocop:disable Metrics/MethodLength
     respond_to do |format|
       if @request.save
-        format.html { redirect_to(@request, notice: "#{@request.description} successfully updated.") }
+        format.html do
+          redirect_to(@request, notice: "#{@request.description} successfully updated.")
+        end
+        format.json { render(json: @request, status: :ok) }
       else
         format.html { render :edit }
+        format.json do
+          render json: @request.errors, status: :unprossable_entity
+        end
       end
     end
   end
@@ -71,14 +78,29 @@ module PersonnelRequestController
 
   def destroy
     authorize @request
-    page_and_sort_params = params.select { |k| %w[page sort].include? k }
+    page_and_sort_params = params.permit(:page, sort: [])
     set_destroy_flash
     respond_to do |format|
       format.html { redirect_to(polymorphic_url(@model_klass, page_and_sort_params)) }
     end
   end
 
+  # this is a baseline set of attibutes for requests. For a particular request
+  # type, override this method in the related controller.
+  def allowed
+    policy(@request || @model_klass.new).permitted_attributes
+  end
+
   private
+
+    def assign_and_authorize
+      @request.assign_attributes(request_params)
+      authorize @request
+    end
+
+    def build_request
+      @request = @model_klass.new
+    end
 
     # rubocop hates long methods so we just make more and more methods
     def set_destroy_flash
@@ -91,9 +113,13 @@ module PersonnelRequestController
 
     # runs our policy and create a new obj from params
     def authorize_and_new!
-      @request = @model_klass.new(request_params)
+      @request = spawning? ? @model_klass.from_archived(request_params) : @model_klass.new(request_params)
       @request.user = current_user
       authorize @request
+    end
+
+    def spawning?
+      [true, 1, '1', 't', 'T', 'true', 'TRUE'].include? request_params[:spawned]
     end
 
     # sets which model class we're using in the controller context
@@ -127,12 +153,6 @@ module PersonnelRequestController
 
     def request_params
       params.require(model_klass.name.underscore.intern).permit(allowed)
-    end
-
-    # this is a baseline set of attibutes for requests. For a particular request
-    # type, override this method in the related controller.
-    def allowed
-      policy(@request || @model_klass.new).permitted_attributes
     end
 
     # Returns a send_data of the XLSX of a record set ( used in the request

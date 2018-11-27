@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # A place for the class methods added to the request modle ( because the cop
 # doesn't like the length of the class :/ )
 module Requestable
   extend ActiveSupport::Concern
-  # rubocop:disable Metrics/BlockLength
-  class_methods do
+
+  class_methods do # rubocop:disable Metrics/BlockLength
     def policy_class
       RequestPolicy
     end
@@ -20,7 +22,7 @@ module Requestable
     # all the fields associated to the model
     def fields
       %i[ request_model_type position_title employee_type request_type
-          contractor_name employee_name
+          contractor_name employee_name annual_cost_or_base_pay
           nonop_source justification organization__name unit__name
           review_status__name review_comment user__name created_at updated_at ]
     end

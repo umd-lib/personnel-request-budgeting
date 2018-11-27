@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests for the "Report" model
@@ -21,9 +23,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test 'role type without associated records can be deleted' do
     r = Report.create(name: 'AwesomeReport', format: 'xlsx', status: 'completed')
-    assert_nothing_raised ActiveRecord::DeleteRestrictionError do
-      r.destroy
-    end
+    assert r.destroy
   end
 
   test "should return it's manager when asked" do
@@ -41,7 +41,7 @@ class ReportTest < ActiveSupport::TestCase
     class ::CrazyReport; end
     @report = reports(:report_completed)
     @report.manager.register_report(CrazyReport)
-    refute_includes(@report.manager.reports, 'crazy_report')
+    assert_not_includes(@report.manager.reports, 'crazy_report')
   end
 
   test 'should return an instance of a report when manager is asked' do

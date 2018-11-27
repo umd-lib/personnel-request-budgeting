@@ -16,6 +16,16 @@
 #
 # This would use the information in config/locales/es.yml.
 #
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
@@ -40,8 +50,8 @@ en:
         hours_per_week: "Hours/wk"
         nonop_funds: Other Funds
         review_status__name: Status
-        contractor_name: Name
-        employee_name: Name
+        contractor_name: Contractor Name
+        employee_name: Employee Name
         request_model_type: Type
         user__name: Submitted By
   hints: &hints

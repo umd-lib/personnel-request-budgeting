@@ -13,7 +13,7 @@ namespace :db do
 
   end
 
-  task :migrate do
+  task :migrate, [:environment, :load_config] do
     update_version
   end
 

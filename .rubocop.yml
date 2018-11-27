@@ -4,13 +4,12 @@ Rails:
 
 # Exclude auto-generated files
 AllCops:
-  Include:
-    - '**/*.axlsx'
-    - '**/Gemfile'
-    - '**/Guardfile'
-    - '**/Rakefile'
   Exclude:
-    - 'bin/*'
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'bin/**/*'
+    - 'config/**/*'
     - 'config/initializers/*'
     - 'config/application.rb'
     - 'db/schema.rb'
@@ -18,8 +17,8 @@ AllCops:
     - 'lib/**/*'
     - 'db/seeds.rb'
 
-  TargetRubyVersion: 2.2
-  TargetRailsVersion: 4.2
+  TargetRubyVersion: 2.5
+  TargetRailsVersion: 5.2
 
 Metrics/AbcSize:
   Exclude:
@@ -35,7 +34,7 @@ Metrics/LineLength:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
-  
+
 Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
@@ -58,16 +57,17 @@ Style/Documentation:
 Style/ClassVars:
   Exclude:
     - 'test/**/*'
-  
+
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
-
 
 Layout/IndentationConsistency:
   EnforcedStyle: rails
 
 Rails/SkipsModelValidations:
+  Exclude:
+    - 'test/**/*'
   Blacklist:
     - decrement!
     - decrement_counter

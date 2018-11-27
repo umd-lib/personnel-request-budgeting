@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizationsController < ApplicationController
   after_action :verify_authorized
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized

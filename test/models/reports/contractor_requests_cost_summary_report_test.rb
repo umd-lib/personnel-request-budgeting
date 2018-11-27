@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests Contractor Requests Cost Summary report
@@ -24,8 +26,8 @@ class ContractorRequestsCostSummaryReportTest < ActiveSupport::TestCase
 
     assert summary_data.is_a?(Array)
     assert_equal Organization.division.count, divisions.count
-    assert_equal FiscalYear.current, current_fiscal_year
-    assert_equal FiscalYear.previous, previous_fiscal_year
+    assert_equal FiscalYear.next, current_fiscal_year
+    assert_equal FiscalYear.current, previous_fiscal_year
     assert_equal ReviewStatus.count, allowed_review_statuses.count
 
     # "data" should contain an entry for each department
@@ -51,8 +53,8 @@ class ContractorRequestsCostSummaryReportTest < ActiveSupport::TestCase
       actual_other_support_total += datum[:other_support]
     end
 
-    assert actual_annual_base_pay_total.cents > 0
-    assert actual_other_support_total.cents > 0
+    assert actual_annual_base_pay_total.cents.positive?
+    assert actual_other_support_total.cents.positive?
     assert_equal expected_annual_base_pay_total, actual_annual_base_pay_total
     assert_equal expected_other_support_total, actual_other_support_total
   end

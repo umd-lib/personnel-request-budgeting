@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # this is a convience class to format the fiscal year
 class FiscalYear
   class << self

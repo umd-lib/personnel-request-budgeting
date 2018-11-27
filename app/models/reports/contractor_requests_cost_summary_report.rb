@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reportable'
 # A summary report for the costs of Salaried Contractor requests
 class ContractorRequestsCostSummaryReport
@@ -25,7 +27,7 @@ class ContractorRequestsCostSummaryReport
   end
 
   def parameters_valid?
-    valid = parameters && parameters.key?(:review_status_ids)
+    valid = parameters&.key?(:review_status_ids)
     return true if valid
 
     @error_message = 'At least one review status must be specified!'
@@ -43,9 +45,10 @@ class ContractorRequestsCostSummaryReport
     allowed_review_status_ids = parameters[:review_status_ids]
     allowed_review_statuses = allowed_review_status_ids.map { |id| ReviewStatus.find(id) }
 
-    ContractorRequest.includes(:organization, :review_status).each do |request|
+    ContractorRequest.includes(:organization, :review_status).find_each do |request|
       review_status = request.review_status
       next unless allowed_review_statuses.include?(review_status)
+
       employee_type = request.employee_type
       department_code = request.organization.code
       key = [department_code, employee_type]
@@ -74,8 +77,11 @@ class ContractorRequestsCostSummaryReport
     end
 
     divisions = Organization.division
-    current_fiscal_year = FiscalYear.current
-    previous_fiscal_year = FiscalYear.previous
+    # A bit confusing...in this context:
+    # current_fiscal_year = The year currently taking requests (ie next FY)
+    # previous_fiscal_year = The previous year that took requests (ie last FY)
+    current_fiscal_year = FiscalYear.next
+    previous_fiscal_year = FiscalYear.current
 
     { summary_data: summary_data, divisions: divisions,
       current_fiscal_year: current_fiscal_year,

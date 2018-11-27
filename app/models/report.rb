@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # A basic generic report to be run
-class Report < ActiveRecord::Base
-  belongs_to :user
+class Report < ApplicationRecord
+  belongs_to :user, optional: true
   alias_attribute :creator, :user
   serialize :parameters
 
@@ -33,8 +35,6 @@ class Report < ActiveRecord::Base
   # registers the available reports
   class Manager
     class << self
-      attr_accessor :reports, :allowed_parameters
-
       # Add the report to our list of registered reports...
       def register_report(klass)
         @reports ||= []

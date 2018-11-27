@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests for ReportPolicy class
@@ -7,6 +9,6 @@ class ReportPolicyTest < ActiveSupport::TestCase
   end
 
   def test_edit
-    refute Pundit.policy!(@admin_user, Report).edit?
+    assert_not Pundit.policy!(@admin_user, Report).edit?
   end
 end

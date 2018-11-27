@@ -1,2 +1,4 @@
-Date.fiscal_zone = :us
-Date.use_forward_year!
+[Date, Time, DateTime].each do |klass|
+  klass.fiscal_zone = :us
+  klass.use_forward_year!
+end

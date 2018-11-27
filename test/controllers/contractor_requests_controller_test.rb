@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ContractorRequestsControllerTest < ActionController::TestCase
@@ -35,13 +37,13 @@ class ContractorRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should show contractor_request' do
-    get :show, id: @contractor_request
+    get :show, params: { id: @contractor_request }
     assert_response :success
   end
 
   test 'should create contractor_request' do
     assert_difference('Request.count') do
-      post :create, contractor_request: {
+      post :create, params: { contractor_request: {
         contractor_name: @contractor_request.contractor_name,
         organization_id: @contractor_request.organization_id,
         employee_type: @contractor_request.employee_type,
@@ -53,7 +55,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
         number_of_months: @contractor_request.number_of_months,
         position_title: @contractor_request.position_title,
         request_type: @contractor_request.request_type
-      }
+      } }
     end
 
     assert_redirected_to contractor_request_path(assigns(:request))
@@ -63,7 +65,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
 
   test 'should not create invalid contractor_request' do
     assert_no_difference('Request.count') do
-      post :create, contractor_request: {
+      post :create, params: { contractor_request: {
         contractor_name: nil,
         organization_id: nil,
         employee_type: nil,
@@ -74,14 +76,14 @@ class ContractorRequestsControllerTest < ActionController::TestCase
         number_of_months: nil,
         position_title: nil,
         request_type: nil
-      }
+      } }
     end
   end
 
   test 'should require unit on if user is a unit only user' do
     run_as_user(:not_admin) do
       assert_no_difference('Request.count') do
-        post :create, contractor_request: {
+        post :create, params: { contractor_request: {
           contractor_name: @contractor_request.contractor_name,
           organization_id: @contractor_request.organization_id,
           employee_type: @contractor_request.employee_type,
@@ -95,7 +97,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           request_type: @contractor_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'Hey hey hey'
-        }
+        } }
       end
     end
   end
@@ -106,9 +108,9 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       not_unit = Organization.where(
         organization_type: Organization.organization_types['unit']
       ).where.not(id: unit).first
-      refute_equal unit, not_unit
+      assert_not_equal unit, not_unit
       assert_no_difference('Request.count') do
-        post :create, contractor_request: {
+        post :create, params: { contractor_request: {
           contractor_name: @contractor_request.contractor_name,
           organization_id: @contractor_request.organization_id,
           unit_id: not_unit,
@@ -123,7 +125,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           request_type: @contractor_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'xyzz'
-        }
+        } }
       end
     end
   end
@@ -133,7 +135,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       unit = users(user).organizations.find(&:unit?)
       org = unit.parent
       assert_difference('Request.count') do
-        post :create, contractor_request: {
+        post :create, params: { contractor_request: {
           contractor_name: @contractor_request.contractor_name,
           organization_id: org,
           unit_id: unit,
@@ -148,7 +150,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
           request_type: @contractor_request.request_type,
           review_status_id: review_statuses(:approved),
           review_comment: 'Hey hey hey'
-        }
+        } }
       end
 
       assert_redirected_to contractor_request_path(assigns(:request))
@@ -158,7 +160,7 @@ class ContractorRequestsControllerTest < ActionController::TestCase
   end
 
   test 'should update contractor_request' do
-    patch :update, id: @contractor_request, contractor_request: {
+    patch :update, params: { id: @contractor_request, contractor_request: {
       contractor_name: @contractor_request.contractor_name,
       organization_id: @contractor_request.organization_id,
       employee_type: @contractor_request.employee_type,
@@ -171,25 +173,25 @@ class ContractorRequestsControllerTest < ActionController::TestCase
       request_type: @contractor_request.request_type,
       review_status_id: @contractor_request.review_status_id,
       review_comment: @contractor_request.review_comment
-    }
+    } }
     assert_redirected_to contractor_request_path(assigns(:request))
   end
 
   test 'should not update an invalid contractor_request' do
     original_attrs = @contractor_request.attributes
-    patch :update, id: @contractor_request, contractor_request: {
+    patch :update, params: { id: @contractor_request, contractor_request: {
       contractor_name: nil, organization_id: nil, employee_type: nil,
       hours_per_week: nil, justification: nil,
       nonop_funds: nil, nonop_source: nil,
       number_of_months: nil, position_title: nil, request_type: nil,
       review_status_id: nil, review_comment: nil
-    }
+    } }
     assert_equal original_attrs, ContractorRequest.find(@contractor_request.id).attributes
   end
 
   test 'should destroy contractor_request' do
     assert_difference('Request.count', -1) do
-      delete :destroy, id: @contractor_request
+      delete :destroy, params: { id: @contractor_request }
     end
 
     assert_redirected_to contractor_requests_path
@@ -197,21 +199,21 @@ class ContractorRequestsControllerTest < ActionController::TestCase
 
   # ArchivedcontractorRequests
   test 'should allow users to see archive' do
-    get :index, archive: true
+    get :index, params: { archive: true }
     assert_response(200)
     assert assigns(:model_klass), ArchivedContractorRequest
     assert_not_nil assigns(:requests)
   end
 
   test 'should show archived contractor request' do
-    get :show, id: @archived_contractor_request
+    get :show, params: { id: @archived_contractor_request }
     assert assigns(:request).archived_proxy?
     assert_response :success
   end
 
   test 'should not destroy archived contractor_request' do
     assert_no_difference('Request.count', -1) do
-      delete :destroy, id: @archived_contractor_request
+      delete :destroy, params: { id: @archived_contractor_request }
     end
     assert_response(403)
   end

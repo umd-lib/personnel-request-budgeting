@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'organization'
 
 class User < ApplicationRecord
@@ -9,7 +11,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   has_many :organizations, through: :roles
-  has_many :requests
+  has_many :requests, dependent: :restrict_with_exception
 
   default_scope(lambda do
     includes(roles: { organization: { organization_cutoff: [], children: { children: [:children] } } })
@@ -23,6 +25,7 @@ class User < ApplicationRecord
   def organization_mapper(only_active = true)
     lambda do |org|
       return [] if !org.active? && only_active
+
       active_children = [org]
       child_mapper = lambda do |child|
         active_children << child unless child.deactivated?

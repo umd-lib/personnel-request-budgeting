@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Labor and Assistance staffing request
 class StaffRequest < Request
   VALID_EMPLOYEE_TYPES = ['Exempt', 'Faculty', 'Graduate Assistant', 'Non-exempt'].freeze
@@ -31,9 +33,7 @@ class StaffRequest < Request
     request_type == 'Pay Adjustment'
   end
 
-  default_scope(lambda do
-    joins("LEFT JOIN organizations as units ON units.id = #{current_table_name}.unit_id")
-      .includes(%i[review_status organization user])
-      .where(request_model_type: StaffRequest.request_model_types['staff'])
-  end)
+  default_scope { joins("LEFT JOIN organizations as units ON units.id = #{table_name}.unit_id") }
+  default_scope { includes(%i[review_status organization user]) }
+  default_scope { where(request_model_type: StaffRequest.request_model_types['staff']) }
 end

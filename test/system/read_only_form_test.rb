@@ -1,8 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
 
-class ReadOnlyFormTest < ActionDispatch::IntegrationTest
+require 'application_system_test_case'
+
+class ReadOnlyFormTest < ApplicationSystemTestCase
   def setup
-    use_chrome!
     login_admin
   end
 
@@ -23,7 +24,7 @@ class ReadOnlyFormTest < ActionDispatch::IntegrationTest
     fill_in 'Position title', with: SecureRandom.hex
     find('.page-header .btn-success').click
     assert page.has_content?('Labor and Assistance Requests successfully created.')
-    refute page.has_selector?('.help_block')
+    assert_not page.has_selector?('.help_block')
   end
 
   test 'should not have help messages on archive form' do
@@ -32,6 +33,6 @@ class ReadOnlyFormTest < ActionDispatch::IntegrationTest
     click_link 'View Archive'
     first(:link, 'Details').click
     assert page.has_content?('The submission is in the archive associated to FY')
-    refute page.has_selector?('.help_block')
+    assert_not page.has_selector?('.help_block')
   end
 end

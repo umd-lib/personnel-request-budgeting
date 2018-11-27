@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::RcovFormatter
 ]
-SimpleCov.start 'rails'
+SimpleCov.start
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
@@ -30,9 +32,8 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def run_as_user(user)
     user = user.cas_directory_id if user.is_a?(User)
-    original_user = if session[:cas] && session[:cas][:user]
-                      session[:cas][:user]
-                    end
+    original_user = session[:cas][:user] if session[:cas] && session[:cas][:user]
+
     session[:cas] = { user: user }
     begin
       yield user
@@ -56,46 +57,7 @@ class ActiveSupport::TestCase
   end
 end
 
-# test/test_helper.rb:
-require 'capybara/rails'
-require 'capybara/minitest'
-require 'capybara-screenshot/minitest'
-
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.register_driver :headless_chrome do |app|
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu] }
-  )
-
-  Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                      desired_capabilities: caps)
-end
-
-# just the selenium screenshot driver.
-%i[chrome headless_chrome].each do |chrome_driver|
-  Capybara::Screenshot.register_driver(chrome_driver) do |driver, path|
-    driver.browser.save_screenshot(path)
-  end
-end
-
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Minitest::Assertions
-  include Capybara::Screenshot::MiniTestPlugin
-
-  def use_chrome!
-    Capybara.current_driver = ENV['SELENIUM_CHROME'] ? :chrome : :headless_chrome
-    Capybara.page.driver.browser.manage.window.resize_to 1500, 800
-  end
-
-  def teardown
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
-  end
-
   def login(user)
     visit '/'
     fill_in 'username', with: user

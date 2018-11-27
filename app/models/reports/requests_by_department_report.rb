@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reportable'
 
 # A basic report that just gets all the request types

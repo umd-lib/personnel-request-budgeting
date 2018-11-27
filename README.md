@@ -6,10 +6,11 @@ A Rails application for submitting staffing requests as part of the library budg
 
 Requires:
 
-* Ruby 2.2.4
+* Ruby 2.5.3
 * Bundler
 
 ### Setup
+
 1) Checkout the code and install the dependencies:
 
 ```
@@ -21,13 +22,13 @@ Requires:
 2) Set up the database:
 
 ```
-> ./bin/rake db:reset
+> ./bin/rails db:reset
 ```
 
 3) (Optional) Populate database with sample data:
 
 ```
-> ./bin/rake db:reset_with_sample_data
+> ./bin/rails db:reset_with_sample_data
 ```
 
 ### Adding an Admin User and Roles
@@ -35,12 +36,13 @@ Requires:
 4) The application uses CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:
 
 ```
-> ./bin/rake 'db:add_admin_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
+> ./bin/rails 'db:add_admin_cas_user[<CAS DIRECTORY ID>,<FULL NAME>]'
 ```
+
 and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user information. For example, to add "John Smith" with a CAS Directory ID of "jsmith":
 
 ```
-> rake 'db:add_cas_user[jsmith, John Smith]'
+> rails 'db:add_cas_user[jsmith, John Smith]'
 ```
 
 ### Run the web application
@@ -55,8 +57,8 @@ and replacing the "\<CAS DIRECTORY ID>" and "\<FULL NAME>" with valid user infor
 
 Requires:
 
-* Postgres client to be installed (on RedHat, the "postgresql" and 
-"postgresql-devel" packages)
+* Postgres client to be installed (on RedHat, the "postgresql" and
+  "postgresql-devel" packages)
 
 The application uses the "dotenv" gem to configure the production environment.
 The gem expects a ".env" file in the root directory to contain the environment
@@ -76,39 +78,79 @@ requests ("ArchivedRequests"). The archived requests are moved over during the
 fiscal year rollover event. In regards to the application, this happens by
 running a rake task that copies all the records in the Requests table into the
 ArchivedRequests table, with a datestamp that indicates the fiscal year for the
-transfered records. 
+transfered records.
 
 To do this, run the following command:
+
 ```
-> ./bin/rake db:archive_current_records[2016]
+> ./bin/rails db:archive_current_records[2016]
 ```
 
 Change the '2016' to match what fiscal year you are wanting to tag the records
-with. 
+with.
 
 This will empty all the records in the Requests table, so be sure to backup the
-database in case you need to revert the process. 
+database in case you need to revert the process.
 
 ### Running Tests
 
-To run the tests, you can use the standard rake command:
+To run the both system and regular tests, you can use the standard Rails command:
+
 ```
-> ./bin/rake test
+> ./bin/rails test:system test
 ```
 
 Or to use Guard:
+
 ```
 > ./bin/bundle exec guard
 ```
 
-Integration tests are run using Selenium and Chrome, which requires Chrome/Chromium browser
-and  [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-installed. By default, they are run in headless mode. You can run them in
-regular mode by setting an environment variable to SELENIUM_CHROME: 
+System tests are run using Selenium and Chrome, which requires Chrome/Chromium browser
+and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+installed.
+
+On failures, screenshots are saved in the tmp/screenshots directory, but YMMV
+depending on your version of Chrome.
+
+### Misc. Rake Tasks
+
+Get a overview and description using:
+
 ```
-> export SELENIUM_CHROME=true
-> ./bin/rake test:integration
+> ./bin/rails -T
 ```
 
-On failures, screenshots are saved in the tmp/capybara directory, but YMMV
-depending on your version of Chrome.
+Toggle the admin role for a user:
+
+```
+> ./bin/rails db:toggle_admin[<CAS DIRECTORY ID>]
+```
+
+Reset the Rails
+[counter_cache](https://guides.rubyonrails.org/association_basics.html#options-for-belongs-to-counter-cache):
+
+```
+# This is needed when data base been loaded without using the ORM. Such as
+# importing data directly into the DB or using fixtures.
+> ./bin/rails db:reset_counter_cache
+```
+
+Populates the database with sample data
+
+```
+> ./bin/rails db:populate_sample_data
+```
+
+Drop, create, migrate, seed and populate sample data
+
+```
+> ./bin/rails db:reset_with_sample_data
+```
+
+Loads data from pre-2.0 json ( tmp/requests.json and tmp/users.json ) into current db
+
+```
+> ./bin/rails db:load_data
+```
+

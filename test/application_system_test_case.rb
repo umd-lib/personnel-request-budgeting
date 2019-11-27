@@ -7,14 +7,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # See https://gist.github.com/bbonamin/4b01be9ed5dd1bdaf909462ff4fdca95
   DOWNLOAD_DIR = File.join(Dir.tmpdir, 'downloads')
 
-  options = Selenium::WebDriver::Chrome::Options.new
-  options.add_preference(:download, prompt_for_download: false,
-                                    default_directory: DOWNLOAD_DIR)
+  Capybara.register_driver :chrome_headless do |app|
+    options = ::Selenium::WebDriver::Chrome::Options.new
 
-  Capybara.register_driver :headless_chrome do |app|
     options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--window-size=1400,1400')
+
+    options.add_preference(:download, prompt_for_download: false,
+                                      default_directory: DOWNLOAD_DIR)
 
     driver = Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 
@@ -29,11 +31,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                     behavior: 'allow',
                                     downloadPath: DOWNLOAD_DIR
                                   })
-
     driver
   end
 
-  driven_by :headless_chrome, options: options
+  driven_by :chrome_headless
 
   def javascript_errors
     page.driver.browser.manage.logs.get(:browser)

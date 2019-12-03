@@ -31,6 +31,14 @@ Requires:
 > ./bin/rails db:reset_with_sample_data
 ```
 
+## Docker.ci and Jenkinsfile
+
+The "Dockerfile.ci" file is used to encapsulate the environment needed by the
+continuous integration (ci) server for building and testing the application.
+
+The "Jenkinsfile" provides the Jenkins pipeline steps for building and
+testing the application.
+
 ### Adding an Admin User and Roles
 
 4) The application uses CAS authentication to only allow known users to log in. The seed data for the database does not contain any users. Run the following Rake task to add a user:

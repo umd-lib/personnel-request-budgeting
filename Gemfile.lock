@@ -189,7 +189,7 @@ GEM
     puma (3.12.0)
     pundit (2.0.0)
       activesupport (>= 3.0.0)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-cas (0.16.0)
       addressable (~> 2.3)
       nokogiri (~> 1.5)

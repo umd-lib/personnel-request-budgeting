@@ -55,14 +55,6 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    axlsx (3.0.0.pre)
-      htmlentities (~> 4.3, >= 4.3.4)
-      mimemagic (~> 0.3)
-      nokogiri (~> 1.8, >= 1.8.2)
-      rubyzip (~> 1.2, >= 1.2.1)
-    axlsx_rails (0.6.1)
-      actionpack (>= 3.1)
-      caxlsx (>= 3.0)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -88,6 +80,9 @@ GEM
       mimemagic (~> 0.3)
       nokogiri (~> 1.10, >= 1.10.4)
       rubyzip (>= 1.3.0, < 3)
+    caxlsx_rails (0.6.2)
+      actionpack (>= 3.1)
+      caxlsx (>= 3.0)
     childprocess (3.0.0)
     cocoon (1.2.14)
     coderay (1.1.3)
@@ -329,12 +324,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  axlsx (= 3.0.0.pre)
-  axlsx_rails
   bootsnap (>= 1.1.0)
   bullet
   byebug
   capybara
+  caxlsx (= 3.0.1)
+  caxlsx_rails
   cocoon
   connection_pool
   dotenv-rails (~> 2.5.0)

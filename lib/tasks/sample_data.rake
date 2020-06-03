@@ -95,7 +95,7 @@ namespace :db do
       random_unit_index = rand(dept.children.count)
       request.unit = dept.children[random_unit_index]
     end
-    request.justification = Faker::Lorem.words(rand(50) + 1).join(' ')
+    request.justification = Faker::Lorem.words(number: rand(50) + 1).join(' ')
     request.review_status = ReviewStatus.offset(rand(ReviewStatus.count)).first
   end
 

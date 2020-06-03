@@ -45,9 +45,6 @@ gem 'sprockets-es6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
-
 # CAS authentication
 gem 'pundit'
 gem 'rack-cas'

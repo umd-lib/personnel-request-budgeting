@@ -7,7 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.4.3'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -45,9 +45,6 @@ gem 'sprockets-es6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
-
 # CAS authentication
 gem 'pundit'
 gem 'rack-cas'
@@ -61,8 +58,8 @@ gem 'umd_lib_style', github: 'umd-lib/umd_lib_style', ref: '1.2.0'
 gem 'cocoon'
 gem 'simple_form'
 
-gem 'axlsx', '3.0.0.pre'
-gem 'axlsx_rails'
+gem 'caxlsx', '3.0.1'
+gem 'caxlsx_rails'
 gem 'fiscali'
 gem 'money-rails', '~>1'
 gem 'rubyzip'
